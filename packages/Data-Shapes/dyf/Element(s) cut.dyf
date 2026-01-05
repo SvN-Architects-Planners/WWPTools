@@ -1,0 +1,219 @@
+{
+  "Uuid": "b0a6ae7e-e703-48da-9b2f-4a6d4eca728a",
+  "IsCustomNode": true,
+  "Category": "Data-Shapes.Revit.Elements",
+  "Description": "Cutting element(s) with element",
+  "Name": "Element(s) cut",
+  "ElementResolver": {
+    "ResolutionMap": {
+      "Element": {
+        "Key": "Revit.Elements.Element",
+        "Value": "RevitNodes.dll"
+      }
+    }
+  },
+  "Inputs": [],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "#Copyright (c) mostafa el ayoubi\r\n#Data-Shapes 2016 elayoub.mostafa@gmail.com\r\n\r\nimport clr\r\nclr.AddReference('RevitAPI')\r\nfrom Autodesk.Revit.DB import*\r\nclr.AddReference('RevitServices')\r\nfrom RevitServices.Persistence import DocumentManager\r\nfrom RevitServices.Transactions import TransactionManager\r\nfrom Autodesk.Revit.DB.SolidSolidCutUtils import AddCutBetweenSolids\r\n\r\ndoc = DocumentManager.Instance.CurrentDBDocument\r\n\r\nif isinstance(IN[0],list):\r\n\ttobecut = [UnwrapElement(i) for i in IN[0]]\r\nelse:\r\n\ttobecut = [UnwrapElement(IN[0])]\r\ncutting = UnwrapElement(IN[1])\r\ncount = []\r\n\r\nTransactionManager.Instance.EnsureInTransaction(doc)\r\n\r\nfor t in tobecut:\r\n\ttry:\r\n\t\tcount.append(AddCutBetweenSolids(doc,t,cutting))\r\n\texcept:\r\n\t\tpass\r\n\r\nTransactionManager.Instance.TransactionTaskDone()\r\n\r\n\r\nOUT = '%d elements coupés' % (len(count))",
+      "VariableInputPorts": true,
+      "Id": "ea629d2b7b4b43b68112c6d5a8425c05",
+      "Inputs": [
+        {
+          "Id": "98d17bbf175848c8b18ce0e6b146ad06",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "84568a925e0f4c6dbd7f1e02768e35af",
+          "Name": "IN[1]",
+          "Description": "Input #1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "241905221ce941c68dec59c1e29e0160",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded IronPython script."
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Output, DynamoCore",
+      "NodeType": "OutputNode",
+      "ElementResolver": null,
+      "Symbol": "OUT",
+      "Id": "f2ed9c5468b7455685bf13b883516f55",
+      "Inputs": [
+        {
+          "Id": "a6dfd49aa4a74d5987e9eb4753b76314",
+          "Name": "",
+          "Description": "",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [],
+      "Replication": "Disabled",
+      "Description": "A function output, use with custom nodes"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Symbol, DynamoCore",
+      "NodeType": "InputNode",
+      "Parameter": {
+        "Name": "ElementToBeCut",
+        "TypeName": "Revit.Elements.Element",
+        "TypeRank": 0,
+        "DefaultValue": null,
+        "Description": ""
+      },
+      "Id": "f9b81e2b3b21437190119465da5bccfc",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "a44ae1c1ec4d4312b1e010ab47949381",
+          "Name": "",
+          "Description": "Symbol",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "A function parameter, use with custom nodes.\r\n\r\nYou can specify the type and default value for parameter. E.g.,\r\n\r\ninput : var[]..[]\r\nvalue : bool = false"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Symbol, DynamoCore",
+      "NodeType": "InputNode",
+      "Parameter": {
+        "Name": "CuttingElements",
+        "TypeName": "Revit.Elements.Element",
+        "TypeRank": 0,
+        "DefaultValue": null,
+        "Description": ""
+      },
+      "Id": "aff4dc910ba74811912102be86662a23",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "f5e0e30cd1bc4f70ba7698ca47d8f27f",
+          "Name": "",
+          "Description": "Symbol",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "A function parameter, use with custom nodes.\r\n\r\nYou can specify the type and default value for parameter. E.g.,\r\n\r\ninput : var[]..[]\r\nvalue : bool = false"
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "241905221ce941c68dec59c1e29e0160",
+      "End": "a6dfd49aa4a74d5987e9eb4753b76314",
+      "Id": "0920520417f947fca93c271215c5efe2"
+    },
+    {
+      "Start": "a44ae1c1ec4d4312b1e010ab47949381",
+      "End": "98d17bbf175848c8b18ce0e6b146ad06",
+      "Id": "7ecb76869f484c5f8aa73920d1a439f8"
+    },
+    {
+      "Start": "f5e0e30cd1bc4f70ba7698ca47d8f27f",
+      "End": "84568a925e0f4c6dbd7f1e02768e35af",
+      "Id": "bcdbb290e8754704bc9fc4cacd6b5021"
+    }
+  ],
+  "Dependencies": [],
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": false,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.2.1.5175",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "Background Preview",
+      "EyeX": -17.0,
+      "EyeY": 24.0,
+      "EyeZ": 50.0,
+      "LookX": 12.0,
+      "LookY": -13.0,
+      "LookZ": -58.0,
+      "UpX": 0.0,
+      "UpY": 1.0,
+      "UpZ": 0.0
+    },
+    "NodeViews": [
+      {
+        "ShowGeometry": true,
+        "Name": "Python Script",
+        "Id": "ea629d2b7b4b43b68112c6d5a8425c05",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 250.0,
+        "Y": 0.0
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Output",
+        "Id": "f2ed9c5468b7455685bf13b883516f55",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 447.0,
+        "Y": 0.0
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Input",
+        "Id": "f9b81e2b3b21437190119465da5bccfc",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -157.5,
+        "Y": -39.0
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Input",
+        "Id": "aff4dc910ba74811912102be86662a23",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -162.5,
+        "Y": 53.0
+      }
+    ],
+    "Annotations": [],
+    "X": 334.0,
+    "Y": 173.0,
+    "Zoom": 1.0
+  }
+}

@@ -1,0 +1,500 @@
+{
+  "Uuid": "a1ed53ae-8b89-4e9a-a49b-4502dcc41ce9",
+  "IsCustomNode": true,
+  "Category": "SVN Package.List",
+  "Description": "Filter list with Null or empty ",
+  "Name": "SvN - Filter Null/Empty from List",
+  "ElementResolver": {
+    "ResolutionMap": {}
+  },
+  "Inputs": [],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Symbol, DynamoCore",
+      "NodeType": "InputNode",
+      "Parameter": {
+        "Name": "list",
+        "TypeName": "var",
+        "TypeRank": -1,
+        "DefaultValue": null,
+        "Description": ""
+      },
+      "Id": "52d36a56cb974e91a78fe3adf37493b3",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "9f2c057b251a4bb4bc75a161866f944e",
+          "Name": "",
+          "Description": "Input Data",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "A function parameter, use with custom nodes.\r\n\r\nYou can specify the type and default value for parameter. E.g.,\r\n\r\ninput : var[]..[]\r\nvalue : bool = false"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Symbol, DynamoCore",
+      "NodeType": "InputNode",
+      "Parameter": {
+        "Name": "paraName",
+        "TypeName": "var",
+        "TypeRank": -1,
+        "DefaultValue": null,
+        "Description": ""
+      },
+      "Id": "34aff7d6fe634f529ae8c6a3df991fd8",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "d25e275e293d4931996244a9444c577c",
+          "Name": "",
+          "Description": "Input Data",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "A function parameter, use with custom nodes.\r\n\r\nYou can specify the type and default value for parameter. E.g.,\r\n\r\ninput : var[]..[]\r\nvalue : bool = false"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "==@var[]..[],var[]..[]",
+      "Id": "dfa671ed73f74e798e534c7633281315",
+      "Inputs": [
+        {
+          "Id": "718fe71d83bf4c7499b5604ba82cee71",
+          "Name": "x",
+          "Description": "Basic type object to compare (e.g. bool, int, double, string, etc.)\n\nvar[]..[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "0cd53952188044d8a354414fa7583e07",
+          "Name": "y",
+          "Description": "Basic type object to compare (e.g. bool, int, double, string, etc.)\n\nvar[]..[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "fc3e39120e04419bb2d3412f6bf86630",
+          "Name": "bool",
+          "Description": "Result of equality check",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Compares if x and y are equal\n\n== (x: var[]..[], y: var[]..[]): var[]..[]"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "NodeType": "CodeBlockNode",
+      "Code": "None;",
+      "Id": "1be03b087d304d0aa0f1f19355d19ae2",
+      "Inputs": [
+        {
+          "Id": "7906b49564834a1895b15a8aa6a7712d",
+          "Name": "None",
+          "Description": "None",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "b3d23ca31fbd4abf874430b622ebb385",
+          "Name": "",
+          "Description": "Value of expression at line 1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "DSCore.List.FilterByBoolMask@var[]..[],var[]..[]",
+      "Id": "45c29fd2ca6c442099dc9df8c560eaca",
+      "Inputs": [
+        {
+          "Id": "3e901691be8c461fa5af4c969461d0e2",
+          "Name": "list",
+          "Description": "List to filter.\n\nvar[]..[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "7b0311d6c90c498f8af900a8fc3a6436",
+          "Name": "mask",
+          "Description": "List of booleans representing a mask.\n\nvar[]..[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "baa8021d331b4b3f90c7d2f3e89191ac",
+          "Name": "in",
+          "Description": "Items whose mask index is true.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "69cf10f879c24164951a95103e8420da",
+          "Name": "out",
+          "Description": "Items whose mask index is false.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Filters a sequence by looking up corresponding indices in a separate list of booleans.\n\nList.FilterByBoolMask (list: var[]..[], mask: var[]..[]): var[]..[]"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "==@var[]..[],var[]..[]",
+      "Id": "80057ce5aa5248d8a2e1a3deddbff52a",
+      "Inputs": [
+        {
+          "Id": "a0839274614640edb9232710dc6795f7",
+          "Name": "x",
+          "Description": "Basic type object to compare (e.g. bool, int, double, string, etc.)\n\nvar[]..[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "ac8416df67564911807a0ee6edb65e71",
+          "Name": "y",
+          "Description": "Basic type object to compare (e.g. bool, int, double, string, etc.)\n\nvar[]..[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "5df955aaf6a2496ea9681208c74196c8",
+          "Name": "bool",
+          "Description": "Result of equality check",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Compares if x and y are equal\n\n== (x: var[]..[], y: var[]..[]): var[]..[]"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "Revit.Elements.Element.GetParameterValueByName@string",
+      "Id": "c46d860d64844f8f9f0c12c277e178fd",
+      "Inputs": [
+        {
+          "Id": "97bc2eb456ca4c1b995c7b6046566650",
+          "Name": "element",
+          "Description": "Revit.Elements.Element",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "8b6c9b49481e4e899cff37a0f066d830",
+          "Name": "parameterName",
+          "Description": "The name of the parameter whose value you want to obtain.\n\nstring",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "52599336e47845dd96f325196938ee7a",
+          "Name": "var[]..[]",
+          "Description": "var[]..[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Get the value of one of the element's parameters.\n\nElement.GetParameterValueByName (parameterName: string): var[]..[]"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "NodeType": "CodeBlockNode",
+      "Code": "\"\";",
+      "Id": "7d18594ca7e540b68c54ac3397bbda19",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "c2221ed41dda485ca7bde45ca364471f",
+          "Name": "",
+          "Description": "Value of expression at line 1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "DSCore.List.FilterByBoolMask@var[]..[],var[]..[]",
+      "Id": "e05de669c4c64de09a350d6b3cbed699",
+      "Inputs": [
+        {
+          "Id": "262177fe84be48dba419f106422a8d16",
+          "Name": "list",
+          "Description": "List to filter.\n\nvar[]..[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "6884e2c9a969413098eeaa44f9c46d49",
+          "Name": "mask",
+          "Description": "List of booleans representing a mask.\n\nvar[]..[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "19466f51e71c43a09f4185df27beb4bd",
+          "Name": "in",
+          "Description": "Items whose mask index is true.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "b8c11c2e2cab4785be3ad5965f3a4910",
+          "Name": "out",
+          "Description": "Items whose mask index is false.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Filters a sequence by looking up corresponding indices in a separate list of booleans.\n\nList.FilterByBoolMask (list: var[]..[], mask: var[]..[]): var[]..[]"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Output, DynamoCore",
+      "NodeType": "OutputNode",
+      "ElementResolver": null,
+      "Symbol": "inList",
+      "Id": "f1d9bc9c631e48bb89cb1d3373bf8569",
+      "Inputs": [
+        {
+          "Id": "495b12747958461ea6b273666daf903e",
+          "Name": "",
+          "Description": "Output Data",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [],
+      "Replication": "Disabled",
+      "Description": "A function output, use with custom nodes"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Output, DynamoCore",
+      "NodeType": "OutputNode",
+      "ElementResolver": null,
+      "Symbol": "outList",
+      "Id": "ba3fc325f25342e0b1983c0eaad54fde",
+      "Inputs": [
+        {
+          "Id": "f361c66ca1674ef5ba5a27a2ef174565",
+          "Name": "",
+          "Description": "Output Data",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [],
+      "Replication": "Disabled",
+      "Description": "A function output, use with custom nodes"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.CreateList, CoreNodeModels",
+      "VariableInputPorts": true,
+      "NodeType": "ExtensionNode",
+      "Id": "1863d7e9b31a481486c378ed325e2019",
+      "Inputs": [
+        {
+          "Id": "20f0a772e7274a17aa0f559833ee0331",
+          "Name": "item0",
+          "Description": "Item Index #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "96a4dbd9438248cda4f5a055ef49a75a",
+          "Name": "item1",
+          "Description": "Item Index #1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "b0a843f885894c9cac6b40280bc0df13",
+          "Name": "list",
+          "Description": "A list (type: var[]..[])",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Makes a new list out of the given inputs"
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "9f2c057b251a4bb4bc75a161866f944e",
+      "End": "3e901691be8c461fa5af4c969461d0e2",
+      "Id": "7f13fcf291a24fb388ba465264dcd7c9",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "9f2c057b251a4bb4bc75a161866f944e",
+      "End": "718fe71d83bf4c7499b5604ba82cee71",
+      "Id": "c3f47bdb67294ce799c9b211abefbd55",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "d25e275e293d4931996244a9444c577c",
+      "End": "8b6c9b49481e4e899cff37a0f066d830",
+      "Id": "45d57799d04c42e1885bab15bfde21a8",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "fc3e39120e04419bb2d3412f6bf86630",
+      "End": "7b0311d6c90c498f8af900a8fc3a6436",
+      "Id": "c919b8e00bfc4654bfc155c478459dd6",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "b3d23ca31fbd4abf874430b622ebb385",
+      "End": "0cd53952188044d8a354414fa7583e07",
+      "Id": "23cd2b50dd4f4c5c83bfd9038da489f8",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "baa8021d331b4b3f90c7d2f3e89191ac",
+      "End": "97bc2eb456ca4c1b995c7b6046566650",
+      "Id": "86cf498aa7dc45aaa884fb67aa91d30e",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "baa8021d331b4b3f90c7d2f3e89191ac",
+      "End": "262177fe84be48dba419f106422a8d16",
+      "Id": "90f44c77c1db4e29b815428e6034e375",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "69cf10f879c24164951a95103e8420da",
+      "End": "96a4dbd9438248cda4f5a055ef49a75a",
+      "Id": "dda94ae68fdb423587b5b6e5ead35af9",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "5df955aaf6a2496ea9681208c74196c8",
+      "End": "6884e2c9a969413098eeaa44f9c46d49",
+      "Id": "817c0d8b239c4bfe84add6e2001c3c72",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "52599336e47845dd96f325196938ee7a",
+      "End": "a0839274614640edb9232710dc6795f7",
+      "Id": "478211265d1444ef9009c4d5d590d3bc",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "c2221ed41dda485ca7bde45ca364471f",
+      "End": "ac8416df67564911807a0ee6edb65e71",
+      "Id": "5a05a67526e948998d0c390070e52841",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "19466f51e71c43a09f4185df27beb4bd",
+      "End": "495b12747958461ea6b273666daf903e",
+      "Id": "1dc5eefa28f44bca82be42e75c101b81",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "b8c11c2e2cab4785be3ad5965f3a4910",
+      "End": "20f0a772e7274a17aa0f559833ee0331",
+      "Id": "29abff0b565c43a0b06dc7cb6568628a",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "b0a843f885894c9cac6b40280bc0df13",
+      "End": "f361c66ca1674ef5ba5a27a2ef174565",
+      "Id": "313e6dc30d924eaa85588cee05c57a64",
+      "IsHidden": "False"
+    }
+  ],
+  "Dependencies": [],
+  "NodeLibraryDependencies": [],
+  "Author": "None provided",
+  "Bindings": []
+}

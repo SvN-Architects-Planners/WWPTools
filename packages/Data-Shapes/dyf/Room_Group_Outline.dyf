@@ -1,0 +1,407 @@
+{
+  "Uuid": "7c69d3af-e660-4fb2-b530-496eaa996fd9",
+  "IsCustomNode": true,
+  "Category": "Data-Shapes.Revit.Rooms",
+  "Description": "Returns the outline of the inpu rooms, grouped by the value of the \"Grouping Parameter\"",
+  "Name": "Room_Group_Outline",
+  "ElementResolver": {
+    "ResolutionMap": {}
+  },
+  "Inputs": [],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "# Enable Python support and load DesignScript library\r\nimport clr\r\nclr.AddReference('RevitAPI')\r\nfrom Autodesk.Revit.DB import *\r\nfrom Autodesk.Revit.DB import UV as AUV\r\n\r\nclr.AddReference('ProtoGeometry')\r\nfrom Autodesk.DesignScript.Geometry import *\r\n\r\nclr.AddReference('RevitServices')\r\nfrom RevitServices.Persistence import DocumentManager\r\nfrom RevitServices.Transactions import TransactionManager\r\n\r\nimport System\r\nfrom System.Collections.Generic import*\r\n\r\nclr.AddReference('RevitNodes')\r\nimport Revit\r\nclr.ImportExtensions(Revit.Elements)\r\nclr.ImportExtensions(Revit.GeometryConversion)\r\n\r\ndoc = DocumentManager.Instance.CurrentDBDocument\r\nrooms =  UnwrapElement(IN[1])\r\nnames = [r.get_Parameter(BuiltInParameter.ROOM_NAME).AsString() for r in rooms]\r\n\r\nArooms = [r.LookupParameter(IN[0]).AsString() for r in rooms]\r\nuniqueVals = list(set(Arooms))\r\n\r\n\r\n#Document UI Units\r\n\r\ntry:\r\n\tUIunit = Document.GetUnits(doc).GetFormatOptions(UnitType.UT_Length).DisplayUnits\r\nexcept:\r\n\tUIunit = Document.GetUnits(doc).GetFormatOptions(SpecTypeId.Length).GetUnitTypeId()\r\noffsetV = IN[2]\r\n\r\noffV = UnitUtils.ConvertToInternalUnits(offsetV,UIunit)\r\n\r\n\r\ndef roomSolidOffsetProtocore(room):\r\n\tbop = SpatialElementBoundaryOptions()\r\n\tbop.SpatialElementBoundaryLocation = SpatialElementBoundaryLocation.Center\r\n\tbounds = room.GetBoundarySegments(bop) \r\n\tl = []\r\n\tfor boundList in bounds:\r\n\t\tdscurves = []\r\n\t\tfor boundary in boundList:\r\n\t\t\tdscurves.append(boundary.GetCurve().ToProtoType())\r\n\t\tl.append(PolyCurve.ByJoinedCurves(dscurves))\r\n\tsorted(l,key = lambda x : x.Length)\r\n\tbiggestcl = l[0].Offset(offV,False)\r\n\trsol = biggestcl.ExtrudeAsSolid(1)\r\n\treturn rsol\r\n\r\ndef roomSolidOffset(room):\r\n\tbop = SpatialElementBoundaryOptions()\r\n\tbop.SpatialElementBoundaryLocation = SpatialElementBoundaryLocation.Center\r\n\tbounds = room.GetBoundarySegments(bop) \r\n\tl = List[CurveLoop]()\r\n\tfor boundList in bounds:\r\n\t\tvcLoop = CurveLoop()\r\n\t\tfor boundary in boundList:\r\n\t\t\tvcLoop.Append(boundary.GetCurve())\r\n\t\tl.Add(vcLoop)\r\n\tsorted(l,key = lambda x : x.GetExactLength() * -1)\r\n\tbiggestcl = List[CurveLoop]()\r\n\tbiggestcl.Add(CurveLoop.CreateViaOffset(l[0],1 + offV ,XYZ.BasisZ))\r\n\trsol = GeometryCreationUtilities.CreateExtrusionGeometry(biggestcl, XYZ(0, 0, 1),1)\r\n\treturn rsol\r\n\r\ndef solidBottomFaces(solid):\t\r\n\ttry:\r\n\t\tfaces = solid.Faces\r\n\t\tbottomFaces = [face  for face in faces if face.ComputeNormal(AUV(0.5,0.5)).Z < -0.5]\r\n\texcept:\r\n\t\tfaces = solid.Explode()\r\n\t\tbottomFaces = [face for face in faces if face.NormalAtParameter(0.5,0.5).Z < -0.5]\r\n\treturn bottomFaces\r\n\r\ndef unionSolids(solids):\r\n\ttry:\r\n\t\tunion = solids[0]\r\n\t\tfor solid in solids:\r\n\t\t\tunion = BooleanOperationsUtils.ExecuteBooleanOperation(union, solid, BooleanOperationsType.Union)\r\n\texcept:\r\n\t\tunion = Solid.ByUnion(solids)\r\n\treturn union\r\n\t\r\ndef counterOffsetCvLoop(face):\r\n\tbotCvLoops = face.GetEdgesAsCurveLoops()\r\n\tminOffset = []\r\n\tfor CvLoop in botCvLoops:\r\n\t\tunoffCvLoop = CurveLoop.CreateViaOffset(CvLoop,1,XYZ.BasisZ)\r\n\t\tfor cv in unoffCvLoop:\r\n\t\t\tminOffset.append(cv)\r\n\treturn minOffset\r\n\t\r\ndef counterOffsetCvLoopProtoCore(face):\r\n\tif isinstance(face,list):\r\n\t\tdsfaces = face\r\n\telse:\r\n\t\tdsfaces = [face]\r\n\tcvs = [SurfaceExternalBoundary(dsface) for dsface in dsfaces]\r\n\tpcs = [PolyCurve.ByJoinedCurves(cv) for cv in cvs]\r\n\toffsetcvs = [pc.Offset(-offV,IN[3]) for pc in pcs]\r\n\treturn [offsetcv.Explode() for offsetcv in offsetcvs]\r\n\r\ndef SurfaceExternalBoundary(surface):\r\n\touterloop = [lp for lp in surface.Faces[0].Loops if lp.IsExternal][0]\r\n\treturn [cv.Edge.CurveGeometry for cv in outerloop.CoEdges]\r\n\t\r\noutlines = []\r\ngroupingValues = []\r\ndef computeRoomsForUniqueVal(val):\r\n\tgrouped = [r for r in rooms if r.LookupParameter(IN[0]).AsString() == val]\r\n\ttry:\r\n\t\toffsetRooms = [ roomSolidOffset(r) for r in grouped]\t\t\r\n\texcept:\r\n\t\toffsetRooms = [roomSolidOffsetProtocore(r) for r in grouped]\r\n\tglobalSolid = unionSolids(offsetRooms)\t\r\n\tbotFaces = solidBottomFaces(globalSolid)\r\n\ttry:\r\n\t\tcvloops = [counterOffsetCvLoop(f) for f in botFaces]\r\n\t\tdsCurves = []\t\r\n\t\tcvArray = CurveArray()\r\n\t\tfor cvl in cvloops:\r\n\t\t\tfor cv in cvl:\r\n\t\t\t\tcvArray.Append(cv)\r\n\t\tfor loop in cvloops:\r\n\t\t\tfor cv in loop:\r\n\t\t\t\tdsCurves.append(cv.ToProtoType())\r\n\texcept:\r\n\t\tdsCurves = counterOffsetCvLoopProtoCore(botFaces)\r\n\treturn dsCurves\r\n\r\n\t\t\r\n\r\nfor val in uniqueVals:\r\n\toutline = computeRoomsForUniqueVal(val)\r\n\toutlines.append(outline)\t\r\n\tgroupingValues.append(val)\r\n\r\n\t\t\r\nOUT = outlines , groupingValues ",
+      "Engine": "IronPython2",
+      "VariableInputPorts": true,
+      "Id": "37b1800eb02f49cda1fdf00ee8e90fa7",
+      "Inputs": [
+        {
+          "Id": "14b66d93e4724422b75fdb0fa0a5e5c9",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "012f6fbe31c446c6b6c05502638535f5",
+          "Name": "IN[1]",
+          "Description": "Input #1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "6a12045ecefd4d2594dc68a12a4f1591",
+          "Name": "IN[2]",
+          "Description": "Input #2",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "2a849e5eb8774815a495875b0301c352",
+          "Name": "IN[3]",
+          "Description": "Input #3",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "cb4fff4a75bf4aa3bbeec554f349adc5",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded Python script."
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Symbol, DynamoCore",
+      "NodeType": "InputNode",
+      "Parameter": {
+        "Name": "Rooms_",
+        "TypeName": "var",
+        "TypeRank": -1,
+        "DefaultValue": null,
+        "Description": ""
+      },
+      "Id": "b0d5b42f409d409fbbd37cb6c1bf6bd4",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "5b1b90471e2f43a48ef839ee40228058",
+          "Name": "",
+          "Description": "Symbol",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "A function parameter, use with custom nodes.\r\n\r\nYou can specify the type and default value for parameter. E.g.,\r\n\r\ninput : var[]..[]\r\nvalue : bool = false"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Symbol, DynamoCore",
+      "NodeType": "InputNode",
+      "Parameter": {
+        "Name": "GroupingParameter",
+        "TypeName": "var",
+        "TypeRank": -1,
+        "DefaultValue": null,
+        "Description": ""
+      },
+      "Id": "e4b7fac86bbc4f10a631d7a2ec6f9339",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "fe4fcb8ce98c4255944bfaeb524f0486",
+          "Name": "",
+          "Description": "Symbol",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "A function parameter, use with custom nodes.\r\n\r\nYou can specify the type and default value for parameter. E.g.,\r\n\r\ninput : var[]..[]\r\nvalue : bool = false"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Symbol, DynamoCore",
+      "NodeType": "InputNode",
+      "Parameter": {
+        "Name": "Offset_",
+        "TypeName": "var",
+        "TypeRank": -1,
+        "DefaultValue": null,
+        "Description": ""
+      },
+      "Id": "7b15cfaad5114bb0b3d8c2012c405124",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "15ef8d63023d4a2e89e13344bfa523a5",
+          "Name": "",
+          "Description": "Symbol",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "A function parameter, use with custom nodes.\r\n\r\nYou can specify the type and default value for parameter. E.g.,\r\n\r\ninput : var[]..[]\r\nvalue : bool = false"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Output, DynamoCore",
+      "NodeType": "OutputNode",
+      "ElementResolver": null,
+      "Symbol": "CurveLists",
+      "Id": "f4798cccfb634ee694dbc74b4de707eb",
+      "Inputs": [
+        {
+          "Id": "3603abe197b04ac3b6f629e735815c64",
+          "Name": "",
+          "Description": "",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [],
+      "Replication": "Disabled",
+      "Description": "A function output, use with custom nodes"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Output, DynamoCore",
+      "NodeType": "OutputNode",
+      "ElementResolver": null,
+      "Symbol": "GroupingValues",
+      "Id": "4ac78d0644084ae8a9ec3a62f489225f",
+      "Inputs": [
+        {
+          "Id": "6e8d1066dc3b4df197fcf8ef1d38bddf",
+          "Name": "",
+          "Description": "",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [],
+      "Replication": "Disabled",
+      "Description": "A function output, use with custom nodes"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "NodeType": "CodeBlockNode",
+      "Code": "x[0];\nx[1];",
+      "Id": "7fa86eb072884172b7923440193c865f",
+      "Inputs": [
+        {
+          "Id": "121dcd940d894789928f51b0910fd7a4",
+          "Name": "x",
+          "Description": "x",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "6d9628e6b790402fac6d049108229e1c",
+          "Name": "",
+          "Description": "Value of expression at line 1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "aa76ab1e74f74933b850b9d87a3781fd",
+          "Name": "",
+          "Description": "Value of expression at line 2",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Symbol, DynamoCore",
+      "NodeType": "InputNode",
+      "Parameter": {
+        "Name": "ExtendCircular",
+        "TypeName": "bool",
+        "TypeRank": 0,
+        "DefaultValue": "false",
+        "Description": ""
+      },
+      "Id": "81babbfa32434d06b15f9975e438a97d",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "269e6aff371e42c094e08a2445f3ef3a",
+          "Name": "",
+          "Description": "Symbol",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "A function parameter, use with custom nodes.\r\n\r\nYou can specify the type and default value for parameter. E.g.,\r\n\r\ninput : var[]..[]\r\nvalue : bool = false"
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "cb4fff4a75bf4aa3bbeec554f349adc5",
+      "End": "121dcd940d894789928f51b0910fd7a4",
+      "Id": "7e7f7c048ae745bd8eabbd2a8de9b442"
+    },
+    {
+      "Start": "5b1b90471e2f43a48ef839ee40228058",
+      "End": "012f6fbe31c446c6b6c05502638535f5",
+      "Id": "c5d0688ed9074199a2a7418e6cbd8987"
+    },
+    {
+      "Start": "fe4fcb8ce98c4255944bfaeb524f0486",
+      "End": "14b66d93e4724422b75fdb0fa0a5e5c9",
+      "Id": "8758ce3953694a219aac50eb1183395b"
+    },
+    {
+      "Start": "15ef8d63023d4a2e89e13344bfa523a5",
+      "End": "6a12045ecefd4d2594dc68a12a4f1591",
+      "Id": "bb5bbd175c7c44dfa04ca33ce7a30804"
+    },
+    {
+      "Start": "6d9628e6b790402fac6d049108229e1c",
+      "End": "3603abe197b04ac3b6f629e735815c64",
+      "Id": "d9f5e5ad3df74997bb0ce6803564a889"
+    },
+    {
+      "Start": "aa76ab1e74f74933b850b9d87a3781fd",
+      "End": "6e8d1066dc3b4df197fcf8ef1d38bddf",
+      "Id": "890b602f13964ba68a434f29214d4a90"
+    },
+    {
+      "Start": "269e6aff371e42c094e08a2445f3ef3a",
+      "End": "2a849e5eb8774815a495875b0301c352",
+      "Id": "7908966163004976a6073698a5d02915"
+    }
+  ],
+  "Dependencies": [],
+  "NodeLibraryDependencies": [],
+  "Author": "None provided",
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": false,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.12.1.8246",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "Background Preview",
+      "EyeX": 17.343776702880859,
+      "EyeY": 99.267898559570313,
+      "EyeZ": -1.1099815368652344,
+      "LookX": 34.261112213134766,
+      "LookY": -113.19341278076172,
+      "LookZ": -51.394344329833984,
+      "UpX": 0.41862687468528748,
+      "UpY": 0.65605777502059937,
+      "UpZ": -0.62796485424041748
+    },
+    "NodeViews": [
+      {
+        "ShowGeometry": true,
+        "Name": "Python Script",
+        "Id": "37b1800eb02f49cda1fdf00ee8e90fa7",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 243.71097479629952,
+        "Y": -2.0963417345667494
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Input",
+        "Id": "b0d5b42f409d409fbbd37cb6c1bf6bd4",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 0.0,
+        "Y": 0.0
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Input",
+        "Id": "e4b7fac86bbc4f10a631d7a2ec6f9339",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -111.22866123308393,
+        "Y": 78.073165308664386
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Input",
+        "Id": "7b15cfaad5114bb0b3d8c2012c405124",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -62.890252037003393,
+        "Y": 157.44876204945888
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Output",
+        "Id": "f4798cccfb634ee694dbc74b4de707eb",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 581.26413596304837,
+        "Y": -30.637455223078916
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Output",
+        "Id": "4ac78d0644084ae8a9ec3a62f489225f",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 575.02195995647276,
+        "Y": 52.131965233960955
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Code Block",
+        "Id": "7fa86eb072884172b7923440193c865f",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 420.36275027204772,
+        "Y": 2.5603898802991125
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Input",
+        "Id": "81babbfa32434d06b15f9975e438a97d",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -88.11406411403334,
+        "Y": 258.15791883028
+      }
+    ],
+    "Annotations": [],
+    "X": 272.804970753533,
+    "Y": 271.71743311191335,
+    "Zoom": 0.9540429248828125
+  }
+}

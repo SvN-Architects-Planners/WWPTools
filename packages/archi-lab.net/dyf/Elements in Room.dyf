@@ -1,0 +1,213 @@
+{
+  "Uuid": "29b30d46-9dd4-42d2-adf3-eda1ad145f62",
+  "IsCustomNode": true,
+  "Category": "archilab.Revit.Room",
+  "Description": "This node will check if any of the elements are inside any of the supplied rooms. ",
+  "Name": "Elements in Room",
+  "ElementResolver": {
+    "ResolutionMap": {}
+  },
+  "Inputs": [],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Symbol, DynamoCore",
+      "NodeType": "InputNode",
+      "Parameter": {
+        "Name": "_elements",
+        "TypeName": "var",
+        "TypeRank": -1,
+        "DefaultValue": null,
+        "Description": ""
+      },
+      "Id": "5ce9af80cfa84f5fbfd5c4d4f03c14bc",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "eb686eda265a40989ff3bd15d06198e9",
+          "Name": "",
+          "Description": "Symbol",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "A function parameter, use with custom nodes.\r\n\r\nYou can specify the type and default value for parameter. E.g.,\r\n\r\ninput : var[]..[]\r\nvalue : bool = false"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Symbol, DynamoCore",
+      "NodeType": "InputNode",
+      "Parameter": {
+        "Name": "_rooms",
+        "TypeName": "var",
+        "TypeRank": -1,
+        "DefaultValue": null,
+        "Description": ""
+      },
+      "Id": "86ef0ff5494b49d488a3d7500f4d91c1",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "98aff862318a418eb666377de0a387a1",
+          "Name": "",
+          "Description": "Symbol",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "A function parameter, use with custom nodes.\r\n\r\nYou can specify the type and default value for parameter. E.g.,\r\n\r\ninput : var[]..[]\r\nvalue : bool = false"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Output, DynamoCore",
+      "NodeType": "OutputNode",
+      "Symbol": "_elements",
+      "Id": "aadcc6003e444948813540a03663b2ad",
+      "Inputs": [
+        {
+          "Id": "4c0bad3c398b4b688eaf7edbde93f7e0",
+          "Name": "",
+          "Description": "",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [],
+      "Replication": "Disabled",
+      "Description": "A function output, use with custom nodes"
+    },
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "#Copyright(c) 2015, Konrad Sobon\n# @arch_laboratory, http://archi-lab.net\n\n# This code is based on Family.InRoom node originally created\n# by Peter Kompolschek and published on Dynamo blog. Big thanks \n# to Peter for sharing his work so graciously.\n\nimport clr\nimport sys\nclr.AddReference('ProtoGeometry')\nfrom Autodesk.DesignScript.Geometry import *\n\npyt_path = r'C:\\Program Files (x86)\\IronPython 2.7\\Lib'\nsys.path.append(pyt_path)\n\n# Import ToDSType(bool) extension method\nclr.AddReference(\"RevitNodes\")\nimport Revit\nclr.ImportExtensions(Revit.Elements)\n\n# Import DocumentManager and TransactionManager\nclr.AddReference(\"RevitServices\")\nimport RevitServices\nfrom RevitServices.Persistence import DocumentManager\nfrom RevitServices.Transactions import TransactionManager\n\n# Import RevitAPI\nclr.AddReference(\"RevitAPI\")\nimport Autodesk\nfrom Autodesk.Revit.DB import *\n\ndoc = DocumentManager.Instance.CurrentDBDocument\nuiapp = DocumentManager.Instance.CurrentUIApplication\napp = uiapp.Application\n\n#The inputs to this node will be stored as a list in the IN variable.\ndataEnteringNode = IN\n\ndef TryGetRoom(room, phase):\n\ttry:\n\t\tinRoom = room.Room[phase]\n\texcept:\n\t\tinRoom = None\n\t\tpass\n\treturn inRoom\n\ndef FamiliesInRoom(_room, _families, _doc):\n\toutList = []\n\tfor family in _families:\n\t\tpt = family.Location.Point\n\t\tif _room.IsPointInRoom(pt):\n\t\t\toutList.append(family)\n\t\telse:\n\t\t\tfor phase in _doc.Phases:\n\t\t\t\tinRoom = TryGetRoom(family, phase)\n\t\t\t\tif inRoom != None and inRoom.Id == _room.Id:\n\t\t\t\t\toutList.append(family)\n\t\t\t\t\tbreak\n\treturn outList\n\ntry:\n\terrorReport = None\n\tfamilies = []\n\tfor i in IN[0]:\n\t\tfamilies.append(UnwrapElement(i))\n\t\n\trooms = []\n\tfor i in IN[1]:\n\t\tif UnwrapElement(i).Area > 0:\n\t\t\trooms.append(UnwrapElement(i))\n\t\n\toutData = [[] for i in range(len(rooms))]\n\tfor index, room in enumerate(rooms):\n\t\toutData[index].extend(FamiliesInRoom(room, families, doc))\nexcept:\n\t# if error accurs anywhere in the process catch it\n\timport traceback\n\terrorReport = traceback.format_exc()\n\n#Assign your output to the OUT variable\nif errorReport == None:\n\tOUT = outData\nelse:\n\tOUT = errorReport",
+      "VariableInputPorts": true,
+      "Id": "3f2b941cee5d4df58bfec8b2ad1954f0",
+      "Inputs": [
+        {
+          "Id": "da8a3f6aa7a84d7f9996e98acbe96b96",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "8903f92e77e84b7e9af385de2e64e8e1",
+          "Name": "IN[1]",
+          "Description": "Input #1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "3a82c2108234446ca172ad5bcd817cac",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded IronPython script."
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "eb686eda265a40989ff3bd15d06198e9",
+      "End": "da8a3f6aa7a84d7f9996e98acbe96b96",
+      "Id": "f424eeb289874644ab637bfacf72e5c7"
+    },
+    {
+      "Start": "98aff862318a418eb666377de0a387a1",
+      "End": "8903f92e77e84b7e9af385de2e64e8e1",
+      "Id": "474461d081014bdea52fe02c81ef2fe3"
+    },
+    {
+      "Start": "3a82c2108234446ca172ad5bcd817cac",
+      "End": "4c0bad3c398b4b688eaf7edbde93f7e0",
+      "Id": "e874cdee33004e18873163ab952c0f7c"
+    }
+  ],
+  "Dependencies": [],
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": false,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.2.1.5175",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "Background Preview",
+      "EyeX": -3.3980778033356338,
+      "EyeY": 108.78378869835292,
+      "EyeZ": 33.810927815196337,
+      "LookX": 12.0,
+      "LookY": -13.0,
+      "LookZ": -58.0,
+      "UpX": 0.0,
+      "UpY": 1.0,
+      "UpZ": 0.0
+    },
+    "NodeViews": [
+      {
+        "ShowGeometry": true,
+        "Name": "Input",
+        "Id": "5ce9af80cfa84f5fbfd5c4d4f03c14bc",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 0.0,
+        "Y": 0.0
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Input",
+        "Id": "86ef0ff5494b49d488a3d7500f4d91c1",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 0.0,
+        "Y": 150.0
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Output",
+        "Id": "aadcc6003e444948813540a03663b2ad",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 449.0,
+        "Y": 0.0
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Python Script",
+        "Id": "3f2b941cee5d4df58bfec8b2ad1954f0",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 268.88999472251146,
+        "Y": -0.066290859670203872
+      }
+    ],
+    "Annotations": [],
+    "X": 92.16300625,
+    "Y": 108.0887125,
+    "Zoom": 1.33823125
+  }
+}

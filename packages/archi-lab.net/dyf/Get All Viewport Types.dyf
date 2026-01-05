@@ -1,0 +1,112 @@
+{
+  "Uuid": "2414b979-4b28-4565-b4be-ce26499a82d4",
+  "IsCustomNode": true,
+  "Category": "archilab.Revit.Viewports",
+  "Description": "This node will retrieve all Viewport Types currently in the model. ",
+  "Name": "Get All Viewport Types",
+  "ElementResolver": {
+    "ResolutionMap": {}
+  },
+  "Inputs": [],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "# Copyright(c) 2015, Konrad K Sobon\r\n# @arch_laboratory, http://archi-lab.net\r\n\r\nimport clr\r\n# Import Element wrapper extension methods\r\nclr.AddReference(\"RevitNodes\")\r\nimport Revit\r\nclr.ImportExtensions(Revit.Elements)\r\n\r\n# Import DocumentManager and TransactionManager\r\nclr.AddReference(\"RevitServices\")\r\nimport RevitServices\r\nfrom RevitServices.Persistence import DocumentManager\r\ndoc = DocumentManager.Instance.CurrentDBDocument\r\n\r\nimport sys\r\npyt_path = r'C:\\Program Files (x86)\\IronPython 2.7\\Lib'\r\nsys.path.append(pyt_path)\r\n\r\n# Import RevitAPI\r\nclr.AddReference(\"RevitAPI\")\r\nimport Autodesk\r\nfrom Autodesk.Revit.DB import *\r\n\r\n#The inputs to this node will be stored as a list in the IN variable.\r\ndataEnteringNode = IN\r\n\r\ntry:\r\n\terrorReport = None\r\n\tviewports = FilteredElementCollector(doc).OfCategory(BuiltInCategory.OST_Viewports).WhereElementIsNotElementType().ToElements()\r\n\ttypes = [doc.GetElement(i) for i in viewports[0].GetValidTypes()]\r\nexcept:\r\n\t# if error accurs anywhere in the process catch it\r\n\timport traceback\r\n\terrorReport = traceback.format_exc()\r\n\r\n#Assign your output to the OUT variable\r\nif errorReport == None:\r\n\tOUT = types\r\nelse:\r\n\tOUT = errorReport\r\n",
+      "VariableInputPorts": true,
+      "Id": "14e66b4b86984bd891ea3abb216a5d2f",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "92b925b1a85a4dff88ab1c76affbe83c",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded IronPython script."
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Output, DynamoCore",
+      "NodeType": "OutputNode",
+      "Symbol": "_viewportType",
+      "Id": "414540646de34c31a869d817d1b919da",
+      "Inputs": [
+        {
+          "Id": "06ebc0e511894b91b6688e68b28d3c34",
+          "Name": "",
+          "Description": "",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [],
+      "Replication": "Disabled",
+      "Description": "A function output, use with custom nodes"
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "92b925b1a85a4dff88ab1c76affbe83c",
+      "End": "06ebc0e511894b91b6688e68b28d3c34",
+      "Id": "f286b58d538a4f0695f41878dd40fdfc"
+    }
+  ],
+  "Dependencies": [],
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": false,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.2.1.5175",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "Background Preview",
+      "EyeX": -17.0,
+      "EyeY": 24.0,
+      "EyeZ": 50.0,
+      "LookX": 12.0,
+      "LookY": -13.0,
+      "LookZ": -58.0,
+      "UpX": 0.0,
+      "UpY": 1.0,
+      "UpZ": 0.0
+    },
+    "NodeViews": [
+      {
+        "ShowGeometry": true,
+        "Name": "Python Script",
+        "Id": "14e66b4b86984bd891ea3abb216a5d2f",
+        "IsSetAsInput": true,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 432.466533546677,
+        "Y": 317.503936102405
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Output",
+        "Id": "414540646de34c31a869d817d1b919da",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 563.259833867424,
+        "Y": 317.807086262046
+      }
+    ],
+    "Annotations": [],
+    "X": -502.445386260374,
+    "Y": -420.62756345196,
+    "Zoom": 2.05668026833428
+  }
+}

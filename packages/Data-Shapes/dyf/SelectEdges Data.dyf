@@ -1,0 +1,214 @@
+{
+  "Uuid": "25aff123-aae2-4fb5-aa65-fb5eb9ecf81e",
+  "IsCustomNode": true,
+  "Category": "Data-Shapes.UI.Selection",
+  "Description": "Creates a Revit edge selection input for UI.MultipleInputForm++ . Check out www.data-shapes.net for more infos! ",
+  "Name": "SelectEdges Data",
+  "ElementResolver": {
+    "ResolutionMap": {}
+  },
+  "Inputs": [],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "#Copyright (c) mostafa el ayoubi ,  2016\r\n#Data-Shapes www.data-shapes.net , elayoubi.mostafa@gmail.com\r\n\r\nclass uiselectedges():\r\n\r\n    def __init__(self,inputname,buttontext):\r\n        self.inputname = inputname\r\n        self.buttontext = buttontext\r\n\r\n    def __repr__(self):\r\n        return 'UI.SelectEdges input'\r\n        \r\nx = uiselectedges(IN[0],IN[1])\r\n\r\n\r\nOUT = x",
+      "VariableInputPorts": true,
+      "Id": "e0edfad7698d4465acbdbbb5652ea6b4",
+      "Inputs": [
+        {
+          "Id": "ac58b0ba1ae04f19a3034e051efc6403",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "6c625052d73246f5aed777713febde68",
+          "Name": "IN[1]",
+          "Description": "Input #1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "9d5fea4b800249d6a89cbbfd353d7bf5",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded IronPython script."
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Output, DynamoCore",
+      "NodeType": "OutputNode",
+      "ElementResolver": null,
+      "Symbol": "SelectEdges input",
+      "Id": "3e35c29d2d194d6e92dc12ef0f5e6c89",
+      "Inputs": [
+        {
+          "Id": "c969ad8e67d7456486835483304d6957",
+          "Name": "",
+          "Description": "",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [],
+      "Replication": "Disabled",
+      "Description": "A function output, use with custom nodes"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Symbol, DynamoCore",
+      "NodeType": "InputNode",
+      "Parameter": {
+        "Name": "InputName",
+        "TypeName": "string",
+        "TypeRank": 0,
+        "DefaultValue": "\"\"",
+        "Description": ""
+      },
+      "Id": "951ad22904b142aa9f439caf7f57f0bb",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "422b8cf1691949219705fad0e85e1646",
+          "Name": "",
+          "Description": "Symbol",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "A function parameter, use with custom nodes.\r\n\r\nYou can specify the type and default value for parameter. E.g.,\r\n\r\ninput : var[]..[]\r\nvalue : bool = false"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Symbol, DynamoCore",
+      "NodeType": "InputNode",
+      "Parameter": {
+        "Name": "ButtonText",
+        "TypeName": "string",
+        "TypeRank": 0,
+        "DefaultValue": "\"Select Edge(s)\"",
+        "Description": ""
+      },
+      "Id": "8c2491f4d1f04b6fa8bbda4b13532505",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "ba9bffb03af64e119b66a7a7d68b7bde",
+          "Name": "",
+          "Description": "Symbol",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "A function parameter, use with custom nodes.\r\n\r\nYou can specify the type and default value for parameter. E.g.,\r\n\r\ninput : var[]..[]\r\nvalue : bool = false"
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "9d5fea4b800249d6a89cbbfd353d7bf5",
+      "End": "c969ad8e67d7456486835483304d6957",
+      "Id": "bcc2b397126d41a795f4e17e14b49ca3"
+    },
+    {
+      "Start": "422b8cf1691949219705fad0e85e1646",
+      "End": "ac58b0ba1ae04f19a3034e051efc6403",
+      "Id": "99dbc34e31ae410a96db6321db0bcc14"
+    },
+    {
+      "Start": "ba9bffb03af64e119b66a7a7d68b7bde",
+      "End": "6c625052d73246f5aed777713febde68",
+      "Id": "06254eaca3864ee4979493ec3903dc6b"
+    }
+  ],
+  "Dependencies": [],
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": false,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.0.2.6826",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "Background Preview",
+      "EyeX": -17.0,
+      "EyeY": 24.0,
+      "EyeZ": 50.0,
+      "LookX": 12.0,
+      "LookY": -13.0,
+      "LookZ": -58.0,
+      "UpX": 0.0,
+      "UpY": 1.0,
+      "UpZ": 0.0
+    },
+    "NodeViews": [
+      {
+        "ShowGeometry": true,
+        "Name": "Python Script",
+        "Id": "e0edfad7698d4465acbdbbb5652ea6b4",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 250.0,
+        "Y": 0.0
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Output",
+        "Id": "3e35c29d2d194d6e92dc12ef0f5e6c89",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 447.0,
+        "Y": 0.0
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Input",
+        "Id": "951ad22904b142aa9f439caf7f57f0bb",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -114.550026387442,
+        "Y": -45.5935353101341
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Input",
+        "Id": "8c2491f4d1f04b6fa8bbda4b13532505",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -160.879836724781,
+        "Y": 84.4288356365912
+      }
+    ],
+    "Annotations": [],
+    "X": 344.3828625,
+    "Y": 311.10313125,
+    "Zoom": 1.33823125
+  }
+}

@@ -1,0 +1,387 @@
+{
+  "Uuid": "9a1fadc6-3f7d-4684-80bb-c3de8b95727d",
+  "IsCustomNode": true,
+  "Category": "archilab.Revit.Schedule",
+  "Description": "This node will take a key schedule, data and a list of parameters and populate it with infomation from data parameter. Visit www.archi-lab.net for more information on how to prep this node for take off. ",
+  "Name": "Key Schedule",
+  "ElementResolver": {
+    "ResolutionMap": {}
+  },
+  "Inputs": [],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Output, DynamoCore",
+      "NodeType": "OutputNode",
+      "Symbol": "_viewSchedule",
+      "Id": "65ebdf4a50e4431fb0b7998a7ac49d0b",
+      "Inputs": [
+        {
+          "Id": "80e5a8d33d6b49acb1e76c1e74368e32",
+          "Name": "",
+          "Description": "",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [],
+      "Replication": "Disabled",
+      "Description": "A function output, use with custom nodes"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Symbol, DynamoCore",
+      "NodeType": "InputNode",
+      "Parameter": {
+        "Name": "_viewSchedule",
+        "TypeName": "var",
+        "TypeRank": -1,
+        "DefaultValue": null,
+        "Description": ""
+      },
+      "Id": "ae25efaef7944398a35b54f85b786bb1",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "10de99f8e0104bc3b786baa5c347a192",
+          "Name": "",
+          "Description": "Symbol",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "A function parameter, use with custom nodes.\r\n\r\nYou can specify the type and default value for parameter. E.g.,\r\n\r\ninput : var[]..[]\r\nvalue : bool = false"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Symbol, DynamoCore",
+      "NodeType": "InputNode",
+      "Parameter": {
+        "Name": "_data",
+        "TypeName": "var",
+        "TypeRank": -1,
+        "DefaultValue": null,
+        "Description": ""
+      },
+      "Id": "6a7d7ee13c7e43979408f062e9b247a6",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "39f842dcb01846afa4dbd244aec615a5",
+          "Name": "",
+          "Description": "Symbol",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "A function parameter, use with custom nodes.\r\n\r\nYou can specify the type and default value for parameter. E.g.,\r\n\r\ninput : var[]..[]\r\nvalue : bool = false"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Symbol, DynamoCore",
+      "NodeType": "InputNode",
+      "Parameter": {
+        "Name": "_parameterNames",
+        "TypeName": "var",
+        "TypeRank": -1,
+        "DefaultValue": null,
+        "Description": ""
+      },
+      "Id": "0c00723181ae400f99920e5d85c4cf79",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "a2b8992fd1b44e69bdc21d4d3d9996ae",
+          "Name": "",
+          "Description": "Symbol",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "A function parameter, use with custom nodes.\r\n\r\nYou can specify the type and default value for parameter. E.g.,\r\n\r\ninput : var[]..[]\r\nvalue : bool = false"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Symbol, DynamoCore",
+      "NodeType": "InputNode",
+      "Parameter": {
+        "Name": "_upperCase",
+        "TypeName": "bool",
+        "TypeRank": 0,
+        "DefaultValue": "false",
+        "Description": ""
+      },
+      "Id": "b2819263e79d4f23a7c9a0f1fa98f75e",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "8ef69105b32b4776bbae73a0cdbb3065",
+          "Name": "",
+          "Description": "Symbol",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "A function parameter, use with custom nodes.\r\n\r\nYou can specify the type and default value for parameter. E.g.,\r\n\r\ninput : var[]..[]\r\nvalue : bool = false"
+    },
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "#Copyright(c) 2015, Konrad Sobon\n# @arch_laboratory, http://archi-lab.net\n\nimport clr\nimport sys\nclr.AddReference('ProtoGeometry')\nfrom Autodesk.DesignScript.Geometry import *\n\n# Import DocumentManager and TransactionManager\nclr.AddReference(\"RevitServices\")\nimport RevitServices\nfrom RevitServices.Persistence import DocumentManager\nfrom RevitServices.Transactions import TransactionManager\n\n# Import RevitAPI\nclr.AddReference(\"RevitAPI\")\nimport Autodesk\nfrom Autodesk.Revit.DB import *\n\ndoc = DocumentManager.Instance.CurrentDBDocument\nuiapp = DocumentManager.Instance.CurrentUIApplication\napp = uiapp.Application\n\nfrom System.Collections.Generic import *\n\n# Import ToDSType(bool) extension method\nclr.AddReference(\"RevitNodes\")\nimport Revit\nclr.ImportExtensions(Revit.Elements)\n\npyt_path = r'C:\\Program Files (x86)\\IronPython 2.7\\Lib'\nsys.path.append(pyt_path)\nimport re\n\n#The inputs to this node will be stored as a list in the IN variable.\ndataEnteringNode = IN\n\nkeySchedule = UnwrapElement(IN[0])\ndata = IN[1]\ninputParams = IN[2]\nupper = IN[3]\n\n# \"Start\" the transaction\nTransactionManager.Instance.EnsureInTransaction(doc)\n\ntableData = keySchedule.GetTableData()\nsectionData = tableData.GetSectionData(SectionType.Body)\n\nkeyNames = []\nfor i in range(1,sectionData.NumberOfRows - 1,1):\n\tkeyNames.append(str(int(i)))\n\nallKeys = FilteredElementCollector(doc).WhereElementIsNotElementType()\nparams = [[] for i in range(len(keyNames))]\ntest = []\nfor key in allKeys:\n\ttry:\n\t\tif key.get_Parameter(BuiltInParameter.REF_TABLE_ELEM_NAME).AsString() in keyNames and key.OwnerViewId == keySchedule.Id:\n\t\t\tindexValue = keyNames.index(key.get_Parameter(BuiltInParameter.REF_TABLE_ELEM_NAME).AsString())\n\t\t\tfor i in range(0, len(inputParams),1):\n\t\t\t\tparams[indexValue].extend(key.GetParameters(str(inputParams[i])))\n\texcept:\n\t\tpass\n\nfor i, j in zip(params, data):\n\tfor param, value in zip(i,j):\n\t\tif isinstance(value, str):\n\t\t\tvalueDecoded = value.decode('string_escape')\n\t\telse:\n\t\t\tif value == None:\n\t\t\t\tvalueDecoded = \" \"\n\t\t\telse:\n\t\t\t\tvalueDecoded = str(value).decode('string_escape')\n\t\tif upper:\n\t\t\tvalueDecoded = valueDecoded.upper()\n\t\t\tparam.Set(valueDecoded)\n\t\telse:\n\t\t\tparam.Set(valueDecoded)\n\n\n# \"End\" the transaction\nTransactionManager.Instance.TransactionTaskDone()\n\n#Assign your output to the OUT variable\nOUT = keySchedule",
+      "VariableInputPorts": true,
+      "Id": "681e6aa6e9184180a6974d5131287445",
+      "Inputs": [
+        {
+          "Id": "97992532f6914910bb5e857a261ab339",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "be794fd2546d4dea9920935c90a8d176",
+          "Name": "IN[1]",
+          "Description": "Input #1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "991eec193c5e447184a01cb829c6b072",
+          "Name": "IN[2]",
+          "Description": "Input #2",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "edd0df8937e740679a67f71c9a3e51c0",
+          "Name": "IN[3]",
+          "Description": "Input #3",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "9ecbb823047f4260a0c6a9920199a95f",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded IronPython script."
+    },
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "#Copyright(c) 2015, Konrad Sobon\n# @arch_laboratory, http://archi-lab.net\n\nimport clr\nclr.AddReference('ProtoGeometry')\nfrom Autodesk.DesignScript.Geometry import *\n\n# Import DocumentManager and TransactionManager\nclr.AddReference(\"RevitServices\")\nimport RevitServices\nfrom RevitServices.Persistence import DocumentManager\nfrom RevitServices.Transactions import TransactionManager\n\n# Import RevitAPI\nclr.AddReference(\"RevitAPI\")\nimport Autodesk\nfrom Autodesk.Revit.DB import *\n\ndoc = DocumentManager.Instance.CurrentDBDocument\nuiapp = DocumentManager.Instance.CurrentUIApplication\napp = uiapp.Application\n\nfrom System.Collections.Generic import *\n\n# Import ToDSType(bool) extension method\nclr.AddReference(\"RevitNodes\")\nimport Revit\nclr.ImportExtensions(Revit.Elements)\n\n#The inputs to this node will be stored as a list in the IN variable.\ndataEnteringNode = IN\n\nkeySchedule = UnwrapElement(IN[0])\ndata = IN[1]\ninputParams = IN[2]\n\n# \"Start\" the transaction\nTransactionManager.Instance.EnsureInTransaction(doc)\n\ntest = []\ncount = []\ncellParams = [[] for i in range(len(data))]\nif any(isinstance(item, list) for item in data):\n\t# process list of lists\n\tfor i in data:\n\t\tcount.append(len(i))\n\tcolCount = max(count)\n\tcolAvailable = len(keySchedule.Definition.GetSchedulableFields())\n\tif colCount > colAvailable:\n\t\tmessage = \"Please add/remove parameters to/from schedule so that they match longest data set.\"\n\telse:\n\t\ttableData = keySchedule.GetTableData()\n\t\tsectionData = tableData.GetSectionData(SectionType.Body)\n\t\tif sectionData.NumberOfRows - 2 <= len(data):\n\t\t\t# schedule by default will have 2 rows (A, B, C and Header Names)\n\t\t\trowsToAdd = (len(data) - sectionData.NumberOfRows) + 2\n\t\t\tfor i in range(0, rowsToAdd, 1):\n\t\t\t\tsectionData.InsertRow(0)\n\t\telse:\n\t\t\t# schedule when updating might already have too many rows \n\t\t\trowsToDelete = sectionData.NumberOfRows - 2 - len(data)\n\t\t\tfor i in reversed(range(sectionData.NumberOfRows - rowsToDelete, sectionData.NumberOfRows, 1)):\n\t\t\t\tsectionData.RemoveRow(i)\n\n# \"End\" the transaction\nTransactionManager.Instance.TransactionTaskDone()\n\n#Assign your output to the OUT variable\nOUT = keySchedule",
+      "VariableInputPorts": true,
+      "Id": "8d432bece808443fab59c6a44c6a7a26",
+      "Inputs": [
+        {
+          "Id": "ce6ce187abd247fc92a95f3c29be368b",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "b5aea9f8346b461eb39aef518b05aff6",
+          "Name": "IN[1]",
+          "Description": "Input #1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "c99fa26f9b4a41329bb67b442d3d321b",
+          "Name": "IN[2]",
+          "Description": "Input #2",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "5742e3bc97d143149c471227cc79acfd",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded IronPython script."
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "10de99f8e0104bc3b786baa5c347a192",
+      "End": "ce6ce187abd247fc92a95f3c29be368b",
+      "Id": "a0444f1e90db41618fcdff0036249f86"
+    },
+    {
+      "Start": "39f842dcb01846afa4dbd244aec615a5",
+      "End": "b5aea9f8346b461eb39aef518b05aff6",
+      "Id": "1e175f1a2fd1469a9ab9f7aa58ffae0b"
+    },
+    {
+      "Start": "39f842dcb01846afa4dbd244aec615a5",
+      "End": "be794fd2546d4dea9920935c90a8d176",
+      "Id": "9df962c5ed944c4fb561ee5cd5c7d4f7"
+    },
+    {
+      "Start": "a2b8992fd1b44e69bdc21d4d3d9996ae",
+      "End": "c99fa26f9b4a41329bb67b442d3d321b",
+      "Id": "722f54d0ae0a407a829955081fbd79a1"
+    },
+    {
+      "Start": "a2b8992fd1b44e69bdc21d4d3d9996ae",
+      "End": "991eec193c5e447184a01cb829c6b072",
+      "Id": "4aa0a04589ec4b9880d082637bb0a698"
+    },
+    {
+      "Start": "8ef69105b32b4776bbae73a0cdbb3065",
+      "End": "edd0df8937e740679a67f71c9a3e51c0",
+      "Id": "b9fdfcf16ee54b56924a59619c12ebe9"
+    },
+    {
+      "Start": "9ecbb823047f4260a0c6a9920199a95f",
+      "End": "80e5a8d33d6b49acb1e76c1e74368e32",
+      "Id": "efd62b6bd90842a9b9d648c9ac2cd1c4"
+    },
+    {
+      "Start": "5742e3bc97d143149c471227cc79acfd",
+      "End": "97992532f6914910bb5e857a261ab339",
+      "Id": "189fc059f80e466a93b81ad640d9b4b9"
+    }
+  ],
+  "Dependencies": [],
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": false,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.2.1.5175",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "Background Preview",
+      "EyeX": -17.0,
+      "EyeY": 24.0,
+      "EyeZ": 50.0,
+      "LookX": 12.0,
+      "LookY": -13.0,
+      "LookZ": -58.0,
+      "UpX": 0.0,
+      "UpY": 1.0,
+      "UpZ": 0.0
+    },
+    "NodeViews": [
+      {
+        "ShowGeometry": true,
+        "Name": "Output",
+        "Id": "65ebdf4a50e4431fb0b7998a7ac49d0b",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 605.814323307435,
+        "Y": 3.0414675207885
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Input",
+        "Id": "ae25efaef7944398a35b54f85b786bb1",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 37.4049559773422,
+        "Y": -1.2277995118734
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Input",
+        "Id": "6a7d7ee13c7e43979408f062e9b247a6",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 27.8343199272036,
+        "Y": 76.4211902484427
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Input",
+        "Id": "0c00723181ae400f99920e5d85c4cf79",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 25.528443155085,
+        "Y": 160.702115040982
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Input",
+        "Id": "b2819263e79d4f23a7c9a0f1fa98f75e",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 28.1979110094361,
+        "Y": 238.170739230384
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Python Script",
+        "Id": "681e6aa6e9184180a6974d5131287445",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 439.325689329941,
+        "Y": 3.59932544950831
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Python Script",
+        "Id": "8d432bece808443fab59c6a44c6a7a26",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 278.609999992982,
+        "Y": 3.90539878048136
+      }
+    ],
+    "Annotations": [],
+    "X": 133.4694811914984,
+    "Y": 195.173697627953,
+    "Zoom": 1.34613730474456
+  }
+}

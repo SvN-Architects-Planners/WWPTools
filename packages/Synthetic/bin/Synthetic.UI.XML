@@ -1,0 +1,299 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Synthetic.UI</name>
+    </assembly>
+    <members>
+        <member name="T:Synthetic.UI.Pick">
+            <summary>
+            Access additional input methods.
+            </summary>
+        </member>
+        <member name="M:Synthetic.UI.Pick.Elements(System.String,System.Boolean)">
+            <summary>
+            Pick Elements in the current Revit Document.  Don't forget to hit the Finished button in the options bar.
+            </summary>
+            <param name="message">A message to be displayed in the status bar.</param>
+            <param name="reset">Resets the node so one can pick new objects.</param>
+            <returns name="Elements">List of the selected elements.</returns>
+        </member>
+        <member name="M:Synthetic.UI.Pick.Faces(System.String,System.Boolean)">
+            <summary>
+            Pick Faces in the current Revit Document.  Don't forget to hit the Finished button in the options bar.
+            </summary>
+            <param name="message">A message to be displayed in the status bar.</param>
+            <param name="reset">Resets the node so one can pick new objects.</param>
+            <returns name="Faces">List of the selected faces.</returns>
+        </member>
+        <member name="M:Synthetic.UI.Pick.Color">
+            <summary>
+            Opens a pick color dialog box.
+            </summary>
+            <returns name="Color">A Dynamo Core Color</returns>
+        </member>
+        <member name="T:Synthetic.UI.DialogRevit">
+            <summary>
+            Handles Revit standard dialogs.
+            </summary>
+        </member>
+        <member name="M:Synthetic.UI.DialogRevit.FileOpen(System.String,System.String,System.Boolean)">
+            <summary>
+            Creates a Revit Open File dialog with inputs for filtering the file type.  Please note that this does not actually open a file, but returns a file path.
+            </summary>
+            <param name="title">Title of the dialog box.</param>
+            <param name="fileTypeFilter">A string that filters the file types to be selected.  Format should be as follows: display value|file type.  For example "Text (*.txt)|*.txt"</param>
+            <param name="reset">Resets the node so the dialog will reopen.</param>
+            <returns name="File Path">A string of the file path.</returns>
+        </member>
+        <member name="M:Synthetic.UI.DialogRevit.FileSave(System.String,System.String,System.Boolean)">
+            <summary>
+            Creates a Revit Save File dialog with inputs for filtering the file type.  If an existing file is selected, the dialog will ask the user if they want to overwrite the file.  Please note that this does not actually save a file, but returns a file path.
+            </summary>
+            <param name="title">Title of the dialog box.</param>
+            <param name="fileTypeFilter">A string that filters the file types to be selected.  Format should be as follows: display value|file type.  For example "Text (*.txt)|*.txt"</param>
+            <param name="reset">Resets the node so the dialog will reopen.</param>
+            <returns name="File Path">A string of the file path.</returns>
+        </member>
+        <member name="M:Synthetic.UI.DialogRevit.FilterDialog(System.Boolean)">
+            <summary>
+            Opens the Revit Filter dialog box for the editing and creation of view filters.  Note that if multiple filters are made or edited, only one will be returned.
+            </summary>
+            <param name="Toggle">Toggle to re-display the dialog.</param>
+            <returns name="Filter Name">The name of the primary filter created.  Note that if multiple filters are made or edited, only one will be returned.</returns>
+            <returns name="Filter Id">The element Id of the filter.</returns>
+        </member>
+        <member name="T:Synthetic.UI.DialogRevitTask">
+            <summary>
+            Manages Revit standard Task Dialogs
+            </summary>
+        </member>
+        <member name="P:Synthetic.UI.DialogRevitTask.dialog">
+            <summary>
+            Internal property that stores the Revit TaskDialog object.
+            </summary>
+        </member>
+        <member name="M:Synthetic.UI.DialogRevitTask.#ctor(Autodesk.Revit.UI.TaskDialog)">
+            <summary>
+            Intneral constructor that takes a Revit TaskDialog object
+            </summary>
+            <param name="TaskDialog">A Revit TaskDialog object.</param>
+        </member>
+        <member name="M:Synthetic.UI.DialogRevitTask.#ctor(System.String)">
+            <summary>
+            Internal constructor that takes a title.
+            </summary>
+            <param name="title">The title of the dialog</param>
+        </member>
+        <member name="M:Synthetic.UI.DialogRevitTask.ByTitle(System.String)">
+            <summary>
+            Creates a Revit Task Dialog and sets it Title.  Otherwise, the dialog is empty.
+            </summary>
+            <param name="Title">Title of the dialog.</param>
+            <returns name="TaskDialog">A new task dialog.</returns>
+        </member>
+        <member name="M:Synthetic.UI.DialogRevitTask.ByAllProperties(System.String,System.String,System.String,System.String,Synthetic.Core.Dictionary,Synthetic.Core.Dictionary,Synthetic.Core.Dictionary,System.Boolean)">
+            <summary>
+            Creates a Revit Task Dialog.  The dialog can be configured in a variety of ways.  Additional options are available if you use the ByTitle method.
+            </summary>
+            <param name="Title">The Title of the dialog box.</param>
+            <param name="Instructions">Instructions are written in a large font at the top of the dialog.</param>
+            <param name="Content">Detailed content to be included.</param>
+            <param name="FooterText">Footer text.  Useful for providing links to help content.</param>
+            <param name="Buttons">A dictionary of the desired buttons.  Use the SpecifyButtons method to create the dictionary.</param>
+            <param name="CommandLinks">A dictionary of the desired CommandLinks and associated text.  Use the SpecifyCommandLinks to create the dictionary.</param>
+            <param name="Results">A dictionary of the possible results of the dialog.  Use the SpecifyResults method to create the dictionary.</param>
+            <param name="Toggle">Resets the node so the dialog will reopen.</param>
+            <returns name="Result">Returns the corresponding result based on the command link or button selected.  Will return null if the chosen button or command link has no result.  If now Results are input, the TaskDialogResult from the choice will be returned.</returns>
+        </member>
+        <member name="M:Synthetic.UI.DialogRevitTask.ResetDialog(Synthetic.UI.DialogRevitTask,System.Boolean)">
+            <summary>
+            Resets all the Task Dialogs properties and settings.
+            </summary>
+            <param name="TaskDialog">A task dialog.</param>
+            <param name="toggle">Resets the node.</param>
+            <returns name="TaskDialog">The task dialog with a new Revit dialog.</returns>
+        </member>
+        <member name="M:Synthetic.UI.DialogRevitTask.SpecifyButtons(System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean)">
+            <summary>
+            Creates a dictionary for setting the common buttons in a task dialog.
+            </summary>
+            <param name="None">Set an empty button.  If you include any other buttons, this setting will be overriden.</param>
+            <param name="Ok">Include an Ok button.</param>
+            <param name="Yes">Include a Yes button.</param>
+            <param name="No">Include a No button.</param>
+            <param name="Cancel">Include a Cancel button.</param>
+            <param name="Retry">Include a Retry button.</param>
+            <param name="Close">Include a Close button.</param>
+            <returns name="Buttons">A dictionary for setting the common buttons.</returns>
+        </member>
+        <member name="M:Synthetic.UI.DialogRevitTask.SpecifyCommandLinks(System.String,System.String,System.String,System.String)">
+            <summary>
+            Creates a dictionary for setting the Command Links in a Task Dialog.  Up to four command links can be specified.
+            </summary>
+            <param name="CommandLink1">The text to be included in the command link.</param>
+            <param name="CommandLink2">The text to be included in the command link.</param>
+            <param name="CommandLink3">The text to be included in the command link.</param>
+            <param name="CommandLink4">The text to be included in the command link.</param>
+            <returns name="CommandLinks">A dectionary for setting the Command Links.</returns>
+        </member>
+        <member name="M:Synthetic.UI.DialogRevitTask.SpecifyResults(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
+            <summary>
+            A dictionary of possible results that correspond to the possible buttons and command links used by the Task Dialog.  Be careful to proivde consistent results as any object can be passed as a result.  In addition, one can pass a function as evaluate the results after the choice is made.  This could save computation time in more complex definitions.
+            </summary>
+            <param name="None">Result to be returned if this choice is chosen.</param>
+            <param name="Ok">Result to be returned if this choice is chosen.</param>
+            <param name="Cancel">Result to be returned if this choice is chosen.</param>
+            <param name="Retry">Result to be returned if this choice is chosen.</param>
+            <param name="Yes">Result to be returned if this choice is chosen.</param>
+            <param name="No">Result to be returned if this choice is chosen.</param>
+            <param name="Close">Result to be returned if this choice is chosen.</param>
+            <param name="CommandLink1">Result to be returned if this choice is chosen.</param>
+            <param name="CommandLink2">Result to be returned if this choice is chosen.</param>
+            <param name="CommandLink3">Result to be returned if this choice is chosen.</param>
+            <param name="CommandLink4">Result to be returned if this choice is chosen.</param>
+            <returns name="Results">A dictionary of possible results.</returns>
+        </member>
+        <member name="M:Synthetic.UI.DialogRevitTask.AddCommonButtons(Synthetic.UI.DialogRevitTask,Synthetic.Core.Dictionary)">
+            <summary>
+            Adds commmon buttons to a Task Dialog given a dictionary specification.
+            </summary>
+            <param name="TaskDialog">A Task dialog.</param>
+            <param name="Buttons">A dictionary of specificed buttons.</param>
+            <returns name="TaskDialog">The modified Task dialog.</returns>
+        </member>
+        <member name="M:Synthetic.UI.DialogRevitTask.AddCommandLinks(Synthetic.UI.DialogRevitTask,Synthetic.Core.Dictionary)">
+            <summary>
+            Adds Command Links to a Task Dialog given a dictionary specification.
+            </summary>
+            <param name="TaskDialog">A Task dialog.</param>
+            <param name="CommandLinks">A dictionary of specificed command links.</param>
+            <returns name="TaskDialog">The modified Task dialog.</returns>
+        </member>
+        <member name="M:Synthetic.UI.DialogRevitTask.Show(Synthetic.UI.DialogRevitTask,System.Boolean)">
+            <summary>
+            Displays the task dialog box.
+            </summary>
+            <param name="TaskDialog">A Task dialog.</param>
+            <param name="Toggle">A toggle used to re-display the Task Dialog.</param>
+            <returns name="DialogResult">A TaskDialogResult based on the button or command link that was chosen.</returns>
+        </member>
+        <member name="M:Synthetic.UI.DialogRevitTask.FilterResults(Autodesk.Revit.UI.TaskDialogResult,Synthetic.Core.Dictionary)">
+            <summary>
+            Retrieve the a result from the possible results.  Will return null if the result does not have a corresponding choice.
+            </summary>
+            <param name="DialogResult">The value from the Task dialog.</param>
+            <param name="Results">A dictionary of possible results.</param>
+            <returns name="Result">The chosen result.</returns>
+        </member>
+        <member name="M:Synthetic.UI.DialogRevitTask.SetContent(Synthetic.UI.DialogRevitTask,System.String)">
+            <summary>
+            Sets the content section of the task dialog.
+            </summary>
+            <param name="TaskDialog">A Task dialog.</param>
+            <param name="content">The content to be included</param>
+            <returns name="TaskDialog">The modified Task dialog.</returns>
+        </member>
+        <member name="M:Synthetic.UI.DialogRevitTask.SetInstructions(Synthetic.UI.DialogRevitTask,System.String)">
+            <summary>
+            Sets the instructions portion of the task dialog.
+            </summary>
+            <param name="TaskDialog">A Task dialog.</param>
+            <param name="instructions">The instructions to be included</param>
+            <returns name="TaskDialog">The modified Task dialog.</returns>
+        </member>
+        <member name="M:Synthetic.UI.DialogRevitTask.SetTitle(Synthetic.UI.DialogRevitTask,System.String)">
+            <summary>
+            Sets the Title of the Task dialog.
+            </summary>
+            <param name="TaskDialog">A Task dialog.</param>
+            <param name="title">The titl to be included.</param>
+            <returns name="TaskDialog">The modified Task dialog.</returns>
+        </member>
+        <member name="M:Synthetic.UI.DialogRevitTask.SetTitleAutoPrefix(Synthetic.UI.DialogRevitTask,System.Boolean)">
+            <summary>
+            Sets whether to include the name of the add-in as a prefix to the title.
+            </summary>
+            <param name="TaskDialog">A Task dialog.</param>
+            <param name="prefix">If true, show the prefix, else do not.</param>
+            <returns name="TaskDialog">The modified Task dialog.</returns>
+        </member>
+        <member name="M:Synthetic.UI.DialogRevitTask.SetFooterText(Synthetic.UI.DialogRevitTask,System.String)">
+            <summary>
+            Sets the Footer text of the Task dialog.
+            </summary>
+            <param name="TaskDialog">A Task dialog.</param>
+            <param name="FooterText">Footer text to be included.</param>
+            <returns name="TaskDialog">The modified Task dialog.</returns>
+        </member>
+        <member name="M:Synthetic.UI.DialogRevitTask.SetExpandedContent(Synthetic.UI.DialogRevitTask,System.String)">
+            <summary>
+            Sets the Expanded Content of the Task dialog.  Expanded content is the portion at the bottom with an arrow to display more information.
+            </summary>
+            <param name="TaskDialog">A Task dialog.</param>
+            <param name="ExpandedContent">Expanded content to be included.</param>
+            <returns name="TaskDialog">The modified Task dialog.</returns>
+        </member>
+        <member name="M:Synthetic.UI.DialogRevitTask.SetVerificationText(Synthetic.UI.DialogRevitTask,System.String)">
+            <summary>
+            Set the Verification text of the Task dialog.
+            </summary>
+            <param name="TaskDialog">A Task dialog.</param>
+            <param name="VerificationText">The verification text to be included.</param>
+            <returns name="TaskDialog">The modified Task dialog.</returns>
+        </member>
+        <member name="M:Synthetic.UI.DialogRevitTask.AllowCancellation(Synthetic.UI.DialogRevitTask,System.Boolean)">
+            <summary>
+            Sets whether the dialog box can be canceled or not.
+            </summary>
+            <param name="TaskDialog">A Task dialog.</param>
+            <param name="AllowCancellation">If true, the dialog can be canceled, else it can not.</param>
+            <returns name="TaskDialog">The modified Task dialog.</returns>
+        </member>
+        <member name="M:Synthetic.UI.DialogRevitTask.SetExtraCheckBoxText(Synthetic.UI.DialogRevitTask,System.String)">
+            <summary>
+            Sets the ExtraCheckBox text of the Task dialog.
+            </summary>
+            <param name="TaskDialog">A Task dialog.</param>
+            <param name="ExtraCheckBoxText">ExtraCheckBox text to be included.</param>
+            <returns name="TaskDialog">The modified Task dialog.</returns>
+        </member>
+        <member name="M:Synthetic.UI.DialogRevitTask.ToString">
+            <summary>
+            Represents the Dialog box in a string format.
+            </summary>
+            <returns name="string">A string representation</returns>
+        </member>
+        <member name="M:Synthetic.UI.DialogRevitTask.TaskDialogResults">
+            <summary>
+            Retrieves all the TaskDialogResults enumerations.
+            </summary>
+            <returns name="TaskDialogResults">TaskDialogResults enumerations</returns>
+        </member>
+        <member name="M:Synthetic.UI.DialogRevitTask.TaskDialogCommonButtons">
+            <summary>
+            Retrieves all the TaskDialogCommonButtons enumerations.
+            </summary>
+            <returns name="TaskDialogCommonButtons">TaskDialogCommonButtons enumerations</returns>
+        </member>
+        <member name="M:Synthetic.UI.DialogRevitTask.TaskDialogCommandLinkId">
+            <summary>
+            Retrieves all the TaskDialogCommandLinkId enumerations.
+            </summary>
+            <returns name="TaskDialogCommandLinkId">TaskDialogCommandLinkId enumerations</returns>
+        </member>
+        <member name="T:Synthetic.UI.DialogOS">
+            <summary>
+            Handles OS Dialog boxes.
+            </summary>
+        </member>
+        <member name="M:Synthetic.UI.DialogOS.FileOpen(System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Creates a Open File Dialog box with inputs for filtering the file type and whether the multiple files can be selected.
+            </summary>
+            <param name="fileTypeFilter">A string that filters the file types to be selected.  Format should be as follows: display value|file type.  For example "Text (*.txt)|*.txt"</param>
+            <param name="multiSelect">True allows multiple files to be selected, false allows only a single file.</param>
+            <param name="reset">Resets the node so the dialog will reopen.</param>
+            <returns name="File Path">A string of the file path.</returns>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,165 @@
+{
+  "Uuid": "20119115-bd11-4c1a-8b03-9c1eed1fd1a7",
+  "IsCustomNode": true,
+  "Category": "Data-Shapes.Revit.Elements",
+  "Description": "Returns a boolean value indicating wether a ViewTemplate is applied to any view in the project or not. This won't work for 3D templates. ",
+  "Name": "ViewTemplate.IsApplied",
+  "ElementResolver": {
+    "ResolutionMap": {}
+  },
+  "Inputs": [],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "#Copyright (c) Data Shapes - Mostafa El Ayoubi ,  2018\n# @data_shapes ,  www.data-shapes.io , contact@data-shapes.io\n\nimport clr\nclr.AddReference('RevitAPI')\nfrom Autodesk.Revit.DB import *\nclr.AddReference('RevitServices')\nfrom RevitServices.Persistence import DocumentManager\ndoc = DocumentManager.Instance.CurrentDBDocument\n\nallViews = [v for v in FilteredElementCollector(doc).OfClass(View).ToElements() if v.IsValidObject]\n\ndef toList(input):\n\tif isinstance(input,list):\n\t\treturn UnwrapElement(input)\n\telse:\n\t\treturn [UnwrapElement(input)]\n\nViewTemplates = toList(IN[0])\n\nappliedTemplates = []\n\nfor view in allViews:\n\ttry:\n\t\tviewTemplate = view.ViewTemplateId\n\t\tif  viewTemplate not in appliedTemplates:\n\t\t\tappliedTemplates.append(viewTemplate)\n\t\telse:\n\t\t\tcontinue\n\texcept:\n\t\tpass\n\t\t\nisApplied = [] \n\nfor vt in ViewTemplates:\n\ttry:\n\t\tisApplied.append(vt.Id in appliedTemplates)\n\texcept:\n\t\tpass\n\t\t\nOUT = isApplied",
+      "VariableInputPorts": true,
+      "Id": "c582f61ac59e4965b9f99b76e7a28757",
+      "Inputs": [
+        {
+          "Id": "044a0666bc21498fb5f44c0b26b328d1",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "05c0fa33601b4238bac8d8cd8ac6cee2",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded IronPython script."
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Symbol, DynamoCore",
+      "NodeType": "InputNode",
+      "Parameter": {
+        "Name": "ViewTemplate_",
+        "TypeName": "var",
+        "TypeRank": -1,
+        "DefaultValue": null,
+        "Description": ""
+      },
+      "Id": "5f9f60480c894b9ca53a12c816985467",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "80193251df9f4f71aac210bdb80cdecc",
+          "Name": "",
+          "Description": "Symbol",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "A function parameter, use with custom nodes.\r\n\r\nYou can specify the type and default value for parameter. E.g.,\r\n\r\ninput : var[]..[]\r\nvalue : bool = false"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Output, DynamoCore",
+      "NodeType": "OutputNode",
+      "ElementResolver": null,
+      "Symbol": "bool",
+      "Id": "7184d456048b43babd59be180183347b",
+      "Inputs": [
+        {
+          "Id": "0c37dd33d18d433c8adf46a1a6e04df4",
+          "Name": "",
+          "Description": "",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [],
+      "Replication": "Disabled",
+      "Description": "A function output, use with custom nodes"
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "05c0fa33601b4238bac8d8cd8ac6cee2",
+      "End": "0c37dd33d18d433c8adf46a1a6e04df4",
+      "Id": "3357c0fe230e49eaad0399f76c59eac1"
+    },
+    {
+      "Start": "80193251df9f4f71aac210bdb80cdecc",
+      "End": "044a0666bc21498fb5f44c0b26b328d1",
+      "Id": "f925aedf860d4443943828e27a882314"
+    }
+  ],
+  "Dependencies": [],
+  "NodeLibraryDependencies": [],
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": false,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.3.0.5885",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "Background Preview",
+      "EyeX": -17.0,
+      "EyeY": 24.0,
+      "EyeZ": 50.0,
+      "LookX": 12.0,
+      "LookY": -13.0,
+      "LookZ": -58.0,
+      "UpX": 0.0,
+      "UpY": 1.0,
+      "UpZ": 0.0
+    },
+    "NodeViews": [
+      {
+        "ShowGeometry": true,
+        "Name": "ViewTemplate.IsApplied",
+        "Id": "c582f61ac59e4965b9f99b76e7a28757",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 250.0,
+        "Y": 0.0
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Input",
+        "Id": "5f9f60480c894b9ca53a12c816985467",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 0.0,
+        "Y": 0.0
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Output",
+        "Id": "7184d456048b43babd59be180183347b",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 485.0,
+        "Y": 0.0
+      }
+    ],
+    "Annotations": [],
+    "X": 187.0,
+    "Y": 147.0,
+    "Zoom": 1.0
+  }
+}

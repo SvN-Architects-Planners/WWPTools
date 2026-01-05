@@ -1,0 +1,163 @@
+{
+  "Uuid": "ca67720f-9719-431b-9d33-fddf2a96285b",
+  "IsCustomNode": true,
+  "Category": "archilab.Revit.Floors",
+  "Description": "This node return floor area. ",
+  "Name": "Floor.Area",
+  "ElementResolver": {
+    "ResolutionMap": {}
+  },
+  "Inputs": [],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "# Copyright(c) 2016, Konrad K Sobon\n# @arch_laboratory, http://archi-lab.net\n\n# Import RevitAPI\nimport clr\nclr.AddReference(\"RevitAPI\")\nimport Autodesk\nfrom Autodesk.Revit.DB import *\n\n#The inputs to this node will be stored as a list in the IN variable.\ndataEnteringNode = IN\n\ndef Unwrap(item):\n\treturn UnwrapElement(item)\n\ndef ProcessList(_func, _list):\n    return map( lambda x: process_list(_func, x) if type(x)==list else _func(x), _list )\n\ndef FloorArea(item):\n\treturn item.get_Parameter(BuiltInParameter.HOST_AREA_COMPUTED).AsValueString()\n\nif isinstance(IN[0], list):\n\telements = ProcessList(Unwrap, IN[0])\nelse:\n\telements = [Unwrap(IN[0])]\n\n#Assign your output to the OUT variable\nOUT = ProcessList(FloorArea, elements)",
+      "VariableInputPorts": true,
+      "Id": "7b5c0d9e47d94bc7a75e92a803368ae4",
+      "Inputs": [
+        {
+          "Id": "f1aecc5fec9547ddb1abb21b6649dff9",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "5c0f65a1c2274140981d43b0f530bb1e",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded IronPython script."
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Symbol, DynamoCore",
+      "NodeType": "InputNode",
+      "Parameter": {
+        "Name": "_floor",
+        "TypeName": "var",
+        "TypeRank": -1,
+        "DefaultValue": null,
+        "Description": ""
+      },
+      "Id": "bee368f694114503a73cd47d2b91d8f2",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "08ac1cd95e704f95826ebe5fdadd2b12",
+          "Name": "",
+          "Description": "Symbol",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "A function parameter, use with custom nodes.\r\n\r\nYou can specify the type and default value for parameter. E.g.,\r\n\r\ninput : var[]..[]\r\nvalue : bool = false"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Output, DynamoCore",
+      "NodeType": "OutputNode",
+      "Symbol": "_area",
+      "Id": "90691b1300704a379c73ff3e004d59a7",
+      "Inputs": [
+        {
+          "Id": "77b72e6871154a8fae63801857562eb9",
+          "Name": "",
+          "Description": "",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [],
+      "Replication": "Disabled",
+      "Description": "A function output, use with custom nodes"
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "5c0f65a1c2274140981d43b0f530bb1e",
+      "End": "77b72e6871154a8fae63801857562eb9",
+      "Id": "d8f73c647efe4e619adbc07c5a5dee10"
+    },
+    {
+      "Start": "08ac1cd95e704f95826ebe5fdadd2b12",
+      "End": "f1aecc5fec9547ddb1abb21b6649dff9",
+      "Id": "3085a7a2530747e98123fbc36bccb279"
+    }
+  ],
+  "Dependencies": [],
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": false,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.2.1.5175",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "Background Preview",
+      "EyeX": -17.0,
+      "EyeY": 24.0,
+      "EyeZ": 50.0,
+      "LookX": 12.0,
+      "LookY": -13.0,
+      "LookZ": -58.0,
+      "UpX": 0.0,
+      "UpY": 1.0,
+      "UpZ": 0.0
+    },
+    "NodeViews": [
+      {
+        "ShowGeometry": true,
+        "Name": "Python Script",
+        "Id": "7b5c0d9e47d94bc7a75e92a803368ae4",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 568.130048590775,
+        "Y": 232.982400117108
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Input",
+        "Id": "bee368f694114503a73cd47d2b91d8f2",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 440.008459858713,
+        "Y": 230.910614128924
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Output",
+        "Id": "90691b1300704a379c73ff3e004d59a7",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 734.426932002448,
+        "Y": 232.903294143433
+      }
+    ],
+    "Annotations": [],
+    "X": -243.499737913967,
+    "Y": -122.345133117351,
+    "Zoom": 1.33823125
+  }
+}

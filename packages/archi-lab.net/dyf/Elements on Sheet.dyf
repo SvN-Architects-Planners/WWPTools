@@ -1,0 +1,208 @@
+{
+  "Uuid": "c97ab529-0007-4aff-855b-ee90a0dcfbce",
+  "IsCustomNode": true,
+  "Category": "archilab.Revit.Sheets",
+  "Description": "This node will return elements on sheet.",
+  "Name": "Elements on Sheet",
+  "ElementResolver": {
+    "ResolutionMap": {}
+  },
+  "Inputs": [],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "#Copyright(c) 2015, Konrad Sobon\n# @arch_laboratory, http://archi-lab.net\n\nimport clr\nclr.AddReference('ProtoGeometry')\nfrom Autodesk.DesignScript.Geometry import *\n\n# Import ToDSType(bool) extension method\nclr.AddReference('RevitNodes')\nimport Revit\nclr.ImportExtensions(Revit.Elements)\n\n# Import DocumentManager and TransactionManager\nclr.AddReference('RevitServices')\nimport RevitServices\nfrom RevitServices.Persistence import DocumentManager\nfrom RevitServices.Transactions import TransactionManager\n\n# Import RevitAPI\nclr.AddReference('RevitAPI')\nimport Autodesk\nfrom Autodesk.Revit.DB import *\n\ndoc = DocumentManager.Instance.CurrentDBDocument\n\n#The inputs to this node will be stored as a list in the IN variable.\ndataEnteringNode = IN\n\nelements = []\nfor i in IN[0]:\n\telements.append(UnwrapElement(i))\n\nTransactionManager.Instance.EnsureInTransaction(doc)\n\nschName, schId, ids = [], [], []\nfor i in elements:\n\ttrans = SubTransaction(doc)\n\ttrans.Start()\n\tids.append(doc.Delete(i.Id))\n\ttrans.RollBack()\n\nTransactionManager.Instance.TransactionTaskDone()\n\n\n\nelementsOnSheet = []\nelementsOnSheet1 = []\nfor i in ids:\n\tfor j in i:\n\t\tif doc.GetElement(j) != None:\n\t\t\telementsOnSheet.append(doc.GetElement(j).GetType())\n\t\t\telementsOnSheet1.append(doc.GetElement(j))\n\nOUT = elementsOnSheet1",
+      "VariableInputPorts": true,
+      "Id": "2799c943505f48c0a92f57a87e5c474f",
+      "Inputs": [
+        {
+          "Id": "b35a8114daa641c8b8555bdded3cfb0d",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "48a5b6bff30d40c6a3861aee08ec7b2c",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded IronPython script."
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "Revit.Transaction.Transaction.End@var",
+      "Id": "9e49e75f1e544b0f893ab19a17c972d9",
+      "Inputs": [
+        {
+          "Id": "60eaa47de20e44f38e3fdebf2407d0bd",
+          "Name": "input",
+          "Description": "An object.\n\nvar",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "7bb0cccf46e84ccdb298e65ae7ddd1e2",
+          "Name": "var[]..[]",
+          "Description": "var[]..[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Ends the current Dynamo transaction, returning whatever was passed in.\n\nTransaction.End (input: var): var[]..[]"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Symbol, DynamoCore",
+      "NodeType": "InputNode",
+      "Parameter": {
+        "Name": "_sheets",
+        "TypeName": "var",
+        "TypeRank": -1,
+        "DefaultValue": null,
+        "Description": ""
+      },
+      "Id": "5c8b7904b4b64d3c86c68a5b40b25cb0",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "f3cdd97915144e8ebaa89b56e5a9d968",
+          "Name": "",
+          "Description": "Symbol",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "A function parameter, use with custom nodes.\r\n\r\nYou can specify the type and default value for parameter. E.g.,\r\n\r\ninput : var[]..[]\r\nvalue : bool = false"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Output, DynamoCore",
+      "NodeType": "OutputNode",
+      "Symbol": "_out",
+      "Id": "8830807df3854714a7acbaa425d0d703",
+      "Inputs": [
+        {
+          "Id": "e62bfb3e35614579aefbd0bbb7d31214",
+          "Name": "",
+          "Description": "",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [],
+      "Replication": "Disabled",
+      "Description": "A function output, use with custom nodes"
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "48a5b6bff30d40c6a3861aee08ec7b2c",
+      "End": "60eaa47de20e44f38e3fdebf2407d0bd",
+      "Id": "5d0f6d9360ac4c1e92f3cbe98a5349fd"
+    },
+    {
+      "Start": "7bb0cccf46e84ccdb298e65ae7ddd1e2",
+      "End": "e62bfb3e35614579aefbd0bbb7d31214",
+      "Id": "db550e0183ca40898e4d033208346057"
+    },
+    {
+      "Start": "f3cdd97915144e8ebaa89b56e5a9d968",
+      "End": "b35a8114daa641c8b8555bdded3cfb0d",
+      "Id": "69764680aaef40ed8cf23c105761ce9f"
+    }
+  ],
+  "Dependencies": [],
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": false,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.2.1.5175",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "Background Preview",
+      "EyeX": -17.0,
+      "EyeY": 24.0,
+      "EyeZ": 50.0,
+      "LookX": 12.0,
+      "LookY": -13.0,
+      "LookZ": -58.0,
+      "UpX": 0.0,
+      "UpY": 1.0,
+      "UpZ": 0.0
+    },
+    "NodeViews": [
+      {
+        "ShowGeometry": true,
+        "Name": "Python Script",
+        "Id": "2799c943505f48c0a92f57a87e5c474f",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 350.0,
+        "Y": 306.076645571851
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Transaction.End",
+        "Id": "9e49e75f1e544b0f893ab19a17c972d9",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 472.33868597502715,
+        "Y": 288.87922023940183
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Input",
+        "Id": "5c8b7904b4b64d3c86c68a5b40b25cb0",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 186.5493071545,
+        "Y": 301.465776704246
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Output",
+        "Id": "8830807df3854714a7acbaa425d0d703",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 739.518011180803,
+        "Y": 298.476756682483
+      }
+    ],
+    "Annotations": [],
+    "X": 74.0307625,
+    "Y": -162.754048191145,
+    "Zoom": 1.33823125
+  }
+}

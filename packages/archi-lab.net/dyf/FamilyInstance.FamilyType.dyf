@@ -1,0 +1,163 @@
+{
+  "Uuid": "21d38796-5455-492f-bfe7-8c787fac472e",
+  "IsCustomNode": true,
+  "Category": "archilab.Revit.FamilyInstances",
+  "Description": "This node will return a  Family Type of a given Family Instance. If no Family Type can be assigned to a Family then it will return Null. ",
+  "Name": "FamilyInstance.FamilyType",
+  "ElementResolver": {
+    "ResolutionMap": {}
+  },
+  "Inputs": [],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "# Copyright(c) 2016, Konrad K Sobon\n# @arch_laboratory, http://archi-lab.net\n\n# Import Element wrapper extension methods\nimport clr\nclr.AddReference(\"RevitNodes\")\nimport Revit\nclr.ImportExtensions(Revit.Elements)\n\n# Import DocumentManager and TransactionManager\nclr.AddReference(\"RevitServices\")\nimport RevitServices\nfrom RevitServices.Persistence import DocumentManager\nfrom RevitServices.Transactions import TransactionManager\ndoc = DocumentManager.Instance.CurrentDBDocument\n\n# Import RevitAPI\nclr.AddReference(\"RevitAPI\")\nimport Autodesk\nfrom Autodesk.Revit.DB import *\n\nimport sys\npyt_path = r'C:\\Program Files (x86)\\IronPython 2.7\\Lib'\nsys.path.append(pyt_path)\n\n#The inputs to this node will be stored as a list in the IN variable.\ndataEnteringNode = IN\n\ndef Unwrap(item):\n\treturn UnwrapElement(item)\n\ndef ProcessList(_func, _list):\n    return map( lambda x: ProcessList(_func, x) if type(x)==list else _func(x), _list )\n\ndef GetFamilyType(famInst):\n\ttry:\n\t\tid = famInst.GetTypeId()\n\t\tif id == ElementId.InvalidElementId:\n\t\t\treturn None\n\t\telse:\n\t\t\treturn doc.GetElement(id)\n\texcept:\n\t\treturn None\n\t\tpass\n\nif isinstance(IN[0], list):\n\telements = ProcessList(Unwrap, IN[0])\nelse:\n\telements = [Unwrap(IN[0])]\n\ntry:\n\terrorReport = None\n\toutput = ProcessList(GetFamilyType, elements)\nexcept:\n\t# if error accurs anywhere in the process catch it\n\timport traceback\n\terrorReport = traceback.format_exc()\n\n#Assign your output to the OUT variable\nif errorReport == None:\n\tOUT = output\nelse:\n\tOUT = errorReport",
+      "VariableInputPorts": true,
+      "Id": "e8b05b63f7464997ab990029221937b2",
+      "Inputs": [
+        {
+          "Id": "a6b2641315ce4959ac4aeb0bd5fb7d74",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "5bd33fdcc1cc43fbb2a7e4434124e6cc",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded IronPython script."
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Symbol, DynamoCore",
+      "NodeType": "InputNode",
+      "Parameter": {
+        "Name": "_familyInstance",
+        "TypeName": "var",
+        "TypeRank": -1,
+        "DefaultValue": null,
+        "Description": ""
+      },
+      "Id": "28131dcb90be4edf8ff0da49aa325d02",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "f3567427988a442996bb7f246198a3ff",
+          "Name": "",
+          "Description": "Symbol",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "A function parameter, use with custom nodes.\r\n\r\nYou can specify the type and default value for parameter. E.g.,\r\n\r\ninput : var[]..[]\r\nvalue : bool = false"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Output, DynamoCore",
+      "NodeType": "OutputNode",
+      "Symbol": "_familyType",
+      "Id": "ae67713e994f47eeb93e4beb47093d5b",
+      "Inputs": [
+        {
+          "Id": "dd70f7c26d824a2ab8283e32ae88b510",
+          "Name": "",
+          "Description": "",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [],
+      "Replication": "Disabled",
+      "Description": "A function output, use with custom nodes"
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "5bd33fdcc1cc43fbb2a7e4434124e6cc",
+      "End": "dd70f7c26d824a2ab8283e32ae88b510",
+      "Id": "3b053ebaa32341c081cf7bf8e6701653"
+    },
+    {
+      "Start": "f3567427988a442996bb7f246198a3ff",
+      "End": "a6b2641315ce4959ac4aeb0bd5fb7d74",
+      "Id": "34dc0f61debc4157b6b4dab0ed69db07"
+    }
+  ],
+  "Dependencies": [],
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": false,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.2.1.5175",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "Background Preview",
+      "EyeX": -17.0,
+      "EyeY": 24.0,
+      "EyeZ": 50.0,
+      "LookX": 12.0,
+      "LookY": -13.0,
+      "LookZ": -58.0,
+      "UpX": 0.0,
+      "UpY": 1.0,
+      "UpZ": 0.0
+    },
+    "NodeViews": [
+      {
+        "ShowGeometry": true,
+        "Name": "Python Script",
+        "Id": "e8b05b63f7464997ab990029221937b2",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 654.69826511111,
+        "Y": 317.79353305593
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Input",
+        "Id": "28131dcb90be4edf8ff0da49aa325d02",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 461.692238944419,
+        "Y": 312.433650632767
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Output",
+        "Id": "ae67713e994f47eeb93e4beb47093d5b",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 812.107255445113,
+        "Y": 312.433650632767
+      }
+    ],
+    "Annotations": [],
+    "X": -512.473982998359,
+    "Y": -286.256460055537,
+    "Zoom": 1.78359936238281
+  }
+}

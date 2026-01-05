@@ -1,0 +1,4293 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>archilab2024</name>
+    </assembly>
+    <members>
+        <member name="T:archilab.Core.DateTimes">
+            <summary>
+            Wrapper class for some basic DateTime operations.
+            </summary>
+        </member>
+        <member name="M:archilab.Core.DateTimes.FromUnixTime(System.Int64)">
+            <summary>
+            Returns a DateTime from Unix Time.
+            </summary>
+            <param name="unixTime">Unix time is number of seconds since 1st January 1970</param>
+            <returns>Date Time</returns>
+        </member>
+        <member name="M:archilab.Core.DateTimes.ParseExact(System.String,System.String)">
+            <summary>
+            Parses a date time string into a DateTime object.
+            </summary>
+            <param name="dateTime">String representation of date and time to parse./</param>
+            <param name="format">Format the the string is in. Ex. DDMMYY</param>
+            <returns>Date Time</returns>
+        </member>
+        <member name="M:archilab.Core.DateTimes.TotalMilliseconds(System.DateTime)">
+            <summary>
+            Converts a Date Time object into number of total milliseconds that passed since epoch.
+            </summary>
+            <param name="dateTime">Date Time to process.</param>
+            <returns>Number of Milliseconds that passed since Epoch (1970/1/1)</returns>
+        </member>
+        <member name="M:archilab.Core.DateTimes.TotalSeconds(System.DateTime)">
+            <summary>
+            Converts a Date Time object into number of total seconds that passed since epoch.
+            </summary>
+            <param name="dateTime">Date Time to process.</param>
+            <returns>Number of Seconds that passed since Epoch (1970/1/1)</returns>
+        </member>
+        <member name="M:archilab.Core.DateTimes.TotalMinutes(System.DateTime)">
+            <summary>
+            Converts a Date Time object into number of total minutes that passed since epoch.
+            </summary>
+            <param name="dateTime">Date Time to process.</param>
+            <returns>Number of Minutes that passed since Epoch (1970/1/1)</returns>
+        </member>
+        <member name="M:archilab.Core.DateTimes.TotalHours(System.DateTime)">
+            <summary>
+            Converts a Date Time object into number of total hours that passed since epoch.
+            </summary>
+            <param name="dateTime">Date Time to process.</param>
+            <returns>Number of Hours that passed since Epoch (1970/1/1)</returns>
+        </member>
+        <member name="M:archilab.Core.DateTimes.TotalDays(System.DateTime)">
+            <summary>
+            Converts a Date Time object into number of total Days that passed since epoch.
+            </summary>
+            <param name="dateTime">Date Time to process.</param>
+            <returns>Number of Days that passed since Epoch (1970/1/1)</returns>
+        </member>
+        <member name="T:archilab.Core.Dictionaries">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:archilab.Core.Dictionaries.TryGetValueAtKey(DesignScript.Builtin.Dictionary,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="dictionary"></param>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="T:archilab.Core.Maths">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:archilab.Core.Maths.Round(System.Double,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="number"></param>
+            <param name="roundingType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Core.Maths.Round(System.Double,System.Int32,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="number"></param>
+            <param name="decimals"></param>
+            <param name="roundingType"></param>
+            <returns></returns>
+        </member>
+        <member name="T:archilab.Core.Strings">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:archilab.Core.Strings.Replace(System.String,System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.String})">
+            <summary>
+            
+            </summary>
+            <param name="str"></param>
+            <param name="searchFor"></param>
+            <param name="replaceWith"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Core.Strings.RegexMatch(System.String,System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="str"></param>
+            <param name="pattern"></param>
+            <param name="regexOption"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Core.Strings.ToString(System.Int32,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="number"></param>
+            <param name="format"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Core.Strings.IsNullOrWhiteSpace(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Core.Strings.IsNullOrEmpty(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
+        <member name="T:archilab.Core.Types">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:archilab.Core.Types.GetAssemblyQualifiedName(System.Type)">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:archilab.Csv.Csv">
+            <summary>
+            CSV Parsing library.
+            </summary>
+        </member>
+        <member name="M:archilab.Csv.Csv.ValuesByHeaderName(System.String)">
+            <summary>
+            Get values by header name. Use Headers component to get all the names.
+            </summary>
+            <param name="header">Name of the header.</param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Csv.Csv.ValuesByHeaderNumber(System.Int32)">
+            <summary>
+            Get values by header index. You can use ColumnCount to see how many are available or simply grab one row and inspect it.
+            </summary>
+            <param name="header">Index of the header to be retrieved.</param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Csv.Csv.ValuesByRowNumber(System.Int32)">
+            <summary>
+            Get values by row index. You can use RowCount to see how many are available or simply grab one column and inspect it.
+            </summary>
+            <param name="row">Index of the row to be  retrieved.</param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Csv.Csv.ValueByRowAndColumn(System.Int32,System.Int32)">
+            <summary>
+            Get single value by its row and column index.
+            </summary>
+            <param name="row">Row index.</param>
+            <param name="column">Column index.</param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Csv.Csv.RowNumberByHeaderAndString(System.String,System.String)">
+            <summary>
+            Get row number based on column and matching string.
+            </summary>
+            <param name="searchFor">Search string.</param>
+            <param name="header">Header name.</param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Csv.Csv.ByFilePath(System.Object)">
+            <summary>
+            Create CSV file to be parsed.
+            </summary>
+            <param name="filePath"></param>
+            <returns></returns>
+        </member>
+        <member name="P:archilab.Csv.Csv.Headers">
+            <summary>
+            Get Headers.
+            </summary>
+        </member>
+        <member name="P:archilab.Csv.Csv.ColumnCount">
+            <summary>
+            Get Column count.
+            </summary>
+        </member>
+        <member name="P:archilab.Csv.Csv.RowCount">
+            <summary>
+            Get Row count.
+            </summary>
+        </member>
+        <member name="T:archilab.Excel.EPPlus">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:archilab.Excel.EPPlus.MergeCells(System.String,System.String,System.Object)">
+            <summary>
+            Merges ranges of cells into a single cell, setting the value and centering the merged cell.
+            </summary>
+            <param name="worksheet">Worksheet name. If doesn't exist, new worksheet will be created.</param>
+            <param name="range">Range to be merged. Accepted format is 'A1:D1'.</param>
+            <param name="value">Value to be set for merged cells.</param>
+            <returns name="action">An Excel action that will merge cells.</returns>
+        </member>
+        <member name="M:archilab.Excel.EPPlus.WriteByArray(System.String,System.Collections.Generic.List{System.Object[]},System.String)">
+            <summary>
+            Use this action to write data to Excel by array.
+            </summary>
+            <param name="worksheet">Worksheet name. If doesn't exist, new worksheet will be created.</param>
+            <param name="data">An array of data to be written into Excel. Make sure no null values exist.</param>
+            <param name="origin">An origin at which to start writing data e.g. A1.</param>
+            <returns name="action">An Excel action that will write data into Excel.</returns>
+        </member>
+        <member name="M:archilab.Excel.EPPlus.OpenFile(System.String)">
+            <summary>
+            Use this action to open Excel file.
+            </summary>
+            <param name="filePath">File path to Excel file that will be open.</param>
+            <returns name="action">An Excel action that will open the Excel File when processing is completed.</returns>
+        </member>
+        <member name="M:archilab.Excel.EPPlus.ExecuteExcelActions(System.String,System.Collections.Generic.List{System.Object})">
+            <summary>
+            This node will execute all Excel actions. 
+            </summary>
+            <param name="filePath">File to Excel file. If file doesn't exist at this path, new file will be created.</param>
+            <param name="actions">List of Excel Actions to be executed. They will be executed in order that they are supplied.</param>
+        </member>
+        <member name="T:archilab.Excel.ExcelAction">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:archilab.Excel.ExcelAction.Worksheet">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:archilab.Excel.MergeCells">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:archilab.Excel.MergeCells.Range">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:archilab.Excel.MergeCells.Value">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:archilab.Excel.MergeCells.#ctor(System.String,System.String,System.Object)">
+            <summary>
+            
+            </summary>
+            <param name="ws"></param>
+            <param name="range"></param>
+            <param name="value"></param>
+        </member>
+        <member name="T:archilab.Excel.WriteByArray">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:archilab.Excel.WriteByArray.Data">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:archilab.Excel.WriteByArray.Origin">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:archilab.Excel.WriteByArray.#ctor(System.String,System.String,System.Collections.Generic.List{System.Object[]})">
+            <summary>
+            
+            </summary>
+            <param name="ws"></param>
+            <param name="origin"></param>
+            <param name="data"></param>
+        </member>
+        <member name="T:archilab.Excel.OpenFile">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:archilab.Excel.OpenFile.FilePath">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:archilab.Excel.OpenFile.#ctor(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="filePath"></param>
+        </member>
+        <member name="T:archilab.Excel.NamedRange">
+            <summary>
+            Named Range Wrapper
+            </summary>
+        </member>
+        <member name="M:archilab.Excel.NamedRange.#ctor(ClosedXML.Excel.IXLNamedRange)">
+            <summary>
+            
+            </summary>
+            <param name="range"></param>
+        </member>
+        <member name="P:archilab.Excel.NamedRange.Name">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:archilab.Excel.NamedRange.ToString">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:archilab.Excel.Workbook">
+            <summary>
+            Workbook Wrapper
+            </summary>
+        </member>
+        <member name="M:archilab.Excel.Workbook.ByFilePath(System.Object)">
+            <summary>
+            
+            </summary>
+            <param name="filePath"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Excel.Workbook.GetNamedRangeValues(archilab.Excel.NamedRange,archilab.Excel.Worksheet)">
+            <summary>
+            
+            </summary>
+            <param name="namedRange"></param>
+            <param name="worksheet"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Excel.Workbook.NamedRanges">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Excel.Workbook.Worksheets">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Excel.Workbook.ToString">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:archilab.Excel.Worksheet">
+            <summary>
+            Workbook Wrapper
+            </summary>
+        </member>
+        <member name="M:archilab.Excel.Worksheet.#ctor(archilab.Excel.Workbook,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="workbook"></param>
+            <param name="worksheetName"></param>
+        </member>
+        <member name="P:archilab.Excel.Worksheet.Name">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:archilab.Excel.Worksheet.ToString">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:archilab.GitHub.GitHub">
+            <summary>
+            Wrapper classes for GitHub interactions.
+            </summary>
+        </member>
+        <member name="M:archilab.GitHub.GitHub.CreateClient(System.String,System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="baseUrl"></param>
+            <param name="owner"></param>
+            <param name="repo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.GitHub.GitHub.GetStatistics">
+            <summary>
+            Get contributors list with additions, deletions, and commit counts.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.GitHub.GitHub.GetCommitActivity">
+            <summary>
+            Returns the last year of commit activity grouped by week. The days array is a group of commits per day, starting on Sunday.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.GitHub.GitHub.GetCodeFrequency">
+            <summary>
+            Get the number of additions and deletions per week.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.GitHub.GitHub.GetPunchCard">
+            <summary>
+            Get the number of commits per hour in each day.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.GitHub.GitHub.GetParticipation">
+            <summary>
+            Get the weekly commit count for the repository owner and everyone else. 
+            Returns the total commit counts for the owner and total commit counts in all. 
+            All is everyone combined, including the owner in the last 52 weeks. 
+            If you'd like to get the commit counts for non-owners, you can subtract owner from all.
+            The array order is oldest week (index 0) to most recent week.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.GitHub.GitHub.TimestampToDate(System.Int32)">
+            <summary>
+            Converts Unix Epoch timestamp to human readable date/time.
+            </summary>
+            <param name="timestamp">Unix epoch timestamp.</param>
+            <returns></returns>
+        </member>
+        <member name="T:archilab.GitHub.Author">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:archilab.GitHub.Author.Login">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:archilab.GitHub.Author.Id">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:archilab.GitHub.Author.AvatarUrl">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:archilab.GitHub.Author.GravatarId">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:archilab.GitHub.Author.Url">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:archilab.GitHub.Author.HtmlUrl">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:archilab.GitHub.Author.FollowersUrl">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:archilab.GitHub.Author.FollowingUrl">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:archilab.GitHub.Author.GistsUrl">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:archilab.GitHub.Author.StarredUrl">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:archilab.GitHub.Author.SubscriptionsUrl">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:archilab.GitHub.Author.OrganizationsUrl">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:archilab.GitHub.Author.ReposUrl">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:archilab.GitHub.Author.EventsUrl">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:archilab.GitHub.Author.ReceivedEventsUrl">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:archilab.GitHub.Author.Type">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:archilab.GitHub.Author.SiteAdmin">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:archilab.GitHub.Week">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:archilab.GitHub.Week.W">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:archilab.GitHub.Week.A">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:archilab.GitHub.Week.D">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:archilab.GitHub.Week.C">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:archilab.GitHub.Statistics">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:archilab.GitHub.Statistics.author">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:archilab.GitHub.Statistics.total">
+            <summary>
+            The Total number of commits authored by the contributor.
+            </summary>
+        </member>
+        <member name="P:archilab.GitHub.Statistics.weeks">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:archilab.GitHub.Participation">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:archilab.GitHub.Participation.all">
+            <summary>
+            Total commit count for all including owner in the last 52 weeks.
+            </summary>
+        </member>
+        <member name="P:archilab.GitHub.Participation.owner">
+            <summary>
+            Total commit count for owner only in the last 52 weeks.
+            </summary>
+        </member>
+        <member name="T:archilab.GitHub.CommitActivity">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:archilab.GitHub.CommitActivity.days">
+            <summary>
+            group of commits per day, starting on Sunday.
+            </summary>
+        </member>
+        <member name="P:archilab.GitHub.CommitActivity.total">
+            <summary>
+            Total number of coomits per week.
+            </summary>
+        </member>
+        <member name="P:archilab.GitHub.CommitActivity.week">
+            <summary>
+            This is a Unix timestamp also called Unix epoch or Unix time.
+            It's the number of seconds that have elapsed since January 1, 1970 (midnight UTC/GMP), not counting leap seconds. 
+            </summary>
+        </member>
+        <member name="T:archilab.Http.Request">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:archilab.Http.Request.ByStringAndType(System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="requestString"></param>
+            <param name="requestType"></param>
+            <returns></returns>
+        </member>
+        <member name="T:archilab.Lists.Lists">
+            <summary>
+            List related utilities.
+            </summary>
+        </member>
+        <member name="M:archilab.Lists.Lists.RemoveItem(System.Collections.Generic.List{System.Object},System.Object)">
+            <summary>
+            
+            </summary>
+            <param name="list"></param>
+            <param name="item"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Lists.Lists.ReplaceNull(System.Collections.Generic.List{System.Object},System.Object)">
+            <summary>
+            
+            </summary>
+            <param name="list"></param>
+            <param name="replacement"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Lists.Lists.ReplaceEmptyList(System.Collections.Generic.List{System.Collections.Generic.List{System.Object}},System.Object)">
+            <summary>
+            
+            </summary>
+            <param name="list"></param>
+            <param name="replacement"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Lists.Lists.Weave(System.Collections.Generic.List{System.Boolean},System.Collections.Generic.List{System.Object},System.Collections.Generic.List{System.Object})">
+            <summary>
+            
+            </summary>
+            <param name="condition"></param>
+            <param name="ifTrue"></param>
+            <param name="ifFalse"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Lists.Lists.Weave2(System.Collections.Generic.List{System.Boolean},System.Collections.Generic.List{System.Object},System.Collections.Generic.List{System.Object})">
+            <summary>
+            
+            </summary>
+            <param name="condition"></param>
+            <param name="ifTrue"></param>
+            <param name="ifFalse"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Lists.Lists.DuplicateItemIndicies(System.Collections.Generic.List{System.Object})">
+            <summary>
+            Returns a list of Duplicate item indices as well as unique item indices.
+            </summary>
+            <param name="list">List of items to analyze.</param>
+            <returns>List of Unique and Duplicate item indices.</returns>
+        </member>
+        <member name="M:archilab.Lists.Lists.ReplaceItemAtIndex(System.Collections.Generic.List{System.Object},System.Collections.Generic.List{System.Int32},System.Collections.Generic.List{System.Object})">
+            <summary>
+            Replace items in a list based on list of index numbers.
+            </summary>
+            <param name="list">List to operate on.</param>
+            <param name="index">List of index values.</param>
+            <param name="item">List of items to be used as replacements.</param>
+            <returns name="list">Modified list.</returns>
+        </member>
+        <member name="M:archilab.Lists.Lists.SortListByAnother(System.Object[],System.Double[],System.Boolean)">
+            <summary>
+            Sort list by another list.
+            </summary>
+            <param name="list">List to be sorted.</param>
+            <param name="sortBy">List of numbers that will be used to sort by.</param>
+            <param name="reversed">If true order will be set to descending.</param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Lists.Lists.BooleanGate(System.Boolean,System.Object)">
+            <summary>
+            
+            </summary>
+            <param name="pass"></param>
+            <param name="objectToPass"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Lists.Lists.Clean(System.Collections.Generic.List{System.Object})">
+            <summary>
+            
+            </summary>
+            <param name="list"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Lists.Lists.MinIndex(System.Double[])">
+            <summary>
+            
+            </summary>
+            <param name="list"></param>
+            <returns></returns>
+        </member>
+        <member name="T:archilab.Lists.ReverseComparer">
+            <summary>
+            Comparer class that reverses the order of sorting.
+            </summary>
+        </member>
+        <member name="M:archilab.Lists.ReverseComparer.Compare(System.Object,System.Object)">
+            <summary>
+            
+            </summary>
+            <param name="x"></param>
+            <param name="y"></param>
+            <returns></returns>
+        </member>
+        <member name="T:archilab.Maps.GoogleMaps">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:archilab.Maps.GoogleMaps.#ctor(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="apiKey"></param>
+        </member>
+        <member name="M:archilab.Maps.GoogleMaps.DownloadMap(archilab.Maps.MapSettings,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="settings"></param>
+            <param name="filePath"></param>
+            <returns></returns>
+        </member>
+        <member name="T:archilab.Maps.MapSettings">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:archilab.Maps.MapSettings.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:archilab.Maps.MapSettings.#ctor(System.Double,System.Double,System.Int32,System.Int32,System.Int32,System.Int32,System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="lat"></param>
+            <param name="lon"></param>
+            <param name="zoom"></param>
+            <param name="width"></param>
+            <param name="height"></param>
+            <param name="scale"></param>
+            <param name="imageFormat"></param>
+            <param name="mapType"></param>
+        </member>
+        <member name="P:archilab.Maps.MapSettings.MapType">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:archilab.Maps.MapSettings.ImageFormat">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:archilab.Maps.MapSettings.Scale">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:archilab.Maps.MapSettings.Latitude">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:archilab.Maps.MapSettings.Longitude">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:archilab.Maps.MapSettings.Zoom">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:archilab.Maps.MapSettings.Width">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:archilab.Maps.MapSettings.Height">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:archilab.Pdf.PDF">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:archilab.Pdf.PDF.PageCount(System.String)">
+            <summary>
+            Returns page count of a PDF document.
+            </summary>
+            <param name="filePath">File Path to a PDF document.</param>
+            <returns>Number of pages in the PDF.</returns>
+        </member>
+        <member name="T:archilab.Revit.Elements.AppearanceAssets">
+            <summary>
+            Appearance Asset wrapper class.
+            </summary>
+        </member>
+        <member name="M:archilab.Revit.Elements.AppearanceAssets.CreateViaDuplicate(System.String)">
+            <summary>
+            Creates a new Appearance Asset Element via Duplicating of Default material's Appearance Asset Element.
+            </summary>
+            <param name="name">Name of the Appearance Asset to be created.</param>
+            <returns name="appearanceAsset"></returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.AppearanceAssets.SetGenericProperties(Revit.Elements.Element,DSCore.Color,System.Int32,System.Boolean)">
+            <summary>
+            Sets the Generic Properties of an Appearance Asset Element.
+            </summary>
+            <param name="appearanceAsset">Appearance Asset to set the color for.</param>
+            <param name="color">Color that property will be set to.</param>
+            <param name="glossiness">Glossiness value from 1-100</param>
+            <param name="metallic">In Revit this is called Highlights. Set to True for "Metallic" otherwise false.</param>
+            <returns name="appearanceAsset">Appearance Asset with adjusted properties.</returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.AppearanceAssets.SetTransparencyProperties(Revit.Elements.Element,System.Int32)">
+            <summary>
+            Sets the Transparency Properties of an Appearance Asset Element.
+            </summary>
+            <param name="appearanceAsset">Appearance Asset to set the color for.</param>
+            <param name="amount">Value from 1-100</param>
+            <returns name="appearanceAsset">Appearance Asset with adjusted properties.</returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.AppearanceAssets.SetReflectivityProperties(Revit.Elements.Element,System.Int32,System.Int32)">
+            <summary>
+            Sets the Reflectivity Properties of an Appearance Asset Element.
+            </summary>
+            <param name="appearanceAsset">Appearance Asset to set the color for.</param>
+            <param name="directReflectivity">Value from 1-100</param>
+            <param name="obliqueReflectivity">Value from 1-100</param>
+            <returns name="appearanceAsset">Appearance Asset with adjusted properties.</returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.AppearanceAssets.GetTransparencyProperties(Revit.Elements.Element)">
+            <summary>
+            
+            </summary>
+            <param name="appearanceAsset"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.AppearanceAssets.GetReflectivityProperties(Revit.Elements.Element)">
+            <summary>
+            
+            </summary>
+            <param name="appearanceAsset"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.AppearanceAssets.GetSchema(Revit.Elements.Element)">
+            <summary>
+            
+            </summary>
+            <param name="appearanceAsset"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.AppearanceAssets.GetGenericProperties(Revit.Elements.Element)">
+            <summary>
+            
+            </summary>
+            <param name="appearanceAsset"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.AppearanceAssets.GetWallPaintProperties(Revit.Elements.Element)">
+            <summary>
+            
+            </summary>
+            <param name="appearanceAsset"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.AppearanceAssets.GetWallPaintFinish(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="T:archilab.Revit.Elements.Applications">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:archilab.Revit.Elements.Applications.VersionNumber">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:archilab.Revit.Elements.Assemblies">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:archilab.Revit.Elements.Assemblies.AddMembers(Revit.Elements.Element,System.Collections.Generic.List{Revit.Elements.Element})">
+            <summary>
+            
+            </summary>
+            <param name="assembly"></param>
+            <param name="members"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.Assemblies.Members(Revit.Elements.Element)">
+            <summary>
+            
+            </summary>
+            <param name="assembly"></param>
+            <returns></returns>
+        </member>
+        <member name="T:archilab.Revit.Elements.CompoundStructure">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:archilab.Revit.Elements.CompoundStructure.Layers(archilab.Revit.Elements.CompoundStructure)">
+            <summary>
+            Retrieves a list of Layers that make up the Wall Type.
+            </summary>
+            <param name="cs">Compound Structure of the Wall Type.</param>
+            <returns name="csLayer">Returns a list of Compound Structure Layers.</returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.CompoundStructure.ToString">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:archilab.Revit.Elements.CompoundStructureLayer">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:archilab.Revit.Elements.CompoundStructureLayer.ToString">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:archilab.Revit.Elements.ConcaveHull">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:archilab.Revit.Elements.ConcaveHull.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:archilab.Revit.Elements.ConcaveHull.ConcaveHullFromPoints(System.Collections.Generic.List{Autodesk.DesignScript.Geometry.UV},System.Double,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="pts"></param>
+            <param name="concavity"></param>
+            <param name="scaleFactor"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.ConcaveHull.ConvexHullFromPoints(System.Collections.Generic.List{Autodesk.DesignScript.Geometry.UV})">
+            <summary>
+            
+            </summary>
+            <param name="pts"></param>
+            <returns></returns>
+        </member>
+        <member name="T:archilab.Revit.Elements.Connectors">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:archilab.Revit.Elements.Connectors.Connect(archilab.Revit.Elements.Connectors,archilab.Revit.Elements.Connectors)">
+            <summary>
+            
+            </summary>
+            <param name="connector1"></param>
+            <param name="connector2"></param>
+        </member>
+        <member name="P:archilab.Revit.Elements.Connectors.Point">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:archilab.Revit.Elements.Documents">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:archilab.Revit.Elements.Documents.Regenerate(System.Object)">
+            <summary>
+            
+            </summary>
+            <param name="passThrough"></param>
+            <returns></returns>
+        </member>
+        <member name="T:archilab.Revit.Elements.Ducts">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:archilab.Revit.Elements.Ducts.InsertDamper(Revit.Elements.Element,Autodesk.DesignScript.Geometry.Point,Revit.Elements.FamilyType,System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="duct"></param>
+            <param name="point"></param>
+            <param name="damperType"></param>
+            <param name="damperWidth"></param>
+            <param name="damperHeight"></param>
+        </member>
+        <member name="M:archilab.Revit.Elements.Ducts.Split(Revit.Elements.Element,Autodesk.DesignScript.Geometry.Point)">
+            <summary>
+            
+            </summary>
+            <param name="duct"></param>
+            <param name="point"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.Ducts.Location(Revit.Elements.Element)">
+            <summary>
+            
+            </summary>
+            <param name="duct"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.Ducts.Connectors(Revit.Elements.Element)">
+            <summary>
+            
+            </summary>
+            <param name="element"></param>
+            <returns></returns>
+        </member>
+        <member name="T:archilab.Revit.Elements.DuctTypes">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:archilab.Revit.Elements.DuctTypes.Shape(Revit.Elements.Element)">
+            <summary>
+            
+            </summary>
+            <param name="ductType"></param>
+            <returns></returns>
+        </member>
+        <member name="T:archilab.Revit.Elements.FilterRule">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:archilab.Revit.Elements.FilterRule.CreateRule(System.Collections.Generic.List{Revit.Elements.Category},System.String,System.String,System.Object)">
+            <summary>
+            
+            </summary>
+            <param name="categories"></param>
+            <param name="parameterName"></param>
+            <param name="ruleType"></param>
+            <param name="parameterValue"></param>
+            <returns></returns>
+        </member>
+        <member name="T:archilab.Revit.Elements.FilterSet">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:archilab.Revit.Elements.FilterSet.CreateAndSet(System.Collections.Generic.List{archilab.Revit.Elements.FilterRule},System.Collections.Generic.List{archilab.Revit.Elements.FilterSet})">
+            <summary>
+            
+            </summary>
+            <param name="filterRules"></param>
+            <param name="filterSets"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.FilterSet.CreateOrSet(System.Collections.Generic.List{archilab.Revit.Elements.FilterRule},System.Collections.Generic.List{archilab.Revit.Elements.FilterSet})">
+            <summary>
+            
+            </summary>
+            <param name="filterRules"></param>
+            <param name="filterSets"></param>
+            <returns></returns>
+        </member>
+        <member name="T:archilab.Revit.Elements.Grids">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:archilab.Revit.Elements.Grids.SetToViewCropBox(Revit.Elements.Element,Revit.Elements.Views.View)">
+            <summary>
+            
+            </summary>
+            <param name="grid"></param>
+            <param name="view"></param>
+            <returns></returns>
+        </member>
+        <member name="T:archilab.Revit.Elements.ImageExportOptions">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:archilab.Revit.Elements.ImageExportOptions.Create(System.String,System.String,System.String,System.String,System.String,System.String,System.Int32,System.Int32,System.Boolean,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="exportRange"></param>
+            <param name="filePath"></param>
+            <param name="fitDirection"></param>
+            <param name="fileType"></param>
+            <param name="resolution"></param>
+            <param name="viewName"></param>
+            <param name="zoomType"></param>
+            <param name="size"></param>
+            <param name="zoom"></param>
+            <param name="createWebSite"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.ImageExportOptions.SetViewsAndSheets(archilab.Revit.Elements.ImageExportOptions,System.Collections.Generic.List{Revit.Elements.Views.View})">
+            <summary>
+            
+            </summary>
+            <param name="options"></param>
+            <param name="views"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.ImageExportOptions.GetViews(archilab.Revit.Elements.ImageExportOptions)">
+            <summary>
+            
+            </summary>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.ImageExportOptions.GetFileName(Revit.Elements.Views.View)">
+            <summary>
+            
+            </summary>
+            <param name="view"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.ImageExportOptions.IsValidFileName(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="filePath"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.ImageExportOptions.IsValidForSaveToProjectAsImage(archilab.Revit.Elements.ImageExportOptions)">
+            <summary>
+            
+            </summary>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="T:archilab.Revit.Elements.Rebars">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:archilab.Revit.Elements.Rebars.Host(Revit.Elements.Element)">
+            <summary>
+            
+            </summary>
+            <param name="rebar"></param>
+            <returns></returns>
+        </member>
+        <member name="T:archilab.Revit.Elements.RenderingBackgroundSettings">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:archilab.Revit.Elements.RenderingBackgroundSettings.Settings">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:archilab.Revit.Elements.Categories">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:archilab.Revit.Elements.Categories.GetAll">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:archilab.Revit.Elements.CurtainGridLines">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:archilab.Revit.Elements.CurtainGridLines.GetReference(Revit.Elements.Element)">
+            <summary>
+            
+            </summary>
+            <param name="curtainGridLine"></param>
+            <returns></returns>
+        </member>
+        <member name="T:archilab.Revit.Elements.CurtainGrids">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:archilab.Revit.Elements.CurtainGrids.UGrids">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:archilab.Revit.Elements.CurtainGrids.VGrids">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:archilab.Revit.Elements.CurtainGrids.NumULines">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:archilab.Revit.Elements.CurtainGrids.NumVLines">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:archilab.Revit.Elements.CurtainGrids.ToString">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:archilab.Revit.Elements.Dimensions">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:archilab.Revit.Elements.Dimensions.InternalElement">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:archilab.Revit.Elements.Dimensions.#ctor(Autodesk.Revit.DB.View,Autodesk.Revit.DB.Line,Autodesk.Revit.DB.ReferenceArray,Autodesk.Revit.DB.DimensionType)">
+            
+        </member>
+        <member name="M:archilab.Revit.Elements.Dimensions.Create(Revit.Elements.Views.View,Autodesk.DesignScript.Geometry.Line,System.Collections.Generic.List{archilab.Revit.Elements.References},Revit.Elements.Element)">
+            <summary>
+            
+            </summary>
+            <param name="view"></param>
+            <param name="line"></param>
+            <param name="references"></param>
+            <param name="dimType"></param>
+            <returns></returns>
+        </member>
+        <member name="T:archilab.Revit.Elements.Elements">
+            <summary>
+            Methods and properties typically associated with Elements in Revit
+            </summary>
+        </member>
+        <member name="M:archilab.Revit.Elements.Elements.Delete(Revit.Elements.Element)">
+            <summary>
+            Delete element from Revit DB.
+            </summary>
+            <param name="element">Element to delete.</param>
+            <returns></returns>
+            <search>delete, remove, element</search>
+        </member>
+        <member name="M:archilab.Revit.Elements.Elements.MoveElements(System.Collections.Generic.List{Revit.Elements.Element},Autodesk.DesignScript.Geometry.Vector)">
+            <summary>
+            
+            </summary>
+            <param name="elements"></param>
+            <param name="translation"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.Elements.FilterByName(Revit.Elements.Element[],System.String,System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="elements"></param>
+            <param name="searchString"></param>
+            <param name="ignoreCase"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.Elements.SubComponents(Revit.Elements.Element)">
+            <summary>
+            
+            </summary>
+            <param name="element"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.Elements.IsSubComponent(Revit.Elements.Element)">
+            <summary>
+            
+            </summary>
+            <param name="element"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.Elements.GetCentroid(Revit.Elements.Element,System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="element"></param>
+            <param name="includeSubComponents"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.Elements.GetCategory(Revit.Elements.Element)">
+            <summary>
+            
+            </summary>
+            <param name="element"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.Elements.GetWorksharingTooltipInfo(Revit.Elements.Element)">
+            <summary>
+            Returns worksharing information about element.
+            </summary>
+            <param name="element">Element to analyze.</param>
+            <returns>Information about the Elements Owner, Creator etc.</returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.Elements.PhaseDemolished(Revit.Elements.Element)">
+            <summary>
+            Demolished Phase assigned to Element.
+            </summary>
+            <param name="element"></param>
+            <returns name="Phase"></returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.Elements.Assembly(Revit.Elements.Element)">
+            <summary>
+            
+            </summary>
+            <param name="element"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.Elements.Type(Revit.Elements.Element)">
+            <summary>
+            Get Element Type.
+            </summary>
+            <param name="element"></param>
+            <returns name="Type"></returns>
+            <search>element, type</search>
+        </member>
+        <member name="M:archilab.Revit.Elements.Elements.IsVisible(Revit.Elements.Element,Revit.Elements.Views.View)">
+            <summary>
+            Checks whether an Element is visible in given View. 
+            </summary>
+            <param name="element">Element to check.</param>
+            <param name="view">View to check visibility in.</param>
+            <returns>True if Element is visible in View, otherwise false.</returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.Elements.IsHidden(Revit.Elements.Element,Revit.Elements.Views.View)">
+            <summary>
+            
+            </summary>
+            <param name="element"></param>
+            <param name="view"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.Elements.OwnerView(Revit.Elements.Element)">
+            <summary>
+            
+            </summary>
+            <param name="element"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.Elements.BoundingBox(Revit.Elements.Element,Revit.Elements.Views.View)">
+            <summary>
+            
+            </summary>
+            <param name="element"></param>
+            <param name="view"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.Elements.AllViewsVisibleIn(Revit.Elements.Element,System.String)">
+            <summary>
+            Returns all views of given type that an element is visible in.
+            </summary>
+            <param name="element">Element to check.</param>
+            <param name="viewType">View Type to check for.</param>
+            <returns>List of views that an element is visible in.</returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.Elements.IsVisibleInView(Revit.Elements.Element,Revit.Elements.Views.View)">
+            <summary>
+            Checks if element is visible in a view.
+            </summary>
+            <param name="element">Element to check.</param>
+            <param name="view">View to check for.</param>
+            <returns>True if element is visible in a view.</returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.Elements.Location(Revit.Elements.Element)">
+            <summary>
+            
+            </summary>
+            <param name="element"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.Elements.GetSubComponents(Autodesk.Revit.DB.Element,System.Collections.Generic.List{Autodesk.Revit.DB.Element}@)">
+            <summary>
+            
+            </summary>
+            <param name="element"></param>
+            <param name="subComponents"></param>
+        </member>
+        <member name="M:archilab.Revit.Elements.Elements.FindAllViewsWhereElementIsVisible(Revit.Elements.Element,System.Collections.Generic.IEnumerable{Autodesk.Revit.DB.View})">
+            <summary>
+            Checks if Elements is visible in any of the supplied views.
+            </summary>
+            <param name="element">Element to check.</param>
+            <param name="viewsToCheck">Views to check.</param>
+            <returns>List of views that the element is visible in.</returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.Elements.CheckType(Autodesk.Revit.DB.ViewType)">
+            <summary>
+            Checks if View Type is valid for checking if Element is visible in it.
+            </summary>
+            <param name="vt">View Type</param>
+            <returns>True if view can have Elements.</returns>
+        </member>
+        <member name="T:archilab.Revit.Elements.ElementTypes">
+            <summary>
+            Methods and properties typically associated with Element Types in Revit
+            </summary>
+        </member>
+        <member name="M:archilab.Revit.Elements.ElementTypes.Duplicate(Revit.Elements.Element,System.String)">
+            <summary>
+            Duplicates Element Type given a name doesn't exist. If it does it will return Element Type with that name.
+            </summary>
+            <param name="element">Element Type to duplicate.</param>
+            <param name="name">Name of Duplicated Type. Must be unique.</param>
+            <returns>New Element Type or Type with the given name if already exists.</returns>
+        </member>
+        <member name="T:archilab.Revit.Elements.Faces">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:archilab.Revit.Elements.Faces.Reference">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:archilab.Revit.Elements.FamilyInstances">
+            <summary>
+            Wrapper class for Family Instances.
+            </summary>
+        </member>
+        <member name="M:archilab.Revit.Elements.FamilyInstances.#ctor(Autodesk.Revit.DB.FamilyInstance)">
+            <summary>
+            
+            </summary>
+            <param name="instance"></param>
+        </member>
+        <member name="M:archilab.Revit.Elements.FamilyInstances.ByLine(Revit.Elements.FamilyType,Autodesk.DesignScript.Geometry.Line,Revit.Elements.Level)">
+            <summary>
+            New Family Instance by Curve
+            </summary>
+            <param name="familyType">Family Type to be applied to new Family Instance.</param>
+            <param name="line">Line to place Family Instance at.</param>
+            <param name="level">Level to associate Family Instance with.</param>
+            <returns>New Family Instance.</returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.FamilyInstances.ByView(Revit.Elements.FamilyType,Autodesk.DesignScript.Geometry.Point,Revit.Elements.Views.View)">
+            <summary>
+            
+            </summary>
+            <param name="familyType"></param>
+            <param name="point"></param>
+            <param name="view"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.FamilyInstances.ByHostAndPoint(Revit.Elements.FamilyType,Autodesk.DesignScript.Geometry.Point,Revit.Elements.Element)">
+            <summary>
+            
+            </summary>
+            <param name="familyType"></param>
+            <param name="point"></param>
+            <param name="host"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.FamilyInstances.ByFaceAndPoint(Revit.Elements.FamilyType,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Surface)">
+            <summary>
+            
+            </summary>
+            <param name="familyType"></param>
+            <param name="point"></param>
+            <param name="surface"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.FamilyInstances.FlipFacingOrientation(Revit.Elements.Element)">
+            <summary>
+            
+            </summary>
+            <param name="element"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.FamilyInstances.FlipHandOrientation(Revit.Elements.Element)">
+            <summary>
+            
+            </summary>
+            <param name="element"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.FamilyInstances.Connectors(Revit.Elements.Element)">
+            <summary>
+            
+            </summary>
+            <param name="element"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.FamilyInstances.SubComponents(Revit.Elements.Element)">
+            <summary>
+            
+            </summary>
+            <param name="element"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.FamilyInstances.HasSuperComponent(Revit.Elements.Element)">
+            <summary>
+            
+            </summary>
+            <param name="element"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.FamilyInstances.SuperComponent(Revit.Elements.Element)">
+            <summary>
+            
+            </summary>
+            <param name="element"></param>
+            <returns></returns>
+        </member>
+        <member name="T:archilab.Revit.Elements.FillPatterns">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:archilab.Revit.Elements.FillPatterns.GetByName(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.FillPatterns.SetName(Revit.Elements.Element,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="fillPattern"></param>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.FillPatterns.Target(Revit.Elements.Element)">
+            <summary>
+            
+            </summary>
+            <param name="fillPattern"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.FillPatterns.Orientation(Revit.Elements.Element)">
+            <summary>
+            
+            </summary>
+            <param name="fillPattern"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.FillPatterns.Name(Revit.Elements.Element)">
+            <summary>
+            
+            </summary>
+            <param name="fillPattern"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.FillPatterns.IsCrosshatch(Revit.Elements.Element)">
+            <summary>
+            
+            </summary>
+            <param name="fillPattern"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.FillPatterns.Angle(Revit.Elements.Element)">
+            <summary>
+            
+            </summary>
+            <param name="fillPattern"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.FillPatterns.LineSpacing1(Revit.Elements.Element)">
+            <summary>
+            
+            </summary>
+            <param name="fillPattern"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.FillPatterns.LineSpacing2(Revit.Elements.Element)">
+            <summary>
+            
+            </summary>
+            <param name="fillPattern"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.FillPatterns.IsSolidFill(Revit.Elements.Element)">
+            <summary>
+            
+            </summary>
+            <param name="fillPattern"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.FillPatterns.Exists(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.FillPatterns.RadiansToDegrees(System.Double)">
+            <summary>
+            
+            </summary>
+            <param name="radians"></param>
+            <returns></returns>
+        </member>
+        <member name="T:archilab.Revit.Elements.ImageInstances">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:archilab.Revit.Elements.ImageInstances.InternalElement">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:archilab.Revit.Elements.ImageInstances.Create(Revit.Elements.Views.View,archilab.Revit.Elements.ImageTypes,archilab.Revit.Elements.ImagePlacementOptions)">
+            <summary>
+            
+            </summary>
+            <param name="view"></param>
+            <param name="imageType"></param>
+            <param name="imagePlacementOptions"></param>
+            <returns></returns>
+        </member>
+        <member name="T:archilab.Revit.Elements.ImagePlacementOptions">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:archilab.Revit.Elements.ImagePlacementOptions.#ctor(Autodesk.Revit.DB.ImagePlacementOptions)">
+            <summary>
+            
+            </summary>
+            <param name="ipo"></param>
+        </member>
+        <member name="M:archilab.Revit.Elements.ImagePlacementOptions.Create(Autodesk.DesignScript.Geometry.Point,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="location"></param>
+            <param name="boxPlacementType"></param>
+            <returns></returns>
+        </member>
+        <member name="T:archilab.Revit.Elements.ImageTypeOptions">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:archilab.Revit.Elements.ImageTypeOptions.#ctor(Autodesk.Revit.DB.ImageTypeOptions)">
+            <summary>
+            
+            </summary>
+            <param name="ito"></param>
+        </member>
+        <member name="M:archilab.Revit.Elements.ImageTypeOptions.Create(System.String)">
+            <summary>
+            Creates Image Type Options for image import.
+            </summary>
+            <param name="filePath">File path to Image.</param>
+            <returns>Image Type Options object.</returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.ImageTypeOptions.Create(System.String,System.Double,System.Int32)">
+            <summary>
+            Creates Image Type Options for image/pdf import.
+            </summary>
+            <param name="filePath">File path to image/PDF.</param>
+            <param name="resolution">Optional resolution.</param>
+            <param name="pageNumber">Optional page number if PDF has more than one page.</param>
+            <returns>Image Type Option object.</returns>
+        </member>
+        <member name="P:archilab.Revit.Elements.ImageTypeOptions.PageNumber">
+            <summary>
+            Retrieves Page Number that options are set to.
+            </summary>
+        </member>
+        <member name="P:archilab.Revit.Elements.ImageTypeOptions.Resolution">
+            <summary>
+            Retrieves Resolution that options are set to.
+            </summary>
+        </member>
+        <member name="P:archilab.Revit.Elements.ImageTypeOptions.FilePath">
+            <summary>
+            Retrieves File Path that options are set to.
+            </summary>
+        </member>
+        <member name="T:archilab.Revit.Elements.ImageTypes">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:archilab.Revit.Elements.ImageTypes.#ctor(Autodesk.Revit.DB.ImageType)">
+            <summary>
+            
+            </summary>
+            <param name="ito"></param>
+        </member>
+        <member name="M:archilab.Revit.Elements.ImageTypes.Create(archilab.Revit.Elements.ImageTypeOptions,System.Boolean)">
+            <summary>
+            Creates a new Image Type import object.
+            </summary>
+            <param name="imageTypeOptions">Image Type Options object.</param>
+            <param name="reload">If true reload existing document, otherwise create new one.</param>
+            <returns>Image Type object.</returns>
+        </member>
+        <member name="P:archilab.Revit.Elements.ImageTypes.PageNumber">
+            <summary>
+            Retrieves Page Number that import was created from.
+            </summary>
+        </member>
+        <member name="P:archilab.Revit.Elements.ImageTypes.FilePath">
+            <summary>
+            Retrieves File Path that import was created from.
+            </summary>
+        </member>
+        <member name="T:archilab.Revit.Elements.LineStyles">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:archilab.Revit.Elements.LineStyles.SetColor(System.String,DSCore.Color)">
+            <summary>
+            
+            </summary>
+            <param name="lineStyle"></param>
+            <param name="color"></param>
+            <returns></returns>
+        </member>
+        <member name="T:archilab.Revit.Elements.Materials">
+            <summary>
+            Material wrapper class.
+            </summary>
+        </member>
+        <member name="P:archilab.Revit.Elements.Materials.InternalElement">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:archilab.Revit.Elements.Materials.Create(System.String)">
+            <summary>
+            Creates new Material by name.
+            </summary>
+            <param name="name">Name of the material to be created.</param>
+            <returns name="material"></returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.Materials.SetAppearanceAsset(Revit.Elements.Material,Revit.Elements.Element)">
+            <summary>
+            Sets the Appearance Asset Element for the Material.
+            </summary>
+            <param name="material">Material to set the Appearance Asset for.</param>
+            <param name="appearanceAsset">Appearance Asset object.</param>
+            <returns name="material"></returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.Materials.SetMaterialCategory(Revit.Elements.Material,System.String)">
+            <summary>
+            Sets MaterialCategory property for the Material.
+            </summary>
+            <param name="material">Material to set the MaterialCategory for.</param>
+            <param name="materialCategory">MaterialCategory value.</param>
+            <returns name="material"></returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.Materials.SetMaterialClass(Revit.Elements.Material,System.String)">
+            <summary>
+            Sets MaterialCategory property for the Material.
+            </summary>
+            <param name="material">Material to set the MaterialCategory for.</param>
+            <param name="materialClass">MaterialClass value.</param>
+            <returns name="material"></returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.Materials.GetMaterialClass(Revit.Elements.Material)">
+            <summary>
+            
+            </summary>
+            <param name="material"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.Materials.SetSurfacePattern(Revit.Elements.Material,Revit.Elements.Element,Revit.Elements.Element,DSCore.Color,DSCore.Color)">
+            <summary>
+            Sets Surface Pattern properties for a Material.
+            </summary>
+            <param name="material">Material to set Surface Pattern for.</param>
+            <param name="foregroundPattern">Fill Pattern to be used as Foreground Pattern.</param>
+            <param name="backgroundPattern">Fill Pattern to be used as Background Pattern.</param>
+            <param name="foregroundPatternColor">Color of the Foreground Pattern.</param>
+            <param name="backgroundPatternColor">Color of the Background Pattern.</param>
+            <returns name="material"></returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.Materials.GetSurfacePatterns(Revit.Elements.Material)">
+            <summary>
+            
+            </summary>
+            <param name="material"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.Materials.SetCutPattern(Revit.Elements.Material,Revit.Elements.Element,Revit.Elements.Element,DSCore.Color,DSCore.Color)">
+            <summary>
+            Sets Cut Pattern properties for a Material.
+            </summary>
+            <param name="material">Material to set Surface Pattern for.</param>
+            <param name="foregroundPattern">Fill Pattern to be used as Foreground Pattern.</param>
+            <param name="backgroundPattern">Fill Pattern to be used as Background Pattern.</param>
+            <param name="foregroundPatternColor">Color of the Foreground Pattern.</param>
+            <param name="backgroundPatternColor">Color of the Background Pattern.</param>
+            <returns name="material"></returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.Materials.GetCutPatterns(Revit.Elements.Material)">
+            <summary>
+            
+            </summary>
+            <param name="material"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.Materials.UseRenderAppearanceForShading(Revit.Elements.Material,System.Boolean)">
+            <summary>
+            Sets the checkbox property on the Material that would force the Appearance Color to be used for Shading display in Revit.
+            </summary>
+            <param name="material">Material to set the property for.</param>
+            <param name="check">True if checkbox is to be checked, otherwise false.</param>
+            <returns name="material">Material with the adjusted property.</returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.Materials.UsesRenderAppearanceForShading(Revit.Elements.Material)">
+            <summary>
+            
+            </summary>
+            <param name="material"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.Materials.SetColor(Revit.Elements.Material,DSCore.Color)">
+            <summary>
+            Sets the color of the Material.
+            </summary>
+            <param name="material">Material to set the Color for.</param>
+            <param name="color">Color to set the Material to.</param>
+            <returns name="material">Material with the adjusted color.</returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.Materials.GetColor(Revit.Elements.Material)">
+            <summary>
+            
+            </summary>
+            <param name="material"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.Materials.Assets(Revit.Elements.Material)">
+            <summary>
+            Retrieves default Assets that Material can have. 
+            </summary>
+            <param name="material">Material to retrieve the assets from.</param>
+            <returns>Assets if set for the Material.</returns>
+        </member>
+        <member name="T:archilab.Revit.Elements.Outline">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:archilab.Revit.Elements.Outline.MinimumPoint">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:archilab.Revit.Elements.Outline.MaximumPoint">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:archilab.Revit.Elements.OverrideGraphicsSettings">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:archilab.Revit.Elements.OverrideGraphicsSettings.Create(DSCore.Color,System.Nullable{System.Int32},Revit.Elements.Element,Revit.Elements.Element,DSCore.Color,Revit.Elements.Element,DSCore.Color,DSCore.Color,System.Nullable{System.Int32},Revit.Elements.Element,Revit.Elements.Element,DSCore.Color,Revit.Elements.Element,DSCore.Color,System.Nullable{System.Int32},System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="projectionLineColor"></param>
+            <param name="projectionLineWeight"></param>
+            <param name="projectionLinePattern"></param>
+            <param name="projectionForegroundFillPattern"></param>
+            <param name="projectionForegroundFillColor"></param>
+            <param name="projectionBackgroundFillPattern"></param>
+            <param name="projectionBackgroundFillColor"></param>
+            <param name="cutLineColor"></param>
+            <param name="cutLineWeight"></param>
+            <param name="cutLinePattern"></param>
+            <param name="cutForegroundFillPattern"></param>
+            <param name="cutForegroundFillColor"></param>
+            <param name="cutBackgroundFillPattern"></param>
+            <param name="cutBackgroundFillColor"></param>
+            <param name="transparency"></param>
+            <param name="halftone"></param>
+            <returns name="overrides">Override Graphics Settings.</returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.OverrideGraphicsSettings.Properties">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:archilab.Revit.Elements.OverrideGraphicsSettings.Halftone">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:archilab.Revit.Elements.OverrideGraphicsSettings.Transparency">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:archilab.Revit.Elements.OverrideGraphicsSettings.ProjectionLinePattern">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:archilab.Revit.Elements.OverrideGraphicsSettings.ProjectionLineColor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:archilab.Revit.Elements.OverrideGraphicsSettings.ProjectionLineWeight">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:archilab.Revit.Elements.OverrideGraphicsSettings.IsSurfaceForegroundPatternVisible">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:archilab.Revit.Elements.OverrideGraphicsSettings.SurfaceForegroundPattern">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:archilab.Revit.Elements.OverrideGraphicsSettings.SurfaceForegroundColor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:archilab.Revit.Elements.OverrideGraphicsSettings.IsSurfaceBackgroundPatternVisible">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:archilab.Revit.Elements.OverrideGraphicsSettings.SurfaceBackgroundPattern">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:archilab.Revit.Elements.OverrideGraphicsSettings.SurfaceBackgroundColor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:archilab.Revit.Elements.OverrideGraphicsSettings.CutLinePattern">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:archilab.Revit.Elements.OverrideGraphicsSettings.CutLineColor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:archilab.Revit.Elements.OverrideGraphicsSettings.CutLineWeight">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:archilab.Revit.Elements.OverrideGraphicsSettings.IsCutForegroundPatternVisible">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:archilab.Revit.Elements.OverrideGraphicsSettings.CutForegroundPattern">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:archilab.Revit.Elements.OverrideGraphicsSettings.CutForegroundColor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:archilab.Revit.Elements.OverrideGraphicsSettings.IsCutBackgroundPatternVisible">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:archilab.Revit.Elements.OverrideGraphicsSettings.CutBackgroundPattern">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:archilab.Revit.Elements.OverrideGraphicsSettings.CutBackgroundColor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:archilab.Revit.Elements.Parameter">
+            <summary>
+            Parameter related utilities.
+            </summary>
+        </member>
+        <member name="M:archilab.Revit.Elements.Parameter.SetBuiltInParameter(Revit.Elements.Element,System.String,System.Object)">
+            <summary>
+            
+            </summary>
+            <param name="element"></param>
+            <param name="bipName"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.Parameter.GetBuiltInParameter(Revit.Elements.Element,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="element"></param>
+            <param name="bipName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.Parameter.GetBuiltInParameterName(Revit.Elements.Element,System.String)">
+            <summary>
+            Returns name of the BuiltInParameter if such exists. 
+            </summary>
+            <param name="element">Element to query.</param>
+            <param name="name">Name of the parameter. In case that multiple parameters have the same name, first encountered name will be returned.</param>
+            <returns name="bipName">Name of the Bip.</returns>
+        </member>
+        <member name="T:archilab.Revit.Elements.References">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:archilab.Revit.Elements.References.CreateByReference(Autodesk.Revit.DB.Reference)">
+            <summary>
+            
+            </summary>
+            <param name="reference"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.References.ElementReferenceType(archilab.Revit.Elements.References)">
+            <summary>
+            
+            </summary>
+            <param name="reference"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.References.GetStableRepresentation(archilab.Revit.Elements.References)">
+            <summary>
+            
+            </summary>
+            <param name="reference"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.References.ToString">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:archilab.Revit.Elements.RenderingImageExposureSettings">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:archilab.Revit.Elements.RenderingImageExposureSettings.Settings">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:archilab.Revit.Elements.RenderingQualitySettings">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:archilab.Revit.Elements.RenderingQualitySettings.Settings">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:archilab.Revit.Elements.RenderingSettings">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:archilab.Revit.Elements.RenderingSettings.Settings">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:archilab.Revit.Elements.RenderingSettings.UsesRegionRendering">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:archilab.Revit.Elements.RenderingSettings.RegionOutline">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:archilab.Revit.Elements.RenderingSettings.QualitySettings">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:archilab.Revit.Elements.RenderingSettings.ImageExposureSettings">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:archilab.Revit.Elements.RenderingSettings.BackgroundSettings">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:archilab.Revit.Elements.Revisions">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:archilab.Revit.Elements.Revisions.InternalElement">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:archilab.Revit.Elements.Revisions.SetSequence(System.Collections.Generic.List{Revit.Elements.Element})">
+            <summary>
+            Sets revisions in a sequence that they are supplied.
+            </summary>
+            <param name="revisions">Revisions in sequence to be set.</param>
+            <returns name="revisions">Revisions in new sequence.</returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.Revisions.Create(System.String,System.String,System.Boolean,System.String,System.String,System.String)">
+            <summary>
+            Create a new Revision.
+            </summary>
+            <param name="revisionDate">Revision Date.</param>
+            <param name="description">Revision Description.</param>
+            <param name="issued">Revision Issued.</param>
+            <param name="issuedBy">Revision Issued By.</param>
+            <param name="issuedTo">Revision Issued To.</param>
+            <param name="visibility">Revision Visibility.</param>
+            <returns name="revision">Newly created Revision.</returns>
+        </member>
+        <member name="T:archilab.Revit.Elements.Room">
+            <summary>
+            Wrapper class for Rooms.
+            </summary>
+        </member>
+        <member name="M:archilab.Revit.Elements.Room.Name(Revit.Elements.Element)">
+            <summary>
+            Room Name
+            </summary>
+            <param name="room">Room element.</param>
+            <returns name="name">Name of the room.</returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.Room.Boundaries(Revit.Elements.Element,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="room"></param>
+            <param name="boundaryLocation"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.Room.ExtrudeBoundary(Revit.Elements.Element,Revit.Elements.Element,System.String,System.String,System.Double)">
+            <summary>
+            
+            </summary>
+            <param name="room"></param>
+            <param name="panel"></param>
+            <param name="type"></param>
+            <param name="boundaryLocation"></param>
+            <param name="height"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.Room.ExtrudeBoundary2(Revit.Elements.Element,Revit.Elements.Element,System.String,System.String,System.Double)">
+            <summary>
+            
+            </summary>
+            <param name="room"></param>
+            <param name="panel"></param>
+            <param name="type"></param>
+            <param name="boundaryLocation"></param>
+            <param name="height"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.Room.ValidatePointDistance(System.Double,System.Collections.Generic.List{Autodesk.Revit.DB.XYZ}@)">
+            <summary>
+            
+            </summary>
+            <param name="tolerance"></param>
+            <param name="hPts"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.Room.Faces(Revit.Elements.Element,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="room"></param>
+            <param name="boundaryLocation"></param>
+        </member>
+        <member name="M:archilab.Revit.Elements.Room.Height(Revit.Elements.Element,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="room"></param>
+            <param name="boundaryLocation"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.Room.GlazingInfo(Revit.Elements.Element,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="room"></param>
+            <param name="boundaryLocation"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.Room.PointsOnSurface(Revit.Elements.Element,System.Collections.Generic.List{Revit.Elements.Element},System.String)">
+            <summary>
+            
+            </summary>
+            <param name="room"></param>
+            <param name="glazingMaterials"></param>
+            <param name="boundaryLocation"></param>
+            <returns></returns>
+        </member>
+        <member name="T:archilab.Revit.Elements.RoomTags">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:archilab.Revit.Elements.RoomTags.IsInRoom(Revit.Elements.Element)">
+            <summary>
+            
+            </summary>
+            <param name="roomTag"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.RoomTags.IsOrphaned(Revit.Elements.Element)">
+            <summary>
+            
+            </summary>
+            <param name="roomTag"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.RoomTags.IsTaggingLink(Revit.Elements.Element)">
+            <summary>
+            
+            </summary>
+            <param name="roomTag"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.RoomTags.TagText(Revit.Elements.Element)">
+            <summary>
+            
+            </summary>
+            <param name="roomTag"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.RoomTags.View(Revit.Elements.Element)">
+            <summary>
+            
+            </summary>
+            <param name="roomTag"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.RoomTags.TaggedLocalRoomId(Revit.Elements.Element)">
+            <summary>
+            
+            </summary>
+            <param name="roomTag"></param>
+            <returns></returns>
+        </member>
+        <member name="T:archilab.Revit.Elements.Schema">
+            <summary>
+            Wrapper for Schema utilities.
+            </summary>
+        </member>
+        <member name="M:archilab.Revit.Elements.Schema.#ctor(Autodesk.Revit.DB.ExtensibleStorage.Schema)">
+            <summary>
+            Internal constructor.
+            </summary>
+            <param name="schema">Autodesk Schema.</param>
+        </member>
+        <member name="M:archilab.Revit.Elements.Schema.FindByGuid(System.String)">
+            <summary>
+            Retrieves a Schema from current Document by its Guid.
+            </summary>
+            <param name="guid">Guid of the Schema.</param>
+            <returns>Schema if found, otherwise null.</returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.Schema.FindByName(System.String)">
+            <summary>
+            Retrieves a Schema from current Document by its Name.
+            </summary>
+            <param name="name">Name of the Schema.</param>
+            <returns>Schema if found, otherwise null.</returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.Schema.GetAll">
+            <summary>
+            Retrieves all Schemas from the model.
+            </summary>
+            <returns>List of Schemas or empty collection.</returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.Schema.EraseSchemaAndAllEntities(archilab.Revit.Elements.Schema,System.Boolean)">
+            <summary>
+            Deletes Schema and all its Entities from Document.
+            </summary>
+            <param name="schema">Schema to delete.</param>
+            <param name="overridePermissions">Normally Schema can only be edited by user with access permissions.
+            Set this to true to override default access and force deletion of this Schema.</param>
+        </member>
+        <member name="M:archilab.Revit.Elements.Schema.WriteAccessGranted(archilab.Revit.Elements.Schema)">
+            <summary>
+            Checks if current Addins has Write Access for this Schema.
+            </summary>
+            <param name="schema">Schema to check access for.</param>
+            <returns>True if current Addin (Dynamo) can Write to this Schema, otherwise false.</returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.Schema.ReadAccessGranted(archilab.Revit.Elements.Schema)">
+            <summary>
+            Checks if current Addins has Read Access for this Schema.
+            </summary>
+            <param name="schema">Schema to check access for.</param>
+            <returns>True if current Addin (Dynamo) can Read from this Schema, otherwise false.</returns>
+        </member>
+        <member name="P:archilab.Revit.Elements.Schema.Name">
+            <summary>
+            Schema Name.
+            </summary>
+        </member>
+        <member name="P:archilab.Revit.Elements.Schema.Guid">
+            <summary>
+            Schema Guid.
+            </summary>
+        </member>
+        <member name="P:archilab.Revit.Elements.Schema.Documentation">
+            <summary>
+            Schema Documentation/Description.
+            </summary>
+        </member>
+        <member name="M:archilab.Revit.Elements.Schema.ToString">
+            <summary>
+            Override for Schema display (Watch Node).
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:archilab.Revit.Elements.SunAndShadowSettings">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:archilab.Revit.Elements.SunAndShadowSettings.Settings(Revit.Elements.Views.View)">
+            <summary>
+            
+            </summary>
+            <param name="view"></param>
+            <returns></returns>
+        </member>
+        <member name="P:archilab.Revit.Elements.SunAndShadowSettings.SolarStudy">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:archilab.Revit.Elements.Tags">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:archilab.Revit.Elements.Tags.SetHeadPosition(Revit.Elements.Element,Autodesk.DesignScript.Geometry.Point)">
+            <summary>
+            
+            </summary>
+            <param name="tag"></param>
+            <param name="point"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.Tags.SetLeader(Revit.Elements.Element,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point,System.String,System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="tag"></param>
+            <param name="leaderEnd"></param>
+            <param name="leaderElbow"></param>
+            <param name="leaderEndCondition"></param>
+            <param name="hasLeader"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.Tags.ByElement(Revit.Elements.Views.View,Revit.Elements.Element,System.String,System.String,System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="view"></param>
+            <param name="element"></param>
+            <param name="tagMode"></param>
+            <param name="tagOrientation"></param>
+            <param name="addLeader"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.Tags.ByElements(Revit.Elements.Views.View,System.Collections.Generic.List{Revit.Elements.Element},System.String,System.String,System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="view"></param>
+            <param name="elements"></param>
+            <param name="tagMode"></param>
+            <param name="tagOrientation"></param>
+            <param name="addLeader"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.Tags.IsOrphaned(Revit.Elements.Element)">
+            <summary>
+            
+            </summary>
+            <param name="tag"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.Tags.TagText(Revit.Elements.Element)">
+            <summary>
+            
+            </summary>
+            <param name="tag"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.Tags.TagHeadPosition(Revit.Elements.Element)">
+            <summary>
+            
+            </summary>
+            <param name="tag"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.Tags.IsMaterialTag(Revit.Elements.Element)">
+            <summary>
+            
+            </summary>
+            <param name="tag"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.Tags.OwnerView(Revit.Elements.Element)">
+            <summary>
+            
+            </summary>
+            <param name="tag"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.Tags.OwnerView(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.Tags.IsTaggingLinkDoc(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.Tags.IsOrphaned(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="T:archilab.Revit.Elements.TextNotes">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:archilab.Revit.Elements.TextNotes.Width(Revit.Elements.Element)">
+            <summary>
+            
+            </summary>
+            <param name="textNote"></param>
+            <returns></returns>
+        </member>
+        <member name="T:archilab.Revit.Elements.ThinLinesOptions">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:archilab.Revit.Elements.ThinLinesOptions.ShowThinLines(System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="show"></param>
+        </member>
+        <member name="T:archilab.Revit.Elements.Trusses">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:archilab.Revit.Elements.Trusses.Curves(Revit.Elements.Element)">
+            <summary>
+            
+            </summary>
+            <param name="truss"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.Trusses.BoundingBox(Revit.Elements.Element)">
+            <summary>
+            
+            </summary>
+            <param name="truss"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.Trusses.Plane(Revit.Elements.Element)">
+            <summary>
+            
+            </summary>
+            <param name="truss"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.Trusses.FlatCurves(Revit.Elements.Element)">
+            <summary>
+            
+            </summary>
+            <param name="truss"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.Trusses.FlatCurves(Revit.Elements.Element,System.Double)">
+            <summary>
+            
+            </summary>
+            <param name="truss"></param>
+            <param name="maxY"></param>
+            <returns></returns>
+        </member>
+        <member name="T:archilab.Revit.Elements.ViewDisplayBackgrounds">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:archilab.Revit.Elements.ViewDisplayBackgrounds.Type">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:archilab.Revit.Elements.ViewDisplayBackgrounds.Properties">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:archilab.Revit.Elements.ViewDisplayDepthCueing">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:archilab.Revit.Elements.ViewDisplayDepthCueing.Properties">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:archilab.Revit.Elements.ViewFilter">
+            <summary>
+            Wrapper class for View Filters.
+            </summary>
+        </member>
+        <member name="M:archilab.Revit.Elements.ViewFilter.CreateFilter(System.String,System.Collections.Generic.List{Revit.Elements.Category},archilab.Revit.Elements.FilterSet)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+            <param name="category"></param>
+            <param name="filterSet"></param>
+            <returns name="viewFilter">Newly created Parameter Filter Element.</returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.ViewFilter.OwnerViews(Revit.Elements.Element)">
+            <summary>
+            Returns Views that View Filter is applied to.
+            </summary>
+            <param name="viewFilter">View Filter Element.</param>
+            <returns name="view">Views.</returns>
+            <search>view, filter, owner</search>
+        </member>
+        <member name="T:archilab.Revit.Elements.Walls">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:archilab.Revit.Elements.Walls.WallType(Revit.Elements.Element)">
+            <summary>
+            
+            </summary>
+            <param name="wall"></param>
+            <returns name="wallType"></returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.Walls.IsLineBased(Revit.Elements.Element)">
+            <summary>
+            
+            </summary>
+            <param name="wall"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.Walls.GetAlignedBoundingBox(Revit.Elements.Element,archilab.Utilities.Offset)">
+            <summary>
+            
+            </summary>
+            <param name="wall"></param>
+            <param name="offset"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.Walls.CurtainGrid(Revit.Elements.Element)">
+            <summary>
+            
+            </summary>
+            <param name="wall"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.Walls.GetFaces(Revit.Elements.Element)">
+            <summary>
+            
+            </summary>
+            <param name="wall"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.Walls.GetDimensionLine(Revit.Elements.Element,Revit.Elements.Views.View,System.Double)">
+            <summary>
+            
+            </summary>
+            <param name="wall"></param>
+            <param name="view"></param>
+            <param name="offset"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.Walls.IsWallJoinAllowed(Revit.Elements.Element)">
+            <summary>
+            
+            </summary>
+            <param name="wall"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.Walls.JoinType(Revit.Elements.Element)">
+            <summary>
+            
+            </summary>
+            <param name="wall"></param>
+            <returns></returns>
+        </member>
+        <member name="T:archilab.Revit.Elements.WallTypes">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:archilab.Revit.Elements.WallTypes.Duplicate(Revit.Elements.Element,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="wallType"></param>
+            <param name="name"></param>
+            <returns name="wallType">New Wall Type if one didn't exist, otherwise Wall Type that matched the name.</returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.WallTypes.SetMaterial(Revit.Elements.Element,archilab.Revit.Elements.CompoundStructureLayer,Revit.Elements.Element)">
+            <summary>
+            
+            </summary>
+            <param name="wallType"></param>
+            <param name="csLayer"></param>
+            <param name="material"></param>
+        </member>
+        <member name="M:archilab.Revit.Elements.WallTypes.Kind(Revit.Elements.Element)">
+            <summary>
+            
+            </summary>
+            <param name="wallType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.WallTypes.CompoundStructure(Revit.Elements.Element)">
+            <summary>
+            Get the Compound Structure of the Wall Type. This holds information about the layers and materials making up the Wall Type.
+            </summary>
+            <param name="wallType">Wall Type of the Wall.</param>
+            <returns name="cs">Compound Structure that holds the Layer information for the Wall Type.</returns>
+        </member>
+        <member name="T:archilab.Revit.Elements.WarningLibrary">
+            <summary>
+            Library of custom warnings and ratings.
+            </summary>
+        </member>
+        <member name="P:archilab.Revit.Elements.WarningLibrary.Ratings">
+            <summary>
+            Dictionary of stored Warning - Rating relationships.
+            </summary>
+        </member>
+        <member name="M:archilab.Revit.Elements.WarningLibrary.WarningLibraryFromCsv(System.Object)">
+            <summary>
+            Creates a custom warning library that stores all ratings for warnings.
+            </summary>
+            <param name="filePath">File path to CSV file that contains all warnings/ratings.</param>
+            <returns name="WarningLibrary">Warning Library</returns>
+        </member>
+        <member name="T:archilab.Revit.Elements.Warning">
+            <summary>
+            Warning class used for parsing HTML Revit warnings.
+            </summary>
+        </member>
+        <member name="P:archilab.Revit.Elements.Warning.AssignedErrorMessage">
+            <summary>
+            Custom Error Message
+            </summary>
+        </member>
+        <member name="P:archilab.Revit.Elements.Warning.ErrorMessage">
+            <summary>
+            Error Message
+            </summary>
+        </member>
+        <member name="P:archilab.Revit.Elements.Warning.Elements">
+            <summary>
+            List of Elements
+            </summary>
+        </member>
+        <member name="P:archilab.Revit.Elements.Warning.Rating">
+            <summary>
+            Rating of severity of warning where 1 is ignorable and 3 is severe.
+            </summary>
+        </member>
+        <member name="M:archilab.Revit.Elements.Warning.GetWarnings">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.Warning.AssignRating(archilab.Revit.Elements.WarningLibrary)">
+            <summary>
+            Assigns a rating to warning based on custom library of ratings.
+            </summary>
+            <param name="library">Custom library of Warnings and ratings.</param>
+            <returns name="Warning">Warning</returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.Warning.AssignErrorMessage(System.String)">
+            <summary>
+            Assign a custom error message to warning.
+            </summary>
+            <param name="message">Custom warning message.</param>
+            <returns name="Warning">Warning that custom message was assigned to.</returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.Warning.ParseHtml(System.Object)">
+            <summary>
+            Parse HTML Warning Report.
+            </summary>
+            <param name="filePath">File Path to HTML report.</param>
+            <returns name="Warnings">List of Warning objects.</returns>
+        </member>
+        <member name="T:archilab.Revit.Elements.WarningElement">
+            <summary>
+            Element Wrapper class for elements associated with Warnings.
+            </summary>
+        </member>
+        <member name="P:archilab.Revit.Elements.WarningElement.Workset">
+            <summary>
+            Workset Name
+            </summary>
+        </member>
+        <member name="P:archilab.Revit.Elements.WarningElement.Category">
+            <summary>
+            Category Name
+            </summary>
+        </member>
+        <member name="P:archilab.Revit.Elements.WarningElement.Family">
+            <summary>
+            Family Name
+            </summary>
+        </member>
+        <member name="P:archilab.Revit.Elements.WarningElement.Type">
+            <summary>
+            Type Name
+            </summary>
+        </member>
+        <member name="P:archilab.Revit.Elements.WarningElement.Id">
+            <summary>
+            Revit Id
+            </summary>
+        </member>
+        <member name="P:archilab.Revit.Elements.WarningElement.DesignOptionSet">
+            <summary>
+            Design Option Set Name
+            </summary>
+        </member>
+        <member name="P:archilab.Revit.Elements.WarningElement.DesignOption">
+            <summary>
+            Design Option Name
+            </summary>
+        </member>
+        <member name="P:archilab.Revit.Elements.WarningElement.Rating">
+            <summary>
+            Warning rating on scale from 1-3 where 1 is ignorable and 3 is severe.
+            </summary>
+        </member>
+        <member name="T:archilab.Revit.Elements.Workset">
+            <summary>
+            Workset wrapper class.
+            </summary>
+        </member>
+        <member name="P:archilab.Revit.Elements.Workset.InternalWorksetId">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:archilab.Revit.Elements.Workset.#ctor(Autodesk.Revit.DB.Workset)">
+            <summary>
+            
+            </summary>
+            <param name="workset"></param>
+        </member>
+        <member name="M:archilab.Revit.Elements.Workset.ByName(System.String)">
+            <summary>
+            Create Workset by Name.
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.Workset.Rename(archilab.Revit.Elements.Workset,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="workset"></param>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Elements.Workset.GetAll">
+            <summary>
+            Retrieves all user created Worksets.
+            </summary>
+            <returns name="Workset">Worksets</returns>
+        </member>
+        <member name="P:archilab.Revit.Elements.Workset.Name">
+            <summary>
+            Workset Name
+            </summary>
+        </member>
+        <member name="P:archilab.Revit.Elements.Workset.Id">
+            <summary>
+            Workset Id
+            </summary>
+        </member>
+        <member name="P:archilab.Revit.Elements.Workset.Guid">
+            <summary>
+            Workset Guid
+            </summary>
+        </member>
+        <member name="M:archilab.Revit.Elements.Workset.ToString">
+            <summary>
+            String override for Workset.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:archilab.Revit.Geometry.Points">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:archilab.Revit.Geometry.Points.PullOntoPlane(Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Plane)">
+            <summary>
+            
+            </summary>
+            <param name="point"></param>
+            <param name="plane"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Geometry.Points.RoundToPrecision(Autodesk.DesignScript.Geometry.Point,System.Double)">
+            <summary>
+            
+            </summary>
+            <param name="point"></param>
+            <param name="precision"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Geometry.Points.UnifyZ(System.Collections.Generic.List{Autodesk.DesignScript.Geometry.Point},System.Double)">
+            <summary>
+            
+            </summary>
+            <param name="points"></param>
+            <param name="precision"></param>
+            <returns></returns>
+        </member>
+        <member name="T:archilab.Revit.Geometry.Surfaces">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:archilab.Revit.Geometry.Surfaces.GetWall(Autodesk.DesignScript.Geometry.Surface)">
+            <summary>
+            
+            </summary>
+            <param name="surface"></param>
+            <returns></returns>
+        </member>
+        <member name="T:archilab.Revit.Selection.Select">
+            <summary>
+            Collection of various selection nodes. 
+            </summary>
+        </member>
+        <member name="M:archilab.Revit.Selection.Select.GetDocuments">
+            <summary>
+            Retrieves all Link Documents and their Names/Paths.
+            </summary>
+            <returns>Link Documents, Link Names, Link Instances and Link Paths.</returns>
+        </member>
+        <member name="M:archilab.Revit.Selection.Select.GetRoomAtPoint(Autodesk.DesignScript.Geometry.Point)">
+            <summary>
+            Retrieves a Room at given point.
+            </summary>
+            <param name="point">Point.</param>
+            <returns>Room.</returns>
+        </member>
+        <member name="M:archilab.Revit.Selection.Select.GetSurveyPoint">
+            <summary>
+            Retrieves Survey Point from the model.
+            </summary>
+            <returns>Survey Point.</returns>
+        </member>
+        <member name="M:archilab.Revit.Selection.Select.GetLevelByName(System.String)">
+            <summary>
+            Retrieve Level by its name.
+            </summary>
+            <param name="name">Name of the Level.</param>
+            <returns>Level.</returns>
+        </member>
+        <member name="M:archilab.Revit.Selection.Select.GetTextNoteTypeByName(System.String)">
+            <summary>
+            Retrieve a TextNoteType by its name.
+            </summary>
+            <param name="name">Name of the Text Note Type.</param>
+            <returns>Text note type.</returns>
+        </member>
+        <member name="M:archilab.Revit.Selection.Select.GetAllWorksetsByKind(System.String)">
+            <summary>
+            Select all Worksets in the model.
+            </summary>
+            <param name="kind">Kind of a workset. By default "User Worksets" will be collected.</param>
+            <returns name="Workset">List of worksets that passed the filter.</returns>
+        </member>
+        <member name="M:archilab.Revit.Selection.Select.ByWorkset(archilab.Revit.Elements.Workset)">
+            <summary>
+            Returns all elements at a given workset.
+            </summary>
+            <param name="workset">Workset that we are filtering for.</param>
+            <returns name="Element">Elements that passed the workset filter.</returns>
+        </member>
+        <member name="M:archilab.Revit.Selection.Select.ByElementId(System.Object)">
+            <summary>
+            Select Element by Id
+            </summary>
+            <param name="id">ElementId, String, Guid or Integer id of the element.</param>
+            <returns name="Element">Found element or null.</returns>
+        </member>
+        <member name="M:archilab.Revit.Selection.Select.ByCategoryAndLevel(Revit.Elements.Category,Revit.Elements.Element)">
+            <summary>
+            Select Elements by Level and Category.
+            </summary>
+            <param name="category">Category to filter for.</param>
+            <param name="level">Level to filter for.</param>
+            <returns name="Element">Elements.</returns>
+        </member>
+        <member name="M:archilab.Revit.Selection.Select.ByCategoryAndDesignOption(Revit.Elements.Category,Revit.Elements.Element)">
+            <summary>
+                Select all elements by design option and category.
+            </summary>
+            <param name="category">Category to filter for.</param>
+            <param name="designOption">Design Option to filter for.</param>
+            <returns name="Element">Elements.</returns>
+        </member>
+        <member name="M:archilab.Revit.Selection.Select.ByTypeAndDocument(System.Type,System.Object)">
+            <summary>
+            Selects all Elements of given Type from given Document (Linked Models).
+            </summary>
+            <param name="type">Element Type to retrieve.</param>
+            <param name="document">Optional Document object. If null, current active Document will be used.</param>
+            <returns name="element">List of Elements.</returns>
+        </member>
+        <member name="M:archilab.Revit.Selection.Select.ByTypeNameAndDocument(System.String,System.Object)">
+            <summary>
+            
+            </summary>
+            <param name="typeName">Fully qualified type name. Refer to: https://docs.microsoft.com/en-us/dotnet/api/system.type.gettype?view=net-5.0 </param>
+            <param name="document"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Selection.Select.ByCategory(Revit.Elements.Category)">
+            <summary>
+            
+            </summary>
+            <param name="category"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Selection.Select.ByCategoryAndView(Revit.Elements.Category,Revit.Elements.Views.View)">
+            <summary>
+            Select Elements by Category and View.
+            </summary>
+            <param name="category">Category to filter for.</param>
+            <param name="view">View to filter for.</param>
+            <returns name="Element">Element.</returns>
+        </member>
+        <member name="M:archilab.Revit.Selection.Select.ByParameterValue(System.Type,System.String,System.Object,System.Object,System.String)">
+            <summary>
+            Parameter value filter.
+            </summary>
+            <param name="elementType"></param>
+            <param name="parameterName"></param>
+            <param name="evaluator"></param>
+            <param name="value"></param>
+            <param name="rule"></param>
+            <returns name="Element">Element.</returns>
+        </member>
+        <member name="M:archilab.Revit.Selection.Select.GetNull">
+            <summary>
+            Get Null
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:archilab.Revit.Units.FormatOptions">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:archilab.Revit.Units.FormatOptions.#ctor(Autodesk.Revit.DB.ForgeTypeId)">
+            <summary>
+            
+            </summary>
+            <param name="fu"></param>
+        </member>
+        <member name="M:archilab.Revit.Units.FormatOptions.Create(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="forgeUnit"></param>
+            <returns></returns>
+        </member>
+        <member name="T:archilab.Revit.Units.Units">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:archilab.Revit.Units.Units.#ctor(Autodesk.Revit.DB.Units)">
+            <summary>
+            
+            </summary>
+            <param name="units"></param>
+        </member>
+        <member name="M:archilab.Revit.Units.Units.Create(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="unitSystem"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Units.Units.SetFormatOptions(archilab.Revit.Units.Units,System.String,archilab.Revit.Units.FormatOptions)">
+            <summary>
+            
+            </summary>
+            <param name="units"></param>
+            <param name="forgeSpec"></param>
+            <param name="formatOptions"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Units.Units.GetInternal">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:archilab.Revit.Units.UnitUtils">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:archilab.Revit.Units.UnitUtils.ConvertFromInternalUnits(System.Double,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+            <param name="forgeUnit"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Units.UnitUtils.Format(archilab.Revit.Units.Units,System.String,System.Double,System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="units"></param>
+            <param name="forgeSpec"></param>
+            <param name="value"></param>
+            <param name="forEditing"></param>
+            <returns></returns>
+        </member>
+        <member name="T:archilab.Revit.Utils.ColorUtil">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:archilab.Revit.Utils.ColorUtil.GetColor(Autodesk.Revit.DB.Color)">
+            <summary>
+            
+            </summary>
+            <param name="color"></param>
+            <returns></returns>
+        </member>
+        <member name="T:archilab.Revit.Utils.ConvexHull">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:archilab.Revit.Utils.ConvexHull.MakeHull(System.Collections.Generic.IList{HullPoint})">
+            <summary>
+            
+            </summary>
+            <param name="points"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Utils.ConvexHull.MakeHullPresorted(System.Collections.Generic.IList{HullPoint})">
+            <summary>
+            
+            </summary>
+            <param name="points"></param>
+            <returns></returns>
+        </member>
+        <member name="T:archilab.Revit.Utils.CurveExtensions">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:archilab.Revit.Utils.CurveExtensions.OverlapsWith(Autodesk.Revit.DB.Curve,Autodesk.Revit.DB.Curve)">
+            <summary>
+            
+            </summary>
+            <param name="source"></param>
+            <param name="compareTo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Utils.CurveExtensions.OverlapsWithIn2D(Autodesk.Revit.DB.Curve,Autodesk.Revit.DB.Curve)">
+            <summary>
+            
+            </summary>
+            <param name="source"></param>
+            <param name="compareTo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Utils.CurveExtensions.Flatten(Autodesk.Revit.DB.XYZ)">
+            <summary>
+            
+            </summary>
+            <param name="pt"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Utils.CurveExtensions.Offset(Autodesk.Revit.DB.Curve,System.Double)">
+            <summary>
+            
+            </summary>
+            <param name="curve"></param>
+            <param name="offset"></param>
+            <returns></returns>
+        </member>
+        <member name="T:archilab.Revit.Utils.DoubleExtensions">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:archilab.Revit.Utils.DoubleExtensions.AlmostEqualTo(System.Double,System.Double)">
+            <summary>
+            
+            </summary>
+            <param name="value1"></param>
+            <param name="value2"></param>
+            <returns></returns>
+        </member>
+        <member name="T:archilab.Revit.Utils.StringExtensions">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:archilab.Revit.Utils.StringExtensions.Contains(System.String,System.String,System.StringComparison)">
+            <summary>
+            
+            </summary>
+            <param name="source"></param>
+            <param name="toCheck"></param>
+            <param name="comp"></param>
+            <returns></returns>
+        </member>
+        <member name="T:archilab.Revit.Views.CeilingPlanViews">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:archilab.Revit.Views.CeilingPlanViews.InternalElement">
+            <summary>
+            Internal Revit API object.
+            </summary>
+        </member>
+        <member name="M:archilab.Revit.Views.CeilingPlanViews.ByLevelAndType(Revit.Elements.Level,Revit.Elements.Element)">
+            <summary>
+            Create a Floor Plan view by Level and View Family Type.
+            </summary>
+            <param name="level">Level to associate the Plan to.</param>
+            <param name="viewFamilyType">View Family Type object.</param>
+            <returns name="floorPlan">Floor Plan.</returns>
+        </member>
+        <member name="M:archilab.Revit.Views.CeilingPlanViews.ByRoom(Revit.Elements.Room,Revit.Elements.Element)">
+            <summary>
+            
+            </summary>
+            <param name="room"></param>
+            <param name="viewFamilyType"></param>
+            <returns></returns>
+        </member>
+        <member name="T:archilab.Revit.Views.FloorPlanViews">
+            <summary>
+            Wrapper around Floor Plan View.
+            </summary>
+        </member>
+        <member name="P:archilab.Revit.Views.FloorPlanViews.InternalElement">
+            <summary>
+            Internal Revit API object.
+            </summary>
+        </member>
+        <member name="M:archilab.Revit.Views.FloorPlanViews.ByLevelAndType(Revit.Elements.Level,Revit.Elements.Element)">
+            <summary>
+            Create a Floor Plan view by Level and View Family Type.
+            </summary>
+            <param name="level">Level to associate the Plan to.</param>
+            <param name="viewFamilyType">View Family Type object.</param>
+            <returns name="floorPlan">Floor Plan.</returns>
+        </member>
+        <member name="M:archilab.Revit.Views.FloorPlanViews.ByRoom(Revit.Elements.Room,Revit.Elements.Element)">
+            <summary>
+            
+            </summary>
+            <param name="room"></param>
+            <param name="viewFamilyType"></param>
+            <returns></returns>
+        </member>
+        <member name="T:archilab.Revit.Views.ImageViews">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:archilab.Revit.Views.ImageViews.InternalElement">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:archilab.Revit.Views.ImageViews.SaveToProject(archilab.Revit.Elements.ImageExportOptions)">
+            <summary>
+            
+            </summary>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="T:archilab.Revit.Views.Sheets">
+            <summary>
+            Wrapper class for View Sheets.
+            </summary>
+        </member>
+        <member name="P:archilab.Revit.Views.Sheets.InternalElement">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:archilab.Revit.Views.Sheets.CreatePlaceholder(System.String,System.String)">
+            <summary>
+            Create Placeholder sheet.
+            </summary>
+            <param name="name">Name of the Sheet to be created.</param>
+            <param name="number">Number of the Sheet to be created.</param>
+            <returns name="Sheet">View sheet</returns>
+        </member>
+        <member name="M:archilab.Revit.Views.Sheets.Revisions(Revit.Elements.Views.Sheet)">
+            <summary>
+            Revisions on Sheet.
+            </summary>
+            <param name="sheet">View Sheet.</param>
+            <returns name="Element">Revisions on Sheet.</returns>
+        </member>
+        <member name="M:archilab.Revit.Views.Sheets.GetRevisionNumberOnSheet(Revit.Elements.Views.Sheet,Revit.Elements.Element)">
+            <summary>
+            Retrieves Revision Number that given Revision has on a Sheet.
+            This comes handy when Revision Numbers are set to vary per Sheet. 
+            </summary>
+            <param name="sheet">View Sheet.</param>
+            <param name="revision">Revision to get the number for.</param>
+            <returns name="number">Revision Number on a Sheet.</returns>
+        </member>
+        <member name="M:archilab.Revit.Views.Sheets.Viewports(Revit.Elements.Views.Sheet)">
+            <summary>
+            Viewports on sheet.
+            </summary>
+            <param name="sheet">View Sheet.</param>
+            <returns name="Element">Viewports on Sheet.</returns>
+        </member>
+        <member name="M:archilab.Revit.Views.Sheets.IsPlaceholder(Revit.Elements.Views.Sheet)">
+            <summary>
+            Returns True if Sheet is Placeholder.
+            </summary>
+            <param name="sheet">View Sheet.</param>
+            <returns>True if Sheet is Placeholder, otherwise false.</returns>
+        </member>
+        <member name="T:archilab.Revit.Views.ThreeD">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:archilab.Revit.Views.ThreeD.#ctor(Autodesk.Revit.DB.View3D)">
+            <summary>
+            
+            </summary>
+            <param name="view"></param>
+        </member>
+        <member name="M:archilab.Revit.Views.ThreeD.ByName(System.String)">
+            <summary>
+            Creates a Three Dimensional Isometric View by a name.
+            </summary>
+            <param name="name">Name of the View.</param>
+            <returns>View that was created.</returns>
+        </member>
+        <member name="T:archilab.Revit.Views.Viewports">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:archilab.Revit.Views.Viewports.GetBoxCenter(Revit.Elements.Element)">
+            <summary>
+            
+            </summary>
+            <param name="viewport"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Views.Viewports.SetBoxCenter(Revit.Elements.Element,Autodesk.DesignScript.Geometry.Point)">
+            <summary>
+            
+            </summary>
+            <param name="viewport"></param>
+            <param name="point"></param>
+            <returns></returns>
+        </member>
+        <member name="T:archilab.Revit.Views.Views">
+            <summary>
+            Wrapper class for Views.
+            </summary>
+        </member>
+        <member name="M:archilab.Revit.Views.Views.RemoveFilter(Revit.Elements.Views.View,System.Collections.Generic.List{Revit.Elements.Element})">
+            <summary>
+            Remove view filter from view.
+            </summary>
+            <param name="view">View to remove view filter from.</param>
+            <param name="viewFilter">View filter to be removed.</param>
+            <returns name="view">View that filter was removed from.</returns>
+            <search>view, filter, remove, delete</search>
+        </member>
+        <member name="M:archilab.Revit.Views.Views.SetFilterOverrides(System.Collections.Generic.List{Revit.Elements.Views.View},Revit.Elements.Element,archilab.Revit.Elements.OverrideGraphicsSettings,System.Boolean,System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="views"></param>
+            <param name="viewFilter"></param>
+            <param name="overrides"></param>
+            <param name="show"></param>
+            <param name="isEnabled"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Views.Views.SetViewTemplate(Revit.Elements.Views.View,Revit.Elements.Views.View)">
+            <summary>
+            Set View Template for a View.
+            </summary>
+            <param name="view">View that template will be applied to.</param>
+            <param name="viewTemplate">View Template that will be applied to View.</param>
+            <returns name="view"></returns>
+            <search>set, view, template</search>
+        </member>
+        <member name="M:archilab.Revit.Views.Views.RemoveViewTemplate(Revit.Elements.Views.View)">
+            <summary>
+            Removes View Template from given view.
+            </summary>
+            <param name="view">View to remove View Template from.</param>
+            <returns name="view">View that template was removed from.</returns>
+            <search>view, template, remove, delete</search>
+        </member>
+        <member name="M:archilab.Revit.Views.Views.GetAllViewTypes(System.Collections.Generic.List{System.String})">
+            <summary>
+            
+            </summary>
+            <param name="except"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Views.Views.GetByType(System.String)">
+            <summary>
+            Get all views by type.
+            </summary>
+            <param name="viewType">View type to retrieve all views for. If View Template selected, 
+            3D View Templates will be excluded from returned View Templates (currently a Dynamo limitation).</param>
+            <returns name="view">Views that match view type.</returns>
+            <search>view, get all views, view type</search>
+        </member>
+        <member name="M:archilab.Revit.Views.Views.SetWorksetVisibility(Revit.Elements.Views.View,System.Collections.Generic.List{archilab.Revit.Elements.Workset},System.String)">
+            <summary>
+            Sets Workset visibility for a View.
+            </summary>
+            <param name="view">View to set the visibility on.</param>
+            <param name="worksets">Worksets to set the visibility for.</param>
+            <param name="visibility">Visibility setting. Ex: Hide.</param>
+            <returns name="view">View</returns>
+            <search>workset, visibility, set</search>
+        </member>
+        <member name="M:archilab.Revit.Views.Views.Duplicate(Revit.Elements.Views.View,System.String,System.String)">
+            <summary>
+            Duplicates an existing view.
+            </summary>
+            <param name="view">View to duplicate.</param>
+            <param name="name">Name to be assigned to new view.</param>
+            <param name="options">Duplicate options. Ex: Duplicate as Dependent.</param>
+            <returns name="view">New View.</returns>
+            <search>view, duplicate</search>
+        </member>
+        <member name="M:archilab.Revit.Views.Views.Duplicate(Revit.Elements.Views.View,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="view"></param>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Views.Views.CreateCallout(Revit.Elements.Views.View,Revit.Elements.Element,Autodesk.DesignScript.Geometry.Rectangle)">
+            <summary>
+            Creates a new View Callout.
+            </summary>
+            <param name="view">View to create the Callout in.</param>
+            <param name="viewFamilyType">Type of Callout Family.</param>
+            <param name="extents">Extents of the Callout as Rectangle.</param>
+            <returns name="view">New Callout View.</returns>
+            <search>view, create, callout</search>
+        </member>
+        <member name="M:archilab.Revit.Views.Views.CreateReferenceCallout(Revit.Elements.Views.View,Revit.Elements.Views.View,Autodesk.DesignScript.Geometry.Rectangle)">
+            <summary>
+            Creates a new View Callout.
+            </summary>
+            <param name="view">View to create the Callout in.</param>
+            <param name="referenceView">View to set as Reference.</param>
+            <param name="extents">Extents of the Callout as Rectangle.</param>
+            <returns name="view">New Callout View.</returns>
+            <search>view, create, callout, reference</search>
+        </member>
+        <member name="M:archilab.Revit.Views.Views.ChangeReferencedView(Revit.Elements.Element,Revit.Elements.Views.View)">
+            <summary>
+            Changes the Referenced View for a Callout.
+            </summary>
+            <param name="callout">Callout to change the Referenced View for.</param>
+            <param name="reference">View to set the Reference to.</param>
+            <returns name="callout">Callout.</returns>
+            <search>view, reference, change, callout</search>
+        </member>
+        <member name="M:archilab.Revit.Views.Views.SetCropBox(Revit.Elements.Views.View,Autodesk.DesignScript.Geometry.BoundingBox)">
+            <summary>
+            Sets View's Crop Box to size matching supplied Bounding Box.
+            </summary>
+            <param name="view">View to set the Crop Box for.</param>
+            <param name="boundingBox">Bounding Box representing new Crop Box extents.</param>
+            <returns name="view">View.</returns>
+            <search>view, set, crop box</search>
+        </member>
+        <member name="M:archilab.Revit.Views.Views.CropBoxVisible(Revit.Elements.Views.View,System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="view"></param>
+            <param name="visible"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Views.Views.SetCropBoxByCurves(Revit.Elements.Views.View,System.Collections.Generic.List{Autodesk.DesignScript.Geometry.Curve})">
+            <summary>
+            
+            </summary>
+            <param name="view"></param>
+            <param name="curves"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Views.Views.SetName(Revit.Elements.Views.View,System.String)">
+            <summary>
+            Changes View's Name to a new one.
+            </summary>
+            <param name="view">View to change the name for.</param>
+            <param name="name">New name for the View.</param>
+            <returns name="view">View with a new Name.</returns>
+            <search>set, name</search>
+        </member>
+        <member name="M:archilab.Revit.Views.Views.SetDetailLevel(Revit.Elements.Views.View,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="view"></param>
+            <param name="detailLevel"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Views.Views.SetDisplayStyle(Revit.Elements.Views.View,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="view"></param>
+            <param name="displayStyle"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Views.Views.CropView(Revit.Elements.Views.View,System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="view"></param>
+            <param name="crop"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Views.Views.AnnotationCrop(Revit.Elements.Views.View,System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="view"></param>
+            <param name="crop"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Views.Views.SetImportsInFamiliesVisibility(Revit.Elements.Views.View,System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="view"></param>
+            <param name="visible"></param>
+        </member>
+        <member name="M:archilab.Revit.Views.Views.SetImportedCategoriesVisibility(Revit.Elements.Views.View,Revit.Elements.Category,System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="view"></param>
+            <param name="category"></param>
+            <param name="visible"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Views.Views.HideElements(Revit.Elements.Views.View,System.Collections.Generic.List{Revit.Elements.Element})">
+            <summary>
+            
+            </summary>
+            <param name="view"></param>
+            <param name="elements"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Views.Views.UnHideElements(Revit.Elements.Views.View,System.Collections.Generic.List{Revit.Elements.Element})">
+            <summary>
+            
+            </summary>
+            <param name="view"></param>
+            <param name="elements"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Views.Views.SetCategoryOverrides(Revit.Elements.Views.View,Revit.Elements.Category,archilab.Revit.Elements.OverrideGraphicsSettings)">
+            <summary>
+            
+            </summary>
+            <param name="view"></param>
+            <param name="category"></param>
+            <param name="overrides"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Views.Views.SetCategoryOverrides(Revit.Elements.Views.View,System.Int32,archilab.Revit.Elements.OverrideGraphicsSettings)">
+            <summary>
+            
+            </summary>
+            <param name="view"></param>
+            <param name="categoryId"></param>
+            <param name="overrides"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Views.Views.LowerLeftCorner(Revit.Elements.Views.View)">
+            <summary>
+            
+            </summary>
+            <param name="view"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Views.Views.GetImportedCategories(Revit.Elements.Views.View)">
+            <summary>
+            
+            </summary>
+            <param name="view"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Views.Views.ViewTemplate(Revit.Elements.Views.View)">
+            <summary>
+            Get View Template applied to view.
+            </summary>
+            <param name="view">View to retrieve View Template from.</param>
+            <returns name="view">View Template applied to view.</returns>
+            <search>view, template</search>
+        </member>
+        <member name="M:archilab.Revit.Views.Views.IsTitleblockSchedule(Revit.Elements.Element)">
+            <summary>
+            Check if Schedule is Titleblock Schedule.
+            </summary>
+            <param name="view">Schedule View to test.</param>
+            <returns></returns>
+            <search>titleblock, schedule</search>
+        </member>
+        <member name="M:archilab.Revit.Views.Views.IsOnSheet(Revit.Elements.Views.View)">
+            <summary>
+            Check if View is placed on a Sheet.
+            </summary>
+            <param name="view">View to check.</param>
+            <returns>True if View is on Sheet, otherwise False.</returns>
+            <search>isOnSheet, is on sheet</search>
+        </member>
+        <member name="M:archilab.Revit.Views.Views.ReferenceCallouts(Revit.Elements.Views.View)">
+            <summary>
+            Retrieves Reference Callouts from a View.
+            </summary>
+            <param name="view">View to retrieve Reference Callouts from.</param>
+            <returns name="callout[]">List of Reference Callouts.</returns>
+            <search>get, reference, callout</search>
+        </member>
+        <member name="M:archilab.Revit.Views.Views.Outline(Revit.Elements.Views.View)">
+            <summary>
+            Get View's Outline ie. Rectangle.
+            </summary>
+            <param name="view">View to retrieve Outline from.</param>
+            <returns name="outline">View Outline.</returns>
+            <search>view, outline</search>
+        </member>
+        <member name="M:archilab.Revit.Views.Views.CropBox(Revit.Elements.Views.View)">
+            <summary>
+            Retrieves Crop Box of the View as Bounding Box object.
+            </summary>
+            <param name="view">View to extract the Crop Box from.</param>
+            <returns name="boundingBox">Bounding Box.</returns>
+            <search>view, crop box</search>
+        </member>
+        <member name="M:archilab.Revit.Views.Views.ViewType(Revit.Elements.Views.View)">
+            <summary>
+            
+            </summary>
+            <param name="view"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Views.Views.DetailLevel(Revit.Elements.Views.View)">
+            <summary>
+            
+            </summary>
+            <param name="view"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Views.Views.PartsVisibility(Revit.Elements.Views.View)">
+            <summary>
+            
+            </summary>
+            <param name="view"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Views.Views.Discipline(Revit.Elements.Views.View)">
+            <summary>
+            
+            </summary>
+            <param name="view"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Views.Views.FilterOverrides(Revit.Elements.Views.View,Revit.Filter.ParameterFilterElement)">
+            <summary>
+            
+            </summary>
+            <param name="view"></param>
+            <param name="parameterFilter"></param>
+            <returns name="settings"></returns>
+        </member>
+        <member name="M:archilab.Revit.Views.Views.CategoryOverrides(Revit.Elements.Views.View,Revit.Elements.Category)">
+            <summary>
+            
+            </summary>
+            <param name="view"></param>
+            <param name="category"></param>
+            <returns name="settings"></returns>
+        </member>
+        <member name="M:archilab.Revit.Views.Views.FilterVisibility(Revit.Elements.Views.View,Revit.Filter.ParameterFilterElement)">
+            <summary>
+            
+            </summary>
+            <param name="view"></param>
+            <param name="parameterFilter"></param>
+            <returns name="settings"></returns>
+        </member>
+        <member name="M:archilab.Revit.Views.Views.IsFilterApplied(Revit.Elements.Views.View,Revit.Filter.ParameterFilterElement)">
+            <summary>
+            
+            </summary>
+            <param name="view"></param>
+            <param name="parameterFilter"></param>
+            <returns name="settings"></returns>
+        </member>
+        <member name="M:archilab.Revit.Views.Views.ModelDisplay(Revit.Elements.Views.View)">
+            <summary>
+            
+            </summary>
+            <param name="view"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Views.Views.SketchyLines(Revit.Elements.Views.View)">
+            <summary>
+            
+            </summary>
+            <param name="view"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Views.Views.Lighting(Revit.Elements.Views.View)">
+            <summary>
+            
+            </summary>
+            <param name="view"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Views.Views.DisplayStyle(Revit.Elements.Views.View)">
+            <summary>
+            
+            </summary>
+            <param name="view"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Views.Views.Background(Revit.Elements.Views.View)">
+            <summary>
+            
+            </summary>
+            <param name="view"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Views.Views.DepthCueing(Revit.Elements.Views.View)">
+            <summary>
+            
+            </summary>
+            <param name="view"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Revit.Views.Views.RenderingSettings(Revit.Elements.Views.View)">
+            <summary>
+            
+            </summary>
+            <param name="view"></param>
+            <returns></returns>
+        </member>
+        <member name="T:archilab.Revit.Views.ScheduleViews">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:archilab.Revit.Views.ScheduleViews.IsItemized(Revit.Elements.Views.ScheduleView,System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="view"></param>
+            <param name="isItemized"></param>
+            <returns></returns>
+        </member>
+        <member name="T:archilab.Revit.Views.ViewSets">
+            <summary>
+            Methods and properties typically associated with View Sets in Revit
+            </summary>
+        </member>
+        <member name="M:archilab.Revit.Views.ViewSets.GetAll">
+            <summary>
+            Retrieves all of the View Sets from the model.
+            </summary>
+            <returns name="viewSets">View Sets.</returns>
+        </member>
+        <member name="M:archilab.Revit.Views.ViewSets.ByViewsName(System.Collections.Generic.List{Revit.Elements.Element},System.String,System.Boolean)">
+            <summary>
+            Creates new View Set by name and List of Views.
+            </summary>
+            <param name="views">List of Views.</param>
+            <param name="name">Name of the View Set.</param>
+            <param name="replace">Override existing View Set with same name.</param>
+            <returns name="viewSet">View Sheet Set.</returns>
+        </member>
+        <member name="M:archilab.Revit.Views.ViewSets.Views(Revit.Elements.Element)">
+            <summary>
+            Retrieves all of the Views from a View Set.
+            </summary>
+            <param name="viewSet">View Set to query for Views.</param>
+            <returns name="views">Views that are part of the View Set.</returns>
+        </member>
+        <member name="T:archilab.Revit.Views.ViewTemplates">
+            <summary>
+            View Template related utilities.
+            </summary>
+        </member>
+        <member name="M:archilab.Revit.Views.ViewTemplates.Duplicate(Revit.Elements.Views.View,System.String)">
+            <summary>
+            Creates a copy of View Template.
+            </summary>
+            <param name="viewTemplate">View Template to be duplicated.</param>
+            <param name="name">Name of the new View Template.</param>
+            <returns name="view">View Template</returns>
+        </member>
+        <member name="M:archilab.Revit.Views.ViewTemplates.GetTemplateParameterIds(Revit.Elements.Views.View)">
+            <summary>
+            Retrieves Template Parameter Ids.
+            </summary>
+            <param name="viewTemplate">View to get the Parameter Ids from.</param>
+            <returns>List of Parameter Ids.</returns>
+        </member>
+        <member name="M:archilab.Revit.Views.ViewTemplates.Include(Revit.Elements.Views.View,System.Collections.Generic.List{System.Int32},System.Boolean)">
+            <summary>
+            Sets the View Template parameter's "include" property.
+            </summary>
+            <param name="viewTemplate">View to set the parameter for.</param>
+            <param name="parameters">List of parameters to set.</param>
+            <param name="include">True to include given parameters, otherwise false.</param>
+            <returns>View Template.</returns>
+        </member>
+        <member name="M:archilab.Revit.Views.ViewTemplates.IsIncluded(Revit.Elements.Views.View,System.Int32)">
+            <summary>
+            Retrieves current status of the "include" parameter for a View Template.
+            </summary>
+            <param name="viewTemplate">View to retrieve the parameter status for.</param>
+            <param name="parameter">Parameter to check.</param>
+            <returns>True if parameter's "include" value is checked, otherwise false.</returns>
+        </member>
+        <member name="M:archilab.Revit.Views.ViewTemplates.NonControlledTemplateParameters(Revit.Elements.Views.View)">
+            <summary>
+            Retrieves a list of non-controlled template parameters. These are parameters
+            that have the "include" parameter unchecked.
+            </summary>
+            <param name="viewTemplate">View to retrieve the parameters from.</param>
+            <returns>List of non-controlled parameter ids.</returns>
+        </member>
+        <member name="M:archilab.Revit.Views.ViewTemplates.GetParameterName(System.Int32)">
+            <summary>
+            Retrieves View Template parameter name from its Id. 
+            </summary>
+            <param name="parameter">View Template parameter.</param>
+            <returns>Name of the View Template parameter.</returns>
+        </member>
+        <member name="T:archilab.SpellCheck.Speller">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:archilab.SpellCheck.Speller.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:archilab.SpellCheck.Speller.#ctor(System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="dicPath"></param>
+            <param name="affPath"></param>
+        </member>
+        <member name="M:archilab.SpellCheck.Speller.#ctor(System.String,System.String,System.Collections.Generic.IReadOnlyCollection{System.String})">
+            <summary>
+            
+            </summary>
+            <param name="dicPath"></param>
+            <param name="affPath"></param>
+            <param name="additions"></param>
+        </member>
+        <member name="M:archilab.SpellCheck.Speller.CheckSpelling(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="text"></param>
+            <returns></returns>
+        </member>
+        <member name="T:archilab.Utilities.Offset">
+            <summary>
+            Utility class for creating offsets.
+            </summary>
+        </member>
+        <member name="P:archilab.Utilities.Offset.Top">
+            <summary>
+            Top offset.
+            </summary>
+        </member>
+        <member name="P:archilab.Utilities.Offset.Right">
+            <summary>
+            Right offset.
+            </summary>
+        </member>
+        <member name="P:archilab.Utilities.Offset.Bottom">
+            <summary>
+            Bottom offset.
+            </summary>
+        </member>
+        <member name="P:archilab.Utilities.Offset.Left">
+            <summary>
+            Left offset.
+            </summary>
+        </member>
+        <member name="M:archilab.Utilities.Offset.Create(System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            Creates offset object that has default values set to 0 for all four sides.
+            </summary>
+            <param name="top">Top offset.</param>
+            <param name="right">Right offset.</param>
+            <param name="bottom">Bottom offset.</param>
+            <param name="left">Left offset.</param>
+        </member>
+        <member name="T:archilab.Utilities.TypeUtilities">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:archilab.Utilities.TypeUtilities.HasProperty(System.Type,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="type"></param>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="T:archilab.Utilities.ColorUtilities">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:archilab.Utilities.ColorUtilities.DsColorByColor(Autodesk.Revit.DB.Color)">
+            <summary>
+            
+            </summary>
+            <param name="color"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Utilities.ColorUtilities.RevitColorByColor(DSCore.Color)">
+            <summary>
+            
+            </summary>
+            <param name="color"></param>
+            <returns></returns>
+        </member>
+        <member name="M:archilab.Utilities.ColorUtilities.GetBlack">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:archilab.Utilities.FilePathUtilities">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:archilab.Utilities.FilePathUtilities.VerifyFilePath(System.Object)">
+            <summary>
+            
+            </summary>
+            <param name="filePath"></param>
+            <returns></returns>
+        </member>
+        <member name="T:archilab.Utilities.ListUtilities">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:archilab.Utilities.ListUtilities.DropdownToList(System.Collections.Generic.List{System.Object})">
+            <summary>
+            
+            </summary>
+            <param name="inputList"></param>
+            <returns></returns>
+        </member>
+        <member name="T:archilab.Utilities.ElementSelector">
+            <summary>
+            Utilities for retrieving elements
+            </summary>
+        </member>
+        <member name="M:archilab.Utilities.ElementSelector.GetWorksetById(System.Int32)">
+            <summary>
+            Workset selector.
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="T:archilab.Utilities.FilterNumericValueRule">
+            <summary>
+            Parameter Filter Numeric Rules.
+            </summary>
+        </member>
+        <member name="F:archilab.Utilities.FilterNumericValueRule.DoubleRule">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:archilab.Utilities.FilterNumericValueRule.ElementIdRule">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:archilab.Utilities.FilterNumericValueRule.GlobalParameterRule">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:archilab.Utilities.FilterNumericValueRule.IntegerRule">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:archilab.Utilities.ViewTemplateParameters">
+            <summary>
+            Built in View Template parameters.
+            </summary>
+        </member>
+        <member name="P:archilab.Utilities.ViewTemplateParameters.Parameters">
+            <summary>
+            Dictionary holding all parameter key, value mappings.
+            </summary>
+        </member>
+        <member name="M:archilab.Utilities.ViewTemplateParameters.#ctor">
+            <summary>
+            Public constructor.
+            </summary>
+        </member>
+        <member name="M:archilab.Utilities.ViewTemplateParameters.ByName(System.String)">
+            <summary>
+            Retrieves View Template parameter by its name.
+            </summary>
+            <param name="name">Name of the built in parameter.</param>
+            <returns>Parameter ElementId</returns>
+        </member>
+        <member name="M:archilab.Utilities.ViewTemplateParameters.GetName(System.Int32)">
+            <summary>
+            Retrieves the name of the View Template parameter by its value.
+            </summary>
+            <param name="value">Value of the parameter.</param>
+            <returns>Name of the parameter.</returns>
+        </member>
+        <member name="T:archilab.Utilities.FilterStringRuleEvaluator">
+            <summary>
+            Parameter Filter String Rules.
+            </summary>
+        </member>
+        <member name="P:archilab.Utilities.FilterStringRuleEvaluator.Rules">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:archilab.Utilities.FilterStringRuleEvaluator.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:archilab.Utilities.FilterStringRuleEvaluator.ByName(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="T:archilab.Utilities.GoogleImageFormats">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:archilab.Utilities.GoogleImageFormats.ImageFormats">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:archilab.Utilities.GoogleImageFormats.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:archilab.Utilities.GoogleImageFormats.ByName(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="T:archilab.Utilities.GoogleMapTypes">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:archilab.Utilities.GoogleMapTypes.MapTypes">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:archilab.Utilities.GoogleMapTypes.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:archilab.Utilities.GoogleMapTypes.ByName(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="T:archilab.Utilities.FilterRuleTypes">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:archilab.Utilities.FilterRuleTypes.Rules">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:archilab.Utilities.FilterRuleTypes.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:archilab.Utilities.FilterRuleTypes.ByName(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="T:archilab.Utilities.FilterNumericRuleEvaluator">
+            <summary>
+                Parameter Filter Numeric Rule Evaluator options.
+            </summary>
+        </member>
+        <member name="P:archilab.Utilities.FilterNumericRuleEvaluator.Rules">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:archilab.Utilities.FilterNumericRuleEvaluator.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:archilab.Utilities.FilterNumericRuleEvaluator.ByName(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="T:archilab.Utilities.ViewTypes">
+            <summary>
+                View Types enumeration for View.ByType node.
+            </summary>
+        </member>
+        <member name="P:archilab.Utilities.ViewTypes.Types">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:archilab.Utilities.ViewTypes.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:archilab.Utilities.ViewTypes.ByName(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="T:archilab.Utilities.Units">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:archilab.Utilities.Units.ForgeUnits">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:archilab.Utilities.Units.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:archilab.Utilities.Units.ByName(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="T:archilab.Utilities.Specs">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:archilab.Utilities.Specs.ForgeSpecs">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:archilab.Utilities.Specs.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:archilab.Utilities.Specs.ByName(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="T:HullPoint">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:HullPoint.x">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:HullPoint.y">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:HullPoint.#ctor(System.Double,System.Double)">
+            <summary>
+            
+            </summary>
+            <param name="x"></param>
+            <param name="y"></param>
+        </member>
+        <member name="M:HullPoint.CompareTo(HullPoint)">
+            <summary>
+            
+            </summary>
+            <param name="other"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

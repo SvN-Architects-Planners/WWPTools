@@ -1,0 +1,163 @@
+{
+  "Uuid": "2a241d0e-ff72-4ef7-bdfe-e264b12263d3",
+  "IsCustomNode": true,
+  "Category": "archilab.Revit.Select",
+  "Description": "This node will select all model lines in the revit project by a line style name. ",
+  "Name": "Select Model Lines by Style",
+  "ElementResolver": {
+    "ResolutionMap": {}
+  },
+  "Inputs": [],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "# Copyright(c) 2015, Konrad Sobon\n# @arch_laboratory, http://archi-lab.net\n\nimport clr\nclr.AddReference('ProtoGeometry')\nfrom Autodesk.DesignScript.Geometry import *\n\n# Import DocumentManager and TransactionManager\nclr.AddReference(\"RevitServices\")\nimport RevitServices\nfrom RevitServices.Persistence import DocumentManager\n\n# Import RevitAPI\nclr.AddReference(\"RevitAPI\")\nimport Autodesk\nfrom Autodesk.Revit.DB import *\nfrom Autodesk.Revit.DB.BuiltInCategory import *\n\ndoc = DocumentManager.Instance.CurrentDBDocument\n\nimport sys\npyt_path = r'C:\\Program Files (x86)\\IronPython 2.7\\Lib'\nsys.path.append(pyt_path)\n\n#The inputs to this node will be stored as a list in the IN variable.\ndataEnteringNode = IN\n\nstyleName = IN[0]\n\ntry:\n\terrorReport = None\n\tcollector = FilteredElementCollector(doc).OfCategory(BuiltInCategory.OST_Lines)\n\tmodelLines = []\n\tfor i in collector:\n\t\tif i.Name == \"Model Lines\" and i.LineStyle.Name == styleName:\n\t\t\tmodelLines.append(i)\nexcept:\n\t# if error accurs anywhere in the process catch it\n\timport traceback\n\terrorReport = traceback.format_exc()\n\t\n#Assign your output to the OUT variable\nif errorReport == None:\n\tOUT = modelLines\nelse:\n\tOUT = errorReport",
+      "VariableInputPorts": true,
+      "Id": "f30ebc72d04d4f869e8d3c69ca8c9da9",
+      "Inputs": [
+        {
+          "Id": "22e949f6227a4a20b0a24b095f2224a1",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "0b5dc5aad04a474a9fd274d5402b7cde",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded IronPython script."
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Symbol, DynamoCore",
+      "NodeType": "InputNode",
+      "Parameter": {
+        "Name": "_styleName",
+        "TypeName": "var",
+        "TypeRank": -1,
+        "DefaultValue": null,
+        "Description": ""
+      },
+      "Id": "e97eb81b275e4dd496e95e525ebd5ee1",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "d525b4555d5645b786f6c70c6aa491cb",
+          "Name": "",
+          "Description": "Symbol",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "A function parameter, use with custom nodes.\r\n\r\nYou can specify the type and default value for parameter. E.g.,\r\n\r\ninput : var[]..[]\r\nvalue : bool = false"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Output, DynamoCore",
+      "NodeType": "OutputNode",
+      "Symbol": "_modelLine",
+      "Id": "32148c28e2a94cc89720b013ae3507de",
+      "Inputs": [
+        {
+          "Id": "3298973a3d804f0983dedd06ba2a2bc5",
+          "Name": "",
+          "Description": "",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [],
+      "Replication": "Disabled",
+      "Description": "A function output, use with custom nodes"
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "0b5dc5aad04a474a9fd274d5402b7cde",
+      "End": "3298973a3d804f0983dedd06ba2a2bc5",
+      "Id": "532c6e4475a94c0b8bb6e2a056d6086e"
+    },
+    {
+      "Start": "d525b4555d5645b786f6c70c6aa491cb",
+      "End": "22e949f6227a4a20b0a24b095f2224a1",
+      "Id": "fe3b7d7d2e764a8a9db92dfa77bfb4b0"
+    }
+  ],
+  "Dependencies": [],
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": false,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.2.1.5175",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "Background Preview",
+      "EyeX": -17.0,
+      "EyeY": 24.0,
+      "EyeZ": 50.0,
+      "LookX": 12.0,
+      "LookY": -13.0,
+      "LookZ": -58.0,
+      "UpX": 0.0,
+      "UpY": 1.0,
+      "UpZ": 0.0
+    },
+    "NodeViews": [
+      {
+        "ShowGeometry": true,
+        "Name": "Python Script",
+        "Id": "f30ebc72d04d4f869e8d3c69ca8c9da9",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 250.0,
+        "Y": 0.0
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Input",
+        "Id": "e97eb81b275e4dd496e95e525ebd5ee1",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 0.0,
+        "Y": 0.0
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Output",
+        "Id": "32148c28e2a94cc89720b013ae3507de",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 449.0,
+        "Y": 0.0
+      }
+    ],
+    "Annotations": [],
+    "X": 105.112240994474,
+    "Y": 126.930113123867,
+    "Zoom": 1.51051845643135
+  }
+}

@@ -1,0 +1,112 @@
+{
+  "Uuid": "d9b10d29-5b00-40f3-8e8d-51f425ece54e",
+  "IsCustomNode": true,
+  "Category": "archilab.Revit.Printing",
+  "Description": "This node will query all locally installed printers and return their names.",
+  "Name": "Local Printers Names",
+  "ElementResolver": {
+    "ResolutionMap": {}
+  },
+  "Inputs": [],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "#Copyright(c) 2015, Konrad K Sobon\n# @arch_laboratory, http://archi-lab.net\n\nimport clr\nclr.AddReference('ProtoGeometry')\nfrom Autodesk.DesignScript.Geometry import *\n\nimport sys\npyt_path = r'C:\\Program Files (x86)\\IronPython 2.7\\Lib'\nsys.path.append(pyt_path)\n\n#The inputs to this node will be stored as a list in the IN variable.\ndataEnteringNode = IN\n\n# This bit of code was a great work by Stack Overflow user: wdscxsj\n# The original thread can be found here: http://stackoverflow.com/questions/10109030/is-it-possible-to-get-a-list-of-printer-names-in-windows/10109522?noredirect=1#comment50322136_10109522\n\n# Use EnumPrintersW to list local printers with their names and descriptions.\n# Tested with CPython 2.7.10 and IronPython 2.7.5.\n\nimport ctypes\nfrom ctypes.wintypes import BYTE, DWORD, LPCWSTR\n\nwinspool = ctypes.WinDLL('winspool.drv')  # for EnumPrintersW\nmsvcrt = ctypes.cdll.msvcrt  # for malloc, free\n\n# Parameters: modify as you need. See MSDN for detail.\nPRINTER_ENUM_LOCAL = 2\nName = None  # ignored for PRINTER_ENUM_LOCAL\nLevel = 1  # or 2, 4, 5\n\nclass PRINTER_INFO_1(ctypes.Structure):\n\t_fields_ = [\n\t\t(\"Flags\", DWORD),\n\t\t(\"pDescription\", LPCWSTR),\n\t\t(\"pName\", LPCWSTR),\n\t\t(\"pComment\", LPCWSTR),\n\t]\n\n# Invoke once with a NULL pointer to get buffer size.\ninfo = ctypes.POINTER(BYTE)()\npcbNeeded = DWORD(0)\npcReturned = DWORD(0)  # the number of PRINTER_INFO_1 structures retrieved\nwinspool.EnumPrintersW(PRINTER_ENUM_LOCAL, Name, Level, ctypes.byref(info), 0, ctypes.byref(pcbNeeded), ctypes.byref(pcReturned))\n\nbufsize = pcbNeeded.value\nbuffer = msvcrt.malloc(bufsize)\nwinspool.EnumPrintersW(PRINTER_ENUM_LOCAL, Name, Level, buffer, bufsize, ctypes.byref(pcbNeeded), ctypes.byref(pcReturned))\ninfo = ctypes.cast(buffer, ctypes.POINTER(PRINTER_INFO_1))\n\nprinterNames = []\nfor i in range(pcReturned.value):\n\tprinterNames.append(info[i].pName)\nmsvcrt.free(buffer)\n\n#Assign your output to the OUT variable\nOUT = printerNames",
+      "VariableInputPorts": true,
+      "Id": "6d615d288e7a4ca78aaece7ccb05069d",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "743ed045ec75409aba1e7641ffc054ad",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded IronPython script."
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Output, DynamoCore",
+      "NodeType": "OutputNode",
+      "Symbol": "_out",
+      "Id": "92ac5c405dd74664a19d7856c5ea2f6e",
+      "Inputs": [
+        {
+          "Id": "40e3c1eac93e410380279078f2c10b6a",
+          "Name": "",
+          "Description": "",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [],
+      "Replication": "Disabled",
+      "Description": "A function output, use with custom nodes"
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "743ed045ec75409aba1e7641ffc054ad",
+      "End": "40e3c1eac93e410380279078f2c10b6a",
+      "Id": "e922341e232545a9a3cbae49bb1c644c"
+    }
+  ],
+  "Dependencies": [],
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": false,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.2.1.5175",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "Background Preview",
+      "EyeX": -17.0,
+      "EyeY": 24.0,
+      "EyeZ": 50.0,
+      "LookX": 12.0,
+      "LookY": -13.0,
+      "LookZ": -58.0,
+      "UpX": 0.0,
+      "UpY": 1.0,
+      "UpZ": 0.0
+    },
+    "NodeViews": [
+      {
+        "ShowGeometry": true,
+        "Name": "Python Script",
+        "Id": "6d615d288e7a4ca78aaece7ccb05069d",
+        "IsSetAsInput": true,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 514.625591312637,
+        "Y": 316.33820395873
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Output",
+        "Id": "92ac5c405dd74664a19d7856c5ea2f6e",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 656.856621615668,
+        "Y": 316.798848611354
+      }
+    ],
+    "Annotations": [],
+    "X": -731.102869429575,
+    "Y": -324.239791040717,
+    "Zoom": 1.96524455617686
+  }
+}

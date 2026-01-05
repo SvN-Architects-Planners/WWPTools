@@ -1,0 +1,313 @@
+{
+  "Uuid": "af155da9-b1c8-4edb-b621-2c60caa7e8f6",
+  "IsCustomNode": true,
+  "Category": "Data-Shapes.UI.Charts",
+  "Description": "PieChart",
+  "Name": "PieChart",
+  "ElementResolver": {
+    "ResolutionMap": {}
+  },
+  "Inputs": [],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Output, DynamoCore",
+      "NodeType": "OutputNode",
+      "ElementResolver": null,
+      "Symbol": "UI.PieChart Data",
+      "Id": "f59cd9f5e4f74e68a8736669686e74e0",
+      "Inputs": [
+        {
+          "Id": "e4e12c4237f84d2586aa43f67862f2ee",
+          "Name": "",
+          "Description": "",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [],
+      "Replication": "Disabled",
+      "Description": "A function output, use with custom nodes"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Symbol, DynamoCore",
+      "NodeType": "InputNode",
+      "Parameter": {
+        "Name": "Chart_name",
+        "TypeName": "string",
+        "TypeRank": 0,
+        "DefaultValue": "\"Pie Chart\"",
+        "Description": ""
+      },
+      "Id": "d03b9779e2e14edc9c6bde3fc1aff256",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "c9394845d023469d94b1ef89ab476674",
+          "Name": "",
+          "Description": "Symbol",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "A function parameter, use with custom nodes.\r\n\r\nYou can specify the type and default value for parameter. E.g.,\r\n\r\ninput : var[]..[]\r\nvalue : bool = false"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Symbol, DynamoCore",
+      "NodeType": "InputNode",
+      "Parameter": {
+        "Name": "series",
+        "TypeName": "var",
+        "TypeRank": -1,
+        "DefaultValue": null,
+        "Description": ""
+      },
+      "Id": "e1059389c53a4e9ab541a968fafd0dde",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "6ea0d9c8b72a486da4621b6260eb2bdf",
+          "Name": "",
+          "Description": "Symbol",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "A function parameter, use with custom nodes.\r\n\r\nYou can specify the type and default value for parameter. E.g.,\r\n\r\ninput : var[]..[]\r\nvalue : bool = false"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Symbol, DynamoCore",
+      "NodeType": "InputNode",
+      "Parameter": {
+        "Name": "values",
+        "TypeName": "var",
+        "TypeRank": -1,
+        "DefaultValue": null,
+        "Description": ""
+      },
+      "Id": "8b29dda1f73740b1b0999dc92edae43a",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "6fc4e1a676ee4236ba1fcaf5d0171504",
+          "Name": "",
+          "Description": "Symbol",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "A function parameter, use with custom nodes.\r\n\r\nYou can specify the type and default value for parameter. E.g.,\r\n\r\ninput : var[]..[]\r\nvalue : bool = false"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Symbol, DynamoCore",
+      "NodeType": "InputNode",
+      "Parameter": {
+        "Name": "Chart_colors_optionnal",
+        "TypeName": "var",
+        "TypeRank": 1,
+        "DefaultValue": "null",
+        "Description": ""
+      },
+      "Id": "e21aee7b85a241b0b356e89f9d850bae",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "1156a4fe1ab0478c97243fc06b03e01e",
+          "Name": "",
+          "Description": "Symbol",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "A function parameter, use with custom nodes.\r\n\r\nYou can specify the type and default value for parameter. E.g.,\r\n\r\ninput : var[]..[]\r\nvalue : bool = false"
+    },
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "#Copyright (c) valentin bertel ,  2019\r\n#Data-Shapes www.data-shapes.io\r\n\r\nclass uipiechart():\r\n\tdef __init__(self,inputname,chartname,xseries,yseries,inputcolors):\r\n\t\tself.inputname = inputname\r\n\t\tself.chartname = chartname\r\n\t\tself.xseries = xseries\r\n\t\tself.yseries = yseries\r\n\t\tself.inputcolors = inputcolors\r\n\t\t\r\n\tdef __repr__(self):\r\n\t\treturn 'UI.PieChart input'\r\n\t\t\r\nx = uipiechart(\"\",IN[0],IN[1],IN[2],IN[3])\r\n\r\nOUT = x",
+      "VariableInputPorts": true,
+      "Id": "0eb138996b2942cfab478cedb7bd3cc4",
+      "Inputs": [
+        {
+          "Id": "a3b70fb9b42045c19d6a637ebf8117c3",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "60fe74c7b8f74e9f8481b47165811628",
+          "Name": "IN[1]",
+          "Description": "Input #1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "21f00bf351cf4b90bed7f66a86085ec1",
+          "Name": "IN[2]",
+          "Description": "Input #2",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "1d2d330a9b9a4f0ca43e345df85a4fb3",
+          "Name": "IN[3]",
+          "Description": "Input #3",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "1e19a8e6428e43e9926392a4ab96ae5f",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded IronPython script."
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "c9394845d023469d94b1ef89ab476674",
+      "End": "a3b70fb9b42045c19d6a637ebf8117c3",
+      "Id": "54d34e0e6e9c4d719ec8aeb30aaa2057"
+    },
+    {
+      "Start": "6ea0d9c8b72a486da4621b6260eb2bdf",
+      "End": "60fe74c7b8f74e9f8481b47165811628",
+      "Id": "58eeec383ff34ecdb766f7882dd71c7f"
+    },
+    {
+      "Start": "6fc4e1a676ee4236ba1fcaf5d0171504",
+      "End": "21f00bf351cf4b90bed7f66a86085ec1",
+      "Id": "04c43b79c9144d06a413afc5cbceb6a6"
+    },
+    {
+      "Start": "1156a4fe1ab0478c97243fc06b03e01e",
+      "End": "1d2d330a9b9a4f0ca43e345df85a4fb3",
+      "Id": "83f0d05f19c94158883631f2c3f49cc6"
+    },
+    {
+      "Start": "1e19a8e6428e43e9926392a4ab96ae5f",
+      "End": "e4e12c4237f84d2586aa43f67862f2ee",
+      "Id": "2dfd1401d9934b5da4317f5cd029970e"
+    }
+  ],
+  "Dependencies": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": false,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.0.3.8810",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "Background Preview",
+      "EyeX": -17.0,
+      "EyeY": 24.0,
+      "EyeZ": 50.0,
+      "LookX": 12.0,
+      "LookY": -13.0,
+      "LookZ": -58.0,
+      "UpX": 0.0,
+      "UpY": 1.0,
+      "UpZ": 0.0
+    },
+    "NodeViews": [
+      {
+        "ShowGeometry": true,
+        "Name": "Output",
+        "Id": "f59cd9f5e4f74e68a8736669686e74e0",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 0.0,
+        "Y": 0.0
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Input",
+        "Id": "d03b9779e2e14edc9c6bde3fc1aff256",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 0.0,
+        "Y": 0.0
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Input",
+        "Id": "e1059389c53a4e9ab541a968fafd0dde",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 0.0,
+        "Y": 0.0
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Input",
+        "Id": "8b29dda1f73740b1b0999dc92edae43a",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 0.0,
+        "Y": 0.0
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Input",
+        "Id": "e21aee7b85a241b0b356e89f9d850bae",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 0.0,
+        "Y": 0.0
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Python Script",
+        "Id": "0eb138996b2942cfab478cedb7bd3cc4",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 0.0,
+        "Y": 0.0
+      }
+    ],
+    "Annotations": [],
+    "X": 0.0,
+    "Y": 0.0,
+    "Zoom": 1.0
+  }
+}

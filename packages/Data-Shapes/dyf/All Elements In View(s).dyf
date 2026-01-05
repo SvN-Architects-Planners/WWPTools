@@ -1,0 +1,170 @@
+{
+  "Uuid": "51e3d5bc-cc07-4e8b-b976-11dc51cf6843",
+  "IsCustomNode": true,
+  "Category": "Data-Shapes.Revit.Elements",
+  "Description": "Retrieves all visible element in a view or a set of views",
+  "Name": "All Elements In View(s)",
+  "ElementResolver": {
+    "ResolutionMap": {}
+  },
+  "Inputs": [],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "#Copyright (c) mostafa el ayoubi ,\t2023\n#Data-Shapes www.data-shapes.net , mostafa.elayoubi@data-shapes.io\n\nimport clr\nclr.AddReference('RevitAPI')\nfrom Autodesk.Revit.DB import*\nclr.AddReference('RevitServices')\nfrom RevitServices.Persistence import DocumentManager\nfrom RevitServices.Transactions import TransactionManager\n\ndoc = DocumentManager.Instance.CurrentDBDocument\n\nif isinstance(IN[0],list):\n\tviews = UnwrapElement(IN[0])\nelse:\n\tviews = [UnwrapElement(IN[0])]\n\t\ndef elementsInScheduleView(doc,viewSchedule):\n\t#Listing items found by collector method\n\tinitialList = FilteredElementCollector(doc, viewSchedule.Id).ToElementIds()\n\t#Getting info to be able to iterate through table rows\n\ttable_data = viewSchedule.GetTableData()\n\tsection_data = table_data.GetSectionData(SectionType.Body)\t\n\tno_of_rows = section_data.NumberOfRows\t\n\titemInScheduleRowId = []\n\tScheduleDef = viewSchedule.Definition\n\titemized = \tScheduleDef.IsItemized\n\t#iterating through rows...\n\tfor i in range(no_of_rows):\n\t\t#we create subtransactions to temporary delete row and then rollback\n\t\tTransactionManager.Instance.EnsureInTransaction(doc)\n\t\tst = SubTransaction(doc)\n\t\tst.Start()\t\t\n\t\t# Use Try/Except to handle any rows that can't be removed\n\t\ttry:\n\t\t\tsection_data.RemoveRow(i)\n\t\t\t#After deleting, we reuse the collector method to check the difference\n\t\t\tremaining = FilteredElementCollector(doc, viewSchedule.Id).ToElementIds()\n\t\t\tremaining = list(remaining)\n\t\t\t#deducing the element Id of the row by comparison\n\t\t\t#this logic here is to better handle the case of nested shared families, and host elements\n\t\t\tif itemized:\n\t\t\t\tdeleted = [i for i in initialList if i not in  remaining][0]\n\t\t\t\titemInScheduleRowId.append(deleted)  \t\n\t\t\telse:\n\t\t\t\tdeleted = [i for i in initialList if i not in  remaining]\n\t\t\t\titemInScheduleRowId.extend(deleted)  \t\t\t\n\t\t\tst.RollBack()\t\t\t\n\t\texcept:\n\t\t\tst.RollBack()\t\t\t\n\t\tTransactionManager.Instance.ForceCloseTransaction()\n\treturn [doc.GetElement(eid) for eid in itemInScheduleRowId]\n\nOUT = []\nfor v in views:\n\tif v.ViewType == ViewType.Schedule:\n\t\tOUT.append(elementsInScheduleView(doc,v))\n\telse:\n\t\tOUT.append(FilteredElementCollector(doc,v.Id).ToElements())\n",
+      "Engine": "IronPython2",
+      "VariableInputPorts": true,
+      "Id": "d8c1cfb5f66943eeadb9ed71065c8cfa",
+      "Inputs": [
+        {
+          "Id": "40f0f1aca8f74ad2b747971ad60da30a",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "363adf7fd7214dbb934ce5eeff129ae4",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded Python script."
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Symbol, DynamoCore",
+      "NodeType": "InputNode",
+      "Parameter": {
+        "Name": "Views_",
+        "TypeName": "var",
+        "TypeRank": 1,
+        "DefaultValue": null,
+        "Description": ""
+      },
+      "Id": "3c77f6ce91b44abd96c4d2899f37f332",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "420f1110a30543f2a421e3b1545cd0ba",
+          "Name": "",
+          "Description": "Symbol",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "A function parameter, use with custom nodes.\r\n\r\nYou can specify the type and default value for parameter. E.g.,\r\n\r\ninput : var[]..[]\r\nvalue : bool = false"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Output, DynamoCore",
+      "NodeType": "OutputNode",
+      "ElementResolver": null,
+      "Symbol": "Element(s)",
+      "Id": "75b70a1a31b0487ea01b85d5199023f6",
+      "Inputs": [
+        {
+          "Id": "08197bfac01c42d5b4c4a00fa928db58",
+          "Name": "",
+          "Description": "",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [],
+      "Replication": "Disabled",
+      "Description": "A function output, use with custom nodes"
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "363adf7fd7214dbb934ce5eeff129ae4",
+      "End": "08197bfac01c42d5b4c4a00fa928db58",
+      "Id": "e302d74f6ff246f59e850e278df10b7b",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "420f1110a30543f2a421e3b1545cd0ba",
+      "End": "40f0f1aca8f74ad2b747971ad60da30a",
+      "Id": "dbb4dfa0a5cf438e982dcbc87d6b9983",
+      "IsHidden": "False"
+    }
+  ],
+  "Dependencies": [],
+  "NodeLibraryDependencies": [],
+  "Author": "None provided",
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": false,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.13.1.3887",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "Background Preview",
+      "EyeX": -17.0,
+      "EyeY": 24.0,
+      "EyeZ": 50.0,
+      "LookX": 12.0,
+      "LookY": -13.0,
+      "LookZ": -58.0,
+      "UpX": 0.0,
+      "UpY": 1.0,
+      "UpZ": 0.0
+    },
+    "ConnectorPins": [],
+    "NodeViews": [
+      {
+        "Name": "Python Script",
+        "ShowGeometry": true,
+        "Id": "d8c1cfb5f66943eeadb9ed71065c8cfa",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 244.07590249922862,
+        "Y": -14.810243751928454
+      },
+      {
+        "Name": "Input",
+        "ShowGeometry": true,
+        "Id": "3c77f6ce91b44abd96c4d2899f37f332",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 0.0,
+        "Y": 0.0
+      },
+      {
+        "Name": "Output",
+        "ShowGeometry": true,
+        "Id": "75b70a1a31b0487ea01b85d5199023f6",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 449.0,
+        "Y": 0.0
+      }
+    ],
+    "Annotations": [],
+    "X": 158.75857142857149,
+    "Y": 289.27178571428573,
+    "Zoom": 1.1575
+  }
+}

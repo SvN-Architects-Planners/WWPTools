@@ -1,0 +1,220 @@
+{
+  "Uuid": "8dd21e87-e410-4572-a88f-a63efab2624a",
+  "IsCustomNode": true,
+  "Category": "archilab.Revit.Levels",
+  "Description": "This node takes an input of level and returns level above it. ",
+  "Name": "Level.LevelAbove",
+  "ElementResolver": {
+    "ResolutionMap": {
+      "Document": {
+        "Key": "Revit.Application.Document",
+        "Value": "RevitNodes.dll"
+      }
+    }
+  },
+  "Inputs": [],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "# Copyright(c) 2016, Konrad K Sobon\n# @arch_laboratory, http://archi-lab.net\n\nimport clr\n# Import Element wrapper extension methods\nclr.AddReference(\"RevitNodes\")\nimport Revit\nclr.ImportExtensions(Revit.Elements)\n\n# Import DocumentManager and TransactionManager\nclr.AddReference(\"RevitServices\")\nimport RevitServices\nfrom RevitServices.Persistence import DocumentManager\n\n# Import RevitAPI\nclr.AddReference(\"RevitAPI\")\nimport Autodesk\nfrom Autodesk.Revit.DB import *\n\nimport sys\npyt_path = r'C:\\Program Files (x86)\\IronPython 2.7\\Lib'\nsys.path.append(pyt_path)\n\n#The inputs to this node will be stored as a list in the IN variable.\ndataEnteringNode = IN\n\nif isinstance(IN[0], list):\n\tlevels = IN[0]\nelse:\n\tlevels = [IN[0]]\n\ndef ProcessList(_func, _list):\n    return map( lambda x: ProcessList(_func, x) if type(x)==list else _func(x), _list )\n\ndef GetLevelAbove(e):\n\tif IN[1] != None:\n\t\tdoc = UnwrapElement(IN[1])\n\telse:\n\t\tdoc = DocumentManager.Instance.CurrentDBDocument\n\t\t\n\tallLevels = FilteredElementCollector(doc) \\\n\t\t\t\t.OfCategory(BuiltInCategory.OST_Levels) \\\n\t\t\t\t.WhereElementIsNotElementType() \\\n\t\t\t\t.ToElements()\n\n\televations = [i.Elevation for i in allLevels]\n\tsortedLevels = [x for (y,x) in sorted(zip(elevations,allLevels))]\n\tsortedLevelNames = [i.Name for i in sortedLevels]\n\tindex = sortedLevelNames.index(e.Name)\n\tif index + 1 >= len(sortedLevels):\n\t\treturn None\n\telse:\n\t\treturn sortedLevels[index+1]\n\ntry:\n\terrorReport = None\n\toutput = ProcessList(GetLevelAbove, levels)\nexcept:\n\t# if error accurs anywhere in the process catch it\n\timport traceback\n\terrorReport = traceback.format_exc()\n\n#Assign your output to the OUT variable\nif errorReport == None:\n\tOUT = output\nelse:\n\tOUT = errorReport",
+      "VariableInputPorts": true,
+      "Id": "42d0ee793f5041379f66c92ccd4de5c5",
+      "Inputs": [
+        {
+          "Id": "af1bce8efdb64d86bbe36857a695b737",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "0506f745dcfc4d1eae57dbd8c808a3d7",
+          "Name": "IN[1]",
+          "Description": "Input #1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "c3f0f849e4964c2fb6c05f507ff39304",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded IronPython script."
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Symbol, DynamoCore",
+      "NodeType": "InputNode",
+      "Parameter": {
+        "Name": "_level",
+        "TypeName": "var",
+        "TypeRank": -1,
+        "DefaultValue": null,
+        "Description": ""
+      },
+      "Id": "f3ed618248ab432dae863ddf9084a111",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "51dd74a9b363422886e27286deab5b27",
+          "Name": "",
+          "Description": "Symbol",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "A function parameter, use with custom nodes.\r\n\r\nYou can specify the type and default value for parameter. E.g.,\r\n\r\ninput : var[]..[]\r\nvalue : bool = false"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Output, DynamoCore",
+      "NodeType": "OutputNode",
+      "ElementResolver": null,
+      "Symbol": "_level",
+      "Id": "136a6b820c264a6fb852ebb883056bf5",
+      "Inputs": [
+        {
+          "Id": "c83fe3d1b91d466b99f319a203a08a32",
+          "Name": "",
+          "Description": "",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [],
+      "Replication": "Disabled",
+      "Description": "A function output, use with custom nodes"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Symbol, DynamoCore",
+      "NodeType": "InputNode",
+      "Parameter": {
+        "Name": "_doc",
+        "TypeName": "var",
+        "TypeRank": 0,
+        "DefaultValue": "null",
+        "Description": ""
+      },
+      "Id": "d3f2423fbf7f42f98fac16e6afc7426a",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "93ce1c963dec4e578be588d472d93bcb",
+          "Name": "",
+          "Description": "Symbol",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "A function parameter, use with custom nodes.\r\n\r\nYou can specify the type and default value for parameter. E.g.,\r\n\r\ninput : var[]..[]\r\nvalue : bool = false"
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "c3f0f849e4964c2fb6c05f507ff39304",
+      "End": "c83fe3d1b91d466b99f319a203a08a32",
+      "Id": "dfaabc8ea4a54c1baafb7f851badfdca"
+    },
+    {
+      "Start": "51dd74a9b363422886e27286deab5b27",
+      "End": "af1bce8efdb64d86bbe36857a695b737",
+      "Id": "9c503acc328c4d76be9bfb4ea43dccbb"
+    },
+    {
+      "Start": "93ce1c963dec4e578be588d472d93bcb",
+      "End": "0506f745dcfc4d1eae57dbd8c808a3d7",
+      "Id": "ddcbe9b7af484b548a58336fe5a08194"
+    }
+  ],
+  "Dependencies": [],
+  "NodeLibraryDependencies": [],
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": false,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.3.0.5885",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "Background Preview",
+      "EyeX": -17.0,
+      "EyeY": 24.0,
+      "EyeZ": 50.0,
+      "LookX": 12.0,
+      "LookY": -13.0,
+      "LookZ": -58.0,
+      "UpX": 0.0,
+      "UpY": 1.0,
+      "UpZ": 0.0
+    },
+    "NodeViews": [
+      {
+        "Id": "42d0ee793f5041379f66c92ccd4de5c5",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Name": "Python Script",
+        "ShowGeometry": true,
+        "Excluded": false,
+        "X": 465.0,
+        "Y": 236.0
+      },
+      {
+        "Id": "f3ed618248ab432dae863ddf9084a111",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Name": "Input",
+        "ShowGeometry": true,
+        "Excluded": false,
+        "X": 254.74942777581668,
+        "Y": 227.8598131978344
+      },
+      {
+        "Id": "136a6b820c264a6fb852ebb883056bf5",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Name": "Output",
+        "ShowGeometry": true,
+        "Excluded": false,
+        "X": 625.207215321039,
+        "Y": 211.826332643486
+      },
+      {
+        "Id": "d3f2423fbf7f42f98fac16e6afc7426a",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Name": "Input",
+        "ShowGeometry": true,
+        "Excluded": false,
+        "X": 243.07003516082642,
+        "Y": 310.59191050535225
+      }
+    ],
+    "Annotations": [],
+    "X": -386.38269187205964,
+    "Y": -165.46806263240353,
+    "Zoom": 1.8777441607754475
+  }
+}

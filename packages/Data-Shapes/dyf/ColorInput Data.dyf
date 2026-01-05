@@ -1,0 +1,214 @@
+{
+  "Uuid": "85d047a5-c05a-4aa2-954a-b84d04aa3859",
+  "IsCustomNode": true,
+  "Category": "Data-Shapes.UI.Input",
+  "Description": "Create a color selection input for UI.MultiInputForm++ . Check out www.data-shapes.net for more infos! Warning : Only works with Revit 2017",
+  "Name": "ColorInput Data",
+  "ElementResolver": {
+    "ResolutionMap": {}
+  },
+  "Inputs": [],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "#Copyright (c) mostafa el ayoubi ,  2016\r\n#Data-Shapes www.data-shapes.net , elayoubi.mostafa@gmail.com\r\n#This input was inspired by Adrien_P and John Pierson @60secondrevit \r\n\r\nclass uicolorpick():\r\n\r\n    def __init__(self,inputname,buttontext):\r\n        self.inputname = inputname\r\n        self.buttontext = buttontext\r\n\r\n    def __repr__(self):\r\n        return 'UI.ColorPick input'\r\n\r\nx = uicolorpick(IN[0],IN[1])\r\n\r\n\r\nOUT = x",
+      "VariableInputPorts": true,
+      "Id": "a6e8fb5fd69944cdba96a3c30c7cfede",
+      "Inputs": [
+        {
+          "Id": "05a34d4f2c6a455b929603b3bfdec642",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "3270cf41e496431abd6139388bbe1d54",
+          "Name": "IN[1]",
+          "Description": "Input #1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "8428c2eb7d5b42d490d9c177c14e896b",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded IronPython script."
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Output, DynamoCore",
+      "NodeType": "OutputNode",
+      "ElementResolver": null,
+      "Symbol": "ColorSelection Input",
+      "Id": "398c24bc7be94b13ab2e9e95c9c1cdf7",
+      "Inputs": [
+        {
+          "Id": "1db05f86420f488b9ad685b141210256",
+          "Name": "",
+          "Description": "",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [],
+      "Replication": "Disabled",
+      "Description": "A function output, use with custom nodes"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Symbol, DynamoCore",
+      "NodeType": "InputNode",
+      "Parameter": {
+        "Name": "InputName",
+        "TypeName": "string",
+        "TypeRank": 0,
+        "DefaultValue": "\"\"",
+        "Description": ""
+      },
+      "Id": "46e4f8ad95e440f4a78c2a27610fa20c",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "b7f82edcb4fe4465a39ff5a36517679e",
+          "Name": "",
+          "Description": "Symbol",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "A function parameter, use with custom nodes.\r\n\r\nYou can specify the type and default value for parameter. E.g.,\r\n\r\ninput : var[]..[]\r\nvalue : bool = false"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Symbol, DynamoCore",
+      "NodeType": "InputNode",
+      "Parameter": {
+        "Name": "ButtonText",
+        "TypeName": "string",
+        "TypeRank": 0,
+        "DefaultValue": "\"Select Color\"",
+        "Description": ""
+      },
+      "Id": "3073d201bd40471eabdc48d39105ec31",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "4de694507e0841168ee8bf94af56bf3c",
+          "Name": "",
+          "Description": "Symbol",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "A function parameter, use with custom nodes.\r\n\r\nYou can specify the type and default value for parameter. E.g.,\r\n\r\ninput : var[]..[]\r\nvalue : bool = false"
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "8428c2eb7d5b42d490d9c177c14e896b",
+      "End": "1db05f86420f488b9ad685b141210256",
+      "Id": "ed8b95ed9f2f49328c498d1c9cb9cdb1"
+    },
+    {
+      "Start": "b7f82edcb4fe4465a39ff5a36517679e",
+      "End": "05a34d4f2c6a455b929603b3bfdec642",
+      "Id": "bb639731d1dc4a07acb35a5fca790809"
+    },
+    {
+      "Start": "4de694507e0841168ee8bf94af56bf3c",
+      "End": "3270cf41e496431abd6139388bbe1d54",
+      "Id": "d96e68d4b20a4e418df7e1f3b476122b"
+    }
+  ],
+  "Dependencies": [],
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": false,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.0.2.6826",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "Background Preview",
+      "EyeX": -17.0,
+      "EyeY": 24.0,
+      "EyeZ": 50.0,
+      "LookX": 12.0,
+      "LookY": -13.0,
+      "LookZ": -58.0,
+      "UpX": 0.0,
+      "UpY": 1.0,
+      "UpZ": 0.0
+    },
+    "NodeViews": [
+      {
+        "ShowGeometry": true,
+        "Name": "Python Script",
+        "Id": "a6e8fb5fd69944cdba96a3c30c7cfede",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 467.887240356083,
+        "Y": 33.4302670623147
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Output",
+        "Id": "398c24bc7be94b13ab2e9e95c9c1cdf7",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 653.887240356083,
+        "Y": 35.0
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Input",
+        "Id": "46e4f8ad95e440f4a78c2a27610fa20c",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 101.5,
+        "Y": 14.0
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Input",
+        "Id": "3073d201bd40471eabdc48d39105ec31",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 35.5,
+        "Y": 95.0
+      }
+    ],
+    "Annotations": [],
+    "X": 164.0,
+    "Y": 330.0,
+    "Zoom": 1.0
+  }
+}

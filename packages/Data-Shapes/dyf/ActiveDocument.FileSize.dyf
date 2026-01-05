@@ -1,0 +1,55 @@
+<Workspace Version="1.3.3.4111" X="1" Y="66" zoom="1" ScaleFactor="1" Name="ActiveDocument.FileSize" Description="Gets the file size of the ative document, even if it is a BIM360 Design workshared project." ID="5dcfa724-fbf7-481f-8194-928de40b90a6" Category="Data-Shapes.Revit.Document">
+  <NamespaceResolutionMap />
+  <Elements>
+    <PythonNodeModels.PythonNode guid="da286ae5-e316-4682-bdf4-7e125f2fdbca" type="PythonNodeModels.PythonNode" nickname="Python Script" x="250" y="0" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="True" IsFrozen="false" isPinned="true" inputcount="0">
+      <Script>#Copyright (c) Data Shapes - Mostafa El Ayoubi ,  2018
+# @data_shapes ,  www.data-shapes.io , contact@data-shapes.io
+
+import clr
+clr.AddReference('RevitAPI')
+from Autodesk.Revit.DB import *
+
+clr.AddReference('RevitServices')
+from RevitServices.Persistence import DocumentManager
+
+import sys
+pyt_path = r'C:\Program Files (x86)\IronPython 2.7\Lib'
+sys.path.append(pyt_path)
+import os
+from os import listdir
+
+import System
+from System.IO import SearchOption
+from System import Environment
+
+doc = DocumentManager.Instance.CurrentDBDocument
+
+pn = doc.PathName
+try:
+	guid = doc.WorksharingCentralGUID  
+	AppDataList = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData).split("\\")
+	AppDataList.pop(-1)
+	AppData = "\\".join(AppDataList)
+	location =  AppData + "\\Local\\Autodesk\\Revit"
+	cashedFile = System.IO.Directory.GetFiles(location, str(guid) + ".rvt" ,SearchOption.AllDirectories)
+	size = [os.path.getsize(file) for file in cashedFile][0]
+except:
+	size = os.path.getsize(pn)
+
+OUT = str(size/1000000) + " mb"</Script>
+    </PythonNodeModels.PythonNode>
+    <Dynamo.Graph.Nodes.CustomNodes.Output guid="9345dfff-d97e-4c02-b9cb-7ee1ef7d15a2" type="Dynamo.Graph.Nodes.CustomNodes.Output" nickname="Output" x="419" y="0" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="False" IsFrozen="false" isPinned="false">
+      <PortInfo index="0" default="False" />
+      <Symbol value="FileSize" />
+    </Dynamo.Graph.Nodes.CustomNodes.Output>
+  </Elements>
+  <Connectors>
+    <Dynamo.Graph.Connectors.ConnectorModel start="da286ae5-e316-4682-bdf4-7e125f2fdbca" start_index="0" end="9345dfff-d97e-4c02-b9cb-7ee1ef7d15a2" end_index="0" portType="0" />
+  </Connectors>
+  <Notes />
+  <Annotations />
+  <Presets />
+  <Cameras>
+    <Camera Name="Background Preview" eyeX="-17" eyeY="24" eyeZ="50" lookX="12" lookY="-13" lookZ="-58" upX="0" upY="1" upZ="0" />
+  </Cameras>
+</Workspace>

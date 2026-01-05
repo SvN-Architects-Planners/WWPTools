@@ -1,0 +1,163 @@
+{
+  "Uuid": "0cf65182-cbbc-422e-af1e-8a45325de525",
+  "IsCustomNode": true,
+  "Category": "archilab.Revit.Select",
+  "Description": "This node will return a line style object by its name. Line styles can be either Drafting or Model Line Property. ",
+  "Name": "Get Line Style by Name",
+  "ElementResolver": {
+    "ResolutionMap": {}
+  },
+  "Inputs": [],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Symbol, DynamoCore",
+      "NodeType": "InputNode",
+      "Parameter": {
+        "Name": "_name",
+        "TypeName": "var",
+        "TypeRank": -1,
+        "DefaultValue": null,
+        "Description": ""
+      },
+      "Id": "37b3883cc1864922b8b3e1c531d6cb8c",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "16a1b3a2d5ca4e0391f261d64df8406c",
+          "Name": "",
+          "Description": "Symbol",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "A function parameter, use with custom nodes.\r\n\r\nYou can specify the type and default value for parameter. E.g.,\r\n\r\ninput : var[]..[]\r\nvalue : bool = false"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Output, DynamoCore",
+      "NodeType": "OutputNode",
+      "Symbol": "_lineStyle",
+      "Id": "61b73ffd13e94645adbe8cf422e56fe7",
+      "Inputs": [
+        {
+          "Id": "2e7de1c2484443fd9d41a8cd09ee1e60",
+          "Name": "",
+          "Description": "",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [],
+      "Replication": "Disabled",
+      "Description": "A function output, use with custom nodes"
+    },
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "#Copyright(c) 2015, Konrad Sobon\n# @arch_laboratory, http://archi-lab.net\n\nimport clr\nclr.AddReference('ProtoGeometry')\nfrom Autodesk.DesignScript.Geometry import *\n\n# Import DocumentManager and TransactionManager\nclr.AddReference(\"RevitServices\")\nimport RevitServices\nfrom RevitServices.Persistence import DocumentManager\n\n# Import RevitAPI\nclr.AddReference(\"RevitAPI\")\nimport Autodesk\nfrom Autodesk.Revit.DB import *\n\ndoc = DocumentManager.Instance.CurrentDBDocument\n\nimport sys\npyt_path = r'C:\\Program Files (x86)\\IronPython 2.7\\Lib'\nsys.path.append(pyt_path)\n\n#The inputs to this node will be stored as a list in the IN variable.\ndataEnteringNode = IN\n\nname = IN[0]\n\ntry:\n\terrorReport = None\n\tcat = Category.GetCategory(doc, BuiltInCategory.OST_Lines)\n\tgs = cat.GetGraphicsStyle(GraphicsStyleType.Projection)\n\tgsCat = gs.GraphicsStyleCategory.SubCategories\n\tlineStyles = [i.GetGraphicsStyle(GraphicsStyleType.Projection) for i in gsCat]\n\t\n\tlStyle = []\n\ttry:\n\t\tlStyle.append(next(i for i in lineStyles if name==i.Name))\n\texcept StopIteration:\n\t\tpass\n\t\n\tif len(lStyle) != 0:\n\t\tdataOut = lStyle[0]\n\telse:\n\t\tmessage = \"No Line Style with specified \\nname could be found.\"\n\t\tdataOut = '\\n'.join('{:^35}'.format(s) for s in message.split('\\n'))\nexcept:\n\t# if error accurs anywhere in the process catch it\n\timport traceback\n\terrorReport = traceback.format_exc()\n\n#Assign your output to the OUT variable\nif errorReport == None:\n\tOUT = dataOut\nelse:\n\tOUT = errorReport",
+      "VariableInputPorts": true,
+      "Id": "cf61b93b2cd247fc90258749dd71f9a1",
+      "Inputs": [
+        {
+          "Id": "3523a2858bfd4c7183dc8c3d3846103f",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "5f87623383c04432bc94563c5fbec12c",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded IronPython script."
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "16a1b3a2d5ca4e0391f261d64df8406c",
+      "End": "3523a2858bfd4c7183dc8c3d3846103f",
+      "Id": "956ee98848c94e8387812128487f5d94"
+    },
+    {
+      "Start": "5f87623383c04432bc94563c5fbec12c",
+      "End": "2e7de1c2484443fd9d41a8cd09ee1e60",
+      "Id": "9aca676ac0684e9196e314885c7d2078"
+    }
+  ],
+  "Dependencies": [],
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": false,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.2.1.5175",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "Background Preview",
+      "EyeX": -17.0,
+      "EyeY": 24.0,
+      "EyeZ": 50.0,
+      "LookX": 12.0,
+      "LookY": -13.0,
+      "LookZ": -58.0,
+      "UpX": 0.0,
+      "UpY": 1.0,
+      "UpZ": 0.0
+    },
+    "NodeViews": [
+      {
+        "ShowGeometry": true,
+        "Name": "Input",
+        "Id": "37b3883cc1864922b8b3e1c531d6cb8c",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 0.0,
+        "Y": 0.0
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Output",
+        "Id": "61b73ffd13e94645adbe8cf422e56fe7",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 272.205431825582,
+        "Y": 0.0833022487384945
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Python Script",
+        "Id": "cf61b93b2cd247fc90258749dd71f9a1",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 116.292785484539,
+        "Y": -0.228391671328708
+      }
+    ],
+    "Annotations": [],
+    "X": 203.48919169675227,
+    "Y": 99.721827640135274,
+    "Zoom": 2.7296215975808362
+  }
+}

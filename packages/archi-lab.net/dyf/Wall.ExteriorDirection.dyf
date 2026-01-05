@@ -1,0 +1,163 @@
+{
+  "Uuid": "1cf06a87-2841-4645-ad52-e9585d0ad0e5",
+  "IsCustomNode": true,
+  "Category": "archilab.Revit.Walls",
+  "Description": "This node returns exterior direction of the wall as a vector.",
+  "Name": "Wall.ExteriorDirection",
+  "ElementResolver": {
+    "ResolutionMap": {}
+  },
+  "Inputs": [],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "# Copyright(c) 2015, Konrad K Sobon\n# @arch_laboratory, http://archi-lab.net\n\nimport clr\nclr.AddReference('ProtoGeometry')\nfrom Autodesk.DesignScript.Geometry import *\n\n# Import Element wrapper extension methods\nclr.AddReference(\"RevitNodes\")\nimport Revit\nclr.ImportExtensions(Revit.Elements)\n\n# Import geometry conversion extension methods\nclr.ImportExtensions(Revit.GeometryConversion)\n\n# Import RevitAPI\nclr.AddReference(\"RevitAPI\")\nimport Autodesk\nfrom Autodesk.Revit.DB import *\n\nimport sys\npyt_path = r'C:\\Program Files (x86)\\IronPython 2.7\\Lib'\nsys.path.append(pyt_path)\n\n#The inputs to this node will be stored as a list in the IN variable.\ndataEnteringNode = IN\n\ndef ProcessList(_func, _list):\n    return map( lambda x: ProcessList(_func, x) if type(x)==list else _func(x), _list )\n\ndef Unwrap(item):\n\treturn UnwrapElement(item)\n\ndef GetExteriorWallDirection(item):\n\tif type(item) == Autodesk.Revit.DB.Wall:\n\t\tlocationCurve = item.Location\n\t\tif locationCurve != None:\n\t\t\tcurve = locationCurve.Curve\n\t\t\tdirection = XYZ.BasisX\n\t\t\tif type(curve) == Autodesk.Revit.DB.Line:\n\t\t\t\tdirection = curve.ComputeDerivatives(0, True).BasisX.Normalize()\n\t\t\telse:\n\t\t\t\tdirection = (curve.GetEndPoint(1) - curve.GetEndPoint(0)).Normalize()\n\t\t\texteriorDirection = XYZ.BasisZ.CrossProduct(direction)\n\t\t\t\n\t\t\tif item.Flipped:\n\t\t\t\texteriorDirection = -exteriorDirection\n\t\t\treturn exteriorDirection.ToVector()\n\telse:\n\t\treturn \"Not a Wall\"\n\nif isinstance(IN[0], list):\n\twalls = ProcessList(Unwrap, IN[0])\nelse:\n\twalls = [UnwrapElement(IN[0])]\n\ntry:\n\terrorReport = None\n\toutput = ProcessList(GetExteriorWallDirection, walls)\nexcept:\n\t# if error accurs anywhere in the process catch it\n\timport traceback\n\terrorReport = traceback.format_exc()\n\n\n#Assign your output to the OUT variable\nif errorReport == None:\n\tOUT = output\nelse:\n\tOUT = errorReport\n",
+      "VariableInputPorts": true,
+      "Id": "4d223db917ce4885b8aac9198ff5b54d",
+      "Inputs": [
+        {
+          "Id": "9953aa8dc2574e108604a6d7da3f1d54",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "9e37dad72eae42f09e152e5ecf3d340b",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded IronPython script."
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Symbol, DynamoCore",
+      "NodeType": "InputNode",
+      "Parameter": {
+        "Name": "_wall",
+        "TypeName": "var",
+        "TypeRank": -1,
+        "DefaultValue": null,
+        "Description": ""
+      },
+      "Id": "ccc1186c1700474ba7a38de802676b36",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "1e7852d5365e47f4bda5bd6f091e078c",
+          "Name": "",
+          "Description": "Symbol",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "A function parameter, use with custom nodes.\r\n\r\nYou can specify the type and default value for parameter. E.g.,\r\n\r\ninput : var[]..[]\r\nvalue : bool = false"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Output, DynamoCore",
+      "NodeType": "OutputNode",
+      "Symbol": "_vector",
+      "Id": "9d1fc6fc757c4c9589c122b87d14a951",
+      "Inputs": [
+        {
+          "Id": "ff7e640e433d45908dc53407a7ac1b55",
+          "Name": "",
+          "Description": "",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [],
+      "Replication": "Disabled",
+      "Description": "A function output, use with custom nodes"
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "9e37dad72eae42f09e152e5ecf3d340b",
+      "End": "ff7e640e433d45908dc53407a7ac1b55",
+      "Id": "471c99dbcc6c40c9be29f982dbc8c941"
+    },
+    {
+      "Start": "1e7852d5365e47f4bda5bd6f091e078c",
+      "End": "9953aa8dc2574e108604a6d7da3f1d54",
+      "Id": "47ba8a678e0142ba8e9af81da3bdf1d6"
+    }
+  ],
+  "Dependencies": [],
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": false,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.2.1.5175",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "Background Preview",
+      "EyeX": -17.0,
+      "EyeY": 24.0,
+      "EyeZ": 50.0,
+      "LookX": 12.0,
+      "LookY": -13.0,
+      "LookZ": -58.0,
+      "UpX": 0.0,
+      "UpY": 1.0,
+      "UpZ": 0.0
+    },
+    "NodeViews": [
+      {
+        "ShowGeometry": true,
+        "Name": "Python Script",
+        "Id": "4d223db917ce4885b8aac9198ff5b54d",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 373.710176428674,
+        "Y": 670.607238155122
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Input",
+        "Id": "ccc1186c1700474ba7a38de802676b36",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 235.275997970337,
+        "Y": 659.11505322586
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Output",
+        "Id": "9d1fc6fc757c4c9589c122b87d14a951",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 562.79392235675,
+        "Y": 665.70937385109
+      }
+    ],
+    "Annotations": [],
+    "X": -607.214445452217,
+    "Y": -1515.13468457595,
+    "Zoom": 2.72962159758084
+  }
+}

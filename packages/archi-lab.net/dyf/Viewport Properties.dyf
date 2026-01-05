@@ -1,0 +1,168 @@
+{
+  "Uuid": "861c92d5-870c-4d1f-8e34-84e24a27a978",
+  "IsCustomNode": true,
+  "Category": "archilab.Revit.Viewports",
+  "Description": "This node will return certain properties from a Viewport input. ",
+  "Name": "Viewport Properties",
+  "ElementResolver": {
+    "ResolutionMap": {
+      "Point": {
+        "Key": "Autodesk.DesignScript.Geometry.Point",
+        "Value": "ProtoGeometry.dll"
+      }
+    }
+  },
+  "Inputs": [],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "# Copyright(c) 2015, Konrad K Sobon\n# @arch_laboratory, http://archi-lab.net\n\nimport clr\nclr.AddReference('ProtoGeometry')\nfrom Autodesk.DesignScript.Geometry import *\n\n# Import Element wrapper extension methods\nclr.AddReference(\"RevitNodes\")\nimport Revit\nclr.ImportExtensions(Revit.Elements)\n\n# Import geometry conversion extension methods\nclr.ImportExtensions(Revit.GeometryConversion)\n\n# Import DocumentManager and TransactionManager\nclr.AddReference(\"RevitServices\")\nimport RevitServices\nfrom RevitServices.Persistence import DocumentManager\nfrom RevitServices.Transactions import TransactionManager\n\ndoc = DocumentManager.Instance.CurrentDBDocument\nuiapp = DocumentManager.Instance.CurrentUIApplication\napp = uiapp.Application\n\n#The inputs to this node will be stored as a list in the IN variables.\ndataEnteringNode = IN\n\nviewports = IN[0]\n\ndef ProcessList(_func, _list):\n    return map( lambda x: ProcessList(_func, x) if type(x)==list else _func(x), _list )\n\ndef GetLocation(v):\n\tv = UnwrapElement(v)\n\toutline = v.GetBoxOutline()\n\treturn outline.MinimumPoint.ToPoint()\n\n#Assign your output to the OUT variable.\nOUT = ProcessList(GetLocation, viewports)",
+      "VariableInputPorts": true,
+      "Id": "2ea2a085b7434312bbb32306205fd18c",
+      "Inputs": [
+        {
+          "Id": "1da45e5b809f48d590aa0c9161797fec",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "5918fe37f58f4eea8232953cd5871e21",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded IronPython script."
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Output, DynamoCore",
+      "NodeType": "OutputNode",
+      "Symbol": "_minPoint : Point",
+      "Id": "4af8608fc8dc49a0a92f8996dc60cb6b",
+      "Inputs": [
+        {
+          "Id": "fdab9844e9c14020922d966a408b1634",
+          "Name": "",
+          "Description": "",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [],
+      "Replication": "Disabled",
+      "Description": "A function output, use with custom nodes"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Symbol, DynamoCore",
+      "NodeType": "InputNode",
+      "Parameter": {
+        "Name": "_viewport",
+        "TypeName": "var",
+        "TypeRank": -1,
+        "DefaultValue": null,
+        "Description": ""
+      },
+      "Id": "3f9d8d0ee9e74970bad0f6277e0ae410",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "3b7e13a7228a437ab7ede802697538c4",
+          "Name": "",
+          "Description": "Symbol",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "A function parameter, use with custom nodes.\r\n\r\nYou can specify the type and default value for parameter. E.g.,\r\n\r\ninput : var[]..[]\r\nvalue : bool = false"
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "5918fe37f58f4eea8232953cd5871e21",
+      "End": "fdab9844e9c14020922d966a408b1634",
+      "Id": "dcb8fc699b1a4156848ed3ec68f973b3"
+    },
+    {
+      "Start": "3b7e13a7228a437ab7ede802697538c4",
+      "End": "1da45e5b809f48d590aa0c9161797fec",
+      "Id": "2e74c07f94984f9fa0fe72ddb1727087"
+    }
+  ],
+  "Dependencies": [],
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": false,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.2.1.5175",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "Background Preview",
+      "EyeX": -17.0,
+      "EyeY": 24.0,
+      "EyeZ": 50.0,
+      "LookX": 12.0,
+      "LookY": -13.0,
+      "LookZ": -58.0,
+      "UpX": 0.0,
+      "UpY": 1.0,
+      "UpZ": 0.0
+    },
+    "NodeViews": [
+      {
+        "ShowGeometry": true,
+        "Name": "Python Script",
+        "Id": "2ea2a085b7434312bbb32306205fd18c",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 528.0,
+        "Y": 400.0
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Output",
+        "Id": "4af8608fc8dc49a0a92f8996dc60cb6b",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 707.053146965347,
+        "Y": 404.024644779231
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Input",
+        "Id": "3f9d8d0ee9e74970bad0f6277e0ae410",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 372.047258783211,
+        "Y": 403.052203884653
+      }
+    ],
+    "Annotations": [],
+    "X": -693.182256027286,
+    "Y": -506.94951483821,
+    "Zoom": 2.05668026833428
+  }
+}

@@ -1,0 +1,192 @@
+{
+  "Uuid": "7c228465-9393-4ed3-8b9b-8d8dd1278aca",
+  "IsCustomNode": true,
+  "Category": "archilab.Revit.Select",
+  "Description": "This node will retrieve all unplaced groups in the model.",
+  "Name": "Get Unplaced Groups",
+  "ElementResolver": {
+    "ResolutionMap": {}
+  },
+  "Inputs": [],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "Revit.Elements.Element.Name",
+      "Id": "377090d19152429caeabf81bef768a97",
+      "Inputs": [
+        {
+          "Id": "64fb8d86164c48e8b88b4de49251a0be",
+          "Name": "element",
+          "Description": "Revit.Elements.Element",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "ea69c396e46e468aaf70871bc4c6d28d",
+          "Name": "string",
+          "Description": "string",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Get the Name of the Element\n\nElement.Name: string"
+    },
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "#Copyright(c) 2015, Konrad Sobon\n# @arch_laboratory, http://archi-lab.net\n\nimport clr\nclr.AddReference('ProtoGeometry')\nfrom Autodesk.DesignScript.Geometry import *\n\n# Import DocumentManager and TransactionManager\nclr.AddReference(\"RevitServices\")\nimport RevitServices\nfrom RevitServices.Persistence import DocumentManager\nfrom RevitServices.Transactions import TransactionManager\n\n# Import RevitAPI\nclr.AddReference(\"RevitAPI\")\nimport Autodesk\nfrom Autodesk.Revit.DB import *\n\ndoc = DocumentManager.Instance.CurrentDBDocument\nuiapp = DocumentManager.Instance.CurrentUIApplication\napp = uiapp.Application\n\n#The inputs to this node will be stored as a list in the IN variable.\ndataEnteringNode = IN\n\ngroups = FilteredElementCollector(doc).OfClass(GroupType)\nunplacedGroups = []\nfor i in groups:\n\tgInstances = i.Groups\n\tif gInstances.IsEmpty == 1:\n\t\tunplacedGroups.append(i)\nOUT = unplacedGroups",
+      "VariableInputPorts": true,
+      "Id": "becfc8837b734f58a2c1fcd819ca4fd9",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "862b98e684c84542bf6e6a51310b6e93",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded IronPython script."
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Output, DynamoCore",
+      "NodeType": "OutputNode",
+      "Symbol": "_groupNames",
+      "Id": "5f052b6dc926447997aaa80c1e7586ca",
+      "Inputs": [
+        {
+          "Id": "9fd948990ce844e895d05473a96369ec",
+          "Name": "",
+          "Description": "",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [],
+      "Replication": "Disabled",
+      "Description": "A function output, use with custom nodes"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Output, DynamoCore",
+      "NodeType": "OutputNode",
+      "Symbol": "_groups",
+      "Id": "22ff13afa88f41c0bfb3ce72e80bc475",
+      "Inputs": [
+        {
+          "Id": "bc7ff82537754716b75c7527f30450d3",
+          "Name": "",
+          "Description": "",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [],
+      "Replication": "Disabled",
+      "Description": "A function output, use with custom nodes"
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "ea69c396e46e468aaf70871bc4c6d28d",
+      "End": "9fd948990ce844e895d05473a96369ec",
+      "Id": "f120f787345a4bd5873113d02e25330a"
+    },
+    {
+      "Start": "862b98e684c84542bf6e6a51310b6e93",
+      "End": "64fb8d86164c48e8b88b4de49251a0be",
+      "Id": "0a79870e83a64fe2aaa9f5b44e19a2d7"
+    },
+    {
+      "Start": "862b98e684c84542bf6e6a51310b6e93",
+      "End": "bc7ff82537754716b75c7527f30450d3",
+      "Id": "5f8790bb3afd41b293dbf6f399fafb2e"
+    }
+  ],
+  "Dependencies": [],
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": false,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.2.1.5175",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "Background Preview",
+      "EyeX": -17.0,
+      "EyeY": 24.0,
+      "EyeZ": 50.0,
+      "LookX": 12.0,
+      "LookY": -13.0,
+      "LookZ": -58.0,
+      "UpX": 0.0,
+      "UpY": 1.0,
+      "UpZ": 0.0
+    },
+    "NodeViews": [
+      {
+        "ShowGeometry": true,
+        "Name": "Element.Name",
+        "Id": "377090d19152429caeabf81bef768a97",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 362.884026948831,
+        "Y": 99.1513703974628
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Python Script",
+        "Id": "becfc8837b734f58a2c1fcd819ca4fd9",
+        "IsSetAsInput": true,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 250.0,
+        "Y": 0.0
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Output",
+        "Id": "5f052b6dc926447997aaa80c1e7586ca",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 585.884026948831,
+        "Y": 0.0
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Output",
+        "Id": "22ff13afa88f41c0bfb3ce72e80bc475",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 588.622030237581,
+        "Y": -62.7580993520518
+      }
+    ],
+    "Annotations": [],
+    "X": -100.08,
+    "Y": 205.3925,
+    "Zoom": 1.1575
+  }
+}

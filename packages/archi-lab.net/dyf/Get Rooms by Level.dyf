@@ -1,0 +1,445 @@
+{
+  "Uuid": "5ad0f3de-f4e2-444a-8bf3-0b601bb03f24",
+  "IsCustomNode": true,
+  "Category": "archilab.Revit.Room",
+  "Description": "Filters Rooms by level.",
+  "Name": "Get Rooms by Level",
+  "ElementResolver": {
+    "ResolutionMap": {}
+  },
+  "Inputs": [
+    {
+      "Id": "12a6a84aa8254f2b926c0fb3e40261dc",
+      "Name": "Number",
+      "Type": "number",
+      "Value": "1",
+      "NumberType": "Double",
+      "Description": "Creates a number."
+    },
+    {
+      "Id": "eaf21312516d488bae27760e9c2e24c2",
+      "Name": "Number",
+      "Type": "number",
+      "Value": "0",
+      "NumberType": "Double",
+      "Description": "Creates a number."
+    }
+  ],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "DSCore.List.GetItemAtIndex@var[]..[],int",
+      "Id": "6c1afa59a32f4c45b90fbe69e5b92500",
+      "Inputs": [
+        {
+          "Id": "9260560d381f492abfb179cd9169abde",
+          "Name": "list",
+          "Description": "List to fetch an item from.\n\nvar[]..[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "4d13037864124fd89ed5720aff7b9a94",
+          "Name": "index",
+          "Description": "Index of the item to be fetched.\n\nint",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "a195d76256cf4992b4ce4cd38337b6b2",
+          "Name": "item",
+          "Description": "Item in the list at the given index.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Returns an item from the given list that's located at the specified index.\n\nList.GetItemAtIndex (list: var[]..[], index: int): var[]..[]"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.DoubleInput, CoreNodeModels",
+      "NodeType": "NumberInputNode",
+      "NumberType": "Double",
+      "InputValue": 1.0,
+      "Id": "12a6a84aa8254f2b926c0fb3e40261dc",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "32bf59c573f945ce971931f5314ecacf",
+          "Name": "",
+          "Description": "Double",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Creates a number."
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "DSCore.List.GetItemAtIndex@var[]..[],int",
+      "Id": "f12be8b9dac041778faf926d4c9aabff",
+      "Inputs": [
+        {
+          "Id": "6e10c2e7c6ee42fa9beef8b0cf91e1e5",
+          "Name": "list",
+          "Description": "List to fetch an item from.\n\nvar[]..[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "f6471570253e4b3b894bdd4344dca807",
+          "Name": "index",
+          "Description": "Index of the item to be fetched.\n\nint",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "3248ed06807842a4a35744f9f7e6df5e",
+          "Name": "item",
+          "Description": "Item in the list at the given index.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Returns an item from the given list that's located at the specified index.\n\nList.GetItemAtIndex (list: var[]..[], index: int): var[]..[]"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.DoubleInput, CoreNodeModels",
+      "NodeType": "NumberInputNode",
+      "NumberType": "Double",
+      "InputValue": 0.0,
+      "Id": "eaf21312516d488bae27760e9c2e24c2",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "4798726f74904ee8846d18b381565b31",
+          "Name": "",
+          "Description": "Double",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Creates a number."
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Symbol, DynamoCore",
+      "NodeType": "InputNode",
+      "Parameter": {
+        "Name": "_level",
+        "TypeName": "var",
+        "TypeRank": -1,
+        "DefaultValue": null,
+        "Description": ""
+      },
+      "Id": "171bc5b29b37458eb27a16c800aae339",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "9a56aa85779a44cab2cfc4db3142c76e",
+          "Name": "",
+          "Description": "Symbol",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "A function parameter, use with custom nodes.\r\n\r\nYou can specify the type and default value for parameter. E.g.,\r\n\r\ninput : var[]..[]\r\nvalue : bool = false"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Symbol, DynamoCore",
+      "NodeType": "InputNode",
+      "Parameter": {
+        "Name": "_excludeUnplaced",
+        "TypeName": "bool",
+        "TypeRank": 0,
+        "DefaultValue": "true",
+        "Description": ""
+      },
+      "Id": "eb5929f0a34740daaefcdb78a9d15951",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "ecf3101593b242b7aa2a506918b6b3e7",
+          "Name": "",
+          "Description": "Symbol",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "A function parameter, use with custom nodes.\r\n\r\nYou can specify the type and default value for parameter. E.g.,\r\n\r\ninput : var[]..[]\r\nvalue : bool = false"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Output, DynamoCore",
+      "NodeType": "OutputNode",
+      "Symbol": "_roomName",
+      "Id": "f3e65addaccd4879ade5bc51bf750231",
+      "Inputs": [
+        {
+          "Id": "51e6e81b8e8944469aee314fc73f2c86",
+          "Name": "",
+          "Description": "",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [],
+      "Replication": "Disabled",
+      "Description": "A function output, use with custom nodes"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Output, DynamoCore",
+      "NodeType": "OutputNode",
+      "Symbol": "_room",
+      "Id": "09d9ea1d504a445997086dfff381380d",
+      "Inputs": [
+        {
+          "Id": "0692ca9a26094a7a8e4bd71c690d3f35",
+          "Name": "",
+          "Description": "",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [],
+      "Replication": "Disabled",
+      "Description": "A function output, use with custom nodes"
+    },
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "#Copyright(c) 2014, Konrad K Sobon\n# Grimshaw Architects, http://grimshaw-architects.com/\n# Archi-lab, http://wwww.archi-lab.net\n\n# Default imports\nimport clr\nclr.AddReference('ProtoGeometry')\nfrom Autodesk.DesignScript.Geometry import *\n\n# Import RevitAPI\nclr.AddReference(\"RevitAPI\")\nimport Autodesk\nfrom Autodesk.Revit.DB import *\n\n# Import DocumentManager and TransactionManager\nclr.AddReference(\"RevitServices\")\nimport RevitServices\nfrom RevitServices.Persistence import DocumentManager\nfrom RevitServices.Transactions import TransactionManager\n\n# Import ToDSType(bool) extension method\nclr.AddReference(\"RevitNodes\")\nimport Revit\nclr.ImportExtensions(Revit.Elements)\nclr.ImportExtensions(Revit.GeometryConversion)\n\n#Import Collections\nfrom System.Collections.Generic import *\n\n#The inputs to this node will be stored as a list in the IN variable.\ndataEnteringNode = IN\n\ndoc =  DocumentManager.Instance.CurrentDBDocument\napp =  DocumentManager.Instance.CurrentUIApplication.Application\nlevelInput = IN[0]\nfilterToggle = IN[1]\nroomNames, validRooms = [], []\n\ncollector = FilteredElementCollector(doc)\nlevelFilter = ElementLevelFilter(UnwrapElement(levelInput).Id)\n\nareaFilter = AreaFilter()\nareaExcludes = collector.WherePasses(areaFilter).ToElements()\nareaExcludes = list(areaExcludes)\n\nelement_set = ElementSet()\nexcludes = List[ElementId]()\nif len(areaExcludes) == 0:\n\tlogicalFilter = levelFilter\nelse:\n\tfor i in areaExcludes:\n\t\telement_set.Insert(i)\n\t\telemIter = element_set.ForwardIterator()\n\t\telemIter.Reset()\n\t\twhile elemIter.MoveNext():\n\t\t\tcurElem = elemIter.Current\n\t\t\texcludes.Add(curElem.Id)\n\tfilter = ExclusionFilter(excludes)\n\tlogicalFilter = LogicalAndFilter(levelFilter, filter)\n\nbip = BuiltInParameter.ROOM_NAME\nif filterToggle == False:\n\tallRoomsOnLevel = FilteredElementCollector(doc).OfClass(Autodesk.Revit.DB.SpatialElement).WherePasses(logicalFilter).ToElements()\n\tfor i in allRoomsOnLevel:\n\t\troomNames.append(i.get_Parameter(bip).AsString())\n\tOUT = allRoomsOnLevel, roomNames\nelse:\n\tallRoomsOnLevel = FilteredElementCollector(doc).OfClass(Autodesk.Revit.DB.SpatialElement).WherePasses(logicalFilter).ToElements()\n\tfor i in allRoomsOnLevel:\n\t\tif i.Area != 0:\n\t\t\tvalidRooms.append(i)\n\tfor i in validRooms:\n\t\troomNames.append(i.get_Parameter(bip).AsString())\n\tOUT = validRooms, roomNames",
+      "VariableInputPorts": true,
+      "Id": "0a2f487f6c1e4ee08a2cf747634ebd2c",
+      "Inputs": [
+        {
+          "Id": "b80cfd905aef404396aa1e32d52b973e",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "1527f1fa267b4d668f3cfb62d05618e7",
+          "Name": "IN[1]",
+          "Description": "Input #1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "21f854e340ea41659861a70933205a2f",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded IronPython script."
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "a195d76256cf4992b4ce4cd38337b6b2",
+      "End": "51e6e81b8e8944469aee314fc73f2c86",
+      "Id": "b455b2127c6a4f7a8cfe2264d51bb18d"
+    },
+    {
+      "Start": "32bf59c573f945ce971931f5314ecacf",
+      "End": "4d13037864124fd89ed5720aff7b9a94",
+      "Id": "e02313e448ba4680ae72bcf8e61d8dce"
+    },
+    {
+      "Start": "3248ed06807842a4a35744f9f7e6df5e",
+      "End": "0692ca9a26094a7a8e4bd71c690d3f35",
+      "Id": "82349879b46b4e9f8db98e60d56191f4"
+    },
+    {
+      "Start": "4798726f74904ee8846d18b381565b31",
+      "End": "f6471570253e4b3b894bdd4344dca807",
+      "Id": "97757707cd4c4a1f9d0c6a766ec77e9e"
+    },
+    {
+      "Start": "9a56aa85779a44cab2cfc4db3142c76e",
+      "End": "b80cfd905aef404396aa1e32d52b973e",
+      "Id": "f5e29e1c44714560b93841f34fccae00"
+    },
+    {
+      "Start": "ecf3101593b242b7aa2a506918b6b3e7",
+      "End": "1527f1fa267b4d668f3cfb62d05618e7",
+      "Id": "f6cdfda4a5fc45c0bf8590b4d1284ab8"
+    },
+    {
+      "Start": "21f854e340ea41659861a70933205a2f",
+      "End": "6e10c2e7c6ee42fa9beef8b0cf91e1e5",
+      "Id": "e7da227fdd2c4cf49c3565132d3d5e7d"
+    },
+    {
+      "Start": "21f854e340ea41659861a70933205a2f",
+      "End": "9260560d381f492abfb179cd9169abde",
+      "Id": "281d49aab4c3489b9cd2c2deb88c482b"
+    }
+  ],
+  "Dependencies": [],
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": false,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.2.1.5175",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "Background Preview",
+      "EyeX": -17.0,
+      "EyeY": 24.0,
+      "EyeZ": 50.0,
+      "LookX": 12.0,
+      "LookY": -13.0,
+      "LookZ": -58.0,
+      "UpX": 0.0,
+      "UpY": 1.0,
+      "UpZ": 0.0
+    },
+    "NodeViews": [
+      {
+        "ShowGeometry": true,
+        "Name": "List.GetItemAtIndex",
+        "Id": "6c1afa59a32f4c45b90fbe69e5b92500",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 493.911793024101,
+        "Y": 275.771189199715
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Number",
+        "Id": "12a6a84aa8254f2b926c0fb3e40261dc",
+        "IsSetAsInput": true,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 381.495512076447,
+        "Y": 309.144772606049
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "List.GetItemAtIndex",
+        "Id": "f12be8b9dac041778faf926d4c9aabff",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 489.399781830579,
+        "Y": 0.0
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Number",
+        "Id": "eaf21312516d488bae27760e9c2e24c2",
+        "IsSetAsInput": true,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 376.983500882924,
+        "Y": 33.3735834063348
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Input",
+        "Id": "171bc5b29b37458eb27a16c800aae339",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 32.8283141829877,
+        "Y": 63.667033567006428
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Input",
+        "Id": "eb5929f0a34740daaefcdb78a9d15951",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -107.93551784406554,
+        "Y": 137.06763380670185
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Output",
+        "Id": "f3e65addaccd4879ade5bc51bf750231",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 689.911793024101,
+        "Y": 279.0
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Output",
+        "Id": "09d9ea1d504a445997086dfff381380d",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 682.911793024101,
+        "Y": -22.0
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Python Script",
+        "Id": "0a2f487f6c1e4ee08a2cf747634ebd2c",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 184.552915766739,
+        "Y": 92.3153347732182
+      }
+    ],
+    "Annotations": [],
+    "X": 181.99106245316898,
+    "Y": 251.53379856349977,
+    "Zoom": 1.4097287639800078
+  }
+}

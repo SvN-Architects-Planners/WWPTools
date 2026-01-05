@@ -1,0 +1,112 @@
+{
+  "Uuid": "5b9b1cd5-c248-4799-b689-6b31fe525bd2",
+  "IsCustomNode": true,
+  "Category": "archilab.Revit.Select",
+  "Description": "Retrieves Current Document",
+  "Name": "Current Document",
+  "ElementResolver": {
+    "ResolutionMap": {}
+  },
+  "Inputs": [],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Output, DynamoCore",
+      "NodeType": "OutputNode",
+      "Symbol": "_out",
+      "Id": "bc4e2620c4954b40ab1d00c8d53d10f6",
+      "Inputs": [
+        {
+          "Id": "642cd91d416542f4993232841486e921",
+          "Name": "",
+          "Description": "",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [],
+      "Replication": "Disabled",
+      "Description": "A function output, use with custom nodes"
+    },
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "# Copyright(c) 2015, Konrad K Sobon\n# @arch_laboratory, http://archi-lab.net\n\n# Import DocumentManager\nimport clr\nclr.AddReference(\"RevitServices\")\nimport RevitServices\nfrom RevitServices.Persistence import DocumentManager\n\nimport sys\npyt_path = r'C:\\Program Files (x86)\\IronPython 2.7\\Lib'\nsys.path.append(pyt_path)\n\n#The inputs to this node will be stored as a list in the IN variable.\ndataEnteringNode = IN\n\ntry:\n\terrorReport = None\n\tdoc = DocumentManager.Instance.CurrentDBDocument\nexcept:\n\t# if error accurs anywhere in the process catch it\n\timport traceback\n\terrorReport = traceback.format_exc()\n\n#Assign your output to the OUT variable\nif errorReport == None:\n\tOUT = doc\nelse:\n\tOUT = errorReport",
+      "VariableInputPorts": true,
+      "Id": "c72ac746cf8749fa8df34b6cebb7871a",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "b881ba29ea1344cf9776220ed3aa23ca",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded IronPython script."
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "b881ba29ea1344cf9776220ed3aa23ca",
+      "End": "642cd91d416542f4993232841486e921",
+      "Id": "16233d4b4a7642aea09c100eacde1a67"
+    }
+  ],
+  "Dependencies": [],
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": false,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.2.1.5175",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "Background Preview",
+      "EyeX": -17.0,
+      "EyeY": 24.0,
+      "EyeZ": 50.0,
+      "LookX": 12.0,
+      "LookY": -13.0,
+      "LookZ": -58.0,
+      "UpX": 0.0,
+      "UpY": 1.0,
+      "UpZ": 0.0
+    },
+    "NodeViews": [
+      {
+        "ShowGeometry": true,
+        "Name": "Output",
+        "Id": "bc4e2620c4954b40ab1d00c8d53d10f6",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 573.129112121219,
+        "Y": 0.0
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Python Script",
+        "Id": "c72ac746cf8749fa8df34b6cebb7871a",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 349.746496109775,
+        "Y": -5.55214956877997
+      }
+    ],
+    "Annotations": [],
+    "X": -233.899770805061,
+    "Y": 237.499569308239,
+    "Zoom": 1.703916824555
+  }
+}

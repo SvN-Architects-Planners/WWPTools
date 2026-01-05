@@ -1,0 +1,113 @@
+{
+  "Uuid": "644a40bf-576c-4e5a-ba6b-fdb01cb6af95",
+  "IsCustomNode": true,
+  "Category": "Data-Shapes.Revit.SharedParameters",
+  "Description": "List of all parameter groups",
+  "Name": "ParameterGroup list",
+  "ElementResolver": {
+    "ResolutionMap": {}
+  },
+  "Inputs": [],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "#Copyright (c) mostafa el ayoubi\r\n#Data-Shapes www.data-shapes.net 2017 elayoub.mostafa@gmail.com\r\n\r\nimport clr\r\nclr.AddReference('RevitAPI')\r\nfrom Autodesk.Revit.DB import*\r\nimport System\r\n\r\nOUT = System.Enum.GetValues(BuiltInParameterGroup)",
+      "VariableInputPorts": true,
+      "Id": "59da09df184f49f8bb7582d9ccd6fabf",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "44c7c0d5bcda47488fc7906c1bd1d457",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded IronPython script."
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Output, DynamoCore",
+      "NodeType": "OutputNode",
+      "ElementResolver": null,
+      "Symbol": "ParameterGroups",
+      "Id": "380f44ebbc08486db3f270005faef8fe",
+      "Inputs": [
+        {
+          "Id": "ff251c05a62f4e6ab5e673d0e1b2f05b",
+          "Name": "",
+          "Description": "",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [],
+      "Replication": "Disabled",
+      "Description": "A function output, use with custom nodes"
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "44c7c0d5bcda47488fc7906c1bd1d457",
+      "End": "ff251c05a62f4e6ab5e673d0e1b2f05b",
+      "Id": "67f9ede7b8494c2aa9ab3c48ad48d55d"
+    }
+  ],
+  "Dependencies": [],
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": false,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.0.2.6826",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "Background Preview",
+      "EyeX": -17.0,
+      "EyeY": 24.0,
+      "EyeZ": 50.0,
+      "LookX": 12.0,
+      "LookY": -13.0,
+      "LookZ": -58.0,
+      "UpX": 0.0,
+      "UpY": 1.0,
+      "UpZ": 0.0
+    },
+    "NodeViews": [
+      {
+        "ShowGeometry": true,
+        "Name": "Python Script",
+        "Id": "59da09df184f49f8bb7582d9ccd6fabf",
+        "IsSetAsInput": true,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 250.0,
+        "Y": 0.0
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Output",
+        "Id": "380f44ebbc08486db3f270005faef8fe",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 414.0,
+        "Y": 0.0
+      }
+    ],
+    "Annotations": [],
+    "X": -7.73003227807055,
+    "Y": 252.181670019076,
+    "Zoom": 1.545620359375
+  }
+}

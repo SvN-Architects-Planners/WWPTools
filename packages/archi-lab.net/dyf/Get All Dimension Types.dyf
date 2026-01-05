@@ -1,0 +1,112 @@
+{
+  "Uuid": "c3c91fa6-0324-46af-908c-68621516624a",
+  "IsCustomNode": true,
+  "Category": "archilab.Revit.Select",
+  "Description": "This node will query all of the available dimension styles (this includes linear as well as arc, circle etc). ",
+  "Name": "Get All Dimension Styles",
+  "ElementResolver": {
+    "ResolutionMap": {}
+  },
+  "Inputs": [],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "#Copyright(c) 2015, Konrad K Sobon\n# @arch_laboratory, http://archi-lab.net\n\nimport clr\nclr.AddReference('ProtoGeometry')\nfrom Autodesk.DesignScript.Geometry import *\n\n# Import DocumentManager and TransactionManager\nclr.AddReference(\"RevitServices\")\nimport RevitServices\nfrom RevitServices.Persistence import DocumentManager\nfrom RevitServices.Transactions import TransactionManager\ndoc = DocumentManager.Instance.CurrentDBDocument\n\n# Import RevitAPI\nclr.AddReference(\"RevitAPI\")\nimport Autodesk\nfrom Autodesk.Revit.DB import *\n\n# Import ToDSType(bool) extension method\nclr.AddReference(\"RevitNodes\")\nimport Revit\nclr.ImportExtensions(Revit.Elements)\n\n#The inputs to this node will be stored as a list in the IN variable.\ndataEnteringNode = IN\n\ndTypes = FilteredElementCollector(doc).OfClass(DimensionType)\nsTypes = FilteredElementCollector(doc).OfClass(SpotDimensionType)\n\nsTypesName = []\nfor i in sTypes:\n\tsTypesName.append(i.ToDSType(True).Name)\n\ndimensionTypes = []\nfor i in dTypes:\n\tif i.ToDSType(True).Name not in sTypesName:\n\t\tdimensionTypes.append(i.ToDSType(True))\n\n#Assign your output to the OUT variable\nOUT = dimensionTypes",
+      "VariableInputPorts": true,
+      "Id": "9fc694a81b2844b7a458797f42fa11f2",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "06df0c0eee264f69bc4ee359c0aa739e",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded IronPython script."
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Output, DynamoCore",
+      "NodeType": "OutputNode",
+      "Symbol": "_dimensionTypes",
+      "Id": "8b60f417433b475384aa768b2ef908f3",
+      "Inputs": [
+        {
+          "Id": "1f0eaa6b776b483784a71f1dbfd375da",
+          "Name": "",
+          "Description": "",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [],
+      "Replication": "Disabled",
+      "Description": "A function output, use with custom nodes"
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "06df0c0eee264f69bc4ee359c0aa739e",
+      "End": "1f0eaa6b776b483784a71f1dbfd375da",
+      "Id": "81309fdbd49a460c84381965a8e125a4"
+    }
+  ],
+  "Dependencies": [],
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": false,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.2.1.5175",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "Background Preview",
+      "EyeX": -17.0,
+      "EyeY": 24.0,
+      "EyeZ": 50.0,
+      "LookX": 12.0,
+      "LookY": -13.0,
+      "LookZ": -58.0,
+      "UpX": 0.0,
+      "UpY": 1.0,
+      "UpZ": 0.0
+    },
+    "NodeViews": [
+      {
+        "ShowGeometry": true,
+        "Name": "Python Script",
+        "Id": "9fc694a81b2844b7a458797f42fa11f2",
+        "IsSetAsInput": true,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 482.799494389532,
+        "Y": 304.121328052802
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Output",
+        "Id": "8b60f417433b475384aa768b2ef908f3",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 653.6596191415,
+        "Y": 306.681343234136
+      }
+    ],
+    "Annotations": [],
+    "X": -560.726816154453,
+    "Y": -220.856584485391,
+    "Zoom": 1.78359936238281
+  }
+}

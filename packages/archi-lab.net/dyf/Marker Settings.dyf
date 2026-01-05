@@ -1,0 +1,368 @@
+{
+  "Uuid": "3911181b-3609-4e22-9c1c-44afd538e9b8",
+  "IsCustomNode": true,
+  "Category": "archilab.Revit.Analysis",
+  "Description": "This node will generate AnalysisDisplayMarkerAndTextSettings to be used with a Marker Analysis Display Style. Inputs are: Marker Shape(Circle, Triangle, Rectangle), Marker Size, Show Text (Boolean), Rounding, TextDisplayMethod (Show All, Show None, Show Predefined). ",
+  "Name": "Marker Settings",
+  "ElementResolver": {
+    "ResolutionMap": {
+      "ElementId": {
+        "Key": "Autodesk.Revit.DB.ElementId",
+        "Value": null
+      }
+    }
+  },
+  "Inputs": [],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "#Copyright(c) 2015, Konrad K Sobon\n# @arch_laboratory, http://archi-lab.net\n\nimport clr\nclr.AddReference('ProtoGeometry')\nfrom Autodesk.DesignScript.Geometry import *\n\n# Import DocumentManager and TransactionManager\nclr.AddReference(\"RevitServices\")\nimport RevitServices\nfrom RevitServices.Persistence import DocumentManager\nfrom RevitServices.Transactions import TransactionManager\n\nfrom System.Collections.Generic import *\n\n# Import RevitAPI\nclr.AddReference(\"RevitAPI\")\nimport Autodesk\nfrom Autodesk.Revit.DB import *\nfrom Autodesk.Revit.DB.Analysis import *\n\ndoc = DocumentManager.Instance.CurrentDBDocument\nuiapp = DocumentManager.Instance.CurrentUIApplication\napp = uiapp.Application\n\n# Import ToDSType(bool) extension method\nclr.AddReference(\"RevitNodes\")\nimport Revit\nclr.ImportExtensions(Revit.Elements)\n\n#The inputs to this node will be stored as a list in the IN variable.\ndataEnteringNode = IN\n\nmarkerType = IN[0]\nmarkerSize = IN[1]\nTextTypeId = IN[2]\nrounding = IN[3]\ntextLabelType = IN[4]\n\n#define marker settings\nmarkerSettings = AnalysisDisplayMarkersAndTextSettings()\n\n#marker\nif markerType == \"Circle\":\n\tmarkerSettings.MarkerType = AnalysisDisplayStyleMarkerType.Circle\nelif markerType == \"Square\":\n\tmarkerSettings.MarkerType = AnalysisDisplayStyleMarkerType.Square\nelif markerType == \"Triangle\":\n\tmarkerSettings.MarkerType = AnalysisDisplayStyleMarkerType.Triangle\nelse:\n\tmessage = \"Please specify one of the marker types: \\nCircle, Square or Triangle\"\nmarkerSettings.MarkerSize = markerSize\n\n#text annotation\nif textLabelType == \"ShowAll\":\n\tmarkerSettings.TextLabelType = AnalysisDisplayStyleMarkerTextLabelType.ShowAll\nelif textLabelType == \"ShowNone\":\n\tmarkerSettings.TextLabelType = AnalysisDisplayStyleMarkerTextLabelType.ShowNone\nelif textLabelType == \"ShowPredefined\":\n\tmarkerSettings.TextLabelType = AnalysisDisplayStyleMarkerTextLabelType.ShowPredefined\nelse:\n\tmessage = \"Please specify one of the text label types: \\nShowAll, ShowNone or ShowPredefined\"\nmarkerSettings.TextTypeId = TextTypeId[0]\nmarkerSettings.Rounding = rounding\n\n#Assign your output to the OUT variable\nOUT = markerSettings",
+      "VariableInputPorts": true,
+      "Id": "33aa5559a63345bf9f6d88011de29e77",
+      "Inputs": [
+        {
+          "Id": "1000a772c2974a818c3175bd121db263",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "98106b6dda174ad28aaa4fee99337915",
+          "Name": "IN[1]",
+          "Description": "Input #1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "d00c7efd177f4476b71d371383a8a3b8",
+          "Name": "IN[2]",
+          "Description": "Input #2",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "c1b54cf16c404e48b65d99c4461f5d29",
+          "Name": "IN[3]",
+          "Description": "Input #3",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "6c912edb89814ceabf6fe723e6d87a17",
+          "Name": "IN[4]",
+          "Description": "Input #4",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "31ed4b0593f648e9813651329ab19391",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded IronPython script."
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Symbol, DynamoCore",
+      "NodeType": "InputNode",
+      "Parameter": {
+        "Name": "_markerType",
+        "TypeName": "string",
+        "TypeRank": 0,
+        "DefaultValue": null,
+        "Description": ""
+      },
+      "Id": "cd4437ad36f74b1ca671659eb0c9e44b",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "0651aba43eb049ad958fdb8813ba790f",
+          "Name": "",
+          "Description": "Symbol",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "A function parameter, use with custom nodes.\r\n\r\nYou can specify the type and default value for parameter. E.g.,\r\n\r\ninput : var[]..[]\r\nvalue : bool = false"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Symbol, DynamoCore",
+      "NodeType": "InputNode",
+      "Parameter": {
+        "Name": "_markerSize",
+        "TypeName": "double",
+        "TypeRank": 0,
+        "DefaultValue": null,
+        "Description": ""
+      },
+      "Id": "f9897b4c222d4a0cbe013918ddcd0450",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "5cfc37c9ccb9401d84621d12e4d9ec93",
+          "Name": "",
+          "Description": "Symbol",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "A function parameter, use with custom nodes.\r\n\r\nYou can specify the type and default value for parameter. E.g.,\r\n\r\ninput : var[]..[]\r\nvalue : bool = false"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Symbol, DynamoCore",
+      "NodeType": "InputNode",
+      "Parameter": {
+        "Name": "_textTypeId",
+        "TypeName": "Autodesk.Revit.DB.ElementId",
+        "TypeRank": 0,
+        "DefaultValue": null,
+        "Description": ""
+      },
+      "Id": "89bcf76d223e4c09a8a2b1a2e0891466",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "6ad526bf1326444bb0af1c54470e62b9",
+          "Name": "",
+          "Description": "Symbol",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "A function parameter, use with custom nodes.\r\n\r\nYou can specify the type and default value for parameter. E.g.,\r\n\r\ninput : var[]..[]\r\nvalue : bool = false"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Symbol, DynamoCore",
+      "NodeType": "InputNode",
+      "Parameter": {
+        "Name": "_rounding",
+        "TypeName": "double",
+        "TypeRank": 0,
+        "DefaultValue": null,
+        "Description": ""
+      },
+      "Id": "7acb829be6154ff1bea9f1380030061f",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "c786fe6e175e4aa39c1b9a9fcfcfe985",
+          "Name": "",
+          "Description": "Symbol",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "A function parameter, use with custom nodes.\r\n\r\nYou can specify the type and default value for parameter. E.g.,\r\n\r\ninput : var[]..[]\r\nvalue : bool = false"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Symbol, DynamoCore",
+      "NodeType": "InputNode",
+      "Parameter": {
+        "Name": "_textLabelType",
+        "TypeName": "string",
+        "TypeRank": 0,
+        "DefaultValue": null,
+        "Description": ""
+      },
+      "Id": "f5c6eb9bea2f4e5986f95e2087a33bc6",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "33c1f34d28aa44a58937fb76a7c173f1",
+          "Name": "",
+          "Description": "Symbol",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "A function parameter, use with custom nodes.\r\n\r\nYou can specify the type and default value for parameter. E.g.,\r\n\r\ninput : var[]..[]\r\nvalue : bool = false"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Output, DynamoCore",
+      "NodeType": "OutputNode",
+      "Symbol": "_markerSettings",
+      "Id": "56a88e2759c44bd2bc699cd26154b7b9",
+      "Inputs": [
+        {
+          "Id": "42d4a581920d43559ec4c3798c89d0fa",
+          "Name": "",
+          "Description": "",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [],
+      "Replication": "Disabled",
+      "Description": "A function output, use with custom nodes"
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "31ed4b0593f648e9813651329ab19391",
+      "End": "42d4a581920d43559ec4c3798c89d0fa",
+      "Id": "5fb7c26a76cc48b6b8d40278fe4a7727"
+    },
+    {
+      "Start": "0651aba43eb049ad958fdb8813ba790f",
+      "End": "1000a772c2974a818c3175bd121db263",
+      "Id": "76dd9090c9204c88807b1d4b0aae975e"
+    },
+    {
+      "Start": "5cfc37c9ccb9401d84621d12e4d9ec93",
+      "End": "98106b6dda174ad28aaa4fee99337915",
+      "Id": "d22739ab94da4cb1a1d8ab86ed768811"
+    },
+    {
+      "Start": "6ad526bf1326444bb0af1c54470e62b9",
+      "End": "d00c7efd177f4476b71d371383a8a3b8",
+      "Id": "d21aae1afc354b92a75e9b787f320cfe"
+    },
+    {
+      "Start": "c786fe6e175e4aa39c1b9a9fcfcfe985",
+      "End": "c1b54cf16c404e48b65d99c4461f5d29",
+      "Id": "ef07645ce82d4cfa9e2c2cf84ebb841b"
+    },
+    {
+      "Start": "33c1f34d28aa44a58937fb76a7c173f1",
+      "End": "6c912edb89814ceabf6fe723e6d87a17",
+      "Id": "f404874b8ee24082860922cdcc086b5d"
+    }
+  ],
+  "Dependencies": [],
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": false,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.2.1.5175",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "Background Preview",
+      "EyeX": -17.0,
+      "EyeY": 24.0,
+      "EyeZ": 50.0,
+      "LookX": 12.0,
+      "LookY": -13.0,
+      "LookZ": -58.0,
+      "UpX": 0.0,
+      "UpY": 1.0,
+      "UpZ": 0.0
+    },
+    "NodeViews": [
+      {
+        "ShowGeometry": true,
+        "Name": "Python Script",
+        "Id": "33aa5559a63345bf9f6d88011de29e77",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 228.456878137329,
+        "Y": 60.91503423238089
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Input",
+        "Id": "cd4437ad36f74b1ca671659eb0c9e44b",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -46.063822994043051,
+        "Y": -25.41452303119614
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Input",
+        "Id": "f9897b4c222d4a0cbe013918ddcd0450",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 0.994797399484469,
+        "Y": 56.4890444484593
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Input",
+        "Id": "89bcf76d223e4c09a8a2b1a2e0891466",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -76.3153858759959,
+        "Y": 118.29450052214541
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Input",
+        "Id": "7acb829be6154ff1bea9f1380030061f",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 25.945495172514939,
+        "Y": 179.30155769824
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Input",
+        "Id": "f5c6eb9bea2f4e5986f95e2087a33bc6",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -19.835597052758,
+        "Y": 239.301656260518
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Output",
+        "Id": "56a88e2759c44bd2bc699cd26154b7b9",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 383.62776814086,
+        "Y": 61.6579005035074
+      }
+    ],
+    "Annotations": [],
+    "X": 238.37414257402054,
+    "Y": 164.51638852864559,
+    "Zoom": 1.8886838813020552
+  }
+}

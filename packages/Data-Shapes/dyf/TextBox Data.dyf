@@ -1,0 +1,265 @@
+{
+  "Uuid": "928e40a7-91ac-45c3-8d59-4d899fc49b83",
+  "IsCustomNode": true,
+  "Category": "Data-Shapes.UI.Input",
+  "Description": "Create Data for TextBox input in UI.MultipleInputForm ++ . Check out www.data-shapes.net for more informations",
+  "Name": "TextBox Data",
+  "ElementResolver": {
+    "ResolutionMap": {}
+  },
+  "Inputs": [],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "#Copyright (c) mostafa el ayoubi ,  2018\r\n#Data-Shapes www.data-shapes.net , elayoubi.mostafa@gmail.com\r\n\r\nclass uitext():\r\n\r\n    def __init__(self,inputname,defaultvalue,_isnum):\r\n        self.inputname = inputname\r\n        self._isnum = _isnum\r\n        if _isnum: self.defaultvalue = defaultvalue.replace(',','.')\r\n        else: self.defaultvalue = defaultvalue\r\n\r\n    def __repr__(self):\r\n        return 'UI.Textbox input'\r\n        \r\nx = uitext(IN[0],IN[1],IN[2])\r\n\r\n\r\nOUT = x",
+      "VariableInputPorts": true,
+      "Id": "fa0ae2da27ba406d81cbff23789e1a89",
+      "Inputs": [
+        {
+          "Id": "fd417404ecc04b4fa2624747b36dae5c",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "d3ff7958c6c746ffa6ba237a761cdc5a",
+          "Name": "IN[1]",
+          "Description": "Input #1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "4728ad51d35f4e20ab8797ccee468f53",
+          "Name": "IN[2]",
+          "Description": "Input #2",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "3c17271d34f74a769ca784fe6be401db",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded IronPython script."
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Output, DynamoCore",
+      "NodeType": "OutputNode",
+      "ElementResolver": null,
+      "Symbol": "TextBox input",
+      "Id": "65be4e9dfed44880b1c38fbd9a11818b",
+      "Inputs": [
+        {
+          "Id": "49883535d6714a398da8973218ac7e70",
+          "Name": "",
+          "Description": "",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [],
+      "Replication": "Disabled",
+      "Description": "A function output, use with custom nodes"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Symbol, DynamoCore",
+      "NodeType": "InputNode",
+      "Parameter": {
+        "Name": "InputName",
+        "TypeName": "string",
+        "TypeRank": 0,
+        "DefaultValue": "\"\"",
+        "Description": ""
+      },
+      "Id": "433ad0c4aa3f4f55b235dcc0f50590bf",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "a25e05e1f77b4a5ca56b613462a024cf",
+          "Name": "",
+          "Description": "Symbol",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "A function parameter, use with custom nodes.\r\n\r\nYou can specify the type and default value for parameter. E.g.,\r\n\r\ninput : var[]..[]\r\nvalue : bool = false"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Symbol, DynamoCore",
+      "NodeType": "InputNode",
+      "Parameter": {
+        "Name": "DefaultText",
+        "TypeName": "string",
+        "TypeRank": 0,
+        "DefaultValue": "\"\"",
+        "Description": ""
+      },
+      "Id": "0c7af9a8468b498786405d918a3db189",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "d4cd386b9cfe4dfeb05f5655e5307d3f",
+          "Name": "",
+          "Description": "Symbol",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "A function parameter, use with custom nodes.\r\n\r\nYou can specify the type and default value for parameter. E.g.,\r\n\r\ninput : var[]..[]\r\nvalue : bool = false"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Symbol, DynamoCore",
+      "NodeType": "InputNode",
+      "Parameter": {
+        "Name": "IsNumberEntry",
+        "TypeName": "bool",
+        "TypeRank": 0,
+        "DefaultValue": "false",
+        "Description": ""
+      },
+      "Id": "fd2df33af92d4ac7921956be1e4a74bc",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "afd7125098b342f7914fa41724b89b17",
+          "Name": "",
+          "Description": "Symbol",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "A function parameter, use with custom nodes.\r\n\r\nYou can specify the type and default value for parameter. E.g.,\r\n\r\ninput : var[]..[]\r\nvalue : bool = false"
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "3c17271d34f74a769ca784fe6be401db",
+      "End": "49883535d6714a398da8973218ac7e70",
+      "Id": "bee4bd8e8542409085e9b4a0899425b7"
+    },
+    {
+      "Start": "a25e05e1f77b4a5ca56b613462a024cf",
+      "End": "fd417404ecc04b4fa2624747b36dae5c",
+      "Id": "6a9700bce6b149c88661083af5480d04"
+    },
+    {
+      "Start": "d4cd386b9cfe4dfeb05f5655e5307d3f",
+      "End": "d3ff7958c6c746ffa6ba237a761cdc5a",
+      "Id": "2cbe51093c114304b994e2f8970338d5"
+    },
+    {
+      "Start": "afd7125098b342f7914fa41724b89b17",
+      "End": "4728ad51d35f4e20ab8797ccee468f53",
+      "Id": "1efbf1b0052146cf8f21fbd82dc3d7bf"
+    }
+  ],
+  "Dependencies": [],
+  "NodeLibraryDependencies": [],
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": false,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.5.0.7460",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "Background Preview",
+      "EyeX": -17.0,
+      "EyeY": 24.0,
+      "EyeZ": 50.0,
+      "LookX": 12.0,
+      "LookY": -13.0,
+      "LookZ": -58.0,
+      "UpX": 0.0,
+      "UpY": 1.0,
+      "UpZ": 0.0
+    },
+    "NodeViews": [
+      {
+        "ShowGeometry": true,
+        "Name": "Python Script",
+        "Id": "fa0ae2da27ba406d81cbff23789e1a89",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 250.0,
+        "Y": 0.0
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Output",
+        "Id": "65be4e9dfed44880b1c38fbd9a11818b",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 447.0,
+        "Y": 0.0
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Input",
+        "Id": "433ad0c4aa3f4f55b235dcc0f50590bf",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -67.6817861262768,
+        "Y": -45.8243203482209
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Input",
+        "Id": "0c7af9a8468b498786405d918a3db189",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -76.1112382482474,
+        "Y": 38.4396101197009
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Input",
+        "Id": "fd2df33af92d4ac7921956be1e4a74bc",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -79.5062092220608,
+        "Y": 112.725397796532
+      }
+    ],
+    "Annotations": [],
+    "X": 218.66231875,
+    "Y": 298.411975,
+    "Zoom": 1.33823125
+  }
+}

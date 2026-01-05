@@ -1,0 +1,314 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Synthetic.Core</name>
+    </assembly>
+    <members>
+        <member name="T:Synthetic.Core.Assemblies">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Synthetic.Core.Assemblies.GetAssemblies">
+            <summary>
+            Gets all loaded assemblies
+            </summary>
+            <returns name="Assemblies">Returns a dictionary of assemblies with assembly full name as key.</returns>
+        </member>
+        <member name="M:Synthetic.Core.Assemblies.GetAssembliesAsList">
+            <summary>
+            Gets all loaded assemblies
+            </summary>
+            <returns name="Assemblies">Returns a dictionary of assemblies with assembly full name as key.</returns>
+        </member>
+        <member name="M:Synthetic.Core.Assemblies.FullName(System.Reflection.Assembly)">
+            <summary>
+            Returns the full name of a DLL assembly
+            </summary>
+            <param name="assembly">A DLL assembly</param>
+            <returns name="Name">Returns the full name of the assembly</returns>
+        </member>
+        <member name="M:Synthetic.Core.Assemblies.GetTypes(System.Reflection.Assembly)">
+            <summary>
+            Given a DLL assembly, returns the types
+            </summary>
+            <param name="assembly">A DLL assembly</param>
+            <returns name="Types">Returns the types within an assembly</returns>
+        </member>
+        <member name="M:Synthetic.Core.Assemblies.LoadByName(System.String)">
+            <summary>
+            Loads a DLL assembly given it's long name.
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Synthetic.Core.Assemblies.GetPublicClassesAndMethods(System.Reflection.Assembly)">
+            <summary>
+            Returns all classes and methods in an assembly.  Modified from version found at http://venkateswarlu.net/DotNet/Get_all_methods_from_a_class.aspx.
+            </summary>
+            <param name="assembly"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Synthetic.Core.Assemblies.GetPublicStaticMethods(System.Type)">
+            <summary>
+            Returns all the methods of a Type that are public and static.
+            </summary>
+            <param name="type">A Type</param>
+            <returns name="Methods">List of the names of methods including Namespace, Type and Method.</returns>
+        </member>
+        <member name="M:Synthetic.Core.Assemblies.GetEnumerableOfType(System.Type)">
+            <summary>
+            Gets the Enumerations of a Type.
+            </summary>
+            <param name="objectType">A Type</param>
+            <returns name="Types">Enumerations of a Type.</returns>
+        </member>
+        <member name="T:Synthetic.Core.Dictionary">
+            <summary>
+            Implements Dictionary object in Dynamo.  Dictionary uses strings as keys and System.Objects as values.
+            </summary>
+        </member>
+        <member name="M:Synthetic.Core.Dictionary.ByKeysValues(System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.Object})">
+            <summary>
+            Creates a Dictionary made of key value pairs.
+            </summary>
+            <param name="keys">Keys to be used in the dictionary.</param>
+            <param name="values">Values in the dictionary.</param>
+            <returns name="Dictionary">A new dictionary object.</returns>
+        </member>
+        <member name="M:Synthetic.Core.Dictionary.ByKeyValuePairs(System.Collections.Generic.List{System.Collections.Generic.List{System.Object}})">
+            <summary>
+            Creates a Dictionary from a list of key value pair lists.
+            </summary>
+            <param name="keyValuePairs">A list of paired lists representing Keys and Values.</param>
+            <returns name="Dictionary">A new dictionary object.</returns>
+        </member>
+        <member name="M:Synthetic.Core.Dictionary.Add(Synthetic.Core.Dictionary,System.String,System.Object)">
+            <summary>
+            Add a key-value pair from a dictionary.
+            </summary>
+            <param name="dictionary">A dictionary object.</param>
+            <param name="key">Key to add.</param>
+            <param name="value">Value to add.</param>
+            <returns name="dictionary">The dictionary witht the key-valu pair added.</returns>
+        </member>
+        <member name="M:Synthetic.Core.Dictionary.Remove(Synthetic.Core.Dictionary,System.String)">
+            <summary>
+            Remove a key-value pair from a dictionary.
+            </summary>
+            <param name="dictionary">A dictionary object.</param>
+            <param name="key">The key to the pair to be removed.</param>
+            <returns name="dictionary">Returns the dictionary with the key-value pair removed.</returns>
+        </member>
+        <member name="M:Synthetic.Core.Dictionary.Value(Synthetic.Core.Dictionary,System.String)">
+            <summary>
+            Retrieves a value at a given key.
+            </summary>
+            <param name="dictionary">A dictionary object.</param>
+            <param name="key">A key.</param>
+            <returns name="value">A value at the given key.</returns>
+        </member>
+        <member name="M:Synthetic.Core.Dictionary.KeyContains(Synthetic.Core.Dictionary,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="dictionary"></param>
+            <param name="keyContains"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Synthetic.Core.Dictionary.GetKeys(Synthetic.Core.Dictionary)">
+            <summary>
+            Retrieves the keys in the dictionary as a list.
+            </summary>
+            <param name="dictionary">A dictionary object.</param>
+            <returns name="keys">A list of keys.</returns>
+        </member>
+        <member name="M:Synthetic.Core.Dictionary.GetValues(Synthetic.Core.Dictionary)">
+            <summary>
+            Retrieves the values in the dictionary as a list.
+            </summary>
+            <param name="dict">A dictionary object.</param>
+            <returns name="values">A list of values.</returns>
+        </member>
+        <member name="M:Synthetic.Core.Dictionary.GetKeyValuePairs(Synthetic.Core.Dictionary)">
+            <summary>
+            Converts the dictionary into a list of key-value pair lists.
+            </summary>
+            <param name="dict">A dictionary object</param>
+            <returns name="Keys+Values">Returns a list of key-value pair lists.</returns>
+        </member>
+        <member name="M:Synthetic.Core.Dictionary.SetValueAtKey(Synthetic.Core.Dictionary,System.String,System.Object)">
+            <summary>
+            Sets the value at a given key.
+            </summary>
+            <param name="dictionary">a dictionary</param>
+            <param name="key">A key in the dictionary.</param>
+            <param name="value">The value to set</param>
+            <returns name="dictionary">The modified dictionary.  Returns null if no key is found.</returns>
+        </member>
+        <member name="M:Synthetic.Core.Dictionary.UnwrapDictionary(Synthetic.Core.Dictionary)">
+            <summary>
+            Unwraps and returns a .Net Dictionary object.
+            </summary>
+            <param name="dictionary">A Synthetic.Core.Dictionary object.</param>
+            <returns name="dotNetDictionary">Returns a .Net Dictionary object.</returns>
+        </member>
+        <member name="M:Synthetic.Core.Dictionary.Wrap(System.Collections.Generic.Dictionary{System.String,System.Object})">
+            <summary>
+            Wraps a .Net Dictionary object into a Synthetic.Core.Dictionary object.
+            </summary>
+            <param name="dotNetDictionary">.Net Dictionary object.</param>
+            <returns name="dictionary">Returns a A Synthetic.Core.Dictionary object.</returns>
+        </member>
+        <member name="M:Synthetic.Core.Dictionary.ToString">
+            <summary>
+            Prints the Dictionary as a string.
+            </summary>
+            <returns name="string">Converts to a string.</returns>
+        </member>
+        <member name="M:Synthetic.Core.Dictionary.ByEmpty">
+            <summary>
+            Creates an empty dictionary.
+            </summary>
+            <returns name="Dictionary">A empty dictionary.</returns>
+        </member>
+        <member name="T:Synthetic.Core.Enumeration">
+            <summary>
+            Wrapper for using enumerations
+            </summary>
+        </member>
+        <member name="M:Synthetic.Core.Enumeration.Parse(System.String,System.String)">
+            <summary>
+            Retrieves a enum of the given type and name.
+            </summary>
+            <param name="enumTypeName">The enum type as a string. Requires the full assembly path in front of the type.</param>
+            <param name="name">Name of the enum.</param>
+            <returns name="enum">Returns a enum.</returns>
+        </member>
+        <member name="M:Synthetic.Core.Enumeration.GetNames(System.String)">
+            <summary>
+            Retrieves a list of the names of the constants in a specified enumeration.
+            </summary>
+            <param name="enumTypeName">The enum type as a string. Requires the full assembly path in front of the type.</param>
+            <returns name="names">A string list of the names of the constants in enumType.</returns>
+        </member>
+        <member name="M:Synthetic.Core.Enumeration.GetName(System.Enum)">
+            <summary> 
+            Retrieves the name as a string of the enumeration. 
+            </summary> 
+            <param name="enumeration">A enum</param> 
+            <returns name="name">Returns the name of the enum as a string</returns> 
+        </member>
+        <member name="M:Synthetic.Core.Enumeration.GetEnums(System.String)">
+            <summary>
+            Retrieves all enums of a given type.
+            </summary>
+            <param name="enumTypeName">The enum type as a string. Requires the full assembly path in front of the type.</param>
+            <returns name="enums">A list of enums.</returns>
+        </member>
+        <member name="M:Synthetic.Core.Enumeration.GetValue(System.Object)">
+            <summary>
+            Evaluates a enum and returns its value.
+            </summary>
+            <param name="enumeration">A enum</param>
+            <returns name="value">Returns the value of the enum</returns>
+        </member>
+        <member name="M:Synthetic.Core.Enumeration.GetEnumType(System.String)">
+            <summary>
+            Retrieves the Enum Type from a string name.
+            </summary>
+            <param name="enumTypeName">The enum type as a string. Requires the full assembly path in front of the type.</param>
+            <returns name="enumType">Returns the enum type if it exists in the current domain.</returns>
+        </member>
+        <member name="M:Synthetic.Core.Enumeration.IsDefined(System.String,System.String)">
+            <summary>
+            Returns an indication whether a constant with a specified value exists in a specified enumeration.
+            </summary>
+            <param name="enumTypeName">The enum type as a string. Requires the full assembly path in front of the type.</param>
+            <param name="name">Name of the enum.</param>
+            <returns name="bool">True if a constant in enumType has a value equal to value; otherwise, false.</returns>
+        </member>
+        <member name="T:Synthetic.Core.Json">
+            <summary>
+            Convert Revit Elements to and from JSON.
+            </summary>
+        </member>
+        <member name="M:Synthetic.Core.Json.Encode(System.Object)">
+            <summary>
+            Serializes an element into JSON.
+            </summary>
+            <param name="object">An object to serialize.</param>
+            <returns name="JSON">A string of JSON.</returns>
+        </member>
+        <member name="M:Synthetic.Core.Json.Decode(System.String)">
+            <summary>
+            Deseralizes an element from JSON.
+            </summary>
+            <param name="json">A string of JSON</param>
+            <returns name="object">An object to deserialize.</returns>
+        </member>
+        <member name="T:Synthetic.Core.Object">
+            <summary>
+            General utility nodes that operate on any object
+            </summary>
+        </member>
+        <member name="M:Synthetic.Core.Object.TypeOf(System.Object)">
+            <summary>
+            Returns the type of the object.
+            </summary>
+            <param name="obj">A object</param>
+            <returns name="Type">Returns the type of the object</returns>
+        </member>
+        <member name="T:Synthetic.Core.RegEx">
+            <summary>
+            Wrapper for System.Text.RegularExpressions
+            </summary>
+        </member>
+        <member name="M:Synthetic.Core.RegEx.IsMatch(System.String,System.String)">
+            <summary>
+            Indicates whether the specified regular expression finds a match in the specified input string
+            </summary>
+            <param name="input"></param>
+            <param name="pattern"></param>
+        </member>
+        <member name="M:Synthetic.Core.RegEx.Match(System.String,System.String)">
+            <summary>
+            Searches the specified input string for the first occurrence of the specified regular expression.
+            </summary>
+            <param name="input">The input string</param>
+            <param name="pattern">A regular expression pattern.</param>
+            <returns name="Value">A substring that matches the given pattern.  Returns an empty string if the pattern wasn't matched.</returns>
+            <returns name="Index">The index location where the pattern was matched.</returns>
+            <returns name="IsMatch">True if a match was found.</returns>
+            <returns name="subStrings">A list of substrings that match the capture groups of the pattern.</returns>
+        </member>
+        <member name="M:Synthetic.Core.RegEx.Matches(System.String,System.String)">
+            <summary>
+            Searches the specified input string for all occurrences of a specified regular expression.
+            </summary>
+            <param name="input">The input string</param>
+            <param name="pattern">A regular expression pattern.</param>
+            <returns name="Value">A substring that matches the given pattern.  Returns an empty string if the pattern wasn't matched.</returns>
+            <returns name="Index">The index location where the pattern was matched.</returns>
+            <returns name="IsMatch">True if a match was found.</returns>
+            <returns name="subStrings">A list of substrings that match the capture groups of the pattern.</returns>
+        </member>
+        <member name="M:Synthetic.Core.RegEx.Replace(System.String,System.String,System.String)">
+            <summary>
+            In a specified input string, replaces all strings that match a specified regular expression with a specified replacement string.
+            </summary>
+            <param name="input">The input string</param>
+            <param name="pattern">A regular expression pattern.</param>
+            <param name="replacement">A string to replace any matches to the pattern.</param>
+            <returns name="string">The input string with portions replaced.  If the pattern doesn't match, the original string is returned.</returns>
+        </member>
+        <member name="M:Synthetic.Core.RegEx.Split(System.String,System.String)">
+            <summary>
+            Splits an input string into an array of substrings at the positions defined by a regular expression pattern.
+            </summary>
+            <param name="input">The input string</param>
+            <param name="pattern">A regular expression pattern.</param>
+            <returns name="split">A list of strings split by the pattern.</returns>
+        </member>
+    </members>
+</doc>

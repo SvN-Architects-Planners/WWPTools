@@ -1,0 +1,112 @@
+{
+  "Uuid": "e792abdd-2a75-45fd-a64b-7240bf720af1",
+  "IsCustomNode": true,
+  "Category": "archilab.Revit.Select",
+  "Description": "Selects all Keynote Tags instances in the model. ",
+  "Name": "Get All Keynote Tags",
+  "ElementResolver": {
+    "ResolutionMap": {}
+  },
+  "Inputs": [],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "#Copyright(c) 2015, Konrad Sobon\n# @arch_laboratory, http://archi-lab.net\n\nimport clr\nclr.AddReference('ProtoGeometry')\nfrom Autodesk.DesignScript.Geometry import *\n\n# Import ToDSType(bool) extension method\nclr.AddReference(\"RevitNodes\")\nimport Revit\n\n# Import DocumentManager and TransactionManager\nclr.AddReference(\"RevitServices\")\nimport RevitServices\nfrom RevitServices.Persistence import DocumentManager\n\n# Import RevitAPI\nclr.AddReference(\"RevitAPI\")\nimport Autodesk\nfrom Autodesk.Revit.DB import *\nfrom Autodesk.Revit.DB.BuiltInCategory import *\n\ndoc = DocumentManager.Instance.CurrentDBDocument\n\n#The inputs to this node will be stored as a list in the IN variable.\ndataEnteringNode = IN\n\nelementList = FilteredElementCollector(doc).OfCategory(OST_KeynoteTags).WhereElementIsNotElementType().ToElements()\n\n#Assign your output to the OUT variable\nOUT = elementList",
+      "VariableInputPorts": true,
+      "Id": "28733d99db4d4024b2ddaea0546e3a90",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "c9ceda9ea4ba4106bf6ddd19f7ca41f0",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded IronPython script."
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Output, DynamoCore",
+      "NodeType": "OutputNode",
+      "Symbol": "_keynotes",
+      "Id": "b9860d7ad4964538b7bcc4d1486df140",
+      "Inputs": [
+        {
+          "Id": "af5551a443fe4cf790a6395d6c3dae31",
+          "Name": "",
+          "Description": "",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [],
+      "Replication": "Disabled",
+      "Description": "A function output, use with custom nodes"
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "c9ceda9ea4ba4106bf6ddd19f7ca41f0",
+      "End": "af5551a443fe4cf790a6395d6c3dae31",
+      "Id": "6f8a9b75aabe4be39b309101eff9ed73"
+    }
+  ],
+  "Dependencies": [],
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": false,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.2.1.5175",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "Background Preview",
+      "EyeX": -17.0,
+      "EyeY": 24.0,
+      "EyeZ": 50.0,
+      "LookX": 12.0,
+      "LookY": -13.0,
+      "LookZ": -58.0,
+      "UpX": 0.0,
+      "UpY": 1.0,
+      "UpZ": 0.0
+    },
+    "NodeViews": [
+      {
+        "ShowGeometry": true,
+        "Name": "Python Script",
+        "Id": "28733d99db4d4024b2ddaea0546e3a90",
+        "IsSetAsInput": true,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 250.0,
+        "Y": 0.0
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Output",
+        "Id": "b9860d7ad4964538b7bcc4d1486df140",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 419.0,
+        "Y": 0.0
+      }
+    ],
+    "Annotations": [],
+    "X": -128.95910827011244,
+    "Y": 324.46179177048793,
+    "Zoom": 2.370040607913583
+  }
+}

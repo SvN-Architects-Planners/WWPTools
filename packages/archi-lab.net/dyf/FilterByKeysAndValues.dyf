@@ -1,0 +1,309 @@
+{
+  "Uuid": "526b4364-5ac6-47a1-a0eb-be7a943d4265",
+  "IsCustomNode": true,
+  "Category": "archilab.Core.Lists",
+  "Description": "Creates a dictionary from keys and values, then filters that dictionary by specified list of keys. ",
+  "Name": "FilterByKeysAndValues",
+  "ElementResolver": {
+    "ResolutionMap": {}
+  },
+  "Inputs": [],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "DesignScript.Builtin.Dictionary.ByKeysValues@string[],var[]..[]",
+      "Id": "627040a165aa4ddc9acbf2e79ec4460c",
+      "Inputs": [
+        {
+          "Id": "5bb6a53ef7a247a6838cb707d52876fc",
+          "Name": "keys",
+          "Description": "The string keys of the Dictionary\n\nstring[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "1573aaa8c1c84a178e8113458721a51b",
+          "Name": "values",
+          "Description": "The values of the Dictionary\n\nvar[]..[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "1548626d35054424b25cb189ca286f2f",
+          "Name": "dictionary",
+          "Description": "The result Dictionary",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Produces a Dictionary with the supplied keys and values. The number of entries is the shorter of keys or values.\n\nDictionary.ByKeysValues (keys: string[], values: var[]..[]): Dictionary"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "DesignScript.Builtin.Dictionary.ValueAtKey@string",
+      "Id": "4535aba49ff24e24ad18a4301d1d036d",
+      "Inputs": [
+        {
+          "Id": "827e9f3f5f8c4d449effc50233b5eced",
+          "Name": "dictionary",
+          "Description": "DesignScript.Builtin.Dictionary",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "3fa7472cd85445ddbe9483442f9508bc",
+          "Name": "key",
+          "Description": "The key in the Dictionary to obtain.\n\nstring",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "5cc14dce98bb4e959f000f948eb388b4",
+          "Name": "value",
+          "Description": "The value at the specified key or null if it is not set.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Obtain the value at a specified key\n\nDictionary.ValueAtKey (key: string): var[]..[]"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Symbol, DynamoCore",
+      "NodeType": "InputNode",
+      "Parameter": {
+        "Name": "keys",
+        "TypeName": "var",
+        "TypeRank": 1,
+        "DefaultValue": null,
+        "Description": ""
+      },
+      "Id": "b69d15df89844614916612c7537086e1",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "b76796e8a5a64cd2bf4f75ba016a1562",
+          "Name": "",
+          "Description": "Symbol",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "A function parameter, use with custom nodes.\r\n\r\nYou can specify the type and default value for parameter. E.g.,\r\n\r\ninput : var[]..[]\r\nvalue : bool = false"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Symbol, DynamoCore",
+      "NodeType": "InputNode",
+      "Parameter": {
+        "Name": "values",
+        "TypeName": "var",
+        "TypeRank": -1,
+        "DefaultValue": null,
+        "Description": ""
+      },
+      "Id": "37db38d4fce9421cb2a7b8dceaa28e06",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "001df381a5f040a1ade8c42611937fee",
+          "Name": "",
+          "Description": "Symbol",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "A function parameter, use with custom nodes.\r\n\r\nYou can specify the type and default value for parameter. E.g.,\r\n\r\ninput : var[]..[]\r\nvalue : bool = false"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Symbol, DynamoCore",
+      "NodeType": "InputNode",
+      "Parameter": {
+        "Name": "searchKeys",
+        "TypeName": "var",
+        "TypeRank": 1,
+        "DefaultValue": null,
+        "Description": ""
+      },
+      "Id": "66a46b592cd34fd9b4019319c93fa501",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "9a1110aae18546ae9a12ea118b6266a4",
+          "Name": "",
+          "Description": "Symbol",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "A function parameter, use with custom nodes.\r\n\r\nYou can specify the type and default value for parameter. E.g.,\r\n\r\ninput : var[]..[]\r\nvalue : bool = false"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Output, DynamoCore",
+      "NodeType": "OutputNode",
+      "ElementResolver": null,
+      "Symbol": "result",
+      "Id": "9fe47f64af3a4e09804a6f2860576069",
+      "Inputs": [
+        {
+          "Id": "c993eacd040945558ed275c8cf9cb33d",
+          "Name": "",
+          "Description": "",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [],
+      "Replication": "Disabled",
+      "Description": "A function output, use with custom nodes"
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "1548626d35054424b25cb189ca286f2f",
+      "End": "827e9f3f5f8c4d449effc50233b5eced",
+      "Id": "8c7e1e4e1173487abd064456ffa93883"
+    },
+    {
+      "Start": "5cc14dce98bb4e959f000f948eb388b4",
+      "End": "c993eacd040945558ed275c8cf9cb33d",
+      "Id": "2e9130fbe7fa4131ae4252c0d9b7aeb8"
+    },
+    {
+      "Start": "b76796e8a5a64cd2bf4f75ba016a1562",
+      "End": "5bb6a53ef7a247a6838cb707d52876fc",
+      "Id": "2c4aacf683cd421ab51689ce8cd268f7"
+    },
+    {
+      "Start": "001df381a5f040a1ade8c42611937fee",
+      "End": "1573aaa8c1c84a178e8113458721a51b",
+      "Id": "8c6da135d63e4d0baaad4c00d37f0b7d"
+    },
+    {
+      "Start": "9a1110aae18546ae9a12ea118b6266a4",
+      "End": "3fa7472cd85445ddbe9483442f9508bc",
+      "Id": "f6516434d0bb44d1a0f98f294105162c"
+    }
+  ],
+  "Dependencies": [],
+  "NodeLibraryDependencies": [],
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": false,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.6.1.8786",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "Background Preview",
+      "EyeX": 199.49794389733745,
+      "EyeY": 842.67657965075159,
+      "EyeZ": -1042.9079025111555,
+      "LookX": -151.94646353619612,
+      "LookY": -868.15864375620572,
+      "LookZ": 889.91759619642119,
+      "UpX": -0.087939897573624887,
+      "UpY": 0.85264016435413814,
+      "UpZ": 0.51504497332271326
+    },
+    "NodeViews": [
+      {
+        "Id": "627040a165aa4ddc9acbf2e79ec4460c",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Name": "Dictionary.ByKeysValues",
+        "ShowGeometry": true,
+        "Excluded": false,
+        "X": 576.0,
+        "Y": 408.41667038738
+      },
+      {
+        "Id": "4535aba49ff24e24ad18a4301d1d036d",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Name": "Dictionary.ValueAtKey",
+        "ShowGeometry": true,
+        "Excluded": false,
+        "X": 817.898060323473,
+        "Y": 408.0
+      },
+      {
+        "Id": "b69d15df89844614916612c7537086e1",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Name": "Input",
+        "ShowGeometry": true,
+        "Excluded": false,
+        "X": 192.01886904766769,
+        "Y": 376.11777551905595
+      },
+      {
+        "Id": "37db38d4fce9421cb2a7b8dceaa28e06",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Name": "Input",
+        "ShowGeometry": true,
+        "Excluded": false,
+        "X": 149.63815259195457,
+        "Y": 438.18695148691745
+      },
+      {
+        "Id": "66a46b592cd34fd9b4019319c93fa501",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Name": "Input",
+        "ShowGeometry": true,
+        "Excluded": false,
+        "X": 151.89602975160318,
+        "Y": 532.86139183139051
+      },
+      {
+        "Id": "9fe47f64af3a4e09804a6f2860576069",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Name": "Output",
+        "ShowGeometry": true,
+        "Excluded": false,
+        "X": 1055.5787261825772,
+        "Y": 408.21290606083005
+      }
+    ],
+    "Annotations": [],
+    "X": -83.58474601793705,
+    "Y": -139.18391337174069,
+    "Zoom": 1.164389808056264
+  }
+}

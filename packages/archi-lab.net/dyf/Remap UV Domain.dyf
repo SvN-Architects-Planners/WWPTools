@@ -1,0 +1,281 @@
+{
+  "Uuid": "3f09d548-bd4c-48e4-8140-a3dc0f6ce9d5",
+  "IsCustomNode": true,
+  "Category": "archilab.Core.Geometry",
+  "Description": "This node takes an input of a reference face and a list of UVs that get remapped into that face's UV Domain. The output is a list of UV Coordinates in that surface's domain. ",
+  "Name": "Remap UV Domain",
+  "ElementResolver": {
+    "ResolutionMap": {}
+  },
+  "Inputs": [],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "#Copyright(c) 2014, Konrad Sobon\n# @arch_laboratory, http://archi-lab.net\n#special thanks to David Mans from http://neoarchaic.net/ \n#for help with this node\n\nimport clr\nclr.AddReference('ProtoGeometry')\nfrom Autodesk.DesignScript.Geometry import *\n\n# Import DocumentManager and TransactionManager\nclr.AddReference(\"RevitServices\")\nimport RevitServices\nfrom RevitServices.Persistence import DocumentManager\nfrom RevitServices.Transactions import TransactionManager\n\n# Import RevitAPI\nclr.AddReference(\"RevitAPI\")\nimport Autodesk\nfrom Autodesk.Revit.DB import *\n\ndoc = DocumentManager.Instance.CurrentDBDocument\nuiapp = DocumentManager.Instance.CurrentUIApplication\napp = uiapp.Application\n\nfrom System.Collections.Generic import *\n\n# Import ToDSType(bool) extension method\nclr.AddReference(\"RevitNodes\")\nimport Revit\nclr.ImportExtensions(Revit.Elements)\n\n#The inputs to this node will be stored as a list in the IN variable.\ndataEnteringNode = IN\nsurface = IN[0]\nrhptsU = IN[1]\nrhptsV = IN[2]\n\ndef getFace(element):\n\t#create geometry options/compute references\n\tgeoOptions = Options()\n\tgeoOptions.ComputeReferences = True\n\t#extract geometry\n\tgeoElement = element.get_Geometry(geoOptions)\n\tgeoSet = List[GeometryInstance]()\n\telemIter = geoElement.GetEnumerator()\n\telemIter.Reset()\n\twhile elemIter.MoveNext():\n\t\tcurElem = elemIter.Current\n\t\tgeoSet.Add(curElem)\n\t#extract faces from solids\n\tfor i in geoSet:\n\t\tsolids = i.SymbolGeometry\n\t\tfor i in solids:\n\t\t\tfaces = i.Faces\n\treturn faces[0]\n\ndef getUVsFromPoints(face, ptsU, ptsV):\n\tUVs = []\n\txval = []\n\tyval = []\n\t#get face UV domain min and max\n\tbbox = face.GetBoundingBox()\n\tminX = float(bbox.Min.U)\n\tminY = float(bbox.Min.V)\n\tmaxX = float(bbox.Max.U)\n\tmaxY = float(bbox.Max.V)\n\t# Check if the inputs are a list and find the total number of instances\n\tif isinstance(ptsU, float):\n\t\txlen = 1\n\telse:\n\t\txlen = len(ptsU)\n\tif isinstance(ptsV, float):\n\t\tylen = 1\n\telse:\n\t\tylen = len(ptsV)\n\t# Set the loop limit to the longest list length\n\tif xlen > ylen:\n\t\tcnt = xlen\n\telse:\n\t\tcnt = ylen\n\tfor i in range(0,cnt):\n\t\t# If U or V is a single item, pass the item, \n\t\t# If i is greater than than the length of a list, pass the last value in the list\n\t\t# Else pass the list item i\n\t\tif isinstance(ptsU, float):\n\t\t\txval.append(minX+(maxX-minX)*ptsU)\n\t\telse:\n\t\t\tif i >= len(ptsU):\n\t\t\t\txval.append(minX+(maxX-minX)*ptsU[(len(ptsU)-1)])\n\t\t\telse:\n\t\t\t\txval.append(minX+(maxX-minX)*ptsU[i])\n\t\tif isinstance(ptsV, float):\n\t\t\tyval.append(minY+(maxY-minY)*ptsV)\n\t\telse:\n\t\t\tif i >= len(ptsV):\n\t\t\t\tyval.append(minY+(maxY-minY)*ptsV[(len(ptsV)-1)])\n\t\t\telse:\n\t\t\t\tyval.append(minY+(maxY-minY)*ptsV[i])\t\t\t\n\t\tUVs.append(Autodesk.Revit.DB.UV(xval[i],yval[i]))\n\tdel xval[:]\n\tdel yval[:]\n\treturn UVs\n\n#unwrap surfaces\nelements = []\nfor i in surface:\n\telements.append(UnwrapElement(i))\n\nif not any(isinstance(item, list) for item in rhptsU):\n\tUVList = []\n\telement = elements[0]\n\tface = getFace(element)\n\tUVList = getUVsFromPoints(face, rhptsU, rhptsV)\nelse:\n\tUVList = []\n\tfor i, j, k in zip(elements, rhptsU, rhptsV):\n\t\tface = getFace(i)\n\t\tUVList.append(getUVsFromPoints(face, j, k))\n\n#Assign your output to the OUT variable\nOUT = UVList",
+      "VariableInputPorts": true,
+      "Id": "564d506f0a6748dbac26f116f2e4f3be",
+      "Inputs": [
+        {
+          "Id": "b82743389ce74670997707515f5306fb",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "44d2337e63ca4ea7b265afb99d0c97a2",
+          "Name": "IN[1]",
+          "Description": "Input #1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "fbfd2134478b4919a75d0bb3fd288548",
+          "Name": "IN[2]",
+          "Description": "Input #2",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "5179e268a46f41ecb49620a6529a595b",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded IronPython script."
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "NodeType": "CodeBlockNode",
+      "Code": "pt.U;\npt.V;",
+      "Id": "3c367ae8229f4b219612196a3f46660e",
+      "Inputs": [
+        {
+          "Id": "f1019c3301cf42f49c42a2d1046e3e8b",
+          "Name": "pt",
+          "Description": "pt",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "b871159be7344e4f971d1808abb70964",
+          "Name": "",
+          "Description": "Value of expression at line 1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "3369f6af667946caba00ce9c339f43ac",
+          "Name": "",
+          "Description": "Value of expression at line 2",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Symbol, DynamoCore",
+      "NodeType": "InputNode",
+      "Parameter": {
+        "Name": "_revitSurface",
+        "TypeName": "var",
+        "TypeRank": -1,
+        "DefaultValue": null,
+        "Description": ""
+      },
+      "Id": "692afc764ba44477bdaab15c2af07250",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "79150fe2add04ed6b04391c0228ca875",
+          "Name": "",
+          "Description": "Symbol",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "A function parameter, use with custom nodes.\r\n\r\nYou can specify the type and default value for parameter. E.g.,\r\n\r\ninput : var[]..[]\r\nvalue : bool = false"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Symbol, DynamoCore",
+      "NodeType": "InputNode",
+      "Parameter": {
+        "Name": "_uvs",
+        "TypeName": "var",
+        "TypeRank": -1,
+        "DefaultValue": null,
+        "Description": ""
+      },
+      "Id": "78be30e6c20943f0a6bed14ddb858a9d",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "24a0c14675c94ab0b3e006cf41ffa2a9",
+          "Name": "",
+          "Description": "Symbol",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "A function parameter, use with custom nodes.\r\n\r\nYou can specify the type and default value for parameter. E.g.,\r\n\r\ninput : var[]..[]\r\nvalue : bool = false"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Output, DynamoCore",
+      "NodeType": "OutputNode",
+      "Symbol": "_uvs",
+      "Id": "acfa238ca6b64110bfecf7b97b1a9f63",
+      "Inputs": [
+        {
+          "Id": "b73909007b8b40529b2e9c18539a643d",
+          "Name": "",
+          "Description": "",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [],
+      "Replication": "Disabled",
+      "Description": "A function output, use with custom nodes"
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "5179e268a46f41ecb49620a6529a595b",
+      "End": "b73909007b8b40529b2e9c18539a643d",
+      "Id": "22582249aa074d01bea00e0b64ace7bf"
+    },
+    {
+      "Start": "b871159be7344e4f971d1808abb70964",
+      "End": "44d2337e63ca4ea7b265afb99d0c97a2",
+      "Id": "278064e5986c459bb924709a99244f47"
+    },
+    {
+      "Start": "3369f6af667946caba00ce9c339f43ac",
+      "End": "fbfd2134478b4919a75d0bb3fd288548",
+      "Id": "e74d2a297c2841d5b26d914d8c5270a5"
+    },
+    {
+      "Start": "79150fe2add04ed6b04391c0228ca875",
+      "End": "b82743389ce74670997707515f5306fb",
+      "Id": "f7dc508960754a299468600809c33681"
+    },
+    {
+      "Start": "24a0c14675c94ab0b3e006cf41ffa2a9",
+      "End": "f1019c3301cf42f49c42a2d1046e3e8b",
+      "Id": "75fb86e3aaac43f48f84585cd1f61944"
+    }
+  ],
+  "Dependencies": [],
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": false,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.2.1.5175",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "Background Preview",
+      "EyeX": -17.0,
+      "EyeY": 24.0,
+      "EyeZ": 50.0,
+      "LookX": 12.0,
+      "LookY": -13.0,
+      "LookZ": -58.0,
+      "UpX": 0.0,
+      "UpY": 1.0,
+      "UpZ": 0.0
+    },
+    "NodeViews": [
+      {
+        "ShowGeometry": true,
+        "Name": "Python Script",
+        "Id": "564d506f0a6748dbac26f116f2e4f3be",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 410.91643176732,
+        "Y": 0.0
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Code Block",
+        "Id": "3c367ae8229f4b219612196a3f46660e",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 255.230785038087,
+        "Y": 55.3451104313526
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Input",
+        "Id": "692afc764ba44477bdaab15c2af07250",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 31.384710228519907,
+        "Y": 11.208825081614236
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Input",
+        "Id": "78be30e6c20943f0a6bed14ddb858a9d",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 82.198050598504551,
+        "Y": 111.14273971707058
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Output",
+        "Id": "acfa238ca6b64110bfecf7b97b1a9f63",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 609.91643176732,
+        "Y": 0.0
+      }
+    ],
+    "Annotations": [],
+    "X": 117.025163309935,
+    "Y": 270.290055089093,
+    "Zoom": 1.33823125
+  }
+}

@@ -1,0 +1,264 @@
+{
+  "Uuid": "2f3cb9e8-f0af-4074-915e-040b1e2e3443",
+  "IsCustomNode": true,
+  "Category": "Data-Shapes.UI.Input",
+  "Description": "Creates a DirectoryPath input for UI.MultipleInputForm ++ . Check out www.data-shapes.net for more infos!",
+  "Name": "DirectoryPath Data",
+  "ElementResolver": {
+    "ResolutionMap": {}
+  },
+  "Inputs": [],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "#Copyright (c) mostafa el ayoubi ,  2016\r\n#Data-Shapes www.data-shapes.net , elayoubi.mostafa@gmail.com\r\n\r\nclass uidirectorypath():\r\n\r\n    def __init__(self,inputname,defaultvalue,buttontext):\r\n        self.inputname = inputname\r\n        self.defaultvalue = defaultvalue\r\n        self.buttontext = buttontext\r\n        \r\n    def __repr__(self):\r\n        return 'UI.DirectoryPath input'\r\n        \r\nx = uidirectorypath(IN[0],IN[1],IN[2])\r\n\r\n\r\nOUT = x",
+      "VariableInputPorts": true,
+      "Id": "3ebdd848b4eb4d02ae7d4ecbaf828e8c",
+      "Inputs": [
+        {
+          "Id": "9d40319581ab4a0a939f99f598838658",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "913df3306159419ca28a4c006b4e4ddf",
+          "Name": "IN[1]",
+          "Description": "Input #1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "13e132a6d0674e028ff0fa935b9171da",
+          "Name": "IN[2]",
+          "Description": "Input #2",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "d5c0ba3e0319475ea0bb84fe15bea4ed",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded IronPython script."
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Output, DynamoCore",
+      "NodeType": "OutputNode",
+      "ElementResolver": null,
+      "Symbol": "DirectoryPath input",
+      "Id": "aa28f709878445c2a9b3f44068ca0268",
+      "Inputs": [
+        {
+          "Id": "bd72cd589e664c339687ac7cd5cec08e",
+          "Name": "",
+          "Description": "",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [],
+      "Replication": "Disabled",
+      "Description": "A function output, use with custom nodes"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Symbol, DynamoCore",
+      "NodeType": "InputNode",
+      "Parameter": {
+        "Name": "InputName",
+        "TypeName": "string",
+        "TypeRank": 0,
+        "DefaultValue": "\"\"",
+        "Description": ""
+      },
+      "Id": "8524ed5c35bb4a698f0507001b079d19",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "03ef03b210cc428ca569f075974a3cd8",
+          "Name": "",
+          "Description": "Symbol",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "A function parameter, use with custom nodes.\r\n\r\nYou can specify the type and default value for parameter. E.g.,\r\n\r\ninput : var[]..[]\r\nvalue : bool = false"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Symbol, DynamoCore",
+      "NodeType": "InputNode",
+      "Parameter": {
+        "Name": "DefaultPath",
+        "TypeName": "string",
+        "TypeRank": 0,
+        "DefaultValue": "\"DirectoryPath\"",
+        "Description": ""
+      },
+      "Id": "40f24176e2e749d18760714f7e9dea8f",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "c23ff948e31f4de8865882122eea582e",
+          "Name": "",
+          "Description": "Symbol",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "A function parameter, use with custom nodes.\r\n\r\nYou can specify the type and default value for parameter. E.g.,\r\n\r\ninput : var[]..[]\r\nvalue : bool = false"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Symbol, DynamoCore",
+      "NodeType": "InputNode",
+      "Parameter": {
+        "Name": "ButtonText",
+        "TypeName": "string",
+        "TypeRank": 0,
+        "DefaultValue": "\"DirectoryPath\"",
+        "Description": "Is ignored if a default path is given"
+      },
+      "Id": "f06dbaec46be46d3a28219b601ed035f",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "345e46d1eb67478cba1d3086570fd37e",
+          "Name": "",
+          "Description": "Symbol",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "A function parameter, use with custom nodes.\r\n\r\nYou can specify the type and default value for parameter. E.g.,\r\n\r\ninput : var[]..[]\r\nvalue : bool = false"
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "d5c0ba3e0319475ea0bb84fe15bea4ed",
+      "End": "bd72cd589e664c339687ac7cd5cec08e",
+      "Id": "0d88b418ebed43128177033dd800c901"
+    },
+    {
+      "Start": "03ef03b210cc428ca569f075974a3cd8",
+      "End": "9d40319581ab4a0a939f99f598838658",
+      "Id": "efc2609ba13e49e0b11a9aaed2c5775b"
+    },
+    {
+      "Start": "c23ff948e31f4de8865882122eea582e",
+      "End": "913df3306159419ca28a4c006b4e4ddf",
+      "Id": "1efd1e4ef4424348be75d766ec92dc13"
+    },
+    {
+      "Start": "345e46d1eb67478cba1d3086570fd37e",
+      "End": "13e132a6d0674e028ff0fa935b9171da",
+      "Id": "6fc039e322dd48789f7c393e418ac8d1"
+    }
+  ],
+  "Dependencies": [],
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": false,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.0.2.6826",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "Background Preview",
+      "EyeX": -17.0,
+      "EyeY": 24.0,
+      "EyeZ": 50.0,
+      "LookX": 12.0,
+      "LookY": -13.0,
+      "LookZ": -58.0,
+      "UpX": 0.0,
+      "UpY": 1.0,
+      "UpZ": 0.0
+    },
+    "NodeViews": [
+      {
+        "ShowGeometry": true,
+        "Name": "Python Script",
+        "Id": "3ebdd848b4eb4d02ae7d4ecbaf828e8c",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 250.0,
+        "Y": 0.0
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Output",
+        "Id": "aa28f709878445c2a9b3f44068ca0268",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 447.0,
+        "Y": 0.0
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Input",
+        "Id": "8524ed5c35bb4a698f0507001b079d19",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -94.4942079112576,
+        "Y": -66.9047764816335
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Input",
+        "Id": "40f24176e2e749d18760714f7e9dea8f",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -164.348021480474,
+        "Y": 24.6822530396096
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Input",
+        "Id": "f06dbaec46be46d3a28219b601ed035f",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -154.845796061661,
+        "Y": 122.396773605468
+      }
+    ],
+    "Annotations": [],
+    "X": 284.543539470842,
+    "Y": 259.622500161987,
+    "Zoom": 1.33823125
+  }
+}

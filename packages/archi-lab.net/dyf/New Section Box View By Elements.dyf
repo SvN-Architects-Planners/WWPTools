@@ -1,0 +1,263 @@
+{
+  "Uuid": "be9499a5-9be5-4143-a2ba-eaf4d274b45b",
+  "IsCustomNode": true,
+  "Category": "archilab.Revit.Views",
+  "Description": "This node will create new section box around specified elements and apply it to a new 3D View with a specified name. Section box will be offset from the elements by a supplied offset values. ",
+  "Name": "New Section Box View By Elements",
+  "ElementResolver": {
+    "ResolutionMap": {}
+  },
+  "Inputs": [],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "#Copyright(c) 2014, Konrad Sobon\n# @arch_laboratory, http://archi-lab.net\n\nimport clr\nclr.AddReference('ProtoGeometry')\nfrom Autodesk.DesignScript.Geometry import *\n\n# Import ToDSType(bool) extension method\nclr.AddReference(\"RevitNodes\")\nimport Revit\nclr.ImportExtensions(Revit.Elements)\n\n# Import DocumentManager and TransactionManager\nclr.AddReference(\"RevitServices\")\nimport RevitServices\nfrom RevitServices.Persistence import DocumentManager\nfrom RevitServices.Transactions import TransactionManager\n\nfrom System.Collections.Generic import *\n\n# Import RevitAPI\nclr.AddReference(\"RevitAPI\")\nimport Autodesk\nfrom Autodesk.Revit.DB import *\n\ndoc = DocumentManager.Instance.CurrentDBDocument\nuiapp = DocumentManager.Instance.CurrentUIApplication\napp = uiapp.Application\n\n#The inputs to this node will be stored as a list in the IN variable.\ndataEnteringNode = IN\n\nelements = []\nfor i in IN[0]:\n\telements.append(UnwrapElement(i))\nviewName = IN[1]\noffset = float(IN[2])\n\n#get ViewFamilyType for a 3D View\ncollector = FilteredElementCollector(doc)\nviewTypeColl = collector.OfClass(ViewFamilyType)\nfor i in viewTypeColl:\n\tif i.ViewFamily == ViewFamily.ThreeDimensional:\n\t\tviewType = i\n\telse:\n\t\tcontinue\n# \"Start\" the transaction\nTransactionManager.Instance.EnsureInTransaction(doc)\n\n#define bounding box enclosing all elements\nbboxMin, bboxMax = [], []\nfor i in elements:\n\tbboxMin.append(i.get_BoundingBox(doc.ActiveView).Min)\n\tbboxMax.append(i.get_BoundingBox(doc.ActiveView).Max)\nminX, minY, minZ, maxX, maxY, maxZ = [], [], [], [], [], []\nfor i, j in zip(bboxMin, bboxMax):\n\tminX.append(i.X)\n\tminY.append(i.Y)\n\tminZ.append(i.Z)\n\tmaxX.append(j.X)\n\tmaxY.append(j.Y)\n\tmaxZ.append(j.Z)\nbboxMinX = min(minX)\nbboxMinY = min(minY)\nbboxMinZ = min(minZ)\nbboxMaxX = max(maxX)\nbboxMaxY = max(maxY)\nbboxMaxZ = max(maxZ)\n#create a bounding box\nbbox = BoundingBoxXYZ()\nbbox.Min = XYZ((bboxMinX - offset), (bboxMinY - offset), (bboxMinZ - offset))\nbbox.Max = XYZ((bboxMaxX + offset), (bboxMaxY + offset), (bboxMaxZ + offset))\n#create 3d View\nview = View3D.CreateIsometric(doc, viewType.Id)\nview.Name = viewName\nview.SectionBox = bbox\n\n# \"End\" the transaction\nTransactionManager.Instance.TransactionTaskDone()\n\n#Assign your output to the OUT variable\nOUT = 0",
+      "VariableInputPorts": true,
+      "Id": "86d42f144b604b84bdd89e8cd4983793",
+      "Inputs": [
+        {
+          "Id": "5ca578f1867649fea5d6660949a86152",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "6bac2c4b27b5411c950a1571971778e2",
+          "Name": "IN[1]",
+          "Description": "Input #1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "57f749e3cc6f425d99aefce36c49929e",
+          "Name": "IN[2]",
+          "Description": "Input #2",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "d5c742cff1cc470f9b3038f08a31c636",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded IronPython script."
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Symbol, DynamoCore",
+      "NodeType": "InputNode",
+      "Parameter": {
+        "Name": "_elements",
+        "TypeName": "var",
+        "TypeRank": -1,
+        "DefaultValue": null,
+        "Description": ""
+      },
+      "Id": "de5b10cf39b24ee6a3a4cbdb3f7a0465",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "72880e023b6b4f8f8345f97f3ded324f",
+          "Name": "",
+          "Description": "Symbol",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "A function parameter, use with custom nodes.\r\n\r\nYou can specify the type and default value for parameter. E.g.,\r\n\r\ninput : var[]..[]\r\nvalue : bool = false"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Symbol, DynamoCore",
+      "NodeType": "InputNode",
+      "Parameter": {
+        "Name": "_viewName",
+        "TypeName": "var",
+        "TypeRank": -1,
+        "DefaultValue": null,
+        "Description": ""
+      },
+      "Id": "97c3f0cbc59e43a386e59e6187c9e053",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "809ab75bdfa04dac88708bbb69eac393",
+          "Name": "",
+          "Description": "Symbol",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "A function parameter, use with custom nodes.\r\n\r\nYou can specify the type and default value for parameter. E.g.,\r\n\r\ninput : var[]..[]\r\nvalue : bool = false"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Symbol, DynamoCore",
+      "NodeType": "InputNode",
+      "Parameter": {
+        "Name": "_offset",
+        "TypeName": "var",
+        "TypeRank": -1,
+        "DefaultValue": null,
+        "Description": ""
+      },
+      "Id": "d304ce7455ca408ab5786decd5419ae8",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "aeb4052e6cf94bc08e3ef25be93380e0",
+          "Name": "",
+          "Description": "Symbol",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "A function parameter, use with custom nodes.\r\n\r\nYou can specify the type and default value for parameter. E.g.,\r\n\r\ninput : var[]..[]\r\nvalue : bool = false"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Output, DynamoCore",
+      "NodeType": "OutputNode",
+      "Symbol": "_out",
+      "Id": "ce8fafc3e38548859d379a06de12ebeb",
+      "Inputs": [
+        {
+          "Id": "0381f802cea14d07af32af5e3f0f967e",
+          "Name": "",
+          "Description": "",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [],
+      "Replication": "Disabled",
+      "Description": "A function output, use with custom nodes"
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "d5c742cff1cc470f9b3038f08a31c636",
+      "End": "0381f802cea14d07af32af5e3f0f967e",
+      "Id": "792d14506e884e5999b13e4d8f93f5ae"
+    },
+    {
+      "Start": "72880e023b6b4f8f8345f97f3ded324f",
+      "End": "5ca578f1867649fea5d6660949a86152",
+      "Id": "cb8926936fcb47e3857e93d2be35240f"
+    },
+    {
+      "Start": "809ab75bdfa04dac88708bbb69eac393",
+      "End": "6bac2c4b27b5411c950a1571971778e2",
+      "Id": "c064e21f6b644d2a8ddef51cbd89053a"
+    },
+    {
+      "Start": "aeb4052e6cf94bc08e3ef25be93380e0",
+      "End": "57f749e3cc6f425d99aefce36c49929e",
+      "Id": "e6ea388f10bb456496031895ff744388"
+    }
+  ],
+  "Dependencies": [],
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": false,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.2.1.5175",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "Background Preview",
+      "EyeX": -17.0,
+      "EyeY": 24.0,
+      "EyeZ": 50.0,
+      "LookX": 12.0,
+      "LookY": -13.0,
+      "LookZ": -58.0,
+      "UpX": 0.0,
+      "UpY": 1.0,
+      "UpZ": 0.0
+    },
+    "NodeViews": [
+      {
+        "ShowGeometry": true,
+        "Name": "Python Script",
+        "Id": "86d42f144b604b84bdd89e8cd4983793",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 250.0,
+        "Y": 0.0
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Input",
+        "Id": "de5b10cf39b24ee6a3a4cbdb3f7a0465",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 0.0,
+        "Y": 0.0
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Input",
+        "Id": "97c3f0cbc59e43a386e59e6187c9e053",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 0.0,
+        "Y": 150.0
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Input",
+        "Id": "d304ce7455ca408ab5786decd5419ae8",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 0.0,
+        "Y": 300.0
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Output",
+        "Id": "ce8fafc3e38548859d379a06de12ebeb",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 449.0,
+        "Y": 0.0
+      }
+    ],
+    "Annotations": [],
+    "X": 183.851555426566,
+    "Y": 92.3128286177106,
+    "Zoom": 1.33823125
+  }
+}

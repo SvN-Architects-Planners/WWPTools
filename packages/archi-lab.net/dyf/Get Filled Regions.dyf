@@ -1,0 +1,201 @@
+{
+  "Uuid": "6527ae09-feea-4558-b77e-47b926f4d284",
+  "IsCustomNode": true,
+  "Category": "archilab.Revit.Select",
+  "Description": "This node will query up all Filled Regions in the project as well as those in the active view only. ",
+  "Name": "Get Filled Regions",
+  "ElementResolver": {
+    "ResolutionMap": {}
+  },
+  "Inputs": [],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "NodeType": "CodeBlockNode",
+      "Code": "OUT[0];\nOUT[1];",
+      "Id": "e206e5b4cb554e258c55a80f92a7e661",
+      "Inputs": [
+        {
+          "Id": "feb568b2319240edb6f4b7c23a4621b0",
+          "Name": "OUT",
+          "Description": "OUT",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "705926ce6c0f481dac5193eda35601a8",
+          "Name": "",
+          "Description": "Value of expression at line 1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "57b8c5fbf67a4bd2bf6fd58e1176032d",
+          "Name": "",
+          "Description": "Value of expression at line 2",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly"
+    },
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "#Copyright(c) 2015, Konrad K Sobon\n# @arch_laboratory, http://archi-lab.net\n\nimport clr\nclr.AddReference('ProtoGeometry')\nfrom Autodesk.DesignScript.Geometry import *\n\n# Import RevitAPI\nclr.AddReference(\"RevitAPI\")\nimport Autodesk\nfrom Autodesk.Revit.DB import *\nfrom Autodesk.Revit.DB.Analysis import *\n\n# Import DocumentManager and TransactionManager\nclr.AddReference(\"RevitServices\")\nimport RevitServices\nfrom RevitServices.Persistence import DocumentManager\nfrom RevitServices.Transactions import TransactionManager\n\ndoc = DocumentManager.Instance.CurrentDBDocument\n\n# Import ToDSType(bool) extension method\nclr.AddReference(\"RevitNodes\")\nimport Revit\nclr.ImportExtensions(Revit.Elements)\nclr.ImportExtensions(Revit.GeometryConversion)\n\n#The inputs to this node will be stored as a list in the IN variable.\ndataEnteringNode = IN\n\ninView = FilteredElementCollector(doc, doc.ActiveView.Id).OfClass(FilledRegion)\ninProject = FilteredElementCollector(doc).OfClass(FilledRegion)\n\n#Assign your output to the OUT variable\nOUT = [i.ToDSType(True) for i in inView],[j.ToDSType(True) for j in inProject]",
+      "VariableInputPorts": true,
+      "Id": "df14fd379c8c4057a8f6fb38af123887",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "ade430281b1c4562a3c15711facc76b7",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded IronPython script."
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Output, DynamoCore",
+      "NodeType": "OutputNode",
+      "Symbol": "_activeViewFilledRegions",
+      "Id": "c851ee1277d54ec189d267516b0370f9",
+      "Inputs": [
+        {
+          "Id": "b56e489f687648468b9f2f437fa94c28",
+          "Name": "",
+          "Description": "",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [],
+      "Replication": "Disabled",
+      "Description": "A function output, use with custom nodes"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Output, DynamoCore",
+      "NodeType": "OutputNode",
+      "Symbol": "_allFilledRegions",
+      "Id": "f09f3ef2023f43568850d6ec121f9491",
+      "Inputs": [
+        {
+          "Id": "4ac74d00050b40b7bc1b0382275c5069",
+          "Name": "",
+          "Description": "",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [],
+      "Replication": "Disabled",
+      "Description": "A function output, use with custom nodes"
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "705926ce6c0f481dac5193eda35601a8",
+      "End": "b56e489f687648468b9f2f437fa94c28",
+      "Id": "3dd4acf1affe43069b7a505816cd0013"
+    },
+    {
+      "Start": "57b8c5fbf67a4bd2bf6fd58e1176032d",
+      "End": "4ac74d00050b40b7bc1b0382275c5069",
+      "Id": "4fb3144c12b9418b9265029e2c8a1754"
+    },
+    {
+      "Start": "ade430281b1c4562a3c15711facc76b7",
+      "End": "feb568b2319240edb6f4b7c23a4621b0",
+      "Id": "8d8dce9c2aa74a4c81e72cd641a7a4e8"
+    }
+  ],
+  "Dependencies": [],
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": false,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.2.1.5175",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "Background Preview",
+      "EyeX": -17.0,
+      "EyeY": 24.0,
+      "EyeZ": 50.0,
+      "LookX": 12.0,
+      "LookY": -13.0,
+      "LookZ": -58.0,
+      "UpX": 0.0,
+      "UpY": 1.0,
+      "UpZ": 0.0
+    },
+    "NodeViews": [
+      {
+        "ShowGeometry": true,
+        "Name": "Code Block",
+        "Id": "e206e5b4cb554e258c55a80f92a7e661",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 362.291801373627,
+        "Y": 4.07649780686575
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Python Script",
+        "Id": "df14fd379c8c4057a8f6fb38af123887",
+        "IsSetAsInput": true,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 161.99537937232,
+        "Y": 1.3240487009507
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Output",
+        "Id": "c851ee1277d54ec189d267516b0370f9",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 570.644811966471,
+        "Y": 3.88193644293494
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Output",
+        "Id": "f09f3ef2023f43568850d6ec121f9491",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 570.204264998652,
+        "Y": 63.3140540767697
+      }
+    ],
+    "Annotations": [],
+    "X": -44.2560312469401,
+    "Y": 213.59120720567577,
+    "Zoom": 1.4425890929331338
+  }
+}

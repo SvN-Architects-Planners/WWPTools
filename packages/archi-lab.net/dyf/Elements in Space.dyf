@@ -1,0 +1,213 @@
+{
+  "Uuid": "1d764a3b-6501-419f-a78f-8a8ccc8a6946",
+  "IsCustomNode": true,
+  "Category": "archilab.Revit.Room",
+  "Description": "This node will take an input of Spaces and Elements and attempt to group all elements by Room that it is located in. For elements that are placed by Line and not a Point, a mid point of line will be used to determine location. ",
+  "Name": "Elements in Space",
+  "ElementResolver": {
+    "ResolutionMap": {}
+  },
+  "Inputs": [],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "#Copyright(c) 2015, Konrad Sobon\n# @arch_laboratory, http://archi-lab.net\n\n# This code is based on Family.InRoom node originally created\n# by Peter Kompolschek and published on Dynamo blog. Big thanks \n# to Peter for sharing his work so graciously.\n\nimport clr\nimport sys\nclr.AddReference('ProtoGeometry')\nfrom Autodesk.DesignScript.Geometry import *\n\npyt_path = r'C:\\Program Files (x86)\\IronPython 2.7\\Lib'\nsys.path.append(pyt_path)\n\n# Import ToDSType(bool) extension method\nclr.AddReference(\"RevitNodes\")\nimport Revit\nclr.ImportExtensions(Revit.Elements)\n\n# Import DocumentManager and TransactionManager\nclr.AddReference(\"RevitServices\")\nimport RevitServices\nfrom RevitServices.Persistence import DocumentManager\nfrom RevitServices.Transactions import TransactionManager\n\n# Import RevitAPI\nclr.AddReference(\"RevitAPI\")\nimport Autodesk\nfrom Autodesk.Revit.DB import *\n\ndoc = DocumentManager.Instance.CurrentDBDocument\nuiapp = DocumentManager.Instance.CurrentUIApplication\napp = uiapp.Application\n\n#The inputs to this node will be stored as a list in the IN variable.\ndataEnteringNode = IN\n\ndef TryGetSpace(family, phase):\n\ttry:\n\t\tinSpace = family.Space[phase]\n\texcept:\n\t\tinSpace = None\n\t\tpass\n\treturn inSpace\n\ndef FamiliesInSpace(_space, _families, _doc):\n\toutList = []\n\tfor family in _families:\n\t\tlocation = family.Location\n\t\tif type(location) == LocationPoint:\n\t\t\tpt = location.Point\n\t\telse:\n\t\t\tpt = location.Curve.Evaluate(0.5, True)\n\t\tif _space.IsPointInSpace(pt):\n\t\t\toutList.append(family)\n\t\telse:\n\t\t\tfor phase in _doc.Phases:\n\t\t\t\tinSpace = TryGetSpace(family, phase)\n\t\t\t\tif inSpace != None and inSpace.ToDSType(True).Name == _space.ToDSType(True).Name:\n\t\t\t\t\toutList.append(family)\n\treturn outList\n\ntry:\n\terrorReport = None\n\tfamilies = []\n\tfor i in IN[0]:\n\t\tfamilies.append(UnwrapElement(i))\n\t\n\tspaces = []\n\tfor i in IN[1]:\n\t\tif UnwrapElement(i).Area > 0:\n\t\t\tspaces.append(UnwrapElement(i))\n\t\n\toutData = [[] for i in range(len(spaces))]\n\tfor index, space in enumerate(spaces):\n\t\toutData[index].extend(FamiliesInSpace(space, families, doc))\nexcept:\n\t# if error accurs anywhere in the process catch it\n\timport traceback\n\terrorReport = traceback.format_exc()\n\n#Assign your output to the OUT variable\nif errorReport == None:\n\tOUT = outData\nelse:\n\tOUT = errorReport",
+      "VariableInputPorts": true,
+      "Id": "41c688b3e571411d938be93a074f6078",
+      "Inputs": [
+        {
+          "Id": "bed14a1bacd14f768d08055165c85a82",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "eeda5fc856cd4550b5307bae45a2aade",
+          "Name": "IN[1]",
+          "Description": "Input #1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "669a2624b88146ffa7fed3048422a371",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded IronPython script."
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Symbol, DynamoCore",
+      "NodeType": "InputNode",
+      "Parameter": {
+        "Name": "_element",
+        "TypeName": "var",
+        "TypeRank": -1,
+        "DefaultValue": null,
+        "Description": ""
+      },
+      "Id": "3dd892570be24f88bba41f36f5ab7320",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "82fdbc27b4d6412b92dff3ad8f1f9185",
+          "Name": "",
+          "Description": "Symbol",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "A function parameter, use with custom nodes.\r\n\r\nYou can specify the type and default value for parameter. E.g.,\r\n\r\ninput : var[]..[]\r\nvalue : bool = false"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Symbol, DynamoCore",
+      "NodeType": "InputNode",
+      "Parameter": {
+        "Name": "_space",
+        "TypeName": "var",
+        "TypeRank": -1,
+        "DefaultValue": null,
+        "Description": ""
+      },
+      "Id": "e9f6303f91aa4197979b3493749b1aa6",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "2959575cbd834e6f8804a8744fd0620c",
+          "Name": "",
+          "Description": "Symbol",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "A function parameter, use with custom nodes.\r\n\r\nYou can specify the type and default value for parameter. E.g.,\r\n\r\ninput : var[]..[]\r\nvalue : bool = false"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Output, DynamoCore",
+      "NodeType": "OutputNode",
+      "Symbol": "_element",
+      "Id": "67983f2559464ee4b50a4e1cb4b1bf60",
+      "Inputs": [
+        {
+          "Id": "4a066e6b77ee4621aee4c4d85c44285e",
+          "Name": "",
+          "Description": "",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [],
+      "Replication": "Disabled",
+      "Description": "A function output, use with custom nodes"
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "669a2624b88146ffa7fed3048422a371",
+      "End": "4a066e6b77ee4621aee4c4d85c44285e",
+      "Id": "6d75695aab894d2ca78059089394074c"
+    },
+    {
+      "Start": "82fdbc27b4d6412b92dff3ad8f1f9185",
+      "End": "bed14a1bacd14f768d08055165c85a82",
+      "Id": "a99d28ff0276428aacc821d81d416375"
+    },
+    {
+      "Start": "2959575cbd834e6f8804a8744fd0620c",
+      "End": "eeda5fc856cd4550b5307bae45a2aade",
+      "Id": "9e6f0c40159643afb5b40f9b08ce1097"
+    }
+  ],
+  "Dependencies": [],
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": false,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.2.1.5175",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "Background Preview",
+      "EyeX": -17.0,
+      "EyeY": 24.0,
+      "EyeZ": 50.0,
+      "LookX": 12.0,
+      "LookY": -13.0,
+      "LookZ": -58.0,
+      "UpX": 0.0,
+      "UpY": 1.0,
+      "UpZ": 0.0
+    },
+    "NodeViews": [
+      {
+        "ShowGeometry": true,
+        "Name": "Python Script",
+        "Id": "41c688b3e571411d938be93a074f6078",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 534.613871214953,
+        "Y": 204.283394111887
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Input",
+        "Id": "3dd892570be24f88bba41f36f5ab7320",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 357.013785941299,
+        "Y": 171.545281149126
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Input",
+        "Id": "e9f6303f91aa4197979b3493749b1aa6",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 361.779539933801,
+        "Y": 245.029530350918
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Output",
+        "Id": "67983f2559464ee4b50a4e1cb4b1bf60",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 705.14762620024,
+        "Y": 204.12205111749
+      }
+    ],
+    "Annotations": [],
+    "X": -510.263209068787,
+    "Y": -207.813794865263,
+    "Zoom": 2.05668026833428
+  }
+}

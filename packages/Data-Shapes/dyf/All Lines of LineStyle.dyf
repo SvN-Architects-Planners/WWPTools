@@ -1,0 +1,169 @@
+{
+  "Uuid": "08b5ebb1-2adc-406e-8925-9bf257371858",
+  "IsCustomNode": true,
+  "Category": "Data-Shapes.Revit.Lines",
+  "Description": "Gets all lines in a project with a giver LineStyle",
+  "Name": "All Lines of LineStyle",
+  "ElementResolver": {
+    "ResolutionMap": {
+      "String": {
+        "Key": "DSCore.String",
+        "Value": "DSCoreNodes.dll"
+      }
+    }
+  },
+  "Inputs": [],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "#Copyright (c) mostafa el ayoubi\r\n#Data-Shapes 2016 elayoub.mostafa@gmail.com\r\n\r\nimport clr\r\nclr.AddReference('RevitServices')\r\nimport RevitServices\r\nfrom RevitServices.Persistence import DocumentManager\r\nclr.AddReference('RevitAPI')\r\nfrom Autodesk.Revit.DB import *\r\n\r\n\r\ndoc = DocumentManager.Instance.CurrentDBDocument\r\n\r\nif isinstance(IN[0],list):\r\n\tnames = UnwrapElement(IN[0])\r\nelse:\r\n\tnames = [UnwrapElement(IN[0])]\r\n\t\r\nalllines = FilteredElementCollector(doc).OfCategory(BuiltInCategory.OST_Lines)\r\n\r\nlines = []\r\n\r\nfor n in names:\r\n\tlines.append([x for x in alllines if x.LineStyle.Name == n ])\r\n\r\nOUT = lines",
+      "VariableInputPorts": true,
+      "Id": "4ea2979244f640c9b3ff851197b44b48",
+      "Inputs": [
+        {
+          "Id": "25a9332691824081b4ae98daff2e9ae1",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "6ca4892e5a7e4b6694b03a4f5f4cc84c",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded IronPython script."
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Symbol, DynamoCore",
+      "NodeType": "InputNode",
+      "Parameter": {
+        "Name": "LineStyleName",
+        "TypeName": "string",
+        "TypeRank": 0,
+        "DefaultValue": null,
+        "Description": ""
+      },
+      "Id": "5d4d0a7907d04dd282054d3a244e05ba",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "7f9ce5abee3046ab9ed51064a942a2cd",
+          "Name": "",
+          "Description": "Symbol",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "A function parameter, use with custom nodes.\r\n\r\nYou can specify the type and default value for parameter. E.g.,\r\n\r\ninput : var[]..[]\r\nvalue : bool = false"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Output, DynamoCore",
+      "NodeType": "OutputNode",
+      "ElementResolver": null,
+      "Symbol": "Line(s)",
+      "Id": "ea0ce39c17ff4794a586ffae5d26a715",
+      "Inputs": [
+        {
+          "Id": "4003655ce82843779db3f41065f79818",
+          "Name": "",
+          "Description": "",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [],
+      "Replication": "Disabled",
+      "Description": "A function output, use with custom nodes"
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "6ca4892e5a7e4b6694b03a4f5f4cc84c",
+      "End": "4003655ce82843779db3f41065f79818",
+      "Id": "fca5833c70d84d9c9fbcafe3f18fde68"
+    },
+    {
+      "Start": "7f9ce5abee3046ab9ed51064a942a2cd",
+      "End": "25a9332691824081b4ae98daff2e9ae1",
+      "Id": "d3f7e71e27534a649b6f78163558d242"
+    }
+  ],
+  "Dependencies": [],
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": false,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.0.2.6826",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "Background Preview",
+      "EyeX": -17.0,
+      "EyeY": 24.0,
+      "EyeZ": 50.0,
+      "LookX": 12.0,
+      "LookY": -13.0,
+      "LookZ": -58.0,
+      "UpX": 0.0,
+      "UpY": 1.0,
+      "UpZ": 0.0
+    },
+    "NodeViews": [
+      {
+        "ShowGeometry": true,
+        "Name": "Python Script",
+        "Id": "4ea2979244f640c9b3ff851197b44b48",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 722.285714285714,
+        "Y": 316.142857142857
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Input",
+        "Id": "5d4d0a7907d04dd282054d3a244e05ba",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 424.571428571429,
+        "Y": 336.571428571429
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Output",
+        "Id": "ea0ce39c17ff4794a586ffae5d26a715",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 977.142857142857,
+        "Y": 334.857142857143
+      }
+    ],
+    "Annotations": [],
+    "X": -395.0,
+    "Y": -45.0,
+    "Zoom": 1.0
+  }
+}

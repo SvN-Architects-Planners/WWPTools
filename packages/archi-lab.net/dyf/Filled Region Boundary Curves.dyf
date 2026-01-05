@@ -1,0 +1,163 @@
+{
+  "Uuid": "1a939230-cd01-4113-929c-08b3b44e0348",
+  "IsCustomNode": true,
+  "Category": "archilab.Revit.FilledRegions",
+  "Description": "This node will get the boundary curves for a filled region.",
+  "Name": "Filled Region Boundary Curves",
+  "ElementResolver": {
+    "ResolutionMap": {}
+  },
+  "Inputs": [],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "#Copyright(c) 2015, Konrad K Sobon\n# @arch_laboratory, http://archi-lab.net\n\nimport clr\nclr.AddReference('ProtoGeometry')\nfrom Autodesk.DesignScript.Geometry import *\n\n# Import DocumentManager and TransactionManager\nclr.AddReference(\"RevitServices\")\nimport RevitServices\nfrom RevitServices.Persistence import DocumentManager\nfrom RevitServices.Transactions import TransactionManager\n\n# Import RevitAPI\nclr.AddReference(\"RevitAPI\")\nimport Autodesk\nfrom Autodesk.Revit.DB import *\nfrom Autodesk.Revit.DB.Analysis import *\n\ndoc = DocumentManager.Instance.CurrentDBDocument\nuiapp = DocumentManager.Instance.CurrentUIApplication\napp = uiapp.Application\n\n# Import ToDSType(bool) extension method\nclr.AddReference(\"RevitNodes\")\nimport Revit\nclr.ImportExtensions(Revit.Elements)\n\n# Import ToProtoType, ToRevitType geometry conversion extension methods\nclr.ImportExtensions(Revit.GeometryConversion)\n\n#The inputs to this node will be stored as a list in the IN variable.\ndataEnteringNode = IN\nfilledRegions = UnwrapElement(IN[0])\n\ndef process_list(_func, _list):\n    return map( lambda x: process_list(_func, x) if type(x)==list else _func(x), _list )\n\ndef ToDSType(item):\n\tcurves = []\n\tfor i in item:\n\t\tcurves.append(i.ToProtoType())\n\treturn curves\n\ncurves = []\nfor i in filledRegions:\n\tcurves.append(process_list(ToDSType, i.GetBoundaries()))\n\n#Assign your output to the OUT variable\nOUT = curves",
+      "VariableInputPorts": true,
+      "Id": "b6584aeb2d354b5e998ca0153d988ab8",
+      "Inputs": [
+        {
+          "Id": "a05916307ac942119840d3b89dd9eb6a",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "f9dbe5214fcb47b29c7f7b838cf44108",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded IronPython script."
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Symbol, DynamoCore",
+      "NodeType": "InputNode",
+      "Parameter": {
+        "Name": "_filledRegion",
+        "TypeName": "var",
+        "TypeRank": -1,
+        "DefaultValue": null,
+        "Description": ""
+      },
+      "Id": "c3642237c5d948bc9bc1d9bf86dab19b",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "90667878d4d34346a364d7ec8128791e",
+          "Name": "",
+          "Description": "Symbol",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "A function parameter, use with custom nodes.\r\n\r\nYou can specify the type and default value for parameter. E.g.,\r\n\r\ninput : var[]..[]\r\nvalue : bool = false"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Output, DynamoCore",
+      "NodeType": "OutputNode",
+      "Symbol": "_boundaryCurves",
+      "Id": "f763077299e847acb5077d4d4f0f8370",
+      "Inputs": [
+        {
+          "Id": "c8b85b9e2a6a4340803b46fe538b884d",
+          "Name": "",
+          "Description": "",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [],
+      "Replication": "Disabled",
+      "Description": "A function output, use with custom nodes"
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "f9dbe5214fcb47b29c7f7b838cf44108",
+      "End": "c8b85b9e2a6a4340803b46fe538b884d",
+      "Id": "21679bd4819a4597a101f8a5c78a1450"
+    },
+    {
+      "Start": "90667878d4d34346a364d7ec8128791e",
+      "End": "a05916307ac942119840d3b89dd9eb6a",
+      "Id": "c57ae532147740f9984dc5a03e65a004"
+    }
+  ],
+  "Dependencies": [],
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": false,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.2.1.5175",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "Background Preview",
+      "EyeX": -17.0,
+      "EyeY": 24.0,
+      "EyeZ": 50.0,
+      "LookX": 12.0,
+      "LookY": -13.0,
+      "LookZ": -58.0,
+      "UpX": 0.0,
+      "UpY": 1.0,
+      "UpZ": 0.0
+    },
+    "NodeViews": [
+      {
+        "ShowGeometry": true,
+        "Name": "Python Script",
+        "Id": "b6584aeb2d354b5e998ca0153d988ab8",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 250.0,
+        "Y": 0.0
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Input",
+        "Id": "c3642237c5d948bc9bc1d9bf86dab19b",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 0.0,
+        "Y": 0.0
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Output",
+        "Id": "f763077299e847acb5077d4d4f0f8370",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 449.0,
+        "Y": 0.0
+      }
+    ],
+    "Annotations": [],
+    "X": 155.0,
+    "Y": 70.0,
+    "Zoom": 1.0
+  }
+}

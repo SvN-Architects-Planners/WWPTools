@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Synthetic.Serialize.Revit</name>
+    </assembly>
+    <members>
+        <member name="P:Synthetic.Serialize.Revit.SerialElementId.Name">
+            <summary>
+            Name of the element the Id belongs too.
+            </summary>
+        </member>
+        <member name="P:Synthetic.Serialize.Revit.SerialElementId.Id">
+            <summary>
+            Value of the Element Id as an int
+            </summary>
+        </member>
+        <member name="M:Synthetic.Serialize.Revit.SerialElementId.GetElem(Autodesk.Revit.DB.Document)">
+            <summary>
+            Try to select the element referenced in the SerialElementId by first trying UniqueId, then Id, then Name, then Aliases of the name.
+            </summary>
+            <param name="document">A revit document</param>
+            <returns name="Element">Returns a Revit Element</returns>
+        </member>
+        <member name="M:Synthetic.Serialize.Revit.SerialParameter._ModifyElementIdParameter(Autodesk.Revit.DB.Parameter,Synthetic.Serialize.Revit.SerialElementId,Autodesk.Revit.DB.Document)">
+            <summary>
+            Depending on SerialElementId properties, method attempts to find the Element referenced by the ElementId by first trying UniqueId, then Id, then Name, then Aliases of the name.  If an element is found, then set the parameter to the Element's Id.
+            </summary>
+            <param name="param">Parameter to modify</param>
+            <param name="serialElementId">A SerialElementId that references an element in the Document.</param>
+            <param name="document">A revit document</param>
+            <returns name="status">Returns true if parameter was successfully set and false if not.  Parameter retains it previous value if Set was unsucessful.</returns>
+        </member>
+    </members>
+</doc>

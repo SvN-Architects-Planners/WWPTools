@@ -1,0 +1,165 @@
+{
+  "Uuid": "e2c94a3c-81fc-480c-ad13-65a13d9319c3",
+  "IsCustomNode": true,
+  "Category": "Data-Shapes.Revit.Elements",
+  "Description": "Returns boolean info indicating wether an ImportInstance is linked or not (meaning it's imported).",
+  "Name": "ImportInstance.IsLinked",
+  "ElementResolver": {
+    "ResolutionMap": {}
+  },
+  "Inputs": [],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "#Copyright (c) Data Shapes - Mostafa El Ayoubi ,  2018\n# @data_shapes ,  www.data-shapes.io , contact@data-shapes.io\n\nimport clr\nclr.AddReference('RevitAPI')\nfrom Autodesk.Revit.DB import *\n\ndef toList(input):\n\tif isinstance(input,list):\n\t\treturn UnwrapElement(input)\n\telse:\n\t\treturn [UnwrapElement(input)]\n\t\nimportInstances = toList(IN[0])\n\n\nOUT = [importInstance.IsLinked for importInstance in importInstances]",
+      "VariableInputPorts": true,
+      "Id": "868b8aefd42d4105a72f9a22ad170f38",
+      "Inputs": [
+        {
+          "Id": "7175333a2ba7425aa499da1700d47578",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "df4e040ae73e4bc2805a1da82444bb33",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded IronPython script."
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Symbol, DynamoCore",
+      "NodeType": "InputNode",
+      "Parameter": {
+        "Name": "ImportInstance_",
+        "TypeName": "var",
+        "TypeRank": -1,
+        "DefaultValue": null,
+        "Description": ""
+      },
+      "Id": "682779c84dc34afba9477226a2053562",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "ecaaed3ad11446729791c08d940cec5f",
+          "Name": "",
+          "Description": "Symbol",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "A function parameter, use with custom nodes.\r\n\r\nYou can specify the type and default value for parameter. E.g.,\r\n\r\ninput : var[]..[]\r\nvalue : bool = false"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Output, DynamoCore",
+      "NodeType": "OutputNode",
+      "ElementResolver": null,
+      "Symbol": "bool",
+      "Id": "711ecae95a9646c791283a46871c4928",
+      "Inputs": [
+        {
+          "Id": "ace4ca4f4cdd40d2b6503446e576a319",
+          "Name": "",
+          "Description": "",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [],
+      "Replication": "Disabled",
+      "Description": "A function output, use with custom nodes"
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "df4e040ae73e4bc2805a1da82444bb33",
+      "End": "ace4ca4f4cdd40d2b6503446e576a319",
+      "Id": "07c4864aac054bedbba44cf6ba382799"
+    },
+    {
+      "Start": "ecaaed3ad11446729791c08d940cec5f",
+      "End": "7175333a2ba7425aa499da1700d47578",
+      "Id": "e209ab4a54f644fd9a5b83e3d48acfb0"
+    }
+  ],
+  "Dependencies": [],
+  "NodeLibraryDependencies": [],
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": false,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.3.0.5885",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "Background Preview",
+      "EyeX": -17.0,
+      "EyeY": 24.0,
+      "EyeZ": 50.0,
+      "LookX": 12.0,
+      "LookY": -13.0,
+      "LookZ": -58.0,
+      "UpX": 0.0,
+      "UpY": 1.0,
+      "UpZ": 0.0
+    },
+    "NodeViews": [
+      {
+        "ShowGeometry": true,
+        "Name": "IsLinked",
+        "Id": "868b8aefd42d4105a72f9a22ad170f38",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 250.0,
+        "Y": 0.0
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Input",
+        "Id": "682779c84dc34afba9477226a2053562",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 0.0,
+        "Y": 0.0
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Output",
+        "Id": "711ecae95a9646c791283a46871c4928",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 449.0,
+        "Y": 0.0
+      }
+    ],
+    "Annotations": [],
+    "X": 417.0,
+    "Y": 117.0,
+    "Zoom": 1.0
+  }
+}

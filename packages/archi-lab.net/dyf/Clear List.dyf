@@ -1,0 +1,163 @@
+{
+  "Uuid": "8d999e76-78ae-4cc6-a4a3-b50679a618e8",
+  "IsCustomNode": true,
+  "Category": "archilab.Core.Lists",
+  "Description": "This node will remove all Null and Empty Lists from any list. ",
+  "Name": "Clear List",
+  "ElementResolver": {
+    "ResolutionMap": {}
+  },
+  "Inputs": [],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "#Copyright(c) 2015, Konrad K Sobon\n# @arch_laboratory, http://archi-lab.net\n\nimport clr\nclr.AddReference('ProtoGeometry')\nfrom Autodesk.DesignScript.Geometry import *\n#The inputs to this node will be stored as a list in the IN variable.\ndataEnteringNode = IN\n\ndef ClearList(_list):\n    out = []\n    for _list1 in _list:\n        if _list1 is None:\n            continue\n        if isinstance(_list1, list):\n             _list1 = ClearList(_list1)\n             if not _list1:\n                 continue\n        out.append(_list1)\n    return out\n\n#Assign your output to the OUT variable\nOUT = ClearList(IN[0])",
+      "VariableInputPorts": true,
+      "Id": "80b4e42471bf41ce8ec1072a2a9a04a1",
+      "Inputs": [
+        {
+          "Id": "c14df27bc0744d7dbcd46000e94636b9",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "bdfe6f6ba3164bda9c9d27155df2d8d7",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded IronPython script."
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Symbol, DynamoCore",
+      "NodeType": "InputNode",
+      "Parameter": {
+        "Name": "_input",
+        "TypeName": "var",
+        "TypeRank": 1,
+        "DefaultValue": null,
+        "Description": ""
+      },
+      "Id": "efb0e91b77cc45af86f2b0d8f050edec",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "7935c8829b584109a160b1faa177feaf",
+          "Name": "",
+          "Description": "Symbol",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "A function parameter, use with custom nodes.\r\n\r\nYou can specify the type and default value for parameter. E.g.,\r\n\r\ninput : var[]..[]\r\nvalue : bool = false"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Output, DynamoCore",
+      "NodeType": "OutputNode",
+      "Symbol": "_out",
+      "Id": "ccba85c10e0b4a92a4c8fc8017e01a12",
+      "Inputs": [
+        {
+          "Id": "27e9df2f578545508fc5181aa36e67f4",
+          "Name": "",
+          "Description": "",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [],
+      "Replication": "Disabled",
+      "Description": "A function output, use with custom nodes"
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "bdfe6f6ba3164bda9c9d27155df2d8d7",
+      "End": "27e9df2f578545508fc5181aa36e67f4",
+      "Id": "91e51a693acc492d815ea9630608fded"
+    },
+    {
+      "Start": "7935c8829b584109a160b1faa177feaf",
+      "End": "c14df27bc0744d7dbcd46000e94636b9",
+      "Id": "08eeb7b66c2a4ca68ca2c9169a8e00fe"
+    }
+  ],
+  "Dependencies": [],
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": false,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.2.1.5175",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "Background Preview",
+      "EyeX": -17.0,
+      "EyeY": 24.0,
+      "EyeZ": 50.0,
+      "LookX": 12.0,
+      "LookY": -13.0,
+      "LookZ": -58.0,
+      "UpX": 0.0,
+      "UpY": 1.0,
+      "UpZ": 0.0
+    },
+    "NodeViews": [
+      {
+        "ShowGeometry": true,
+        "Name": "Python Script",
+        "Id": "80b4e42471bf41ce8ec1072a2a9a04a1",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 602.000000000001,
+        "Y": 273.999999999999
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Input",
+        "Id": "efb0e91b77cc45af86f2b0d8f050edec",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 355.227146521263,
+        "Y": 243.209445752671
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Output",
+        "Id": "ccba85c10e0b4a92a4c8fc8017e01a12",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 807.675887112706,
+        "Y": 244.884309117622
+      }
+    ],
+    "Annotations": [],
+    "X": -505.648983707154,
+    "Y": -242.356385171471,
+    "Zoom": 1.78359936238281
+  }
+}

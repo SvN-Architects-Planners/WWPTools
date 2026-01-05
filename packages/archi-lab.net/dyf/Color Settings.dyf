@@ -1,0 +1,168 @@
+{
+  "Uuid": "9c76de43-81ca-413c-897e-989607678a89",
+  "IsCustomNode": true,
+  "Category": "archilab.Revit.Analysis",
+  "Description": "This node creates color settings for the Analysis Visualization Framework. ",
+  "Name": "Color Settings",
+  "ElementResolver": {
+    "ResolutionMap": {
+      "Color": {
+        "Key": "DSCore.Color",
+        "Value": "DSCoreNodes.dll"
+      }
+    }
+  },
+  "Inputs": [],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "#Copyright(c) 2015, Konrad K Sobon\n# @arch_laboratory, http://archi-lab.net\n\nimport clr\nclr.AddReference('ProtoGeometry')\nfrom Autodesk.DesignScript.Geometry import *\n\n# Import DocumentManager and TransactionManager\nclr.AddReference(\"RevitServices\")\nimport RevitServices\nfrom RevitServices.Persistence import DocumentManager\nfrom RevitServices.Transactions import TransactionManager\n\nfrom System.Collections.Generic import *\n\n# Import RevitAPI\nclr.AddReference(\"RevitAPI\")\nimport Autodesk\nfrom Autodesk.Revit.DB import *\nfrom Autodesk.Revit.DB.Analysis import *\n\ndoc = DocumentManager.Instance.CurrentDBDocument\nuiapp = DocumentManager.Instance.CurrentUIApplication\napp = uiapp.Application\n\n# Import ToDSType(bool) extension method\nclr.AddReference(\"RevitNodes\")\nimport Revit\nclr.ImportExtensions(Revit.Elements)\n\n#The inputs to this node will be stored as a list in the IN variable.\ndataEnteringNode = IN\n\ncolors = IN[0]\n\n#design script color to RVT color function\ndef dsColorToRvtColor(dsColor):\n\tR = dsColor.Red\n\tG = dsColor.Green\n\tB = dsColor.Blue\n\treturn Autodesk.Revit.DB.Color(R,G,B)\n\n#define color settings\ncolorSettings = AnalysisDisplayColorSettings()\nif len(colors) == 2:\n\tcolorSettings.MinColor = dsColorToRvtColor(colors[1])\n\tcolorSettings.MaxColor = dsColorToRvtColor(colors[0])\nelif len(colors) > 2:\n\tcolorSettings.MaxColor = dsColorToRvtColor(colors[len(colors)-1])\n\tcolorSettings.MinColor = dsColorToRvtColor(colors[0])\n\tcolorList = List[AnalysisDisplayColorEntry]()\n\tfor i in range(1, len(colors)-1, 1):\n\t\ttempColor = AnalysisDisplayColorEntry(dsColorToRvtColor(colors[i]))\n\t\tcolorList.Add(tempColor)\n\tif colorSettings.AreIntermediateColorsValid(colorList):\n\t\tcolorSettings.SetIntermediateColors(colorList)\n\n#Assign your output to the OUT variable\nOUT = colorSettings",
+      "VariableInputPorts": true,
+      "Id": "54ac6e44e8fd4fe0bba2f55639ac5d89",
+      "Inputs": [
+        {
+          "Id": "c64b42fec6d64410992b4dc429dd6a88",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "0b171ca381db4dc5ae82cfa41aeb8118",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded IronPython script."
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Symbol, DynamoCore",
+      "NodeType": "InputNode",
+      "Parameter": {
+        "Name": "_colors",
+        "TypeName": "var",
+        "TypeRank": -1,
+        "DefaultValue": "[DSCore.Color.ByARGB(0, 0, 0), DSCore.Color.ByARGB(255, 255, 255)]",
+        "Description": ""
+      },
+      "Id": "3bdc17ff0c7f4d26be59d84ecd742523",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "aea06f505b674b3b808fa0b637255593",
+          "Name": "",
+          "Description": "Symbol",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "A function parameter, use with custom nodes.\r\n\r\nYou can specify the type and default value for parameter. E.g.,\r\n\r\ninput : var[]..[]\r\nvalue : bool = false"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Output, DynamoCore",
+      "NodeType": "OutputNode",
+      "Symbol": "_colorSettings",
+      "Id": "fa31d96248fb4fe0af8037e860f0fa6c",
+      "Inputs": [
+        {
+          "Id": "513467ad604b4ee0a3815d807791e7fb",
+          "Name": "",
+          "Description": "",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [],
+      "Replication": "Disabled",
+      "Description": "A function output, use with custom nodes"
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "0b171ca381db4dc5ae82cfa41aeb8118",
+      "End": "513467ad604b4ee0a3815d807791e7fb",
+      "Id": "1619bd40190949e09edb922a9639fdfd"
+    },
+    {
+      "Start": "aea06f505b674b3b808fa0b637255593",
+      "End": "c64b42fec6d64410992b4dc429dd6a88",
+      "Id": "f477c2a685fa452bb515a9043c33f9cc"
+    }
+  ],
+  "Dependencies": [],
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": false,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.2.1.5175",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "Background Preview",
+      "EyeX": -17.0,
+      "EyeY": 24.0,
+      "EyeZ": 50.0,
+      "LookX": 12.0,
+      "LookY": -13.0,
+      "LookZ": -58.0,
+      "UpX": 0.0,
+      "UpY": 1.0,
+      "UpZ": 0.0
+    },
+    "NodeViews": [
+      {
+        "ShowGeometry": true,
+        "Name": "Python Script",
+        "Id": "54ac6e44e8fd4fe0bba2f55639ac5d89",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 250.0,
+        "Y": 0.0
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Input",
+        "Id": "3bdc17ff0c7f4d26be59d84ecd742523",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -419.03453837101,
+        "Y": 0.586883106962205
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Output",
+        "Id": "fa31d96248fb4fe0af8037e860f0fa6c",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 449.0,
+        "Y": 0.0
+      }
+    ],
+    "Annotations": [],
+    "X": 754.92442452558635,
+    "Y": 369.47099066399812,
+    "Zoom": 0.98264231136796731
+  }
+}

@@ -1,0 +1,214 @@
+{
+  "Uuid": "fb17113f-7ff8-4345-b663-4d1cbb814de7",
+  "IsCustomNode": true,
+  "Category": "archilab.Core.Lists",
+  "Description": "Ripped this off from Clockwork. Sorry Andy.",
+  "Name": "PassThrough",
+  "ElementResolver": {
+    "ResolutionMap": {}
+  },
+  "Inputs": [],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Symbol, DynamoCore",
+      "NodeType": "InputNode",
+      "Parameter": {
+        "Name": "passThrough",
+        "TypeName": "var",
+        "TypeRank": -1,
+        "DefaultValue": null,
+        "Description": ""
+      },
+      "Id": "294cacd0ccf3485292a059042d9c941e",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "b6535ee05014483785bd055d78db4889",
+          "Name": "",
+          "Description": "Symbol",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "A function parameter, use with custom nodes.\r\n\r\nYou can specify the type and default value for parameter. E.g.,\r\n\r\ninput : var[]..[]\r\nvalue : bool = false"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Symbol, DynamoCore",
+      "NodeType": "InputNode",
+      "Parameter": {
+        "Name": "waitFor",
+        "TypeName": "var",
+        "TypeRank": -1,
+        "DefaultValue": null,
+        "Description": ""
+      },
+      "Id": "b994e2060d4a4097ae42c9140a6229c1",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "9dd16184a4a544a1ba05b0e94b9e5303",
+          "Name": "",
+          "Description": "Symbol",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "A function parameter, use with custom nodes.\r\n\r\nYou can specify the type and default value for parameter. E.g.,\r\n\r\ninput : var[]..[]\r\nvalue : bool = false"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "NodeType": "CodeBlockNode",
+      "Code": "[passthrough,waitfor][0];",
+      "Id": "3b341cd9367243238335a2dd2148a135",
+      "Inputs": [
+        {
+          "Id": "1235059fddc84a22af3143feffeaec44",
+          "Name": "passthrough",
+          "Description": "passthrough",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "5369a3b3485a453fae5b69516008768d",
+          "Name": "waitfor",
+          "Description": "waitfor",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "4ab9d82beb314eef9a0c5c49e7f7df39",
+          "Name": "",
+          "Description": "Value of expression at line 1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Output, DynamoCore",
+      "NodeType": "OutputNode",
+      "ElementResolver": null,
+      "Symbol": "passThrough",
+      "Id": "6ece72e167be40d38aac7a498292348a",
+      "Inputs": [
+        {
+          "Id": "221b6d20946a4ce0a0bac8576af833dd",
+          "Name": "",
+          "Description": "",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [],
+      "Replication": "Disabled",
+      "Description": "A function output, use with custom nodes"
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "b6535ee05014483785bd055d78db4889",
+      "End": "1235059fddc84a22af3143feffeaec44",
+      "Id": "901668cc6d9a4fc2bf2d1ddc831538ce"
+    },
+    {
+      "Start": "9dd16184a4a544a1ba05b0e94b9e5303",
+      "End": "5369a3b3485a453fae5b69516008768d",
+      "Id": "3cf72cc57b9b4db28433b019f2f4929a"
+    },
+    {
+      "Start": "4ab9d82beb314eef9a0c5c49e7f7df39",
+      "End": "221b6d20946a4ce0a0bac8576af833dd",
+      "Id": "e80ec924d2544a14844736969f12da74"
+    }
+  ],
+  "Dependencies": [],
+  "NodeLibraryDependencies": [],
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": false,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.6.1.8786",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "Background Preview",
+      "EyeX": 227.77971724803257,
+      "EyeY": 297.6996604489463,
+      "EyeZ": -119.25582175938749,
+      "LookX": -196.86937196948298,
+      "LookY": -285.18082447363855,
+      "LookZ": -2.3687997098432447,
+      "UpX": -0.68194899649360563,
+      "UpY": 0.73135370161925273,
+      "UpZ": -0.0082054438883037342
+    },
+    "NodeViews": [
+      {
+        "ShowGeometry": true,
+        "Name": "Input",
+        "Id": "294cacd0ccf3485292a059042d9c941e",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 545.49451001088187,
+        "Y": 544.0
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Input",
+        "Id": "b994e2060d4a4097ae42c9140a6229c1",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 544.0,
+        "Y": 619.353528273483
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Code Block",
+        "Id": "3b341cd9367243238335a2dd2148a135",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 827.285890424394,
+        "Y": 572.993528273483
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Output",
+        "Id": "6ece72e167be40d38aac7a498292348a",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1200.0,
+        "Y": 568.7801949401495
+      }
+    ],
+    "Annotations": [],
+    "X": -450.0,
+    "Y": -193.0,
+    "Zoom": 1.0
+  }
+}

@@ -1,0 +1,231 @@
+{
+  "Uuid": "efa23268-f49b-4a83-8c14-8c9ab1e526dd",
+  "IsCustomNode": true,
+  "Category": "Data-Shapes.Utilities",
+  "Description": "Returns rounded number to specified number of decimals as string",
+  "Name": "Number to Rounded String ",
+  "ElementResolver": {
+    "ResolutionMap": {
+      "DSCore.List": {
+        "Key": "DSCore.List",
+        "Value": "DSCoreNodes.dll"
+      },
+      "PolySurface": {
+        "Key": "Autodesk.DesignScript.Geometry.PolySurface",
+        "Value": "ProtoGeometry.dll"
+      },
+      "PolyCurve": {
+        "Key": "Autodesk.DesignScript.Geometry.PolyCurve",
+        "Value": "ProtoGeometry.dll"
+      },
+      "Surface": {
+        "Key": "Autodesk.DesignScript.Geometry.Surface",
+        "Value": "ProtoGeometry.dll"
+      }
+    }
+  },
+  "Inputs": [],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "import clr\r\nimport sys\r\npyt_path = r'C:\\Program Files (x86)\\IronPython 2.7\\Lib'\r\nsys.path.append(pyt_path)\r\nfrom decimal import Decimal\r\n\r\ndef tolist(input):\r\n\tif isinstance(input,list):\r\n\t\treturn input\r\n\telse:\r\n\t\treturn [input]\r\n\t\t\r\nnums = tolist(IN[0])\r\n\r\nif IN[1] != 0 :\t\r\n\tOUT = [str(round(Decimal(n),IN[1])) for n in nums]\r\nelse:\r\n\tOUT = [str(int(round(Decimal(n),IN[1]))) for n in nums]",
+      "VariableInputPorts": true,
+      "Id": "114a02e0d7234eedaccd0b58d0b96f1b",
+      "Inputs": [
+        {
+          "Id": "99dd6e512f354c518e9ee09abd4027cd",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "975cc909d7c2451cb59a8bac561b61e4",
+          "Name": "IN[1]",
+          "Description": "Input #1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "f8d02f6610ae4d869073a3164a9f5000",
+          "Name": "OUT",
+          "Description": "Résultat du script Python",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Exécute un script IronPython intégré."
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Symbol, DynamoCore",
+      "NodeType": "InputNode",
+      "Parameter": {
+        "Name": "Number",
+        "TypeName": "var",
+        "TypeRank": -1,
+        "DefaultValue": null,
+        "Description": ""
+      },
+      "Id": "01520f17f5174e4199e90b2ab42228b5",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "c2e406b66357430cab934997b7175d10",
+          "Name": "",
+          "Description": "Symbole",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Un paramètre de fonction, utiliser avec des noeuds personnalisés.\r\n\r\nVous pouvez spécifier le type et la valeur par défaut du paramètre. Par exemple,\r\n\r\nentrée: var[]..[]\r\nvaleur: bool = false"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Symbol, DynamoCore",
+      "NodeType": "InputNode",
+      "Parameter": {
+        "Name": "Decimals",
+        "TypeName": "int",
+        "TypeRank": 0,
+        "DefaultValue": "2",
+        "Description": ""
+      },
+      "Id": "aaf736d9531440a686e9f6b6c104329b",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "6481ff084a974902a165f0716df10936",
+          "Name": "",
+          "Description": "Symbole",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Un paramètre de fonction, utiliser avec des noeuds personnalisés.\r\n\r\nVous pouvez spécifier le type et la valeur par défaut du paramètre. Par exemple,\r\n\r\nentrée: var[]..[]\r\nvaleur: bool = false"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Output, DynamoCore",
+      "NodeType": "OutputNode",
+      "ElementResolver": null,
+      "Symbol": "string",
+      "Id": "55dd90ee199b4fd5a8ab9d4f8183a822",
+      "Inputs": [
+        {
+          "Id": "98a35c13752a4ea7a25ebfca6e49fb0c",
+          "Name": "",
+          "Description": "",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [],
+      "Replication": "Disabled",
+      "Description": "Sortie de fonction, utiliser avec les noeuds personnalisés"
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "f8d02f6610ae4d869073a3164a9f5000",
+      "End": "98a35c13752a4ea7a25ebfca6e49fb0c",
+      "Id": "8499eb11ab8f47adbff7f6d68411636e"
+    },
+    {
+      "Start": "c2e406b66357430cab934997b7175d10",
+      "End": "99dd6e512f354c518e9ee09abd4027cd",
+      "Id": "dd0a560061f1441fb3c7e0632adc82d0"
+    },
+    {
+      "Start": "6481ff084a974902a165f0716df10936",
+      "End": "975cc909d7c2451cb59a8bac561b61e4",
+      "Id": "170df415e4704f39bf3ae4a68058da61"
+    }
+  ],
+  "Dependencies": [],
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": false,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.0.2.6826",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "Aperçu en arrière-plan",
+      "EyeX": 14.412768398080798,
+      "EyeY": 262.27104433641551,
+      "EyeZ": 17.04725496442704,
+      "LookX": -7.5052603918686405,
+      "LookY": -4.1379010176326574,
+      "LookZ": -13.64601987514115,
+      "UpX": -0.021020891947698291,
+      "UpY": 0.99904822158187356,
+      "UpZ": -0.038220060908516061
+    },
+    "NodeViews": [
+      {
+        "ShowGeometry": true,
+        "Name": "Python Script",
+        "Id": "114a02e0d7234eedaccd0b58d0b96f1b",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 249.0,
+        "Y": 0.0
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Input",
+        "Id": "01520f17f5174e4199e90b2ab42228b5",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 0.0,
+        "Y": 0.0
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Input",
+        "Id": "aaf736d9531440a686e9f6b6c104329b",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -22.0,
+        "Y": 107.0
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Output",
+        "Id": "55dd90ee199b4fd5a8ab9d4f8183a822",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 449.0,
+        "Y": 0.0
+      }
+    ],
+    "Annotations": [],
+    "X": 402.0,
+    "Y": 127.0,
+    "Zoom": 1.0
+  }
+}

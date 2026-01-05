@@ -1,0 +1,252 @@
+{
+  "Uuid": "ef877af9-cc74-41b9-9d2d-acac6a601186",
+  "IsCustomNode": true,
+  "Category": "archilab.Revit.Geometry",
+  "Description": "It takes an input of a profile family type and extract curves from it converting them to polycurves and curve segments for use in Dynamo (sweeps).",
+  "Name": "PolyCurve by Profile Family Type",
+  "ElementResolver": {
+    "ResolutionMap": {}
+  },
+  "Inputs": [],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "#Copyright(c) 2015, Konrad Sobon\n# @arch_laboratory, http://archi-lab.net\n\nimport clr\nclr.AddReference('ProtoGeometry')\nfrom Autodesk.DesignScript.Geometry import *\n\n# Import ToDSType(bool) extension method\nclr.AddReference(\"RevitNodes\")\nimport Revit\nclr.ImportExtensions(Revit.Elements)\n\n# Import DocumentManager and TransactionManager\nclr.AddReference(\"RevitServices\")\nimport RevitServices\nfrom RevitServices.Persistence import DocumentManager\nfrom RevitServices.Transactions import TransactionManager\n\nfrom System.Collections.Generic import *\n\n# Import RevitAPI\nclr.AddReference(\"RevitAPI\")\nimport Autodesk\nfrom Autodesk.Revit.DB import *\n\ndoc = DocumentManager.Instance.CurrentDBDocument\nuiapp = DocumentManager.Instance.CurrentUIApplication\napp = uiapp.Application\n\n#The inputs to this node will be stored as a list in the IN variable.\ndataEnteringNode = IN\n#name = str(IN[0].Name)\ntype = UnwrapElement(IN[0].Family.Name)\nname = UnwrapElement(IN[0].Name)\n\n#select family instance by name\nfamilies = FilteredElementCollector(doc).OfClass(Family)\n\nallTypeNames = []\nfor i in families:\n\tfamilyTypeSet = i.Symbols\n\telemIter = familyTypeSet.ForwardIterator()\n\telemIter.Reset()\n\twhile elemIter.MoveNext():\n\t\tcurElem = elemIter.Current\n\t\tif curElem.ToDSType(True).Name == name and i.Name == type:\n\t\t\tfamily = curElem.Family\n\n#extract profile curves from family(sketch)\nmessage = None\ntry:\n\tfamDoc = doc.EditFamily(family)\n\tfamCollector = FilteredElementCollector(famDoc)\n\tsketch = famCollector.OfClass(Sketch)\n\t#convert revit geometry to DS Geometry (lines, arc etc)\n\tfor i in sketch:\n\t\tcArray = list(i.Profile)\n\tcArray[:] = [[Revit.GeometryConversion.RevitToProtoCurve.ToProtoType(y, True ) for y in x] for x in cArray]\nexcept:\n\tmessage = \"Could not obtain this family. \\nPossible reasons: System Family, \\nFamily does not contain sketch loops \\n(simple profile family)\"\n\tpass\n\n#Assign your output to the OUT variable\nif message == None:\n\tOUT = cArray\nelse:\n\tOUT = '\\n'.join('{:^35}'.format(s) for s in message.split('\\n'))",
+      "VariableInputPorts": true,
+      "Id": "64dcc65d5ce3433ebd3963fdf6fba304",
+      "Inputs": [
+        {
+          "Id": "1cfa8e2c992344539d7157bd50fd6943",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "ab2ff0c2077e4949b7b05f8b29b5a600",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded IronPython script."
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "Autodesk.DesignScript.Geometry.PolyCurve.ByJoinedCurves@Autodesk.DesignScript.Geometry.Curve[],double",
+      "Id": "2fb411d6931547d792bbc21beadac5bc",
+      "Inputs": [
+        {
+          "Id": "1b74d17e45624a11838533b53c1658da",
+          "Name": "curves",
+          "Description": "Curves to join into polycurve\n\nCurve[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "885ec3649db748098cfb255886770846",
+          "Name": "joinTolerance",
+          "Description": "Tolerance to determine size of gap allowed between curves to be joined\n\ndouble\nDefault value : 0.001",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "ae7a9cba87a04b9ab2dd87c328cfa091",
+          "Name": "PolyCurve",
+          "Description": "PolyCurve",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Make PolyCurve by joining curves. Flips curve as needed for connectivity. Choose a preferred join tolerance between 1e-6 and 1e-3 units.\n\nPolyCurve.ByJoinedCurves (curves: Curve[], joinTolerance: double = 0.001): PolyCurve"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Symbol, DynamoCore",
+      "NodeType": "InputNode",
+      "Parameter": {
+        "Name": "_familyType",
+        "TypeName": "var",
+        "TypeRank": -1,
+        "DefaultValue": null,
+        "Description": ""
+      },
+      "Id": "e432f0568e9441c3afd882bc530dcdda",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "78cadd297ed748339202e6f3fa75e4f8",
+          "Name": "",
+          "Description": "Symbol",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "A function parameter, use with custom nodes.\r\n\r\nYou can specify the type and default value for parameter. E.g.,\r\n\r\ninput : var[]..[]\r\nvalue : bool = false"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Output, DynamoCore",
+      "NodeType": "OutputNode",
+      "Symbol": "_polyCurve",
+      "Id": "1e27f696ad4b42ebbe1245e9ba4dc3fb",
+      "Inputs": [
+        {
+          "Id": "601e6277a9e14a858b146f8c8e375c84",
+          "Name": "",
+          "Description": "",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [],
+      "Replication": "Disabled",
+      "Description": "A function output, use with custom nodes"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Output, DynamoCore",
+      "NodeType": "OutputNode",
+      "Symbol": "_curveSegment",
+      "Id": "65f0902f0ea44bc884c0e0c23ee1da66",
+      "Inputs": [
+        {
+          "Id": "de4b39066bf64ed59f2d2b576a914f62",
+          "Name": "",
+          "Description": "",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [],
+      "Replication": "Disabled",
+      "Description": "A function output, use with custom nodes"
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "ab2ff0c2077e4949b7b05f8b29b5a600",
+      "End": "1b74d17e45624a11838533b53c1658da",
+      "Id": "5f6828f8995044ddadff1b40f8e18bda"
+    },
+    {
+      "Start": "ab2ff0c2077e4949b7b05f8b29b5a600",
+      "End": "de4b39066bf64ed59f2d2b576a914f62",
+      "Id": "a7136173d0d6495f81c7b44d1c461134"
+    },
+    {
+      "Start": "ae7a9cba87a04b9ab2dd87c328cfa091",
+      "End": "601e6277a9e14a858b146f8c8e375c84",
+      "Id": "77adc1ad47524a2b8eb99df78b00b57c"
+    },
+    {
+      "Start": "78cadd297ed748339202e6f3fa75e4f8",
+      "End": "1cfa8e2c992344539d7157bd50fd6943",
+      "Id": "f4619c9f5a2b4f10815482edbeca99d4"
+    }
+  ],
+  "Dependencies": [],
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": false,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.2.1.5175",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "Background Preview",
+      "EyeX": -17.0,
+      "EyeY": 24.0,
+      "EyeZ": 50.0,
+      "LookX": 12.0,
+      "LookY": -13.0,
+      "LookZ": -58.0,
+      "UpX": 0.0,
+      "UpY": 1.0,
+      "UpZ": 0.0
+    },
+    "NodeViews": [
+      {
+        "ShowGeometry": false,
+        "Name": "Python Script",
+        "Id": "64dcc65d5ce3433ebd3963fdf6fba304",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 250.0,
+        "Y": 0.0
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "PolyCurve.ByJoinedCurves",
+        "Id": "2fb411d6931547d792bbc21beadac5bc",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 412.566925046641,
+        "Y": 0.372977835140659
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Input",
+        "Id": "e432f0568e9441c3afd882bc530dcdda",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 0.0,
+        "Y": 0.0
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Output",
+        "Id": "1e27f696ad4b42ebbe1245e9ba4dc3fb",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 737.34919788469369,
+        "Y": 3.3754695903892724
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Output",
+        "Id": "65f0902f0ea44bc884c0e0c23ee1da66",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 730.34919788469369,
+        "Y": 76.375469590389272
+      }
+    ],
+    "Annotations": [],
+    "X": 120.33178037117455,
+    "Y": 212.32972647086862,
+    "Zoom": 1.4425890929331342
+  }
+}

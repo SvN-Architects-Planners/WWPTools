@@ -1,0 +1,164 @@
+{
+  "Uuid": "b0670d6b-5444-4a13-8b4d-62d8e7145868",
+  "IsCustomNode": true,
+  "Category": "Data-Shapes.Geometry",
+  "Description": "Removes all duplicate geometries from list.",
+  "Name": "Geometry.PruneDuplicates",
+  "ElementResolver": {
+    "ResolutionMap": {}
+  },
+  "Inputs": [],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "#Copyright (c) Data Shapes ,  2018\n#@data_shapes ,  www.data-shapes.io , contact@data-shapes.io\n\nimport clr\nclr.AddReference('ProtoGeometry')\nfrom Autodesk.DesignScript.Geometry import *\n\n\nunique = []\nuniqueStr = []\n\ndef toList(input):\n\tif isinstance(input,list):\n\t\treturn input\n\telse:\n\t\treturn [input]\n\ndef surfsol_ToSortedVertices(surfsol):\n\treturn  \",\".join(sorted([i.ToString() for i in surfsol.Vertices]))\n\t\ndef curve_ToSortedVertices(cv):\n\tnbs = cv.ToNurbsCurve()\n\treturn \",\".join(sorted([p.ToString() for p in nbs.ControlPoints()]))\n\t\ndef pt_ToSortedVertices(pt):\n\treturn pt.ToString()\n\n\ng = toList(IN[0])\n\nfor geom in g:\n\ttry:\n\t\t#solids and surfaces\n\t\tif not (surfsol_ToSortedVertices(geom) in uniqueStr) :\n\t\t\tuniqueStr.append(surfsol_ToSortedVertices(geom))\n\t\t\tunique.append(geom)\n\texcept:\n\t\ttry:\n\t\t\t#Curves and lines\n\t\t\tif not (curve_ToSortedVertices(geom) in uniqueStr) :\n\t\t\t\tuniqueStr.append(curve_ToSortedVertices(geom))\n\t\t\t\tunique.append(geom)\t\n\t\texcept:\n\t\t\t#Points\n\t\t\tif not (pt_ToSortedVertices(geom) in uniqueStr) :\n\t\t\t\tuniqueStr.append(pt_ToSortedVertices(geom))\n\t\t\t\tunique.append(geom)\t\t\t\t\t\t\t\n\t\t\n\t\t\nOUT = unique",
+      "VariableInputPorts": true,
+      "Id": "9c2d9a11b9664632941c57630b684f84",
+      "Inputs": [
+        {
+          "Id": "378cd0ae60284983a8db8286931f894d",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "775282f758074b988e228946469749bd",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded IronPython script."
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Symbol, DynamoCore",
+      "NodeType": "InputNode",
+      "Parameter": {
+        "Name": "GeometryList",
+        "TypeName": "var",
+        "TypeRank": -1,
+        "DefaultValue": null,
+        "Description": ""
+      },
+      "Id": "03e9d776493f400faad7ae248e37cf95",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "bd58ac4f0fe14397856fdb616864a991",
+          "Name": "",
+          "Description": "Symbol",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "A function parameter, use with custom nodes.\r\n\r\nYou can specify the type and default value for parameter. E.g.,\r\n\r\ninput : var[]..[]\r\nvalue : bool = false"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Output, DynamoCore",
+      "NodeType": "OutputNode",
+      "ElementResolver": null,
+      "Symbol": "UniqueItems",
+      "Id": "a7b49e077bb24a7f9a821c1e72a05df0",
+      "Inputs": [
+        {
+          "Id": "bdb1ea722cad42158d351d5ae55bf7c2",
+          "Name": "",
+          "Description": "",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [],
+      "Replication": "Disabled",
+      "Description": "A function output, use with custom nodes"
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "775282f758074b988e228946469749bd",
+      "End": "bdb1ea722cad42158d351d5ae55bf7c2",
+      "Id": "b645cfed8f764abb87bba58c09414723"
+    },
+    {
+      "Start": "bd58ac4f0fe14397856fdb616864a991",
+      "End": "378cd0ae60284983a8db8286931f894d",
+      "Id": "dce24cdde1b440f6afd0fb99f108afc0"
+    }
+  ],
+  "Dependencies": [],
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": false,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.0.2.6826",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "Background Preview",
+      "EyeX": -17.0,
+      "EyeY": 24.0,
+      "EyeZ": 50.0,
+      "LookX": 12.0,
+      "LookY": -13.0,
+      "LookZ": -58.0,
+      "UpX": 0.0,
+      "UpY": 1.0,
+      "UpZ": 0.0
+    },
+    "NodeViews": [
+      {
+        "ShowGeometry": true,
+        "Name": "Python Script",
+        "Id": "9c2d9a11b9664632941c57630b684f84",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 250.0,
+        "Y": 0.0
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Input",
+        "Id": "03e9d776493f400faad7ae248e37cf95",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 0.0,
+        "Y": 0.0
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Output",
+        "Id": "a7b49e077bb24a7f9a821c1e72a05df0",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 449.0,
+        "Y": 0.0
+      }
+    ],
+    "Annotations": [],
+    "X": 493.823538694248,
+    "Y": 132.853147620888,
+    "Zoom": 1.78359936238281
+  }
+}

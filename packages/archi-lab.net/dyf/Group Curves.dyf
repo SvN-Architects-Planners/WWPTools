@@ -1,0 +1,163 @@
+{
+  "Uuid": "c84855d4-eb7e-4574-86a5-04867486df63",
+  "IsCustomNode": true,
+  "Category": "archilab.Core.Geometry",
+  "Description": "This node will take any input of flat list of curves and group them into sublists containing \"joinable\" curves that is continous curves. They might form closed curves or open curves. Use PolyCurve.ByJoinedCurves to convert output groups of curves into single PolyCurves",
+  "Name": "Group Curves",
+  "ElementResolver": {
+    "ResolutionMap": {}
+  },
+  "Inputs": [],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "#Copyright(c) 2015, Konrad Sobon\n# @arch_laboratory, http://archi-lab.net\n\nimport clr\nclr.AddReference('ProtoGeometry')\nfrom Autodesk.DesignScript.Geometry import *\n\n#The inputs to this node will be stored as a list in the IN variable.\ndataEnteringNode = IN\n\ninputCurves = IN[0]\n\n#join/group curves function\ndef groupCurves(Line_List): \n\tignore_distance = 0.1 # Assume points this close or closer to each other are touching \n\tGrouped_Lines = [] \n\tQueue = set() \n\twhile Line_List: \n\t\tShape = [] \n\t\tQueue.add(Line_List.pop()) # Move a line from the Line_List to our queue \n\t\twhile Queue: \n\t\t\tCurrent_Line = Queue.pop() \n\t\t\tShape.append(Current_Line) \n\t\t\tfor Potential_Match in Line_List: \n\t\t\t\tPoints = (Potential_Match.StartPoint, Potential_Match.EndPoint)\n\t\t\t\tfor P1 in Points: \n\t\t\t\t\tfor P2 in (Current_Line.StartPoint, Current_Line.EndPoint): \n\t\t\t\t\t\tdistance = P1.DistanceTo(P2) \n\t\t\t\t\t\tif distance <= ignore_distance: \n\t\t\t\t\t\t\tQueue.add(Potential_Match) \n\t\t\tLine_List = [item for item in Line_List if item not in Queue]\n\t\tGrouped_Lines.append(Shape) \n\treturn Grouped_Lines\n\nOUT = groupCurves(inputCurves)",
+      "VariableInputPorts": true,
+      "Id": "8bd818ae5c8d454cb525909022ed8790",
+      "Inputs": [
+        {
+          "Id": "d964c5b088cf4aaab7f65e4e2b9fa8ba",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "91c0c294f90c49d89d1662f846435ef6",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded IronPython script."
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Symbol, DynamoCore",
+      "NodeType": "InputNode",
+      "Parameter": {
+        "Name": "_curves",
+        "TypeName": "var",
+        "TypeRank": -1,
+        "DefaultValue": null,
+        "Description": ""
+      },
+      "Id": "7decf583c6c240e3857c47132ad58b2c",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "e6a073605b7248b293afb4926fd80f65",
+          "Name": "",
+          "Description": "Symbol",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "A function parameter, use with custom nodes.\r\n\r\nYou can specify the type and default value for parameter. E.g.,\r\n\r\ninput : var[]..[]\r\nvalue : bool = false"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Output, DynamoCore",
+      "NodeType": "OutputNode",
+      "Symbol": "_groupedCurves",
+      "Id": "72ed8dbf18e7496aaae37d59e4724642",
+      "Inputs": [
+        {
+          "Id": "9351248b0cc6435bacbf5662c9faeed2",
+          "Name": "",
+          "Description": "",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [],
+      "Replication": "Disabled",
+      "Description": "A function output, use with custom nodes"
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "91c0c294f90c49d89d1662f846435ef6",
+      "End": "9351248b0cc6435bacbf5662c9faeed2",
+      "Id": "43f3c330536a49a3acb6054b4238c9f1"
+    },
+    {
+      "Start": "e6a073605b7248b293afb4926fd80f65",
+      "End": "d964c5b088cf4aaab7f65e4e2b9fa8ba",
+      "Id": "6b3dd5556abf4c79b27a22d86f01bac0"
+    }
+  ],
+  "Dependencies": [],
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": false,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.2.1.5175",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "Background Preview",
+      "EyeX": -17.0,
+      "EyeY": 24.0,
+      "EyeZ": 50.0,
+      "LookX": 12.0,
+      "LookY": -13.0,
+      "LookZ": -58.0,
+      "UpX": 0.0,
+      "UpY": 1.0,
+      "UpZ": 0.0
+    },
+    "NodeViews": [
+      {
+        "ShowGeometry": true,
+        "Name": "Python Script",
+        "Id": "8bd818ae5c8d454cb525909022ed8790",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 250.0,
+        "Y": 0.0
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Input",
+        "Id": "7decf583c6c240e3857c47132ad58b2c",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 0.0,
+        "Y": 0.0
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Output",
+        "Id": "72ed8dbf18e7496aaae37d59e4724642",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 449.0,
+        "Y": 0.0
+      }
+    ],
+    "Annotations": [],
+    "X": 188.308002200324,
+    "Y": 137.02648887689,
+    "Zoom": 1.33823125
+  }
+}

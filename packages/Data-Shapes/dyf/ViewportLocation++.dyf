@@ -1,0 +1,164 @@
+{
+  "Uuid": "92e57b45-f395-40c8-9c74-3116557eb6b8",
+  "IsCustomNode": true,
+  "Category": "Data-Shapes.Revit.Sheets",
+  "Description": "Gets the location point of a viewport or a ScheduleSheetInstance",
+  "Name": "ViewportLocation++",
+  "ElementResolver": {
+    "ResolutionMap": {}
+  },
+  "Inputs": [],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "#Copyright (c) mostafa el ayoubi ,  2019 , @data_shapes\r\n#Data-Shapes www.data-shapes.io , mostafa.elayoubi@data-shapes.io\r\nimport clr\r\nclr.AddReference('RevitAPI')\r\nfrom Autodesk.Revit.DB import *\r\nclr.AddReference('ProtoGeometry')\r\nfrom Autodesk.DesignScript.Geometry import Point as dspt\r\nclr.AddReference('RevitServices')\r\nfrom RevitServices.Persistence import DocumentManager\r\ndoc = DocumentManager.Instance.CurrentDBDocument\r\noutput = []\r\n\r\nclr.AddReference('RevitNodes')\r\nimport Revit\r\nclr.ImportExtensions(Revit.GeometryConversion)\r\n\r\nfrom RevitServices.Transactions import TransactionManager\r\nTransactionManager.Instance.ForceCloseTransaction\r\n\r\n\r\ndef toList(input):\r\n\tif isinstance(input,list):\r\n\t\treturn UnwrapElement(input)\r\n\telse:\r\n\t\treturn [UnwrapElement(input)]\r\n\r\nlocs = []\r\n\r\nvps = toList(IN[0])\r\n\r\nfor v in vps:\r\n\ttry:\r\n\t\tlocs.append(v.GetBoxCenter().ToPoint())\r\n\texcept:\r\n\t\tlocs.append(v.Point.ToPoint())\r\n\t\t\r\n\r\nOUT = locs",
+      "VariableInputPorts": true,
+      "Id": "19fbcc6357f04407bc84f65977187854",
+      "Inputs": [
+        {
+          "Id": "b685e6b2182946e0afeefbe372943b56",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "1f67c3775f694a0985c4b7cdc3249cbb",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded IronPython script."
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Symbol, DynamoCore",
+      "NodeType": "InputNode",
+      "Parameter": {
+        "Name": "Viewport_Or_ScheduleSheetIndtance",
+        "TypeName": "var",
+        "TypeRank": -1,
+        "DefaultValue": null,
+        "Description": ""
+      },
+      "Id": "5998989f890f477d813b775add9cd526",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "0f33a31b0e0f494983c1584abea2ab21",
+          "Name": "",
+          "Description": "Symbol",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "A function parameter, use with custom nodes.\r\n\r\nYou can specify the type and default value for parameter. E.g.,\r\n\r\ninput : var[]..[]\r\nvalue : bool = false"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Output, DynamoCore",
+      "NodeType": "OutputNode",
+      "ElementResolver": null,
+      "Symbol": "Point",
+      "Id": "fde57227c2c944969a2de02a4f33f51e",
+      "Inputs": [
+        {
+          "Id": "7cd95511eb25495ba20206143bbffbb6",
+          "Name": "",
+          "Description": "",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [],
+      "Replication": "Disabled",
+      "Description": "A function output, use with custom nodes"
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "1f67c3775f694a0985c4b7cdc3249cbb",
+      "End": "7cd95511eb25495ba20206143bbffbb6",
+      "Id": "5f14c4f307564d1d8a279f4870978479"
+    },
+    {
+      "Start": "0f33a31b0e0f494983c1584abea2ab21",
+      "End": "b685e6b2182946e0afeefbe372943b56",
+      "Id": "a0acd438f04a490e8cc6208d71a17e2d"
+    }
+  ],
+  "Dependencies": [],
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": false,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.2.1.5175",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "Background Preview",
+      "EyeX": -114.17110726891107,
+      "EyeY": 1144.9802716312511,
+      "EyeZ": 164.2680400861309,
+      "LookX": 173.86795282671844,
+      "LookY": -894.02678231465666,
+      "LookZ": -545.14949611787517,
+      "UpX": 0.21485884749832584,
+      "UpY": 0.707106781186549,
+      "UpZ": -0.67367327069707339
+    },
+    "NodeViews": [
+      {
+        "ShowGeometry": true,
+        "Name": "Python Script",
+        "Id": "19fbcc6357f04407bc84f65977187854",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 247.0,
+        "Y": -1.0
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Input",
+        "Id": "5998989f890f477d813b775add9cd526",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -132.0,
+        "Y": -1.0
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Output",
+        "Id": "fde57227c2c944969a2de02a4f33f51e",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 449.0,
+        "Y": 0.0
+      }
+    ],
+    "Annotations": [],
+    "X": 452.0,
+    "Y": 178.0,
+    "Zoom": 1.0
+  }
+}

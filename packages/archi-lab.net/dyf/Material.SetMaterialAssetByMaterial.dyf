@@ -1,0 +1,213 @@
+{
+  "Uuid": "fc21f065-cc91-48c9-a5fb-02d2f0af721e",
+  "IsCustomNode": true,
+  "Category": "archilab.Revit.Materials",
+  "Description": "This node will copy a material asset element from source Material to a list of target materials. It esentially makes all materials inherit its Rendering Appearance. Useful for \"clay\" renderings. ",
+  "Name": "Material.SetMaterialAssetByMaterial",
+  "ElementResolver": {
+    "ResolutionMap": {}
+  },
+  "Inputs": [],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "# Copyright(c) 2015, Konrad K Sobon\n# @arch_laboratory, http://archi-lab.net\n\n# Import Element wrapper extension methods\nimport clr\nclr.AddReference(\"RevitNodes\")\nimport Revit\nclr.ImportExtensions(Revit.Elements)\n\n# Import RevitAPI\nclr.AddReference(\"RevitAPI\")\nimport Autodesk\nfrom Autodesk.Revit.DB import *\n\n# Import DocumentManager and TransactionManager\nclr.AddReference(\"RevitServices\")\nimport RevitServices\nfrom RevitServices.Persistence import DocumentManager\nfrom RevitServices.Transactions import TransactionManager\ndoc = DocumentManager.Instance.CurrentDBDocument\n\nimport sys\npyt_path = r'C:\\Program Files (x86)\\IronPython 2.7\\Lib'\nsys.path.append(pyt_path)\n\n#The inputs to this node will be stored as a list in the IN variables.\ndataEnteringNode = IN\n\ndef ProcessList(_func, _list):\n\treturn map(lambda x: ProcessList(_func, x) if type(x)==list else _func(x), _list)\n\ndef ProcessListArg(_func, _list, _arg):\n    return map( lambda x: ProcessListArg(_func, x, _arg) if type(x)==list else _func(x, _arg), _list )\n\ndef SetMaterialAsset(mat, assetId):\n\tmat.AppearanceAssetId = assetId\n\treturn mat\n\t\t\ndef TryGetAsset(mat):\n\tdoc = DocumentManager.Instance.CurrentDBDocument\n\tappearanceId = mat.AppearanceAssetId\n\tif appearanceId != ElementId.InvalidElementId:\n\t\treturn appearanceId\n\telse:\n\t\treturn None\n\ndef Unwrap(item):\n\treturn UnwrapElement(item)\n\nif isinstance(IN[0], list):\n\telements = ProcessList(Unwrap, IN[0])\nelse:\n\telements = [Unwrap(IN[0])]\n\ntry:\n\terrorReport = None\n\tsourceMat = UnwrapElement(IN[1])\n\tasset = TryGetAsset(sourceMat)\n\t\n\tTransactionManager.Instance.EnsureInTransaction(doc)\n\toutput = ProcessListArg(SetMaterialAsset, elements, asset)\n\tTransactionManager.Instance.TransactionTaskDone()\n\t\nexcept:\n\t# if error accurs anywhere in the process catch it\n\timport traceback\n\terrorReport = traceback.format_exc()\n\n#Assign your output to the OUT variable\nif errorReport == None:\n\tOUT = output\nelse:\n\tOUT = errorReport",
+      "VariableInputPorts": true,
+      "Id": "8429ebfab488482a8f523db5c2c4c865",
+      "Inputs": [
+        {
+          "Id": "44aa43e324984038bb2b0c3dd7915b02",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "ec6996f21e2e495084e8c1342f3ad7d2",
+          "Name": "IN[1]",
+          "Description": "Input #1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "5b1f58fca55345e9a2657b61a22b21a4",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded IronPython script."
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Symbol, DynamoCore",
+      "NodeType": "InputNode",
+      "Parameter": {
+        "Name": "_targetMaterial",
+        "TypeName": "var",
+        "TypeRank": -1,
+        "DefaultValue": null,
+        "Description": ""
+      },
+      "Id": "444f39c8944c4c0882d5eb3b83422d1e",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "1cfa9d7d6b2f4bba81333709e22c90c5",
+          "Name": "",
+          "Description": "Symbol",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "A function parameter, use with custom nodes.\r\n\r\nYou can specify the type and default value for parameter. E.g.,\r\n\r\ninput : var[]..[]\r\nvalue : bool = false"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Symbol, DynamoCore",
+      "NodeType": "InputNode",
+      "Parameter": {
+        "Name": "_sourceMaterial",
+        "TypeName": "var",
+        "TypeRank": -1,
+        "DefaultValue": null,
+        "Description": ""
+      },
+      "Id": "fba78e9003fb4910b93f6e1eca70fa50",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "ea3d6c63d89a47289024a9035526ba9c",
+          "Name": "",
+          "Description": "Symbol",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "A function parameter, use with custom nodes.\r\n\r\nYou can specify the type and default value for parameter. E.g.,\r\n\r\ninput : var[]..[]\r\nvalue : bool = false"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Output, DynamoCore",
+      "NodeType": "OutputNode",
+      "Symbol": "_material",
+      "Id": "32d019eae632473ea7d3bcbc1523a69d",
+      "Inputs": [
+        {
+          "Id": "9b4d157d8ed442dbb13890a6748a82f1",
+          "Name": "",
+          "Description": "",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [],
+      "Replication": "Disabled",
+      "Description": "A function output, use with custom nodes"
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "5b1f58fca55345e9a2657b61a22b21a4",
+      "End": "9b4d157d8ed442dbb13890a6748a82f1",
+      "Id": "8a3cc62bbf3f4c9e84ea68cca17c1d4f"
+    },
+    {
+      "Start": "1cfa9d7d6b2f4bba81333709e22c90c5",
+      "End": "44aa43e324984038bb2b0c3dd7915b02",
+      "Id": "17f4ffd8d3d8414e8852ffbb4a3508b4"
+    },
+    {
+      "Start": "ea3d6c63d89a47289024a9035526ba9c",
+      "End": "ec6996f21e2e495084e8c1342f3ad7d2",
+      "Id": "803f06d15bf2457eb9059bc2f65a1988"
+    }
+  ],
+  "Dependencies": [],
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": false,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.2.1.5175",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "Background Preview",
+      "EyeX": -17.0,
+      "EyeY": 24.0,
+      "EyeZ": 50.0,
+      "LookX": 12.0,
+      "LookY": -13.0,
+      "LookZ": -58.0,
+      "UpX": 0.0,
+      "UpY": 1.0,
+      "UpZ": 0.0
+    },
+    "NodeViews": [
+      {
+        "ShowGeometry": true,
+        "Name": "Python Script",
+        "Id": "8429ebfab488482a8f523db5c2c4c865",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 510.54993547727,
+        "Y": 335.827175168853
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Input",
+        "Id": "444f39c8944c4c0882d5eb3b83422d1e",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 311.937423102362,
+        "Y": 311.397763284111
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Input",
+        "Id": "fba78e9003fb4910b93f6e1eca70fa50",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 309.913170957388,
+        "Y": 393.070806188233
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Output",
+        "Id": "32d019eae632473ea7d3bcbc1523a69d",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 698.795601319128,
+        "Y": 343.916276815376
+      }
+    ],
+    "Annotations": [],
+    "X": -296.371388948711,
+    "Y": -215.408852040975,
+    "Zoom": 1.78359936238281
+  }
+}

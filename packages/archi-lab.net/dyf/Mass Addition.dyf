@@ -1,0 +1,163 @@
+{
+  "Uuid": "a5b05205-fae4-42bf-96ad-e15977ceda1f",
+  "IsCustomNode": true,
+  "Category": "archilab.Core.Lists",
+  "Description": "This node will attempt to sum all elements contained within it. ",
+  "Name": "Mass Addition",
+  "ElementResolver": {
+    "ResolutionMap": {}
+  },
+  "Inputs": [],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "# Copyright(c) 2016, Konrad K Sobon\n# @arch_laboratory, http://archi-lab.net\n\nimport clr\nclr.AddReference('ProtoGeometry')\nfrom Autodesk.DesignScript.Geometry import *\n\n#The inputs to this node will be stored as a list in the IN variable.\ndataEnteringNode = IN\n\ninput = IN[0]\n\ndef ProcessList(_func, _list):\n\treturn map(lambda x: ProcessList(_func, x) if type(x) == list else _func(x), _list)\n\ndef ConvertToInteger(item):\n\tif item == None:\n\t\treturn 0\n\telif type(item) == str:\n\t\tif item == \"\":\n\t\t\treturn 0\n\t\telse:\n\t\t\treturn int(item)\n\telse:\n\t\treturn item\n\ninput = ProcessList(ConvertToInteger, input)\n\nif any(isinstance(item,list) for item in input):\n\toutput = map(sum,input)\nelse:\n\toutput = sum(input)\n\n#Assign your output to the OUT variable\nOUT = output",
+      "VariableInputPorts": true,
+      "Id": "c9a9d8393d114d04ba881860b2e6ea3d",
+      "Inputs": [
+        {
+          "Id": "9bdcd384ef354324ba197d14eb1012ec",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "8de7dd1ae5c641c4b765cdce2135322c",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded IronPython script."
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Symbol, DynamoCore",
+      "NodeType": "InputNode",
+      "Parameter": {
+        "Name": "_list",
+        "TypeName": "var",
+        "TypeRank": -1,
+        "DefaultValue": null,
+        "Description": ""
+      },
+      "Id": "bebdc0287f3746b6b16811f5ec923919",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "d3f82cd4060f4be4a137761be8efaad7",
+          "Name": "",
+          "Description": "Symbol",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "A function parameter, use with custom nodes.\r\n\r\nYou can specify the type and default value for parameter. E.g.,\r\n\r\ninput : var[]..[]\r\nvalue : bool = false"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Output, DynamoCore",
+      "NodeType": "OutputNode",
+      "Symbol": "_total",
+      "Id": "252e01d5b7184ea8b9d8c3173e1e66af",
+      "Inputs": [
+        {
+          "Id": "638b1a8ea16e48b487472b6b750d5273",
+          "Name": "",
+          "Description": "",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [],
+      "Replication": "Disabled",
+      "Description": "A function output, use with custom nodes"
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "8de7dd1ae5c641c4b765cdce2135322c",
+      "End": "638b1a8ea16e48b487472b6b750d5273",
+      "Id": "49bcfac591f94b8a8d92aacc5f2fc380"
+    },
+    {
+      "Start": "d3f82cd4060f4be4a137761be8efaad7",
+      "End": "9bdcd384ef354324ba197d14eb1012ec",
+      "Id": "0ae2c07977bb4f7b8f396309696cab32"
+    }
+  ],
+  "Dependencies": [],
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": false,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.2.1.5175",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "Background Preview",
+      "EyeX": -17.0,
+      "EyeY": 24.0,
+      "EyeZ": 50.0,
+      "LookX": 12.0,
+      "LookY": -13.0,
+      "LookZ": -58.0,
+      "UpX": 0.0,
+      "UpY": 1.0,
+      "UpZ": 0.0
+    },
+    "NodeViews": [
+      {
+        "ShowGeometry": true,
+        "Name": "Python Script",
+        "Id": "c9a9d8393d114d04ba881860b2e6ea3d",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 473.444063470299,
+        "Y": 195.425720878624
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Input",
+        "Id": "bebdc0287f3746b6b16811f5ec923919",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 352.719578156234,
+        "Y": 198.871891846461
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Output",
+        "Id": "252e01d5b7184ea8b9d8c3173e1e66af",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 657.221329700613,
+        "Y": 198.964563633813
+      }
+    ],
+    "Annotations": [],
+    "X": -512.69215750591,
+    "Y": -182.225013004656,
+    "Zoom": 1.87774416077545
+  }
+}

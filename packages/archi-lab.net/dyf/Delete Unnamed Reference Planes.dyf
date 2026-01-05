@@ -1,0 +1,157 @@
+{
+  "Uuid": "e5692264-872d-4496-ac4c-249ba168f11e",
+  "IsCustomNode": true,
+  "Category": "archilab.Revit.Geometry",
+  "Description": "Does just what the name says. ",
+  "Name": "Delete Unnamed Reference Planes",
+  "ElementResolver": {
+    "ResolutionMap": {}
+  },
+  "Inputs": [],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "#Copyright(c) 2015, Konrad Sobon\n# @arch_laboratory, http://archi-lab.net\n\nimport clr\nclr.AddReference('ProtoGeometry')\nfrom Autodesk.DesignScript.Geometry import *\n\n# Import DocumentManager and TransactionManager\nclr.AddReference(\"RevitServices\")\nimport RevitServices\nfrom RevitServices.Persistence import DocumentManager\nfrom RevitServices.Transactions import TransactionManager\n\n# Import RevitAPI\nclr.AddReference(\"RevitAPI\")\nimport Autodesk\nfrom Autodesk.Revit.DB import *\n\ndoc = DocumentManager.Instance.CurrentDBDocument\nuiapp = DocumentManager.Instance.CurrentUIApplication\napp = uiapp.Application\n\nfrom System.Collections.Generic import *\n\n#The inputs to this node will be stored as a list in the IN variable.\ndataEnteringNode = IN\n\n#define filter rule (name parameter is empty string)\nbip = BuiltInParameter.DATUM_TEXT\nprovider = ParameterValueProvider(ElementId(bip))\nevaluator = FilterStringEquals()\nrule = FilterStringRule(provider, evaluator, \"\", False)\nfilter = ElementParameterFilter(rule)\n\n#collect all unnamed refernce planes\nrefPlanes = FilteredElementCollector(doc).OfClass(ReferencePlane).WherePasses(filter).ToElementIds()\n\n# \"Start\" the transaction\nTransactionManager.Instance.EnsureInTransaction(doc)\n\nnDeleted = 0\nfor i in refPlanes:\n\ttry:\n\t\tdoc.Delete(i)\n\t\tnDeleted += 1\n\texcept:\n\t\tpass\n\t\t\n# \"End\" the transaction\nTransactionManager.Instance.TransactionTaskDone()\n\t\n#Assign your output to the OUT variable\nOUT = \"Successfully Deleted \" + str(nDeleted) + \" Unnamed Reference Planes\"",
+      "VariableInputPorts": true,
+      "Id": "eae38ac78abc492ea663a3363159f5fc",
+      "Inputs": [
+        {
+          "Id": "9a106c9bbd1c4d61876f158bf1de18fc",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "c85f0d896f77481fb430907d791bed71",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded IronPython script."
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "DSCore.List.Empty",
+      "Id": "58f03f87f4104e58a3a9ae89cb73d4f3",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "9ed58b74699248a1a94495cda00baea0",
+          "Name": "list",
+          "Description": "Empty list.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Returns an Empty List.\n\nList.Empty: var[]..[]"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Output, DynamoCore",
+      "NodeType": "OutputNode",
+      "Symbol": "_deleted",
+      "Id": "b38a16caeebb42699c04708034a66311",
+      "Inputs": [
+        {
+          "Id": "09f37e8f120447e8822f5034ca518141",
+          "Name": "",
+          "Description": "",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [],
+      "Replication": "Disabled",
+      "Description": "A function output, use with custom nodes"
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "c85f0d896f77481fb430907d791bed71",
+      "End": "09f37e8f120447e8822f5034ca518141",
+      "Id": "c7f650ba2897411a9ac83e1007cac22c"
+    },
+    {
+      "Start": "9ed58b74699248a1a94495cda00baea0",
+      "End": "9a106c9bbd1c4d61876f158bf1de18fc",
+      "Id": "1308dcd449d9410fa12ab58e68c75230"
+    }
+  ],
+  "Dependencies": [],
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": false,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.2.1.5175",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "Background Preview",
+      "EyeX": -17.0,
+      "EyeY": 24.0,
+      "EyeZ": 50.0,
+      "LookX": 12.0,
+      "LookY": -13.0,
+      "LookZ": -58.0,
+      "UpX": 0.0,
+      "UpY": 1.0,
+      "UpZ": 0.0
+    },
+    "NodeViews": [
+      {
+        "ShowGeometry": true,
+        "Name": "Python Script",
+        "Id": "eae38ac78abc492ea663a3363159f5fc",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 361.282323315064,
+        "Y": 0.0
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "List.Empty",
+        "Id": "58f03f87f4104e58a3a9ae89cb73d4f3",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 228.120079871994,
+        "Y": -0.940800334193597
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Output",
+        "Id": "b38a16caeebb42699c04708034a66311",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 555.90633928946272,
+        "Y": -0.48622044728904257
+      }
+    ],
+    "Annotations": [],
+    "X": -295.493958085275,
+    "Y": 193.217318480395,
+    "Zoom": 2.05668026833428
+  }
+}

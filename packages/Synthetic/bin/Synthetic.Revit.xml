@@ -1,0 +1,2016 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Synthetic.Revit</name>
+    </assembly>
+    <members>
+        <member name="T:Synthetic.Revit.BoundingBoxXYZ">
+            <summary>
+            Wrapper for Revit BoundingBoxXYZ
+            </summary>
+        </member>
+        <member name="M:Synthetic.Revit.BoundingBoxXYZ.GetTransform(Autodesk.Revit.DB.BoundingBoxXYZ)">
+            <summary>
+            Return the BoundingBoxXYZ's transform
+            </summary>
+            <param name="BoundingBoxXYZ"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Synthetic.Revit.BoundingBoxXYZ.GetOrigin(Autodesk.Revit.DB.BoundingBoxXYZ)">
+            <summary>
+            Given a Revit BoundingBoxXYZ, returns its origin point.
+            </summary>
+            <param name="BoundingBoxXYZ"></param>
+            <returns name="Origin"></returns>
+        </member>
+        <member name="M:Synthetic.Revit.BoundingBoxXYZ.GetMax(Autodesk.Revit.DB.BoundingBoxXYZ)">
+            <summary>
+            Get the Revit XYZ Max point of a BoundingBoxXYZ.
+            </summary>
+            <param name="BoundingBoxXYZ">A Revit BoundingBoxXYZ</param>
+            <returns name="XYZ">A Revit XYZ point</returns>
+        </member>
+        <member name="M:Synthetic.Revit.BoundingBoxXYZ.GetMin(Autodesk.Revit.DB.BoundingBoxXYZ)">
+            <summary>
+            Get the Revit XYZ Min point of a BoundingBoxXYZ.
+            </summary>
+            <param name="BoundingBoxXYZ">A Revit BoundingBoxXYZ</param>
+            <returns name="XYZ">A Revit XYZ point</returns>
+        </member>
+        <member name="M:Synthetic.Revit.BoundingBoxXYZ.SetMax(Autodesk.Revit.DB.BoundingBoxXYZ,Autodesk.Revit.DB.XYZ)">
+            <summary>
+            Sets a Revit XYZ Bounding Box's Max point.
+            </summary>
+            <param name="BoundingBoxXYZ">A Revit BoundingBoxXYZ</param>
+            <param name="PointXYZ">A Revit XYZ point</param>
+            <returns name="BoundingBoxXYZ">A Revit BoundingBoxXYZ</returns>
+        </member>
+        <member name="M:Synthetic.Revit.BoundingBoxXYZ.SetMin(Autodesk.Revit.DB.BoundingBoxXYZ,Autodesk.Revit.DB.XYZ)">
+            <summary>
+            Sets a Revit Bounding Box's Min point.
+            </summary>
+            <param name="BoundingBoxXYZ">A Revit BoundingBoxXYZ</param>
+            <param name="PointXYZ">A revit XYZ point</param>
+            <returns name="BoundingBoxXYZ">A Revit BoundingBoxXYZ</returns>
+        </member>
+        <member name="T:Synthetic.Revit.BoundingBoxUV">
+            <summary>
+            Wrapper for Revit BoundingBoxUV elements
+            </summary>
+        </member>
+        <member name="M:Synthetic.Revit.BoundingBoxUV.GetMax(Autodesk.Revit.DB.BoundingBoxUV)">
+            <summary>
+            Get the Revit UV Max point of a BoundingBoxUV.
+            </summary>
+            <param name="BoundingBoxUV">A Revit BoundingBoxXYZ</param>
+            <returns name="UV">A Revit UV point</returns>
+        </member>
+        <member name="M:Synthetic.Revit.BoundingBoxUV.GetMin(Autodesk.Revit.DB.BoundingBoxUV)">
+            <summary>
+            Get the Revit UV Min point of a BoundingBoxUV.
+            </summary>
+            <param name="BoundingBoxUV">A Revit BoundingBoxXYZ</param>
+            <returns name="UV">A Revit UV point</returns>
+        </member>
+        <member name="M:Synthetic.Revit.BoundingBoxUV.SetMax(Autodesk.Revit.DB.BoundingBoxUV,Autodesk.Revit.DB.UV)">
+            <summary>
+            Sets a Revit UV Bounding Box's Max point.
+            </summary>
+            <param name="BoundingBoxUV">A Revit BoundingBoxUV</param>
+            <param name="PointUV">A Revit UV point</param>
+            <returns name="BoundingBoxUV">A Revit BoundingBoxUV</returns>
+        </member>
+        <member name="M:Synthetic.Revit.BoundingBoxUV.SetMin(Autodesk.Revit.DB.BoundingBoxUV,Autodesk.Revit.DB.UV)">
+            <summary>
+            Sets a Revit UV Bounding Box's Min point.
+            </summary>
+            <param name="BoundingBoxUV">A Revit BoundingBoxUV</param>
+            <param name="PointUV">A Revit UV point</param>
+            <returns name="BoundingBoxUV">A Revit BoundingBoxUV</returns>
+        </member>
+        <member name="T:Synthetic.Revit.CollectorFilterRules">
+            <summary>
+            Class for constructing Filter Rule Evaluators
+            </summary>
+        </member>
+        <member name="M:Synthetic.Revit.CollectorFilterRules.FilterStringRules(System.String)">
+            <summary>
+            Given a rule name, returns that type of FilterStringRuleEvaluator.
+            </summary>
+            <param name="ruleName">Name of the FilterStringRuleEvaluator</param>
+            <returns name="StringRule">A Revit FilterStringRuleEvaluator</returns>
+        </member>
+        <member name="M:Synthetic.Revit.CollectorFilterRules.FilterNumericRules(System.String)">
+            <summary>
+            Given a rule name, returns that type of FilterNumericRuleEvaluator.
+            </summary>
+            <param name="ruleName">Name of the FilterNumericRuleEvaluator</param>
+            <returns name="NumericRule">A Revit FilterNumbericRuleEvaluator</returns>
+        </member>
+        <member name="T:Synthetic.Revit.CollectorFilterRules.StringRules">
+            <summary>
+            Enumertion of different String Rules
+            </summary>
+        </member>
+        <member name="F:Synthetic.Revit.CollectorFilterRules.StringRules.FilterStringBeginsWith">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Synthetic.Revit.CollectorFilterRules.StringRules.FilterStringContains">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Synthetic.Revit.CollectorFilterRules.StringRules.FilterStringEndsWith">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Synthetic.Revit.CollectorFilterRules.StringRules.FilterStringEquals">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Synthetic.Revit.CollectorFilterRules.StringRules.FilterStringGreater">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Synthetic.Revit.CollectorFilterRules.StringRules.FilterStringGreaterOrEqual">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Synthetic.Revit.CollectorFilterRules.StringRules.FilterStringLess">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Synthetic.Revit.CollectorFilterRules.StringRules.FilterStringLessOrEqual">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Synthetic.Revit.CollectorFilterRules.NumericRules">
+            <summary>
+            Enumertion of different Numeric Rules
+            </summary>
+        </member>
+        <member name="F:Synthetic.Revit.CollectorFilterRules.NumericRules.FilterNumericEquals">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Synthetic.Revit.CollectorFilterRules.NumericRules.FilterNumericGreater">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Synthetic.Revit.CollectorFilterRules.NumericRules.FilterNumericGreaterOrEqual">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Synthetic.Revit.CollectorFilterRules.NumericRules.FilterNumericLess">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Synthetic.Revit.CollectorFilterRules.NumericRules.FilterNumericLessOrEqual">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Synthetic.Revit.CompoundStructure">
+            <summary>
+            Several Revit system families can be represnted as an assembly of layers called a CompoundStructure.
+            </summary>
+        </member>
+        <member name="M:Synthetic.Revit.CompoundStructure.#ctor(Autodesk.Revit.DB.CompoundStructure,Autodesk.Revit.DB.Document)">
+            <summary>
+            Constructs a CompoundStructure given a Autodesk.Revit.DB.CompoundStructure and a Autodesk.Revit.DB.Document
+            </summary>
+            <param name="cs">Autodesk.Revit.DB.CompoundStructure</param>
+            <param name="doc">Autodesk.Revit.DB.Document</param>
+        </member>
+        <member name="M:Synthetic.Revit.CompoundStructure.#ctor(System.Collections.Generic.List{Autodesk.Revit.DB.CompoundStructureLayer},Autodesk.Revit.DB.Document)">
+            <summary>
+            Creates a Autodesk.Revit.DB.CompoundStructure given a list of Autodesk.Revit.DB.CompoundStructureLayer elements
+            </summary>
+            <param name="layers">A list of CompoundStructureLayer elements</param>
+            <param name="doc">Autodesk.Revit.DB.Document</param>
+            <returns name="RevitCompoundStructure">A Autodesk.Revit.DB.CompoundStructure</returns>
+        </member>
+        <member name="M:Synthetic.Revit.CompoundStructure._RevitLayerToDictionary(Autodesk.Revit.DB.CompoundStructureLayer,Autodesk.Revit.DB.Document)">
+            <summary>
+            Returns the properties of a Autodesk.Revit.DB.CompoundStructureLayer as a dictionary.
+            </summary>
+            <param name="layer">Autodesk.Revit.DB.CompoundStructureLayer</param>
+            <param name="doc">Autodesk.Revit.DB.Document</param>
+            <returns></returns>
+        </member>
+        <member name="M:Synthetic.Revit.CompoundStructure._GetLayers(Autodesk.Revit.DB.CompoundStructure,Autodesk.Revit.DB.Document)">
+            <summary>
+            Returns a list of dictionaries with Autodesk.Revit.DB.CompoundStructureLayer properties.
+            </summary>
+            <param name="cs">Autodesk.Revit.DB.CompoundStructure</param>
+            <param name="doc">Autodesk.Revit.DB.Document</param>
+            <returns></returns>
+        </member>
+        <member name="M:Synthetic.Revit.CompoundStructure._CopyToDocument(Synthetic.Revit.CompoundStructure,Autodesk.Revit.DB.Document)">
+            <summary>
+            Creates Synthetic.Revit.CompoundStructure in a destination document by changing the material ids to correspond to materials in the destination document.  Materials not in the destination document are copied into the document.
+            </summary>
+            <param name="compoundStructure">A Synthetic.Revit.CompoundStructure from the source document</param>
+            <param name="destinationDoc">The document to copy the CompoundStructure into.</param>
+            <returns name="compoundStructure">A Synthetic.Revit.CompoundStructure in the destination document.</returns>
+        </member>
+        <member name="M:Synthetic.Revit.CompoundStructure.ByLayerProperties(System.Collections.Generic.IList{System.Double},System.Collections.Generic.IList{Autodesk.Revit.DB.MaterialFunctionAssignment},System.Collections.Generic.IList{Autodesk.Revit.DB.Material},Autodesk.Revit.DB.Document)">
+            <summary>
+            Creates a Synthetic.Revit.CompoundStructure given lists of layer properties.  Please note that layers will only be made with the shortest number of complete layer properties.  For example if five widths and layer functions are provided but only four materials, only four layers will be created.
+            </summary>
+            <param name="width">List with the width of each layer.</param>
+            <param name="layerFunction">List with the Autodesk.Revit.DB.MaterialFunctionAssignment enumerations for each layer.</param>
+            <param name="material">List of Autodesk.Revit.DB.Materials for each layer.  Dynamo wrapped Revit.Material objects will not work.</param>
+            <param name="document">An unwrapped document associated with the CompoundStructure.</param>
+            <returns name="compoundStructure">A Compound Structure.</returns>
+        </member>
+        <member name="M:Synthetic.Revit.CompoundStructure.ByLayerDictionary(System.Collections.Generic.IList{System.Collections.Generic.Dictionary{System.String,System.Object}},Autodesk.Revit.DB.Document)">
+            <summary>
+            Creates a compound structure from a list of dictionary layer properties.
+            </summary>
+            <param name="layers">A list of dictionary objects with layer properties.</param>
+            <param name="document">An unwrapped document associated with the CompoundStructure.</param>
+            <returns name="compoundStructure">A Compound Structure.</returns>
+        </member>
+        <member name="M:Synthetic.Revit.CompoundStructure.ByCompoundStructureLayers(System.Collections.Generic.List{Autodesk.Revit.DB.CompoundStructureLayer},Autodesk.Revit.DB.Document)">
+            <summary>
+            Creates a CompoundStructure from a list of Autodesk.Revit.DB.CompoundStructureLayer elements.
+            </summary>
+            <param name="layers">A list of Autodesk.Revit.DB.CompoundStructureLayer elements.</param>
+            <param name="document">An unwrapped document associated with the CompoundStructure.</param>
+            <returns name="compoundStructure">A Compound Structure.</returns>
+        </member>
+        <member name="M:Synthetic.Revit.CompoundStructure.FromWallType(Revit.Elements.WallType,Autodesk.Revit.DB.Document)">
+            <summary>
+            Creates a compound structure from a wall type.
+            </summary>
+            <param name="wallType">A Dynamo wrapped Revit.WallType.</param>
+            <param name="document">An unwrapped document associated with the CompoundStructure.</param>
+            <returns name="compoundStructure">A Compound Structure.</returns>
+        </member>
+        <member name="M:Synthetic.Revit.CompoundStructure.Wrap(Autodesk.Revit.DB.CompoundStructure,Autodesk.Revit.DB.Document)">
+            <summary>
+            Given a Autodesk.Revit.DB.CompoundStructure, creates a Synthetic.Revit.CompoundStructure.
+            </summary>
+            <param name="compoundStructure">A Autodesk.Revit.DB.CompoundStructure</param>
+            <param name="document">An unwrapped document associated with the CompoundStructure.</param>
+            <returns name="compoundStructure">A Compound Structure.</returns>
+        </member>
+        <member name="M:Synthetic.Revit.CompoundStructure.UnwrapCompoundStructure(Synthetic.Revit.CompoundStructure)">
+            <summary>
+            Retrieves the Autodesk.Revit.DB.CompoundStructure from a Synthetic.Revit.CompoundStructure object.  This is useful for using CompoundStructures in python scripts or other methods of accessing the Revit API directly.
+            </summary>
+            <param name="compoundStructure">An Synthetic.Revit.CompoundStructure</param>
+            <returns name="Unwrapped">Autodesk.Revit.DB.CompoundStructure</returns>
+        </member>
+        <member name="M:Synthetic.Revit.CompoundStructure.ToWallType(Revit.Elements.WallType,Synthetic.Revit.CompoundStructure)">
+            <summary>
+            Replaces a Wall Type's compound structure with the given one.  Please note that the compound structure's materials and the wall type must be in the same document or unexpected results may occur.
+            </summary>
+            <param name="WallType">The wall type to be modified.</param>
+            <param name="compoundStructure">A compound structure</param>
+            <returns name="wallType">The modified wall type.</returns>
+        </member>
+        <member name="M:Synthetic.Revit.CompoundStructure.SetLayer(Synthetic.Revit.CompoundStructure,System.Int32,System.Double,Autodesk.Revit.DB.MaterialFunctionAssignment,Autodesk.Revit.DB.Material)">
+            <summary>
+            Sets the properties of a layer at the specified index in the CompoundStructure.
+            </summary>
+            <param name="compoundStructure">The CompoundStructure to modify.</param>
+            <param name="layerIndex">Index of the layer to be modified.</param>
+            <param name="width">Width of the layer.</param>
+            <param name="layerFunction">Autodesk.Revit.DB.MaterialFunctionAssignment enumeration of the layer.</param>
+            <param name="material">Autodesk.Revit.DB.Materials of the layer.  Dynamo wrapped Revit.Material objects will not work.</param>
+            <returns name="compoundStructure">The modified CompoundStructure.</returns>
+        </member>
+        <member name="M:Synthetic.Revit.CompoundStructure.InsertLayerAtIndex(Synthetic.Revit.CompoundStructure,System.Int32,System.Double,Autodesk.Revit.DB.MaterialFunctionAssignment,Autodesk.Revit.DB.Material)">
+            <summary>
+            Creates a new layer at the specified index in the CompoundStructure.
+            </summary>
+            <param name="compoundStructure">The CompoundStructure to modify.</param>
+            <param name="layerIndex">Index of the layer to be inserted.</param>
+            <param name="width">Width of the layer.</param>
+            <param name="layerFunction">Autodesk.Revit.DB.MaterialFunctionAssignment enumeration of the layer.</param>
+            <param name="material">Autodesk.Revit.DB.Materials of the layer.  Dynamo wrapped Revit.Material objects will not work.</param>
+            <returns name="compoundStructure">The modified CompoundStructure.</returns>
+        </member>
+        <member name="M:Synthetic.Revit.CompoundStructure.DeleteLayer(Synthetic.Revit.CompoundStructure,System.Int32)">
+            <summary>
+            Removes a layer at the specified index in the CompoudStructure.
+            </summary>
+            <param name="compoundStructure">The CompoundStructure to modify.</param>
+            <param name="layerIndex">Index of the layer to be deleted.</param>
+            <returns name="compoundStructure">The modified CompoundStructure.</returns>
+        </member>
+        <member name="M:Synthetic.Revit.CompoundStructure.CopyToDocument(Synthetic.Revit.CompoundStructure,Autodesk.Revit.DB.Document)">
+            <summary>
+            Creates Synthetic.Revit.CompoundStructure in a destination document by changing the material ids to correspond to materials in the destination document.  Materials not in the destination document are copied into the document.
+            </summary>
+            <param name="compoundStructure">A Synthetic.Revit.CompoundStructure from the source document</param>
+            <param name="destinationDocument">The document to copy the CompoundStructure into.</param>
+            <returns name="compoundStructure">A Synthetic.Revit.CompoundStructure in the destination document.</returns>
+        </member>
+        <member name="M:Synthetic.Revit.CompoundStructure.GetLayers(Synthetic.Revit.CompoundStructure)">
+            <summary>
+            Retrieves a list of the properties of the layers in the CompoundStructure.
+            </summary>
+            <param name="compoundStructure">A CompoundStructure</param>
+            <returns name="layers">A list of properties for each layer.  Note that the layers are dictionaries and properties can be retrieved using the keys "Width", "Layer Function", and "Material".</returns>
+        </member>
+        <member name="M:Synthetic.Revit.CompoundStructure.GetLayerWidth(Synthetic.Revit.CompoundStructure,System.Int32)">
+            <summary>
+            Retrieves the width of a layer at the specified index.
+            </summary>
+            <param name="compoundStructure">A CompoundStructure</param>
+            <param name="layerIndex">Index of the layer</param>
+            <returns name="Width">Width of the layer</returns>
+        </member>
+        <member name="M:Synthetic.Revit.CompoundStructure.GetLayerFunction(Synthetic.Revit.CompoundStructure,System.Int32)">
+            <summary>
+            Retrieves the Autodesk.Revit.DB.MaterialFunctionAssignment of the layer at the specified index.
+            </summary>
+            <param name="compoundStructure">A CompoundStructure</param>
+            <param name="layerIndex">Index of the layer</param>
+            <returns name="layerFunction">The material function of the layer</returns>
+        </member>
+        <member name="M:Synthetic.Revit.CompoundStructure.GetLayerMaterial(Synthetic.Revit.CompoundStructure,System.Int32)">
+            <summary>
+            Retrieves the Autodesk.Revit.DB.Material of the layer at the specified index.
+            </summary>
+            <param name="compoundStructure">A CompoundStructure</param>
+            <param name="layerIndex">Index of the layer</param>
+            <returns name="material">The material of the layer as a Autodesk.Revit.DB.Material, not a Dynamo wrapped Revit.Material.</returns>
+        </member>
+        <member name="M:Synthetic.Revit.CompoundStructure.GetLayerMaterialId(Synthetic.Revit.CompoundStructure,System.Int32)">
+            <summary>
+            Retrieves the material ID of the material for the layer at the specified index.
+            </summary>
+            <param name="compoundStructure">A CompoundStructure</param>
+            <param name="layerIndex">Index of the layer</param>
+            <returns name="materialId">The Element ID of the material for the layer.</returns>
+        </member>
+        <member name="M:Synthetic.Revit.CompoundStructure.GetFirstCoreLayerIndex(Synthetic.Revit.CompoundStructure)">
+            <summary>
+            Retrieves the index value of the most exterior core layer.
+            </summary>
+            <param name="compoundStructure">A CompoundStructure</param>
+            <returns name="index">List index</returns>
+        </member>
+        <member name="M:Synthetic.Revit.CompoundStructure.GetLastCoreLayerIndex(Synthetic.Revit.CompoundStructure)">
+            <summary>
+            Retrieves the index value of the most interior core layer.
+            </summary>
+            <param name="compoundStructure">A CompoundStructure</param>
+            <returns name="index">List index</returns>
+        </member>
+        <member name="M:Synthetic.Revit.CompoundStructure.SetLayerWidth(Synthetic.Revit.CompoundStructure,System.Int32,System.Double)">
+            <summary>
+            Sets the width of the layer at the specified index.
+            </summary>
+            <param name="compoundStructure">A CompoundStructure</param>
+            <param name="layerIndex">Index of the layer</param>
+            <param name="width">Width of the layer</param>
+            <returns name="compoundStructure">The modifed CompoundStructure</returns>
+        </member>
+        <member name="M:Synthetic.Revit.CompoundStructure.SetLayerFunction(Synthetic.Revit.CompoundStructure,System.Int32,Autodesk.Revit.DB.MaterialFunctionAssignment)">
+            <summary>
+            Sets the Autodesk.Revit.DB.MaterialFunctionAssignment of the layer at the specified index.
+            </summary>
+            <param name="compoundStructure">A CompoundStructure</param>
+            <param name="layerIndex">Index of the layer</param>
+            <param name="layerFunction">The material function of the layer</param>
+            <returns name="compoundStructure">The modifed CompoundStructure</returns>
+        </member>
+        <member name="M:Synthetic.Revit.CompoundStructure.SetLayerMaterial(Synthetic.Revit.CompoundStructure,System.Int32,Autodesk.Revit.DB.Material)">
+            <summary>
+            Sets the material of the layer at the specified index.
+            </summary>
+            <param name="compoundStructure">A CompoundStructure</param>
+            <param name="layerIndex">Index of the layer</param>
+            <param name="material">A Autodesk.Revit.DB.Material element for the layer.  A Dynamo wrapped Revit.Material element will not work.</param>
+            <returns name="compoundStructure">The modifed CompoundStructure</returns>
+        </member>
+        <member name="M:Synthetic.Revit.CompoundStructure.SetLayerMaterialId(Synthetic.Revit.CompoundStructure,System.Int32,System.Int32)">
+            <summary>
+            Sets the material of the layer at the specified index.
+            </summary>
+            <param name="compoundStructure">A CompoundStructure</param>
+            <param name="layerIndex">Index of the layer</param>
+            <param name="materialId">The Element ID of the material of the layer.</param>
+            <returns name="compoundStructure">The modifed CompoundStructure</returns>
+        </member>
+        <member name="M:Synthetic.Revit.CompoundStructure.SetNumberOfExteriorLayers(Synthetic.Revit.CompoundStructure,System.Int32)">
+            <summary>
+            Sets the number of layers that will be exterior of the core.
+            </summary>
+            <param name="compoundStructure">A CompoundStructure</param>
+            <param name="numLayers">Number of exterior layers</param>
+            <returns name="compoundStructure">The modifed CompoundStructure</returns>
+        </member>
+        <member name="M:Synthetic.Revit.CompoundStructure.SetNumberOfInteriorLayers(Synthetic.Revit.CompoundStructure,System.Int32)">
+            <summary>
+            Sets the number of layers that will be exterior of the core.
+            </summary>
+            <param name="compoundStructure">A CompoundStructure</param>
+            <param name="numLayers">Number of interior layers</param>
+            <returns name="compoundStructure">The modifed CompoundStructure</returns>
+        </member>
+        <member name="M:Synthetic.Revit.CompoundStructure.GetCompoundStructureLayers(Synthetic.Revit.CompoundStructure)">
+            <summary>
+            Retrieves the Autodesk.Revit.DB.CompoundStructureLayer elements from the CompoundStructure.  For use with python or other methods for using the Revit API directly.
+            </summary>
+            <param name="compoundStructure">A CompoundStructure</param>
+            <returns name="CompoundStructureLayers">A list of CompoundStructureLayer elements</returns>
+        </member>
+        <member name="M:Synthetic.Revit.CompoundStructure.SetCompoundStructureLayers(Synthetic.Revit.CompoundStructure,System.Collections.Generic.IList{Autodesk.Revit.DB.CompoundStructureLayer})">
+            <summary>
+            Sets the layers for the CompoundStructure with a list of Autodesk.Revit.DB.CompoundStructureLayer elements from the CompoundStructure.  For use with python or other methods for using the Revit API directly.
+            </summary>
+            <param name="compoundStructure">A CompoundStructure</param>
+            <param name="compoundStructureLayers">A list of Autodesk.Revit.DB.CompoundStructureLayer elements</param>
+            <returns name="compoundStructure">The modified CompoundStructure</returns>
+        </member>
+        <member name="M:Synthetic.Revit.CompoundStructure.CompoundStructureLayerToDictionary(Autodesk.Revit.DB.CompoundStructureLayer,Autodesk.Revit.DB.Document)">
+            <summary>
+            Retrives the properties of a Autodesk.Revit.DB.CompoundStructureLayer element.
+            </summary>
+            <param name="compoundStructureLayer">A CompoundStructureLayer</param>
+            <param name="document">An unwrapped document associated with the CompoundStructure.</param>
+            <returns name="dict">A dictionary element containing the layer properties.  Note that the layers are dictionaries and properties can be retrieved using the keys "Width", "Layer Function", and "Material".</returns>
+        </member>
+        <member name="M:Synthetic.Revit.CompoundStructure.CompoundStructureLayerToList(Autodesk.Revit.DB.CompoundStructureLayer,Autodesk.Revit.DB.Document)">
+            <summary>
+            Retrives the properties of a Autodesk.Revit.DB.CompoundStructureLayer element.
+            </summary>
+            <param name="compoundStructureLayer">A CompoundStructureLayer</param>
+            <param name="document">An unwrapped document associated with the CompoundStructure.</param>
+            <returns name="Width">Width of the layer.</returns>
+            <returns name="Layer Function">Autodesk.Revit.DB.MaterialFunctionAssignment enumeration of the layer.</returns>
+            <returns name="Material">Autodesk.Revit.DB.Material of the layer.</returns>
+        </member>
+        <member name="M:Synthetic.Revit.CompoundStructure.CompoundStructureLayerByList(System.Double,Autodesk.Revit.DB.MaterialFunctionAssignment,Autodesk.Revit.DB.ElementId)">
+            <summary>
+            Creates a CompoundStructureLayer from properties of the layer.
+            </summary>
+            <param name="width">Width of the layer.</param>
+            <param name="layerFunction">Autodesk.Revit.DB.MaterialFunctionAssignment enumeration of the layer.</param>
+            <param name="materialId">The Element ID of the material for the layer.</param>
+            <returns name="layer">A CompoundStructureLayer element.</returns>
+        </member>
+        <member name="M:Synthetic.Revit.CompoundStructure.ToString">
+            <summary>
+            Creates a string representation of the object.
+            </summary>
+            <returns nampe="string">A string representation of the object.</returns>
+        </member>
+        <member name="T:Synthetic.Revit.DesignOptions">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Synthetic.Revit.DesignOptions.GetDesignOptionsBySet(System.String,Autodesk.Revit.DB.Document)">
+            <summary>
+            Given the name of the design option set, returns a list of set's design options.
+            </summary>
+            <param name="DesignOptionSetName">The name of the Design Option Set</param>
+            <param name="document">A Autodesk.Revit.DB.Document object.  This does not work with Dynamo document objects.</param>
+            <returns name="DesignOptions">A list of design options that belong to the DesignOptionSet</returns>
+        </member>
+        <member name="M:Synthetic.Revit.DesignOptions.DesignOptionSets(Autodesk.Revit.DB.Document)">
+            <summary>
+            Gets all DesignOptionSets in the document
+            </summary>
+            <param name="document">A Autodesk.Revit.DB.Document object.  This does not work with Dynamo document objects.</param>
+            <returns name="DesignOptionSets">The design option sets in the document</returns>
+        </member>
+        <member name="T:Synthetic.Revit.Document">
+            <summary>
+            Document utilities for managing Autodesk.DB.Document's for use with the Revit API.
+            </summary>
+        </member>
+        <member name="M:Synthetic.Revit.Document.Current">
+            <summary>
+            Retreives the current document for use with the Revit API rather than in Dynamo.
+            </summary>
+            <returns name="Document">Returns a Autodesk.DB.Document object of the current document.</returns>
+        </member>
+        <member name="M:Synthetic.Revit.Document.GetAllOpen">
+            <summary>
+            Retreives the current document for use with the Revit API rather than in Dynamo.
+            </summary>
+            <returns name="Documents">Returns a Autodesk.DB.Document object of the current document.</returns>
+        </member>
+        <member name="M:Synthetic.Revit.Document.DocumentFromPath(System.String)">
+            <summary> 
+            If the document is currently open, returns the doucment object given the file path. 
+            </summary> 
+            <param name="filePath"></param> 
+            <returns></returns> 
+        </member>
+        <member name="M:Synthetic.Revit.Document.UnwrapDocument(Revit.Application.Document)">
+            <summary>
+            Unwraps a dynamo Revit document.  Document needs to be open in the applications, otherwise return null.
+            </summary>
+            <param name="document">A Dynamo wrapped Revit Document</param>
+            <returns name="Revit Document">A unwrapped Revit document.  Document needs to be open in the application, otherwise return null.</returns>
+        </member>
+        <member name="M:Synthetic.Revit.Document.Title(Autodesk.Revit.DB.Document)">
+            <summary>
+            Retrieves the title of a Revit document.  Only works with Autodesk.DB.Document objects, not Dynamo based Revit.Document objects.
+            </summary>
+            <param name="doc">A Autodesk.DB.Document.  This will not work with a Dynamo based Revit.Document object. </param>
+            <returns name="Title">The title of the document</returns>
+        </member>
+        <member name="M:Synthetic.Revit.Document.IsFamilyDocument(Autodesk.Revit.DB.Document)">
+            <summary>
+            Tests whether a document is a family or not.
+            </summary>
+            <param name="doc">A Autodesk.DB.Document.  This will not work with a Dynamo based Revit.Document object. </param>
+            <returns name="Is a family">True is the document is a family, false if it not.</returns>
+        </member>
+        <member name="M:Synthetic.Revit.Document.FilePath(Autodesk.Revit.DB.Document)">
+            <summary>
+            Retrives the file path of the document
+            </summary>
+            <param name="document"></param>
+            <returns name="File Path">Returns a string of the file path.</returns>
+        </member>
+        <member name="M:Synthetic.Revit.Document.EnableWorksharing(Autodesk.Revit.DB.Document)">
+            <summary>
+            Enables worksharing in the document.
+            </summary>
+            <param name="document">A Revit document.</param>
+            <returns name="document">The Revit document.  Returns null if worksharing cannot be enabled.</returns>
+        </member>
+        <member name="M:Synthetic.Revit.Document.IsWorkshared(Autodesk.Revit.DB.Document)">
+            <summary>
+            Checks if worksharing is enabled in a document.
+            </summary>
+            <param name="document">A Revit document.</param>
+            <returns name="bool">True is workshared, false if not.</returns>
+        </member>
+        <member name="M:Synthetic.Revit.Document.Open(System.String,System.Boolean)">
+            <summary>
+            Opens a document from disk.  The document will not be visible to the user.
+            </summary>
+            <param name="modelPath">Path to the document.</param>
+            <param name="reset">Resets the node to reopen the document.</param>
+            <returns name="document">The opened revit document.</returns>
+        </member>
+        <member name="M:Synthetic.Revit.Document.OpenWithOptions(System.String,Autodesk.Revit.DB.WorksetConfiguration,System.Boolean,System.Boolean)">
+            <summary>
+            Opens a document from disk.  The document will not be visible to the user.  This version allows for opening or closing of worksets while opening the file.
+            </summary>
+            <param name="modelPath">Path to the document.</param>
+            <param name="worksetConfiguration">An object that describes what worksets to open when the project is open.</param>
+            <param name="audit">Set true to audit the file on opening</param>
+            <param name="reset">Resets the node to reopen the document.</param>
+            <returns name="document">The opened revit document.</returns>
+        </member>
+        <member name="M:Synthetic.Revit.Document.Close(Autodesk.Revit.DB.Document,System.Boolean)">
+            <summary>
+            Closes a document if it isn't the active document.  By default, the document will NOT be saved when closed.
+            </summary>
+            <param name="document">A revit document.  Cannot be the active document.</param>
+            <param name="save">If true, the document will be saved.  If false, the document will not be saved.</param>
+            <returns name="bool">Returns true is the document was closed, false otherwise.  Returns false if saving was requested but failed</returns>
+        </member>
+        <member name="M:Synthetic.Revit.Document.Upgrade(System.String,System.Boolean)">
+            <summary>
+            Opens a document with all user worksets closed, , upgrading the document in the process, then closes and saves the file.  With all worksets closed, none of the links will open, improving the speed of the process.
+            </summary>
+            <param name="modelPath">Path to the document.</param>
+            <param name="reset">Resets the node to reopen the document.</param>
+            <returns name="bool">Returns true is the document was closed, false otherwise.  Returns false if saving was requested but failed</returns>
+        </member>
+        <member name="M:Synthetic.Revit.Document.UpgradeAuditCompact(System.String,System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="modelPath"></param>
+            <param name="reset"></param>
+            <returns name="bool">Returns true if document successfully closed.</returns>
+        </member>
+        <member name="M:Synthetic.Revit.Document.SynchronizeWithCentral(Autodesk.Revit.DB.Document,Autodesk.Revit.DB.SynchronizeWithCentralOptions,System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Synchronize a document with central
+            </summary>
+            <param name="document">A Autodesk.Revit.DB.Document object</param>
+            <param name="syncOptions">A Autodesk.Revit.DB.SynchronizeWithCentralOptions object.  Creates a default object by default.</param>
+            <param name="comment">Syncrhonization comments.</param>
+            <param name="compact">If true, compact the model while saving.</param>
+            <param name="execute">If True synchoronize with central.</param>
+        </member>
+        <member name="M:Synthetic.Revit.Document.GetLinkedRevit(Autodesk.Revit.DB.Document)">
+            <summary>
+            Get all the linked Revit documents in a document.
+            </summary>
+            <param name="document">A revit document.</param>
+            <returns name="Documents">Revit documents.</returns>
+            <returns name="Titles">The file paths of the linked documents.</returns>
+        </member>
+        <member name="M:Synthetic.Revit.Document.GetStartViewId(Autodesk.Revit.DB.Document)">
+            <summary>
+            Gets the ElementId of the current starting view for the document.  If InvalidElementId is returned, then no view is specified and the last view opened will be used.
+            </summary>
+            <param name="document">A Autodesk.Revit.DB.Document object</param>
+            <returns name="ViewId">The ElementId of the view or sheet</returns>
+        </member>
+        <member name="M:Synthetic.Revit.Document.SetStartViewId(Autodesk.Revit.DB.Document,Autodesk.Revit.DB.ElementId)">
+            <summary>
+            Sets the starting view for the document using the view's ElementId.  If InvalidElementId is set, then no view is specified and the last view opened will be used.
+            </summary>
+            <param name="document">A Autodesk.Revit.DB.Document object</param>
+            <param name="viewId">The ElementId of the view or sheet</param>
+            <returns name="ViewId">The ElementId of the view currently set as the starting view.  If null, then the view could not be set.</returns>
+        </member>
+        <member name="M:Synthetic.Revit.Document.WorksetConfigurationOpenAll">
+            <summary>
+            Returns a WorksetConfiguration that opens all worksets by default.
+            </summary>
+            <returns name="WorksetConfiguration">A WorksetConfiguration that opens all worksets</returns>
+        </member>
+        <member name="M:Synthetic.Revit.Document.WorksetConfigurationCloseAll">
+            <summary>
+            Returns a WorksetConfiguration that closes all worksets by default.
+            </summary>
+            <returns name="WorksetConfiguration">A WorksetConfiguration that closes all worksets</returns>
+        </member>
+        <member name="M:Synthetic.Revit.Document.SynchronizeWithCentralOptions">
+            <summary>
+            Creates a default SynchronizeWithCentralOptions object.
+            </summary>
+            <returns name="SyncOptions">A default SynchronizeWithCentralOptions object</returns>
+        </member>
+        <member name="M:Synthetic.Revit.Document.AuditProjectFamilies(Autodesk.Revit.DB.Document,System.Boolean)">
+            <summary>
+            Opens all the Families in a project to test if any have been corrupted.
+            </summary>
+            <param name="document">A Revit Document</param>
+            <param name="execute">If true, run the node, otherwise the node will not run.</param>
+            <returns name="results">Returns a text string of the results of opening each family.</returns>
+        </member>
+        <member name="T:Synthetic.Revit.ElementId">
+            <summary>
+            Nodes for managing Autodesk.Revit.DB.ElementId objects.
+            </summary>
+        </member>
+        <member name="M:Synthetic.Revit.ElementId.ByInt(System.Int32)">
+            <summary>
+            Creates a Autodesk.Revit.DB.ElementId object from an integer
+            </summary>
+            <param name="integer">The ElementId as an integer</param>
+            <returns name="ElementId">Returns an Autodesk.Revit.DB.ElementId object</returns>
+        </member>
+        <member name="M:Synthetic.Revit.ElementId.ByString(System.String)">
+            <summary>
+            Creates a Autodesk.Revit.DB.ElementId object from a string representation of a integer
+            </summary>
+            <param name="str">The ElementId as an string.</param>
+            <returns name="ElementId">Returns an Autodesk.Revit.DB.ElementId object</returns>
+        </member>
+        <member name="M:Synthetic.Revit.ElementId.ToInt(Autodesk.Revit.DB.ElementId)">
+            <summary>
+            Returns the integer value of the Autodesk.Revit.DB.ElementId
+            </summary>
+            <param name="elementId">A Autodesk.Revit.DB.ElementId</param>
+            <returns name="integer">The integer value of the Autodesk.Revit.DB.ElementId</returns>
+        </member>
+        <member name="T:Synthetic.Revit.Elements">
+            <summary>
+            Manipulation and modification of Dynamo wrapped Revit elements.
+            </summary>
+        </member>
+        <member name="M:Synthetic.Revit.Elements.Document(Revit.Elements.Element)">
+            <summary>
+            Gets an elements document
+            </summary>
+            <param name="Element">A dynamo wrapped element</param>
+            <returns name="Document">A Autodesk.Revit.DB.Document</returns>
+        </member>
+        <member name="M:Synthetic.Revit.Elements.SetParamterByDictionary(Revit.Elements.Element,Synthetic.Core.Dictionary)">
+            <summary>
+            Sets an element's parameters based on a Dictionary object with the Key being the parameter name and the Value being the parameter value.
+            </summary>
+            <param name="element">A Dynamo wrapped element.</param>
+            <param name="dictionary">A Synthetic Dictionary</param>
+            <returns></returns>
+        </member>
+        <member name="M:Synthetic.Revit.Elements.GetParamterToDictionary(Revit.Elements.Element,System.Collections.Generic.List{System.String})">
+            <summary>
+            Gets the listed parameters of an element and returns a Dictionary with the Key being the parameter name and the Value being the parameter value.
+            </summary>
+            <param name="element">A Dynamo wrapped element.</param>
+            <param name="parameterNames">A list of parameter names.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Synthetic.Revit.Elements.TransferParameters(Revit.Elements.Element,Revit.Elements.Element)">
+            <summary>
+            Overwrite an elements parameters with the parameter values from a source element.
+            </summary>
+            <param name="Element">Destination element</param>
+            <param name="SourceElement">Source element for the parameter values</param>
+            <returns name="Element">The destination element</returns>
+        </member>
+        <member name="M:Synthetic.Revit.Elements.CopyElements(Autodesk.Revit.DB.Document,System.Collections.Generic.List{System.Int32},Autodesk.Revit.DB.Document)">
+            <summary>
+            Copy elements to the same location between documents.  Can be used to copy system types or view templates between documents.  Model elements are copied in the same location.  If the elements already exist, Revit will give you an option to either duplicate the types or cancel the operation.  Please note that documents are to be a Autodesk.Revit.DB.Document objects, not a Dynamo wrapped Revit Document.
+            </summary>
+            <param name="sourceDoc">The source document to copy items from.</param>
+            <param name="elementIds">List of Element Ids of elements to be copied.</param>
+            <param name="destinationDoc">The destination document.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Synthetic.Revit.Elements.TransferElements(Autodesk.Revit.DB.Element,Autodesk.Revit.DB.Element)">
+            <summary>
+            Overwrites the parameters of an element with the parameters of an element from a different document.  Associated elements such as materials may be duplicated in the document.
+            </summary>
+            <param name="Element"></param>
+            <param name="SourceElement"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Synthetic.Revit.Elements.MergeElementTypes(Revit.Elements.Element,Revit.Elements.Element)">
+            <summary>
+            Merges ElementType FromType into ToType.  FromType will be deleted if all instances of the Type are successfully changed.  Elements in groups will not be changed.
+            </summary>
+            <param name="FromType">All instances of this ElementType will be merged into the ToType and the Type will be deleted.</param>
+            <param name="ToType">ElementType to merge into.</param>
+            <returns name="Merged">A list of instances that were successfully changed to ToType</returns>
+            <returns name="Failed">A list of instances that failed to changed to ToType</returns>
+        </member>
+        <member name="M:Synthetic.Revit.Elements.FilterByParameterValue(Revit.Elements.Element,System.Collections.Generic.List{System.String},System.String)">
+            <summary>
+            Tests whether the element has a parameter of a given value.  Returns true if the parameter has an equal value and false otherwise.  A list of parameters names can be given to test against values in elements within parameters.  For example, one can test for a type description from a instance by creating a list of each parameter.  Please note that the comparision is done using the string representation of each parameter.
+            </summary>
+            <param name="element">A dynamo wrapped Revit element.</param>
+            <param name="parameterNames">A list of parameter names.  The parameters in the list will each be retrieved iteratively.  So the first name is on the input element, the next name on the element returned from the first parameter and so on.</param>
+            <param name="value">A parameter value as a string.</param>
+            <returns name="Filter">True if the element's parameter equals the input value, otherwise false.</returns>
+        </member>
+        <member name="M:Synthetic.Revit.Elements.GetByElementId(Autodesk.Revit.DB.ElementId,Autodesk.Revit.DB.Document)">
+            <summary>
+            Gets an element given the ElementId
+            </summary>
+            <param name="elementId">A Autodesk.Revit.DB.ElementId</param>
+            <param name="document">Document that the element is in.</param>
+            <returns name="Element">Returns a unwrapped Autodesk.Revit.DB.Element</returns>
+        </member>
+        <member name="M:Synthetic.Revit.Elements.GetByUniqueId(System.String,Autodesk.Revit.DB.Document)">
+            <summary>
+            Gets an element given its UniqueId
+            </summary>
+            <param name="UniqueId">A UniqueId as a string</param>
+            <param name="document">Document that the element is in.</param>
+            <returns name="Element">Returns a unwrapped Autodesk.Revit.DB.Element</returns>
+        </member>
+        <member name="M:Synthetic.Revit.Elements.Id(System.Object)">
+            <summary>
+            Gets a Element's ElementId
+            </summary>
+            <param name="Element">A Autodesk.Revit.DB.Element, NOT a Dynamo wrapped element</param>
+            <returns name="ElementId">The Autodesk.Revit.DB.ElementId</returns>
+        </member>
+        <member name="M:Synthetic.Revit.Elements.Name(System.Object)">
+            <summary>
+            Gets a Element's name
+            </summary>
+            <param name="Element">A Autodesk.Revit.DB.Element, NOT a Dynamo wrapped element</param>
+            <returns name="Name">The name of the element</returns>
+        </member>
+        <member name="M:Synthetic.Revit.Elements.UniqueId(System.Object)">
+            <summary>
+            Gets a Element's UniqueId
+            </summary>
+            <param name="Element">A Autodesk.Revit.DB.Element, NOT a Dynamo wrapped element</param>
+            <returns name="UniqueId">The UniqueId of the element</returns>
+        </member>
+        <member name="M:Synthetic.Revit.Elements.CastRevitElement(System.Object)">
+            <summary>
+            If the object 
+            </summary>
+            <param name="Object"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Synthetic.Revit.Elements.PaintElement(Revit.Elements.Element,Autodesk.Revit.DB.ElementId)">
+            <summary>
+            Paints every face in an element with a material
+            </summary>
+            <param name="Element">The element to paint</param>
+            <param name="MaterialId">The material to paint</param>
+            <returns name="Element">The modified element</returns>
+        </member>
+        <member name="M:Synthetic.Revit.Elements.RemovePaintElement(Revit.Elements.Element)">
+            <summary>
+            Removes all painted faces on an elementl
+            </summary>
+            <param name="Element">The element to removve painted faces</param>
+            <returns name="Element">The modified element</returns>
+        </member>
+        <member name="M:Synthetic.Revit.Elements.WrapRevitElement(Autodesk.Revit.DB.Element)">
+            <summary>
+            Converts a Autodesk.Revit.DB.Element into its equivalent Dynamo element if possible.
+            </summary>
+            <param name="element">A Autodesk.Revit.DB.Element</param>
+            <returns name="Dynamo Element">If successful, returns a dynamo element, otherwise returns null.</returns>
+        </member>
+        <member name="M:Synthetic.Revit.Elements.UnwrapDynamoElement(Revit.Elements.Element)">
+            <summary>
+            Converts a Dynamo element into its equivalent Autodesk.Revit.DB.Element if possible.
+            </summary>
+            <param name="element">A Dynamo representation of a revit element</param>
+            <returns name="Revit Element">If successful, returns a Autodesk.Revit.DB.Element, otherwise returns null.</returns>
+        </member>
+        <member name="T:Synthetic.Revit.ColorWrapper">
+            <summary>
+            A wrapper for a Revit Color object.
+            </summary>
+        </member>
+        <member name="M:Synthetic.Revit.ColorWrapper.ByRGB(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Creates a wrapper for Revit color by red, green and blue components.
+            </summary>
+            <param name="red">Red component of the color.</param>
+            <param name="green">Green component of the color.</param>
+            <param name="blue">Blue component of the color.</param>
+            <returns name="Color">A wrapped Revit color.</returns>
+        </member>
+        <member name="M:Synthetic.Revit.ColorWrapper.ByDynamoColor(DSCore.Color)">
+            <summary>
+            Creates a wrapper for a Revit color by converting a dynamo color.
+            </summary>
+            <param name="dynamoColor">A color created using the Dynamo Core Color nodes.</param>
+            <returns name="Color">A wrapped Revit color.</returns>
+        </member>
+        <member name="M:Synthetic.Revit.ColorWrapper.ToDynamoColor(Synthetic.Revit.ColorWrapper)">
+            <summary>
+            Converts the Revit color into a Dynamo Core Color.
+            </summary>
+            <param name="color">A wrapped Revit color</param>
+            <returns name="dynamoColor">A Dynamo Core Color.</returns>
+        </member>
+        <member name="M:Synthetic.Revit.ColorWrapper.Wrap(Autodesk.Revit.DB.Color)">
+            <summary>
+            Creates a new wrapper for a Revit color
+            </summary>
+            <param name="color">A Revit Color</param>
+            <returns name="color">A wrapped Revit color.</returns>
+        </member>
+        <member name="M:Synthetic.Revit.ColorWrapper.UnwrapColor(Synthetic.Revit.ColorWrapper)">
+            <summary>
+            Retrives the unwrapped Revit color.
+            </summary>
+            <param name="color">A wrapped Revit color.</param>
+            <returns name="Revit color">A Revit color.</returns>
+        </member>
+        <member name="M:Synthetic.Revit.ColorWrapper.ToString">
+            <summary>
+            A string representation of the color.
+            </summary>
+            <returns name="string">A string representation.</returns>
+        </member>
+        <member name="M:Synthetic.Revit.ColorWrapper.Red(Synthetic.Revit.ColorWrapper)">
+            <summary>
+            Get the Red component of the color.
+            </summary>
+            <param name="color">A wrapped Revit color.</param>
+            <returns name="red">The red component.</returns>
+        </member>
+        <member name="M:Synthetic.Revit.ColorWrapper.Green(Synthetic.Revit.ColorWrapper)">
+            <summary>
+            Get the Greem component of the color.
+            </summary>
+            <param name="color">A wrapped Revit color.</param>
+            <returns name="green">The green component.</returns>
+        </member>
+        <member name="M:Synthetic.Revit.ColorWrapper.Blue(Synthetic.Revit.ColorWrapper)">
+            <summary>
+            Get the Blue component of the color.
+            </summary>
+            <param name="color">A wrapped Revit color.</param>
+            <returns name="blue">The blue component.</returns>
+        </member>
+        <member name="T:Synthetic.Revit.Collector">
+            <summary>
+            Nodes for retrieving elements from a Revit project using filter criteria.  Refer to the RevitAPI documentation on FilteredElementCollectors and ElementFilters for optimizing the speed of the query.
+            </summary>
+        </member>
+        <member name="M:Synthetic.Revit.Collector.#ctor(Autodesk.Revit.DB.Document)">
+            <summary>
+            Constructor that takes a Revit Document as input.  Does not include filters.
+            </summary>
+            <param name="doc">A Revit Document</param>
+        </member>
+        <member name="M:Synthetic.Revit.Collector.#ctor(System.Collections.Generic.List{Autodesk.Revit.DB.ElementFilter},Autodesk.Revit.DB.Document)">
+            <summary>
+            Constructor that takes a list of ElementFilters and a Revit document as inputs.
+            </summary>
+            <param name="filters">A list of ElementFilters</param>
+            <param name="doc">A Revit Document</param>
+        </member>
+        <member name="M:Synthetic.Revit.Collector.#ctor(System.Collections.Generic.List{Autodesk.Revit.DB.ElementFilter},Autodesk.Revit.DB.ElementId,Autodesk.Revit.DB.Document)">
+            <summary>
+            Constructor that takes a list of ElementFilters and a Revit document as inputs.
+            </summary>
+            <param name="filters">A list of ElementFilters</param>
+            <param name="viewId">The Element Id of the view</param>
+            <param name="doc">A Revit Document</param>
+        </member>
+        <member name="M:Synthetic.Revit.Collector.#ctor(System.Collections.Generic.List{Autodesk.Revit.DB.ElementFilter},System.Collections.Generic.List{Autodesk.Revit.DB.ElementId},Autodesk.Revit.DB.Document)">
+            <summary>
+            Constructor that takes a list of ElementFilters. ElementIds and a Revit document as inputs.
+            </summary>
+            <param name="filters">A list of ElementFilters</param>
+            <param name="elemIds">The Element Id of the view</param>
+            <param name="doc">A Revit Document</param>
+        </member>
+        <member name="M:Synthetic.Revit.Collector._ApplyFilters">
+            <summary>
+            Creates a Revit FilteredElementCollector and passes filters to it.  Returns the Collector.
+            </summary>
+            <returns>A FilteredElementCollector with filters applied</returns>
+        </member>
+        <member name="M:Synthetic.Revit.Collector.ApplyFilters(Synthetic.Revit.Collector)">
+            <summary>
+            Applies filters and returns the Revit FilteredElementCollector object.  This object gives quick access to the elements in the collector.
+            </summary>
+            <param name="collector">A Synthetic Collector object.</param>
+            <returns name="Revit Collector">A Revit FilteredElementCollector object.</returns>
+        </member>
+        <member name="M:Synthetic.Revit.Collector.ByDocument(Autodesk.Revit.DB.Document)">
+            <summary>
+            Creates a Synthetic Collector for a project without any filters.  By default, the current project is used.  Without filters applied, the collector will retrieve all objects in the Revit project.
+            </summary>
+            <param name="document">A Autodesk.Revit.DB.Document object.  This does not work with Dynamo document objects.</param>
+            <returns>A Synthetic Collector object without any filters.</returns>
+        </member>
+        <member name="M:Synthetic.Revit.Collector.ByFilters(System.Collections.Generic.List{Autodesk.Revit.DB.ElementFilter},Autodesk.Revit.DB.Document)">
+            <summary>
+            Creates a Synthetic Collector for a project with the inputed Element Filters.  By default, the current project is used.
+            </summary>
+            <param name="filters">A list of ElementFilter objects.</param>
+            <param name="document">A Autodesk.Revit.DB.Document object.  This does not work with Dynamo document objects.</param>
+            <returns>A Synthetic Collector object</returns>
+        </member>
+        <member name="M:Synthetic.Revit.Collector.ByFiltersViewId(System.Collections.Generic.List{Autodesk.Revit.DB.ElementFilter},System.Int32,Autodesk.Revit.DB.Document)">
+            <summary>
+            Creates a Synthetic Collector for a project with the inputed Element Filters.  By default, the current project is used.
+            </summary>
+            <param name="filters">A list of ElementFilter objects.</param>
+            <param name="viewId">The view's ElementId as an integer</param>
+            <param name="document">A Autodesk.Revit.DB.Document object.  This does not work with Dynamo document objects.</param>
+            <returns>A Synthetic Collector object</returns>
+        </member>
+        <member name="M:Synthetic.Revit.Collector.ByFiltersElemIds(System.Collections.Generic.List{Autodesk.Revit.DB.ElementFilter},System.Collections.Generic.List{Autodesk.Revit.DB.ElementId},Autodesk.Revit.DB.Document)">
+            <summary>
+            Creates a Synthetic Collector for a project with the inputed Element Filters.  By default, the current project is used.
+            </summary>
+            <param name="filters">A list of ElementFilter objects.</param>
+            <param name="elementIds">The view's ElementId as an integer</param>
+            <param name="document">A Autodesk.Revit.DB.Document object.  This does not work with Dynamo document objects.</param>
+            <returns>A Synthetic Collector object</returns>
+        </member>
+        <member name="M:Synthetic.Revit.Collector.ToElements(Synthetic.Revit.Collector,System.Boolean)">
+            <summary>
+            Retrieves the Elements that pass the Collector's filters
+            </summary>
+            <param name="collector">A Synthetc Collector</param>
+            <param name="toggle">Toggle will reset the Dynamo graph and rerun the collector.</param>
+            <returns>A</returns>
+        </member>
+        <member name="M:Synthetic.Revit.Collector.ToRevitElements(Synthetic.Revit.Collector,System.Boolean)">
+            <summary>
+            Retrieves the Elements that pass the Collector's filters
+            </summary>
+            <param name="collector">A Synthetc Collector</param>
+            <param name="toggle">Toggle will reset the Dynamo graph and rerun the collector.</param>
+            <returns name="Elements">Autodesk.Revit.DB.Elements</returns>
+        </member>
+        <member name="M:Synthetic.Revit.Collector.ToElementIds(Synthetic.Revit.Collector)">
+            <summary>
+            Retrieves the ElementIds of elements that pass the Collector's filters.
+            </summary>
+            <param name="collector">A Syntehtic Collector</param>
+            <returns name="ElementIds">Returns the ElementIds of the elements that pass the collector's filters.</returns>
+        </member>
+        <member name="M:Synthetic.Revit.Collector.QueryNameEquals(Synthetic.Revit.Collector,System.String)">
+            <summary>
+            Searches the Collector for elements whose Name equals the string.
+            </summary>
+            <param name="collector">A Collector to search</param>
+            <param name="name">Name of the elements to find.</param>
+            <returns name="Elements">Returns a list of Dynamo wrapped elements that matches the query</returns>
+        </member>
+        <member name="M:Synthetic.Revit.Collector.QueryNameContains(Synthetic.Revit.Collector,System.String)">
+            <summary>
+            Searches the Collector for elements whose Name contains the string.
+            </summary>
+            <param name="collector">A Collector to search</param>
+            <param name="name">Name of the elements to find.</param>
+            <returns name="Elements">Returns a list of Dynamo wrapped elements that matches the query</returns>
+        </member>
+        <member name="M:Synthetic.Revit.Collector.QueryNameDoesNotContain(Synthetic.Revit.Collector,System.String)">
+            <summary>
+            Searches the Collector for elements whose Name does not contain the string.
+            </summary>
+            <param name="collector">A Collector to search</param>
+            <param name="name">Name of the elements to find.</param>
+            <returns name="Elements">Returns a list of Dynamo wrapped elements that matches the query</returns>
+        </member>
+        <member name="M:Synthetic.Revit.Collector.QueryGroupByName(Synthetic.Revit.Collector)">
+            <summary>
+            Groups elements in the collector by their name
+            </summary>
+            <param name="collector">A Collector to search</param>
+            <returns name="Elements">Returns a list of lists of Dynamo wrapped elements that are grouped by name</returns>
+        </member>
+        <member name="M:Synthetic.Revit.Collector.SetFilters(Synthetic.Revit.Collector,System.Collections.Generic.List{Autodesk.Revit.DB.ElementFilter})">
+            <summary>
+            Sets the ElementFilters for the collector.
+            </summary>
+            <param name="collector">A Synthetic Collector</param>
+            <param name="filters">A list of ElementFilters</param>
+            <returns name="collector">A Synthetic Collector with assigned ElementFilters.</returns>
+        </member>
+        <member name="M:Synthetic.Revit.Collector.GetFilters(Synthetic.Revit.Collector)">
+            <summary>
+            Gets a list of the filters for a collector.
+            </summary>
+            <param name="collector">A Syntehtic Collector</param>
+            <returns name="ElementFilters">A list of ElementFilters</returns>
+        </member>
+        <member name="M:Synthetic.Revit.Collector.ToString">
+            <summary>
+            Converts the object to a string representation.
+            </summary>
+            <returns name="String">A string representation of the object.</returns>
+        </member>
+        <member name="T:Synthetic.Revit.CollectorElementFilter">
+            <summary>
+            Nodes that create ElementFilters to be used with Collectors.
+            </summary>
+        </member>
+        <member name="M:Synthetic.Revit.CollectorElementFilter.FilterIsInverted(Autodesk.Revit.DB.ElementFilter)">
+            <summary>
+            Tests whether a ElementFilter is inverted or not.
+            </summary>
+            <param name="filter">A ElementFilter.</param>
+            <returns>Returns true if inverted, false if not inverted.</returns>
+        </member>
+        <member name="M:Synthetic.Revit.CollectorElementFilter.FilterLogicalAnd(System.Collections.Generic.IList{Autodesk.Revit.DB.ElementFilter})">
+            <summary>
+            Creates a ElementFilter from a list of filters where elements must pass all filters in the set to be included.  The filter should then be passed to a Collector node and the Collector retrieves elements that pass the filter.
+            </summary>
+            <param name="filters">A list of Element Filters</param>
+            <returns name="ElementFilter">An Element Filter.  The filter is then passed to a Collector node and the Collector retrieves elements that pass the filter.</returns>
+        </member>
+        <member name="M:Synthetic.Revit.CollectorElementFilter.FilterLogicalOr(System.Collections.Generic.IList{Autodesk.Revit.DB.ElementFilter})">
+            <summary>
+            Creates a ElementFilter from a list of filters where elements can pass any of the filters in the set to be included.  The filter should then be passed to a Collector node and the Collector retrieves elements that pass the filter.
+            </summary>
+            <param name="filters">A list of Element Filters</param>
+            <returns name="ElementFilter">An Element Filter.  The filter should then be passed to a Collector node and the Collector retrieves elements that pass the filter.</returns>
+        </member>
+        <member name="M:Synthetic.Revit.CollectorElementFilter.FilterElementCategoryId(System.Int32,System.Boolean)">
+            <summary>
+            Creates a ElementFilter that passes elements in the category.  The filter should then be passed to a Collector node and the Collector retrieves elements that pass the filter.
+            </summary>
+            <param name="categoryId">The category's Id as an integer.</param>
+            <param name="inverted">If true, the filter elements NOT matching the filter criteria are chosen.</param>
+            <returns name="ElementFilter">An Element Filter.  The filter should then be passed to a Collector node and the Collector retrieves elements that pass the filter.</returns>
+        </member>
+        <member name="M:Synthetic.Revit.CollectorElementFilter.FilterElementCategory(Revit.Elements.Category,System.Boolean)">
+            <summary>
+            Creates a ElementFilter that passes elements in the category.  The filter should then be passed to a Collector node and the Collector retrieves elements that pass the filter.
+            </summary>
+            <param name="category">A dynamo wrapped catogry.</param>
+            <param name="inverted">If true, the filter elements NOT matching the filter criteria are chosen.</param>
+            <returns name="ElementFilter">An Element Filter.  The filter should then be passed to a Collector node and the Collector retrieves elements that pass the filter.</returns>
+        </member>
+        <member name="M:Synthetic.Revit.CollectorElementFilter.FilterElementClass(System.Type,System.Boolean)">
+            <summary>
+            Creates a ElementFilter that passes elements of the matching class or element type.  The filter should then be passed to a Collector node and the Collector retrieves elements that pass the filter.
+            </summary>
+            <param name="type">An element type.</param>
+            <param name="inverted">If true, the filter elements NOT matching the filter criteria are chosen.</param>
+            <returns name="ElementFilter">An Element Filter.  The filter should then be passed to a Collector node and the Collector retrieves elements that pass the filter.</returns>
+        </member>
+        <member name="M:Synthetic.Revit.CollectorElementFilter.FilterElementDesignOptionId(System.Int32,System.Boolean)">
+            <summary>
+            Creates a ElementFilter that passes elements in a specified design option.  The filter should then be passed to a Collector node and the Collector retrieves elements that pass the filter.
+            </summary>
+            <param name="designOptionId">A Design Option's Id as an integer.</param>
+            <param name="inverted">If true, the filter elements NOT matching the filter criteria are chosen.</param>
+            <returns name="ElementFilter">An Element Filter.  The filter should then be passed to a Collector node and the Collector retrieves elements that pass the filter.</returns>
+        </member>
+        <member name="M:Synthetic.Revit.CollectorElementFilter.FilterElementIsElementType(System.Boolean)">
+            <summary>
+            Creates a ElementFilter that passes elements are are Element Types.  The filter should then be passed to a Collector node and the Collector retrieves elements that pass the filter.
+            </summary>
+            <param name="inverted">If true, the filter elements NOT matching the filter criteria are chosen.</param>
+            <returns name="ElementFilter">An Element Filter.  The filter should then be passed to a Collector node and the Collector retrieves elements that pass the filter.</returns>
+        </member>
+        <member name="M:Synthetic.Revit.CollectorElementFilter.FilterElementMulticategory(System.Collections.Generic.ICollection{Revit.Elements.Category},System.Boolean)">
+            <summary>
+            Creates a ElementFilter that passes elements in the categories.  The filter should then be passed to a Collector node and the Collector retrieves elements that pass the filter.
+            </summary>
+            <param name="categories">A collection of dynamo wrapped categories.</param>
+            <param name="inverted">If true, the filter elements NOT matching the filter criteria are chosen.</param>
+            <returns name="ElementFilter">An Element Filter.  The filter should then be passed to a Collector node and the Collector retrieves elements that pass the filter.</returns>
+        </member>
+        <member name="M:Synthetic.Revit.CollectorElementFilter.FilterElementMulticategoryId(System.Collections.Generic.ICollection{System.Int32},System.Boolean)">
+            <summary>
+            Creates a ElementFilter that passes elements in the categories.  The filter should then be passed to a Collector node and the Collector retrieves elements that pass the filter.
+            </summary>
+            <param name="categoryIds">A collection of category Ids as integers.</param>
+            <param name="inverted">If true, the filter elements NOT matching the filter criteria are chosen.</param>
+            <returns name="ElementFilter">An Element Filter.  The filter should then be passed to a Collector node and the Collector retrieves elements that pass the filter.</returns>
+        </member>
+        <member name="M:Synthetic.Revit.CollectorElementFilter.FilterElementWorkset(System.Int32,System.Boolean)">
+            <summary>
+            Creates a ElementFilter that passes elements on a workset.  The filter should then be passed to a Collector node and the Collector retrieves elements that pass the filter.
+            </summary>
+            <param name="worksetId">The workset ID of the workset to filter.</param>
+            <param name="inverted">If true, the filter elements NOT matching the filter criteria are chosen.</param>
+            <returns name="ElementFilter">An Element Filter.  The filter should then be passed to a Collector node and the Collector retrieves elements that pass the filter.</returns>
+        </member>
+        <member name="M:Synthetic.Revit.CollectorElementFilter.FilterElementPhaseStatus(System.Int32,Autodesk.Revit.DB.ElementOnPhaseStatus,System.Boolean)">
+            <summary>
+            Creates a ElementFilter that passes elements with the given status on the given phase.  The filter should then be passed to a Collector node and the Collector retrieves elements that pass the filter.
+            </summary>
+            <param name="phaseId">ElementId of the phase</param>
+            <param name="PhaseStatus">The status of elements select in the phase.</param>
+            <param name="inverted">If true, the filter elements NOT matching the filter criteria are chosen.</param>
+            <returns name="ElementFilter">An Element Filter.  The filter should then be passed to a Collector node and the Collector retrieves elements that pass the filter.</returns>
+        </member>
+        <member name="M:Synthetic.Revit.CollectorElementFilter.FilterElementIntersectsElement(Autodesk.Revit.DB.Element,System.Boolean)">
+            <summary>
+            Creates a ElementFilter that passes elements that interseect an element.  The filter should then be passed to a Collector node and the Collector retrieves elements that pass the filter.
+            </summary>
+            <param name="Element">The element to look for intersections.</param>
+            <param name="inverted">If true, the filter elements NOT matching the filter criteria are chosen.</param>
+            <returns name="ElementFilter">An Element Filter.  The filter should then be passed to a Collector node and the Collector retrieves elements that pass the filter.</returns>
+        </member>
+        <member name="M:Synthetic.Revit.CollectorElementFilter.FilterExclusion(System.Collections.Generic.ICollection{System.Int32})">
+            <summary>
+            Creates a ElementFilter that excludes elements with the given elementIds.  The filter should then be passed to a Collector node and the Collector retrieves elements that pass the filter.
+            </summary>
+            <param name="elementIds">ElementIds as integers of the elements to be excluded.</param>
+            <returns name="ElementFilter">An Element Filter.  The filter should then be passed to a Collector node and the Collector retrieves elements that pass the filter.</returns>
+        </member>
+        <member name="M:Synthetic.Revit.CollectorElementFilter.FilterFamilyTypeId(System.Int32)">
+            <summary>
+            Creates a ElementFilter that passes types with the specified family.  The filter should then be passed to a Collector node and the Collector retrieves elements that pass the filter.
+            </summary>
+            <param name="familyId">A family's Id as an integer.</param>
+            <returns name="ElementFilter">An Element Filter.  The filter should then be passed to a Collector node and the Collector retrieves elements that pass the filter.</returns>
+        </member>
+        <member name="M:Synthetic.Revit.CollectorElementFilter.FilterFamilyType(Revit.Elements.Family)">
+            <summary>
+            Creates a ElementFilter that passes types with the specified family.  The filter should then be passed to a Collector node and the Collector retrieves elements that pass the filter.
+            </summary>
+            <param name="family">A dynamo wrapped family</param>
+            <returns name="ElementFilter">An Element Filter.  The filter should then be passed to a Collector node and the Collector retrieves elements that pass the filter.</returns>
+        </member>
+        <member name="M:Synthetic.Revit.CollectorElementFilter.FilterFamilyInstance(Revit.Elements.FamilyType,Autodesk.Revit.DB.Document)">
+            <summary>
+            Creates a ElementFilter that passes types with the specified family.  The filter should then be passed to a Collector node and the Collector retrieves elements that pass the filter.
+            </summary>
+            <param name="familyType">A dynamo wrapped family type</param>
+            <param name="document">A Autodesk.Revit.DB.Document object.  This does not work with Dynamo document objects.</param>
+            <returns name="ElementFilter">An Element Filter.  The filter should then be passed to a Collector node and the Collector retrieves elements that pass the filter.</returns>
+        </member>
+        <member name="M:Synthetic.Revit.CollectorElementFilter.FilterElementLevelId(System.Int32,System.Boolean)">
+            <summary>
+            Creates a ElementFilter that passes elements on the specified level.  The filter should then be passed to a Collector node and the Collector retrieves elements that pass the filter.
+            </summary>
+            <param name="levelId">Level Id as an integer</param>
+            <param name="inverted">If true, the filter elements NOT matching the filter criteria are chosen.</param>
+            <returns name="ElementFilter">An Element Filter.  The filter should then be passed to a Collector node and the Collector retrieves elements that pass the filter.</returns>
+        </member>
+        <member name="M:Synthetic.Revit.CollectorElementFilter.FilterElementLevel(Revit.Elements.Level,System.Boolean)">
+            <summary>
+            Creates a ElementFilter that passes elements on the specified level.  The filter should then be passed to a Collector node and the Collector retrieves elements that pass the filter.
+            </summary>
+            <param name="level">A Dynamo wrapped Level.</param>
+            <param name="inverted">If true, the filter elements NOT matching the filter criteria are chosen.</param>
+            <returns name="ElementFilter">An Element Filter.  The filter should then be passed to a Collector node and the Collector retrieves elements that pass the filter.</returns>
+        </member>
+        <member name="M:Synthetic.Revit.CollectorElementFilter.FilterElementOwnerViewById(System.Int32,System.Boolean)">
+            <summary>
+            Creates a ElementFilter that passes elements owned by the given view.  The filter should then be passed to a Collector node and the Collector retrieves elements that pass the filter.
+            </summary>
+            <param name="viewId">The Element Id of the view as an integer</param>
+            <param name="inverted">If true, the filter elements NOT matching the filter criteria are chosen.</param>
+            <returns name="ElementFilter">An Element Filter.  The filter should then be passed to a Collector node and the Collector retrieves elements that pass the filter.</returns>
+        </member>
+        <member name="M:Synthetic.Revit.CollectorElementFilter.FilterElementOwnerView(Revit.Elements.Views.View,System.Boolean)">
+            <summary>
+            Creates a ElementFilter that passes elements owned by the given view.  The filter should then be passed to a Collector node and the Collector retrieves elements that pass the filter.
+            </summary>
+            <param name="view">The Element Id of the view as an integer</param>
+            <param name="inverted">If true, the filter elements NOT matching the filter criteria are chosen.</param>
+            <returns name="ElementFilter">An Element Filter.  The filter should then be passed to a Collector node and the Collector retrieves elements that pass the filter.</returns>
+        </member>
+        <member name="M:Synthetic.Revit.CollectorElementFilter.FilterElementStringParameter(System.Int32,System.String,Autodesk.Revit.DB.FilterStringRuleEvaluator,System.Boolean)">
+            <summary>
+            Creates a ElementFilter that passes elements with a string based parameter that match the provided FilterStringRuleEvaluator.  The filter should then be passed to a Collector node and the Collector retrieves elements that pass the filter.
+            </summary>
+            <param name="parameterId">The ElementId as an int of the parameter to search.</param>
+            <param name="value">Value of the parameter to search for.</param>
+            <param name="filterStringRule">Revit FilterStringRuleEvaluator that determines how to search the parameter.</param>
+            <param name="inverted">If true, the filter elements NOT matching the filter criteria are chosen.</param>
+            <returns name="ElementFilter">An Element Filter.  The filter should then be passed to a Collector node and the Collector retrieves elements that pass the filter.</returns>
+        </member>
+        <member name="M:Synthetic.Revit.CollectorElementFilter.FilterElementNumberParameter(System.Int32,System.Double,System.Double,Autodesk.Revit.DB.FilterNumericRuleEvaluator,System.Boolean)">
+            <summary>
+            Creates a ElementFilter that passes elements with a number based parameter that match the provided FilterNumericRuleEvaluator.  The filter should then be passed to a Collector node and the Collector retrieves elements that pass the filter.
+            </summary>
+            <param name="parameterId">The ElementId as an int of the parameter to search.</param>
+            <param name="value">Value of the parameter to search for.</param>
+            <param name="tolerance">Tolerance on how close tot he value a match should be.</param>
+            <param name="filterNumberRule">Revit FilterNumberRuleEvaluator that determines how to search the parameter.</param>
+            <param name="inverted">If true, the filter elements NOT matching the filter criteria are chosen.</param>
+            <returns name="ElementFilter">An Element Filter.  The filter should then be passed to a Collector node and the Collector retrieves elements that pass the filter.</returns>
+        </member>
+        <member name="M:Synthetic.Revit.CollectorElementFilter.FilterElementIntegerParameter(System.Int32,System.Int32,Autodesk.Revit.DB.FilterNumericRuleEvaluator,System.Boolean)">
+            <summary>
+            Creates a ElementFilter that passes elements with a number based parameter that match the provided FilterNumericRuleEvaluator.  The filter should then be passed to a Collector node and the Collector retrieves elements that pass the filter.
+            </summary>
+            <param name="parameterId">The ElementId as an int of the parameter to search.</param>
+            <param name="value">Value of the parameter to search for.</param>
+            <param name="filterNumberRule">Revit FilterNumberRuleEvaluator that determines how to search the parameter.</param>
+            <param name="inverted">If true, the filter elements NOT matching the filter criteria are chosen.</param>
+            <returns name="ElementFilter">An Element Filter.  The filter should then be passed to a Collector node and the Collector retrieves elements that pass the filter.</returns>
+        </member>
+        <member name="M:Synthetic.Revit.CollectorElementFilter.FilterElementIdParameter(System.Int32,System.Int32,Autodesk.Revit.DB.FilterNumericRuleEvaluator,System.Boolean)">
+            <summary>
+            Creates a ElementFilter that passes elements with an ElementId based parameter that match the provided FilterNumericRuleEvaluator.  The filter should then be passed to a Collector node and the Collector retrieves elements that pass the filter.
+            </summary>
+            <param name="parameterId">The ElementId as an int of the parameter to search.</param>
+            <param name="value">Value of the parameter to search for.</param>
+            <param name="filterNumberRule">Revit FilterNumberRuleEvaluator that determines how to search the parameter.</param>
+            <param name="inverted">If true, the filter elements NOT matching the filter criteria are chosen.</param>
+            <returns name="ElementFilter">An Element Filter.  The filter should then be passed to a Collector node and the Collector retrieves elements that pass the filter.</returns>
+        </member>
+        <member name="T:Synthetic.Revit.Material">
+            <summary>
+            Extensions of Dynamo Revit
+            </summary>
+        </member>
+        <member name="M:Synthetic.Revit.Material.GetByNameDocument(System.String,Autodesk.Revit.DB.Document)">
+            <summary>
+            Gets a material given its name and document
+            </summary>
+            <param name="Name">Name of a material</param>
+            <param name="Document">Document to get the material from</param>
+            <returns name="Material">A Autodeks.Revit.DB.Material</returns>
+        </member>
+        <member name="M:Synthetic.Revit.Material.GetByName(System.String)">
+            <summary>
+            Gets a material from the current doucment given its name
+            </summary>
+            <param name="Name">Name of material</param>
+            <returns name="Material">A Autodeks.Revit.DB.Material</returns>
+        </member>
+        <member name="T:Synthetic.Revit.Select">
+            <summary>
+            Nodes that certain sets of elements using pre-configured Collectors and filters.
+            </summary>
+        </member>
+        <member name="M:Synthetic.Revit.Select.AllElementsOfType(System.Type,System.Boolean,Autodesk.Revit.DB.Document)">
+            <summary>
+            Selects all elements of a type.  Works with documents other than the active document.
+            </summary>
+            <param name="type">The element type of the object, such as WallTypes or Walls.</param>
+            <param name="inverted">If false, elements in the chosen category will be selected.  If true, elements NOT in the chosen category will be selected.</param>
+            <param name="document">A Autodesk.Revit.DB.Document object.  This does not work with Dynamo document objects.</param>
+            <returns name="Elements">A list of Dynamo elements that pass the filer.</returns>
+        </member>
+        <member name="M:Synthetic.Revit.Select.AllElementsOfCategory(Revit.Elements.Category,System.Boolean,Autodesk.Revit.DB.Document)">
+            <summary>
+            Selects all instance elements in a category, excludes element types.
+            </summary>
+            <param name="category">The categoryId of the elements you wish to select.</param>
+            <param name="inverted">If false, elements in the chosen category will be selected.  If true, elements NOT in the chosen category will be selected.</param>
+            <param name="document">A Autodesk.Revit.DB.Document object.  This does not work with Dynamo document objects.</param>
+            <returns name="Elements">A list of Dynamo elements that pass the filer.</returns>
+        </member>
+        <member name="M:Synthetic.Revit.Select.AllFamilyTypesOfCategory(Revit.Elements.Category,System.Boolean,Autodesk.Revit.DB.Document)">
+            <summary>
+            Selects all Family Symbol types in a category, but excludes instances of those elements.  The node does not work with System familes because System Families do not have a Family Sybmol.
+            </summary>
+            <param name="category">The categoryId of the elements you wish to select.</param>
+            <param name="inverted">If false, elements in the chosen category will be selected.  If true, elements NOT in the chosen category will be selected.</param>
+            <param name="document">A Autodesk.Revit.DB.Document object.  This does not work with Dynamo document objects.</param>
+            <returns name="Elements">A list of Dynamo elements that pass the filer.</returns>
+        </member>
+        <member name="M:Synthetic.Revit.Select.AllMaterials(Autodesk.Revit.DB.Document)">
+            <summary>
+            Retrieve all materials in the document.
+            </summary>
+            <param name="document">>A Autodesk.Revit.DB.Document object.  This does not work with Dynamo document objects.</param>
+            <returns name="Materials">A list of Auotdesk.Revit.DB.Materials</returns>
+        </member>
+        <member name="M:Synthetic.Revit.Select.GetMaterialByName(System.Collections.Generic.IEnumerable{Autodesk.Revit.DB.Material},System.String)">
+            <summary>
+            Given a list of materials, returns the material that matches the given name.
+            </summary>
+            <param name="materials">A list of Autodesk.Revit.DB.Materials</param>
+            <param name="materialName">The name of the material</param>
+            <returns name="Material">A Autodesk.Revit.DB.Material that matches the given name.</returns>
+        </member>
+        <member name="M:Synthetic.Revit.Select.RevitClassByString(System.String)">
+            <summary>
+            Get the Type of a Revit Class from RevitAPI.dll given its name.
+            </summary>
+            <param name="typeName">Name of the Autodesk.Revit.DB Class</param>
+            <returns name="Type">The Type of a Revit Class</returns>
+        </member>
+        <member name="M:Synthetic.Revit.Select.InstanceClassFromTypeClass(System.Type)">
+            <summary>
+            Given the an ElementType Type retrieves the corresponding Instance Type.  For example Type WallType returns Type Wall or Type TextNoteType returns Type TextNote.
+            </summary>
+            <param name="elementType">A Type of ElementType</param>
+            <returns name="instanceType">The Type of Instance</returns>
+        </member>
+        <member name="T:Synthetic.Revit.Sheet">
+            <summary>
+            Sheet wrapper class
+            </summary>
+        </member>
+        <member name="M:Synthetic.Revit.Sheet.AddRevision(Revit.Elements.Views.Sheet,Revit.Elements.Revision)">
+            <summary>
+            Adds a Revision to a Sheet
+            </summary>
+            <param name="Sheet">Dynamo wrapped Sheet element</param>
+            <param name="Revision">Dynamo wrapped Revision element</param>
+            <returns name="Sheet">Returns the modified sheet.</returns>
+        </member>
+        <member name="M:Synthetic.Revit.Sheet.CreatePlaceHolderSheet(System.String,System.String,Autodesk.Revit.DB.Document)">
+            <summary>
+            Creates a Placeholder Sheet
+            </summary>
+            <param name="SheetNumber">The sheet number</param>
+            <param name="SheetTitle">The sheet title</param>
+            <param name="document">Document to create the sheet in.</param>
+            <returns name="Sheet">Returns the created placeholder sheet as a dynamo wrapped sheet.</returns>
+        </member>
+        <member name="T:Synthetic.Revit.Tools">
+            <summary>
+            Methods that are complete workflows
+            </summary>
+        </member>
+        <member name="M:Synthetic.Revit.Tools.View3dOrientToggleIsometric(Revit.Elements.Views.View3D,Revit.Elements.Views.View,System.Double)">
+            <summary>
+            Matches View3D's orientation and cropbox to an orthagonal view.  Also sets the View3D to isometric.
+            </summary>
+            <param name="View3D">The 3D view to change orientation and crop</param>
+            <param name="SourceView">The source orthogonal view to acquire orientation and cropbox</param>
+            <param name="Offset">Offset of the camera from the view direction of the source view</param>
+            <returns name="View3D"></returns>
+        </member>
+        <member name="T:Synthetic.Revit.Transform">
+            <summary>
+            Wrapper for Revit Transform
+            </summary>
+        </member>
+        <member name="M:Synthetic.Revit.Transform.GetOrigin(Autodesk.Revit.DB.Transform)">
+            <summary>
+            Get the origin of the Transform
+            </summary>
+            <param name="Transform">Autodesk.Revit.DB.Transform</param>
+            <returns name="XYZ">Autodesk.Revit.DB.XYZ</returns>
+        </member>
+        <member name="M:Synthetic.Revit.Transform.GetBasisX(Autodesk.Revit.DB.Transform)">
+            <summary>
+            Get the Basis of the X Axis of the Transform
+            </summary>
+            <param name="Transform">Autodesk.Revit.DB.Transform</param>
+            <returns name="XYZ">Autodesk.Revit.DB.XYZ</returns>
+        </member>
+        <member name="M:Synthetic.Revit.Transform.GetBasisY(Autodesk.Revit.DB.Transform)">
+            <summary>
+            Get the Basis of the Y Axis of the Transform
+            </summary>
+            <param name="Transform">Autodesk.Revit.DB.Transform</param>
+            <returns name="XYZ">Autodesk.Revit.DB.XYZ</returns>
+        </member>
+        <member name="M:Synthetic.Revit.Transform.GetBasisZ(Autodesk.Revit.DB.Transform)">
+            <summary>
+            Get the Basis of the Z Axis of the Transform
+            </summary>
+            <param name="Transform">Autodesk.Revit.DB.Transform</param>
+            <returns name="XYZ">Autodesk.Revit.DB.XYZ</returns>
+        </member>
+        <member name="M:Synthetic.Revit.Transform.SetOrigin(Autodesk.Revit.DB.Transform,Autodesk.Revit.DB.XYZ)">
+            <summary>
+            Set the origin of the Transform
+            </summary>
+            <param name="Transform">Autodesk.Revit.DB.Transform</param>
+            <param name="XYZ">A Revit XYZ point</param>
+            <returns name="Transform">Modified Transform</returns>
+        </member>
+        <member name="M:Synthetic.Revit.Transform.SetBasisX(Autodesk.Revit.DB.Transform,Autodesk.Revit.DB.XYZ)">
+            <summary>
+            Set the Basis of the X Axis of the Transform
+            </summary>
+            <param name="Transform">Autodesk.Revit.DB.Transform</param>
+            <param name="XYZ">A Revit XYZ point</param>
+            <returns name="Transform">Modified Transform</returns>
+        </member>
+        <member name="M:Synthetic.Revit.Transform.SetBasisY(Autodesk.Revit.DB.Transform,Autodesk.Revit.DB.XYZ)">
+            <summary>
+            Set the Basis of the Y Axis of the Transform
+            </summary>
+            <param name="Transform">Autodesk.Revit.DB.Transform</param>
+            <param name="XYZ">A Revit XYZ point</param>
+            <returns name="Transform">Modified Transform</returns>
+        </member>
+        <member name="M:Synthetic.Revit.Transform.SetBasisZ(Autodesk.Revit.DB.Transform,Autodesk.Revit.DB.XYZ)">
+            <summary>
+            Set the Basis of the Z Axis of the Transform
+            </summary>
+            <param name="Transform">Autodesk.Revit.DB.Transform</param>
+            <param name="XYZ">A Revit XYZ point</param>
+            <returns name="Transform">Modified Transform</returns>
+        </member>
+        <member name="M:Synthetic.Revit.Transform.OfPoint(Autodesk.Revit.DB.Transform,Autodesk.Revit.DB.XYZ)">
+            <summary>
+            Applies the Transform to a point.
+            </summary>
+            <param name="Transform">Autodesk.Revit.DB.Transform</param>
+            <param name="XYZ">A Revit XYZ point</param>
+            <returns name="XYZ">A transformed Revit XYZ point</returns>
+        </member>
+        <member name="M:Synthetic.Revit.Transform.OfVector(Autodesk.Revit.DB.Transform,Autodesk.Revit.DB.XYZ)">
+            <summary>
+            Applies the Transform to a vector.
+            </summary>
+            <param name="Transform">Autodesk.Revit.DB.Transform</param>
+            <param name="XYZ">A Revit XYZ vector</param>
+            <returns name="XYZ">A transformed Revit XYZ vector</returns>
+        </member>
+        <member name="M:Synthetic.Revit.Transform.Inverse(Autodesk.Revit.DB.Transform)">
+            <summary>
+            The inverse transformation of this Transom
+            </summary>
+            <param name="Transform">Autodesk.Revit.DB.Transform</param>
+            <returns name="Transom">The inverted Autodesk.Revit.DB.Transform</returns>
+        </member>
+        <member name="T:Synthetic.Revit.TransmissionData">
+            <summary>
+            Wrapper for Revit API TransmissionData
+            </summary>
+        </member>
+        <member name="M:Synthetic.Revit.TransmissionData.Read(System.String)">
+            <summary>
+            Reads the TransmissionData from a file.
+            </summary>
+            <param name="FilePath">Path to the file.</param>
+            <returns name="TransmissionData">Revit TransmissionData</returns>
+        </member>
+        <member name="M:Synthetic.Revit.TransmissionData.Write(System.String,Autodesk.Revit.DB.TransmissionData)">
+            <summary>
+            Writes modified TransmissionData from a file.  File must be closed to write TransmissionData.
+            </summary>
+            <param name="FilePath">Path to the file.</param>
+            <param name="transmissionData">A Revit TransmissionData object</param>
+            <returns name="FilePath">Returns the FilePath to the project.</returns>
+        </member>
+        <member name="M:Synthetic.Revit.TransmissionData.IsTransmitted(System.String)">
+            <summary>
+            Verifies whether the file is flagged as Transmitted or not.
+            </summary>
+            <param name="FilePath">Path to the file.</param>
+            <returns name="bool">Returns true if file is marked as Transmitted.  False if is not transmitted.</returns>
+        </member>
+        <member name="M:Synthetic.Revit.TransmissionData.SetIsTransmitted(System.String,System.Boolean)">
+            <summary>
+            Set's the file to Transmitted or not.
+            </summary>
+            <param name="FilePath">Path to the file.</param>
+            <param name="IsTransmitted">True to flag the file as Transmitted.</param>
+            <returns name="FilePath">Returns the FilePath.</returns>
+        </member>
+        <member name="T:Synthetic.Revit.View">
+            <summary>
+            Revit API extensions to the Dynamo View wrapper
+            </summary>
+        </member>
+        <member name="M:Synthetic.Revit.View.ApplyViewParameters(Revit.Elements.Views.View,Revit.Elements.Views.View)">
+            <summary>
+            Applies source view's parameters to the view.  Applies parameters based on GetTemplateParameterIds.
+            </summary>
+            <param name="View">View to modify based on source view's parameters</param>
+            <param name="SourceView">Source view to take parameters from</param>
+            <returns name="View">The modified view</returns>
+        </member>
+        <member name="M:Synthetic.Revit.View.GetTemplateParameterIds(Revit.Elements.Views.View)">
+            <summary>
+            Gets the ElementIds of the view's parameters that are controlled by a view template.
+            </summary>
+            <param name="View">A dynamo wrapped View</param>
+            <returns name="ElementIds">A list of ElementIds that are controlled by a view template.</returns>
+        </member>
+        <member name="M:Synthetic.Revit.View.GetNonControlledTemplateParameterIds(Revit.Elements.Views.View)">
+            <summary>
+            Gets the ElementIds of the view's parameters that are NOT controlled by a view template.
+            </summary>
+            <param name="View">A dynamo wrapped View</param>
+            <returns name="ElementIds">A list of ElementIds that are NOT controlled by a view template.</returns>
+        </member>
+        <member name="M:Synthetic.Revit.View.SetNonControlledTemplateParameterIds(Revit.Elements.Views.View,System.Collections.Generic.IList{Autodesk.Revit.DB.ElementId})">
+            <summary>
+            Sets the view's parameters not controlled by templates.
+            </summary>
+            <param name="View">A dynamo wrapped View</param>
+            <param name="ElementIds">A list of ElementIds</param>
+        </member>
+        <member name="M:Synthetic.Revit.View.GetCropbox(Revit.Elements.Views.View)">
+            <summary>
+            Gets a view's cropbox
+            </summary>
+            <param name="View">A Dynamo wrapped View</param>
+            <returns name="CropBox">Revit BoundingBoxXYZ object that represents the cropbox of the view.</returns>
+        </member>
+        <member name="M:Synthetic.Revit.View.SetCropbox(Revit.Elements.Views.View,Autodesk.Revit.DB.BoundingBoxXYZ)">
+            <summary>
+            Sets the cropbox of a view
+            </summary>
+            <param name="View">A Dynamo wrapped View</param>
+            <param name="CropBox">A Revit BoundBoxXYZ</param>
+            <returns name="View">A Dynamo wrapped View with an updated cropbox</returns>
+        </member>
+        <member name="M:Synthetic.Revit.View.GetUpDirection(Revit.Elements.Views.View)">
+            <summary>
+            Returns the UpDirection of a view.
+            </summary>
+            <param name="View">A view</param>
+            <returns name="XYZ">A Revit XYZ object pointing in the Up direction</returns>
+        </member>
+        <member name="M:Synthetic.Revit.View.GetViewDirection(Revit.Elements.Views.View)">
+            <summary>
+            Returns the direction towards the viewer
+            </summary>
+            <param name="View">A Dynamo wrapped View</param>
+            <returns name="XYZ">A Revit XYZ object pointing towards the viewer</returns>
+        </member>
+        <member name="M:Synthetic.Revit.View.GetViewOrientation(Revit.Elements.Views.View3D)">
+            <summary>
+            Gets the 3D view's orientation.
+            </summary>
+            <param name="View3D">A Dynamo wrapped View3D</param>
+            <returns name="ViewOrient">A Revit ViewOrientation3D element</returns>
+        </member>
+        <member name="M:Synthetic.Revit.View.SetViewOrientation(Revit.Elements.Views.View3D,Autodesk.Revit.DB.ViewOrientation3D)">
+            <summary>
+            Sets the 3D view's orientation.
+            </summary>
+            <param name="View3D">A Dynamo wrapped View3D</param>
+            <param name="ViewOrient">A Revit ViewOrientation3D element</param>
+            <returns name="View3D">A Dynamo wrapped View3D</returns>
+        </member>
+        <member name="M:Synthetic.Revit.View.ToggleToIsometric(Revit.Elements.Views.View3D)">
+            <summary>
+            Changes a view from Perspective to Isometric.
+            </summary>
+            <param name="View3D">A Dynamo wrapped View3D</param>
+            <returns name="View3D">A Dynamo wrapped View3D</returns>
+        </member>
+        <member name="M:Synthetic.Revit.View.ToggleToPerspective(Revit.Elements.Views.View3D)">
+            <summary>
+            Changes a view from Isometric to Perspective.
+            </summary>
+            <param name="View3D">A Dynamo wrapped View3D</param>
+            <returns name="View3D">A Dynamo wrapped View3D</returns>
+        </member>
+        <member name="M:Synthetic.Revit.View.DuplicateView(System.String,Revit.Elements.Views.View,Autodesk.Revit.DB.ViewDuplicateOption)">
+            <summary>
+            Duplciates a view and renames it.
+            </summary>
+            <param name="Name">The name of the duplicated view</param>
+            <param name="SourceView">The view to duplicate</param>
+            <param name="DuplicateOptions">Enum ViewDuplicateOptions</param>
+            <returns name="View">The duplicated view</returns>
+        </member>
+        <member name="M:Synthetic.Revit.View.GetOutline(Revit.Elements.Views.View)">
+            <summary>
+            Gets a View's outline.
+            </summary>
+            <param name="View">A Dynamo wrapped View</param>
+            <returns name="BoundingBoxUV">A Revit BoundingBoxUV representing the outline of the view.</returns>
+        </member>
+        <member name="M:Synthetic.Revit.View.GetFarClippingDistance(Revit.Elements.Views.View3D)">
+            <summary>
+            Gets a View's distance to the Far Clipping Plane.
+            </summary>
+            <param name="View3D">A Dynamo wrapped View3D</param>
+            <returns name="Distance">Distance to the Far Clipping Plane as a Double.</returns>
+        </member>
+        <member name="M:Synthetic.Revit.View.GetNearClippingDistance(Revit.Elements.Views.View3D)">
+            <summary>
+            Gets a View's distance to the Near Clipping Plane.
+            </summary>
+            <param name="View3D">A Dynamo wrapped View3D</param>
+            <returns name="Distance">Distance to the Near Clipping Plane as a Double.</returns>
+        </member>
+        <member name="M:Synthetic.Revit.View.SetFarClippingDistance(Revit.Elements.Views.View,System.Double)">
+            <summary>
+            Set the far clipping distance of a view with far clipping active.  This method preserves the near clip distance, however setting the far clip distance using any other method will reset the near clip distance.
+            </summary>
+            <param name="View">A Dynamo wrapped view</param>
+            <param name="FarClipping">The Far Clipping Offset distance as a number from the camera</param>
+            <returns name="View">Returns the modified view</returns>
+        </member>
+        <member name="M:Synthetic.Revit.View.SetNearClippingDistance(Revit.Elements.Views.View3D,System.Double)">
+            <summary>
+            Sets the near clipping plane distance of the view.  This is done by modifying the cropbox.  Please note that modifying the far clip distance will reset any near clip modifications.
+            </summary>
+            <param name="View">A Dynamo wrapped view</param>
+            <param name="NearClipping">The Near Clipping Offset distance as a number from the camera</param>
+            <returns name="View">Returns the modified view</returns>
+        </member>
+        <member name="M:Synthetic.Revit.View.RenumberOnSheetByCoordinates(Revit.Elements.Views.Sheet,System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            Renumbers the views on the sheet based on the view grid.
+            </summary>
+            <param name="sheet">A dynamo Sheet element</param>
+            <param name="gridX">Size of the layout grid in the X direction</param>
+            <param name="gridY">Size of the layout grid in the Y direction</param>
+            <param name="originX">Location of the layout grid origin on the X axis</param>
+            <param name="originY">Location of the layout grid origin on the Y axis</param>
+            <returns name="Viewports">Revit viewport objects on the sheet.</returns>
+        </member>
+        <member name="M:Synthetic.Revit.View.RenumberOnSheet(Revit.Elements.Views.Sheet,Revit.Elements.FamilyType,System.String,System.String)">
+            <summary>
+            Renumbers the views on the Active Sheet
+            </summary>
+            <param name="sheet">A dynamo Sheet element</param>
+            <param name="familyType">Dynamo FamilyType that represents the origin element</param>
+            <param name="xGridName">Name of the parameter that represents the X grid spacing</param>
+            <param name="yGridName">Name of the parameter that represents the Y grid spacing</param>
+            <returns name="Viewports">Revit viewport objects on the sheet.</returns>
+        </member>
+        <member name="M:Synthetic.Revit.View.RenumberOnActiveSheet(Revit.Elements.FamilyType,System.String,System.String)">
+            <summary>
+            Renumbers the views on the Active Sheet
+            </summary>
+            <param name="familyType">Dynamo FamilyType that represents the origin element</param>
+            <param name="xGridName">Name of the parameter that represents the X grid spacing</param>
+            <param name="yGridName">Name of the parameter that represents the Y grid spacing</param>
+            <returns name="Viewports">Revit viewport objects on the sheet.</returns>
+        </member>
+        <member name="M:Synthetic.Revit.View.ActiveView">
+            <summary>
+            Gets the active view in the document.  Returns an unwrapped Revit view.
+            </summary>
+            <returns name="View">Returns the Revit view that is the current active view.  This is an unwrapped Revit element not the dynamo wrapped version.</returns>
+        </member>
+        <member name="M:Synthetic.Revit.View._tempRenumberViewports(System.Collections.Generic.List{Autodesk.Revit.DB.ElementId},Autodesk.Revit.DB.Document)">
+            <summary>
+            Given a list of viewport element IDs, the function will get the viewport from the document and give each viewport a temporary sheet number.  Function will ignore legends.
+            </summary>
+            <param name="viewPortIds">Revit ElementId of the viewports.</param>
+            <param name="doc">The Revit Document the viewports are in.</param>
+            <returns name="viewports">Returns the Revit viewports.</returns>
+        </member>
+        <member name="M:Synthetic.Revit.View._renumberViewports(System.Collections.Generic.List{Autodesk.Revit.DB.Viewport},System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            Given a list of viewports, grid spacing and an origin point, function will renumber the viewports based on grid location.
+            </summary>
+            <param name="viewports">Revit ViewPorts</param>
+            <param name="gridX">Grid spacing in the X direction</param>
+            <param name="gridY">Grid spacing in the Y direction</param>
+            <param name="originX">X coordinate of the grid origin</param>
+            <param name="originY">Y coordinate of the grid origin</param>
+            <returns name="viewports">The renumbered Revit ViewPorts</returns>
+        </member>
+        <member name="T:Synthetic.Revit.ViewOrientation3D">
+            <summary>
+            Wrapper for Autodesk.Revit.DB.ViewOrientation
+            </summary>
+        </member>
+        <member name="M:Synthetic.Revit.ViewOrientation3D.ByEyeUpForwardDirections(Autodesk.Revit.DB.XYZ,Autodesk.Revit.DB.XYZ,Autodesk.Revit.DB.XYZ)">
+            <summary>
+            Creates a new ViewOrientation3D given a EyePosition, UpDirection and ForwardDirection
+            </summary>
+            <param name="EyePosition">The coordinates for the EyePosition</param>
+            <param name="UpDirection">A vector pointing to the Up direciton of the view (top of the screen)</param>
+            <param name="ForwardDirection">A vector pointing from the camera towards the screen</param>
+            <returns></returns>
+        </member>
+        <member name="M:Synthetic.Revit.ViewOrientation3D.GetEyePosition(Autodesk.Revit.DB.ViewOrientation3D)">
+            <summary>
+            Gets the coordinates of the EyePosition
+            </summary>
+            <param name="ViewOrient">Autodesk.Revit.DB.ViewOrientation3D</param>
+            <returns name="XYZ">The coordinates of the EyePosition</returns>
+        </member>
+        <member name="M:Synthetic.Revit.ViewOrientation3D.GetUpDirection(Autodesk.Revit.DB.ViewOrientation3D)">
+            <summary>
+            Gets the vector of the UpDirection that points to the top of the screen.
+            </summary>
+            <param name="ViewOrient">Autodesk.Revit.DB.ViewOrientation3D</param>
+            <returns name="XYZ">The vector of the UpDirection</returns>
+        </member>
+        <member name="M:Synthetic.Revit.ViewOrientation3D.GetForwardDirection(Autodesk.Revit.DB.ViewOrientation3D)">
+            <summary>
+            Gets the vector of the FowardDirection that points from the camera towards the screen.
+            </summary>
+            <param name="ViewOrient">Autodesk.Revit.DB.ViewOrientation3D</param>
+            <returns name="XYZ">The vector of the ForwardDirection</returns>
+        </member>
+        <member name="T:Synthetic.Revit.ViewTemplate">
+            <summary>
+            View Template Class
+            </summary>
+        </member>
+        <member name="P:Synthetic.Revit.ViewTemplate.InternalViewTemplate">
+            <summary>
+            Obtain the reference Element as a View
+            </summary>
+        </member>
+        <member name="P:Synthetic.Revit.ViewTemplate.InternalElement">
+            <summary>
+            Reference to the Element
+            </summary>
+        </member>
+        <member name="M:Synthetic.Revit.ViewTemplate.GetViewTemplates(Autodesk.Revit.DB.Document)">
+            <summary>
+            Retreives all view templates in a document.
+            </summary>
+            <param name="doc">Autodesk.Revit.DB.Document object.</param>
+            <returns name="templates">View templates</returns>
+            <returns name="template names">Names of the view templates</returns>
+            <returns name="template IDs">Element IDs of the view templates</returns>
+        </member>
+        <member name="M:Synthetic.Revit.ViewTemplate.GetViewTemplateByName(System.String,Autodesk.Revit.DB.Document)">
+            <summary>
+            Retreives all view templates in a document.
+            </summary>
+            <param name="name">Name of the view template.</param>
+            <param name="doc">Autodesk.Revit.DB.Document object.</param>
+            <returns name="templates">View templates</returns>
+            <returns name="template names">Names of the view templates</returns>
+            <returns name="template IDs">Element IDs of the view templates</returns>
+        </member>
+        <member name="M:Synthetic.Revit.ViewTemplate.IsViewTemplate(Revit.Elements.Views.View)">
+            <summary>
+            Checks if the view is a view template.
+            </summary>
+            <param name="view">A Dynamo wrapped view.</param>
+            <returns name="bool">True if the view is a template, otherwise false.</returns>
+        </member>
+        <member name="M:Synthetic.Revit.ViewTemplate.Wrap(Autodesk.Revit.DB.View)">
+            <summary>
+            Wraps a Revit view template for use in Dynamo.  Returns null if the view is not a template.
+            </summary>
+            <param name="viewTemplate">A Autodesk.Revit.DB.View view template.  Returns null if the view is not a template.</param>
+            <returns name="View Template">A view template.</returns>
+        </member>
+        <member name="M:Synthetic.Revit.ViewTemplate.UnwrapViewTemplate(Synthetic.Revit.ViewTemplate)">
+            <summary>
+            Wraps a Revit view template for use in Dynamo.  Returns null if the view is not a template.
+            </summary>
+            <param name="viewTemplate">A Autodesk.Revit.DB.View view template.  Returns null if the view is not a template.</param>
+            <returns name="View Template">A view template.</returns>
+        </member>
+        <member name="M:Synthetic.Revit.ViewTemplate.ToString">
+            <summary>
+            Creates a string representation of the object.
+            </summary>
+            <returns nampe="string">A string representation of the object.</returns>
+        </member>
+        <member name="T:Synthetic.Revit.WallType">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Synthetic.Revit.WallType.Document(Revit.Elements.WallType)">
+            <summary>
+            Get the document that the wall type belongs too.
+            </summary>
+            <param name="WallType">A Dynamo wrapped Revit.WallType</param>
+            <returns name="Document">The Autodesk.Revit.DB.Document that the wall type belongs too.</returns>
+        </member>
+        <member name="M:Synthetic.Revit.WallType.GetCompoundStructure(Revit.Elements.WallType)">
+            <summary>
+            Gets the compound structure from a wall type.
+            </summary>
+            <param name="WallType">A Dynamo wrapped Revit.WallType</param>
+            <returns name="CompoundStructure">A Compound Structure</returns>
+        </member>
+        <member name="M:Synthetic.Revit.WallType.SetCompoundStructure(Revit.Elements.WallType,Synthetic.Revit.CompoundStructure)">
+            <summary>
+            Replaces a Wall Type's compound structure with the given one.  Please note that the compound structure's materials and the wall type must be in the same document or unexpected results may occur.
+            </summary>
+            <param name="WallType">The wall type to be modified.</param>
+            <param name="compoundStructure">A compound structure</param>
+            <returns name="WallType">The modified wall type.</returns>
+        </member>
+        <member name="M:Synthetic.Revit.WallType.TransferWallTypeProperties(Revit.Elements.WallType,Revit.Elements.WallType)">
+            <summary>
+            Overwrites the parameters and compound structure of the destintation wall type with the source wall type.
+            </summary>
+            <param name="wallType">A dynamo wrappped WallType to overwrite</param>
+            <param name="SourceWallType">A dynamo wrapped WallType to use as the source</param>
+            <returns name="DestinationWallType">The destinatio WallType</returns>
+        </member>
+        <member name="T:Synthetic.Revit.Workset">
+            <summary>
+            Workset Class
+            </summary>
+        </member>
+        <member name="M:Synthetic.Revit.Workset.ByName(System.String,System.Boolean,System.String)">
+            <summary>
+            Creates a workset in current Revit document.  The default visibility of the workset can be set.  If an alias is provided that exists in the current document, the alias workset will be renamed rather than a new workset made.
+            </summary>
+            <param name="name">The name of the workset</param>
+            <param name="visible">The default visibilty of the workset</param>
+            <param name="alias">If the alias already exists in the document, rename the alias to the workset instead of making it.  Provide an empty string "" to specify no alias.</param>
+            <returns name="workset">A Revit Workset</returns>
+            <returns name="created">True if the workset was created, false if the workset was already in the document</returns>
+        </member>
+        <member name="M:Synthetic.Revit.Workset.GetByName(System.String)">
+            <summary>
+            Retrieves the workset with the given name.
+            </summary>
+            <param name="name">A workset name</param>
+            <returns name="workset">Returns a workset.  Returns null if workset does not exist.</returns>
+        </member>
+        <member name="M:Synthetic.Revit.Workset.GetByWorksetId(Autodesk.Revit.DB.WorksetId)">
+            <summary>
+            Retrieves the workset with the given name.
+            </summary>
+            <param name="worksetId">The workset ID</param>
+            <returns name="workset">Returns a workset.  Returns null if workset does not exist.</returns>
+        </member>
+        <member name="M:Synthetic.Revit.Workset.GetById(System.Int32)">
+            <summary>
+            Retrieves the workset with the given name.
+            </summary>
+            <param name="id">A integer of the id.</param>
+            <returns name="workset">Returns a workset.  Returns null if workset does not exist.</returns>
+        </member>
+        <member name="M:Synthetic.Revit.Workset.GetUserWorksets">
+            <summary>
+            Retrieves all the user worksets from a document.  Excludes view and family worksets.
+            </summary>
+            <returns name="worksets">Returns all user worksets in the document.</returns>
+        </member>
+        <member name="M:Synthetic.Revit.Workset.Rename(Synthetic.Revit.Workset,System.String)">
+            <summary>
+            Renames a workset.
+            </summary>
+            <param name="workset">A workset</param>
+            <param name="name">A workset name</param>
+            <returns name="workset">renamed workeset.</returns>
+            <returns name="renamed">renamed workeset.</returns>
+        </member>
+        <member name="M:Synthetic.Revit.Workset.Name(Synthetic.Revit.Workset)">
+            <summary>
+            Gets the workset's name as a string.
+            </summary>
+            <param name="workset">A workset.</param>
+            <returns name="name">The workset's name as a string</returns>
+        </member>
+        <member name="M:Synthetic.Revit.Workset.Id(Synthetic.Revit.Workset)">
+            <summary>
+            Gets the workset ID of a workset.
+            </summary>
+            <param name="workset">The workset that you wish to set the visibility of.</param>
+            <returns name="workset ID">The worksetID</returns>
+        </member>
+        <member name="M:Synthetic.Revit.Workset.UniqueId(Synthetic.Revit.Workset)">
+            <summary>
+            Gets the GUID of the workset.  The GUID is stable between syncs.
+            </summary>
+            <param name="workset">The workset that you wish to set the visibility of.</param>
+            <returns name="GUID">The worksetID</returns>
+        </member>
+        <member name="M:Synthetic.Revit.Workset.IsWorksetNameUnique(System.String)">
+            <summary>
+            Determines whether a given name is already used in the document.
+            </summary>
+            <param name="name">A workset name</param>
+            <returns name="bool">True if workset name is unique in the document, false if already used.</returns>
+        </member>
+        <member name="M:Synthetic.Revit.Workset.SetDefaultVisibility(Synthetic.Revit.Workset,System.Boolean)">
+            <summary>
+            Sets the Default Visibility of a workset within a document.
+            </summary>
+            <param name="workset">The workset that you wish to set the visibility of.</param>
+            <param name="visible">The visibility of the workset</param>
+            <returns name="workset">A Revit workset</returns>
+        </member>
+        <member name="M:Synthetic.Revit.Workset.GetDefaultVisibility(Synthetic.Revit.Workset)">
+            <summary>
+            Sets the Default Visibility of a workset within a document.
+            </summary>
+            <param name="workset">A workset.</param>
+            <returns name="visibility">Whether the workset is visible by default.</returns>
+        </member>
+        <member name="M:Synthetic.Revit.Workset.ConvertIntToWorksetId(System.Int32)">
+            <summary>
+            Converts a integer to a Workset ID.  It does not check whether the workset exists in the document.
+            </summary>
+            <param name="id">The id as a integer.</param>
+            <returns name="WorksetId">A WorksetId</returns>
+        </member>
+        <member name="M:Synthetic.Revit.Workset.Create(Autodesk.Revit.DB.Document,System.String)">
+            <summary>
+            Creates a workset in a document
+            </summary>
+            <param name="doc">A Revit Document</param>
+            <param name="name">Name of the workset</param>
+            <returns></returns>
+        </member>
+        <member name="M:Synthetic.Revit.Workset.GetElementWorkset(Revit.Elements.Element)">
+            <summary>
+            Retrieves an element's workset.
+            </summary>
+            <param name="element">A Revit element.</param>
+            <returns name="workset">A Revit workset.</returns>
+        </member>
+        <member name="M:Synthetic.Revit.Workset.SetElementWorkset(Revit.Elements.Element,Synthetic.Revit.Workset)">
+            <summary>
+            Changes the workset of an element.
+            </summary>
+            <param name="element">Dynamo Elements.</param>
+            <param name="workset">A revit workset</param>
+            <returns name="element">The element that was changed.  Returns null if the change was unsuccessfull.</returns>
+        </member>
+        <member name="M:Synthetic.Revit.Workset.UnwrapWorkset(Synthetic.Revit.Workset)">
+            <summary>
+            Provides access to the Autodesk.Revit.DB.Workset object.
+            </summary>
+            <param name="workset">A workset.</param>
+            <returns name="unwrapped">A Autodesk.Revit.DB.Workset object.</returns>
+        </member>
+        <member name="M:Synthetic.Revit.Workset.Wrap(Autodesk.Revit.DB.Document,Autodesk.Revit.DB.Workset)">
+            <summary>
+            Converts a Autodesk.Revit.DB.Workset to a Workset object.
+            </summary>
+            <param name="document">A workset.</param>
+            <param name="workset">A Autodesk.Revit.DB.Workset.</param>
+            <returns name="wrapped">A Autodesk.Revit.DB.Workset object.</returns>
+        </member>
+        <member name="M:Synthetic.Revit.Workset.ToString">
+            <summary>
+            Creates a string representation of the workset.
+            </summary>
+            <returns name="string">Returns a string representation of the workset.</returns>
+        </member>
+        <member name="T:Synthetic.Revit.XYZ">
+            <summary>
+            Wrapper for Autodesk.Revit.DB XYZ object.
+            </summary>
+        </member>
+        <member name="M:Synthetic.Revit.XYZ.ConvertVectorToXYZ(Autodesk.DesignScript.Geometry.Vector)">
+            <summary>
+            Converts a Dynamo Vector into a Revit XYZ object
+            </summary>
+            <param name="Vector"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Synthetic.Revit.XYZ.ConvertXYZToVector(Autodesk.Revit.DB.XYZ)">
+            <summary>
+            Converts a Revit XYZ object into a Dynamo Vector
+            </summary>
+            <param name="XYZ">A Autodesk.Revit.DB.XYZ object</param>
+            <returns name="Vector">Returns a dynamo Vector</returns>
+        </member>
+        <member name="M:Synthetic.Revit.XYZ.X(Autodesk.Revit.DB.XYZ)">
+            <summary>
+            The X value of a Revit XYZ point.
+            </summary>
+            <param name="XYZ">A Revit XYZ point</param>
+            <returns name="X">A double</returns>
+        </member>
+        <member name="M:Synthetic.Revit.XYZ.Y(Autodesk.Revit.DB.XYZ)">
+            <summary>
+            The Y value of a Revit XYZ point.
+            </summary>
+            <param name="XYZ">A Revit XYZ point</param>
+            <returns name="Y">A double</returns>
+        </member>
+        <member name="M:Synthetic.Revit.XYZ.Z(Autodesk.Revit.DB.XYZ)">
+            <summary>
+            The Z value of a Revit XYZ point.
+            </summary>
+            <param name="XYZ">A Revit XYZ point</param>
+            <returns name="Z">A double</returns>
+        </member>
+    </members>
+</doc>

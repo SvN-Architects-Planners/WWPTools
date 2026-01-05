@@ -1,38 +1,31 @@
 param(
   [string]$RepoOwner = "jason-svn",
-  [string]$RepoName = "WWPTools"
+  [string]$RepoName = "WWPTools",
+  [string]$Branch = "main",
+  [string]$TargetPackages = "C:\\dynpackages"
 )
 
 $ErrorActionPreference = "Stop"
 
-$extensionsRoot = Join-Path $env:APPDATA "pyRevit\Extensions"
-$targetExtension = Join-Path $extensionsRoot "pyRevitTool.extension"
+$extensionsRoot = Join-Path $env:APPDATA "pyRevit\\Extensions"
+$targetExtension = Join-Path $extensionsRoot "WWPTools.extension"
 
-$apiUrl = "https://api.github.com/repos/$RepoOwner/$RepoName/releases/latest"
-$release = Invoke-RestMethod -Uri $apiUrl -Headers @{ "User-Agent" = "WWPTools-Installer" }
-
-if (-not $release.assets -or $release.assets.Count -eq 0) {
-  throw "No release assets found. Upload a zip release asset that contains pyRevitTool.extension."
-}
-
-$zipAsset = $release.assets | Where-Object { $_.name -match "\.zip$" } | Select-Object -First 1
-if (-not $zipAsset) {
-  throw "No .zip asset found. Upload a zip release asset that contains pyRevitTool.extension."
-}
+$repoZipUrl = "https://github.com/$RepoOwner/$RepoName/archive/refs/heads/$Branch.zip"
 
 $tempDir = Join-Path $env:TEMP ("WWPTools_" + [Guid]::NewGuid().ToString("N"))
-$zipPath = Join-Path $tempDir $zipAsset.name
+$zipPath = Join-Path $tempDir "$RepoName-$Branch.zip"
 $extractDir = Join-Path $tempDir "extract"
 
 New-Item -ItemType Directory -Path $tempDir | Out-Null
 New-Item -ItemType Directory -Path $extractDir | Out-Null
 
-Invoke-WebRequest -Uri $zipAsset.browser_download_url -OutFile $zipPath -UseBasicParsing
+Invoke-WebRequest -Uri $repoZipUrl -OutFile $zipPath -UseBasicParsing
 Expand-Archive -Path $zipPath -DestinationPath $extractDir -Force
 
-$extractedExtension = Join-Path $extractDir "pyRevitTool.extension"
+$repoRoot = Join-Path $extractDir "$RepoName-$Branch"
+$extractedExtension = Join-Path $repoRoot "WWPTools.extension"
 if (-not (Test-Path $extractedExtension)) {
-  throw "Expected pyRevitTool.extension at the root of the zip."
+  throw "Expected WWPTools.extension in the repo zip."
 }
 
 New-Item -ItemType Directory -Path $extensionsRoot -Force | Out-Null
@@ -42,6 +35,50 @@ if (Test-Path $targetExtension) {
 
 Copy-Item -Path $extractedExtension -Destination $targetExtension -Recurse -Force
 
+$packagesSource = Join-Path $repoRoot "packages"
+if (Test-Path $packagesSource) {
+  New-Item -ItemType Directory -Path $TargetPackages -Force | Out-Null
+  Copy-Item -Path (Join-Path $packagesSource "*") -Destination $TargetPackages -Recurse -Force
+}
+
+function Add-PackagePath($settingsPath, $packagePath) {
+  if (-not (Test-Path $settingsPath)) {
+    return
+  }
+
+  [xml]$xml = Get-Content -Path $settingsPath
+  $prefs = $xml.PreferenceSettings
+  if (-not $prefs) {
+    return
+  }
+
+  $cpf = $prefs.CustomPackageFolders
+  if (-not $cpf) {
+    $cpf = $xml.CreateElement("CustomPackageFolders")
+    $prefs.AppendChild($cpf) | Out-Null
+  }
+
+  $existing = @($cpf.string)
+  if ($existing -notcontains $packagePath) {
+    $node = $xml.CreateElement("string")
+    $node.InnerText = $packagePath
+    $cpf.AppendChild($node) | Out-Null
+    $xml.Save($settingsPath)
+  }
+}
+
+$dynamoRoot = Join-Path $env:APPDATA "Dynamo\\Dynamo Revit"
+if (Test-Path $dynamoRoot) {
+  Get-ChildItem -Path $dynamoRoot -Directory | ForEach-Object {
+    $settingsPath = Join-Path $_.FullName "DynamoSettings.xml"
+    Add-PackagePath -settingsPath $settingsPath -packagePath $TargetPackages
+  }
+}
+
 Remove-Item -Path $tempDir -Recurse -Force
 
 Write-Host "WWPTools installed to $targetExtension"
+if (Test-Path $TargetPackages) {
+  Write-Host "Dynamo packages installed to $TargetPackages"
+}
+

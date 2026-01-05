@@ -1,0 +1,163 @@
+{
+  "Uuid": "018628e6-7bd7-40b6-9255-e49d2291097c",
+  "IsCustomNode": true,
+  "Category": "archilab.Revit.Printing",
+  "Description": "This node will take a name of a view set and return views/sheet elements contained in it. ",
+  "Name": "Get Views from View Set",
+  "ElementResolver": {
+    "ResolutionMap": {}
+  },
+  "Inputs": [],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "#Copyright(c) 2015, Konrad Sobon\n# @arch_laboratory, http://archi-lab.net\n\nimport clr\nclr.AddReference('ProtoGeometry')\nfrom Autodesk.DesignScript.Geometry import *\n\n# Import DocumentManager and TransactionManager\nclr.AddReference(\"RevitServices\")\nimport RevitServices\nfrom RevitServices.Persistence import DocumentManager\nfrom RevitServices.Transactions import TransactionManager\n\ndoc = DocumentManager.Instance.CurrentDBDocument\n\n# Import Element wrapper extension methods\nclr.AddReference(\"RevitNodes\")\nimport Revit\nclr.ImportExtensions(Revit.Elements)\n\n# Import RevitAPI\nclr.AddReference(\"RevitAPI\")\nimport Autodesk\nfrom Autodesk.Revit.DB import *\n\nviewSet = UnwrapElement(IN[0])\n\nviewSets = FilteredElementCollector(doc).OfClass(ViewSheetSet)\n\nfor i in viewSets:\n\tif i.Name == viewSet.Name:\n\t\tvs = i\n\telse:\n\t\tcontinue\n\n#Assign your output to the OUT variable\nOUT = [i.ToDSType(True) for i in vs.Views]",
+      "VariableInputPorts": true,
+      "Id": "c35307b3685b49efae84116cffa68342",
+      "Inputs": [
+        {
+          "Id": "bffcdb3d25fd40409d521267263076fc",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "5fe070a2e9b245c2a5060c64d7e3d53c",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded IronPython script."
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Symbol, DynamoCore",
+      "NodeType": "InputNode",
+      "Parameter": {
+        "Name": "_viewSet",
+        "TypeName": "var",
+        "TypeRank": -1,
+        "DefaultValue": null,
+        "Description": ""
+      },
+      "Id": "3196ed1f5a33419d9f9ad6ad0884cbb8",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "884797d27e384872aa52662fc21b2ec9",
+          "Name": "",
+          "Description": "Symbol",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "A function parameter, use with custom nodes.\r\n\r\nYou can specify the type and default value for parameter. E.g.,\r\n\r\ninput : var[]..[]\r\nvalue : bool = false"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Output, DynamoCore",
+      "NodeType": "OutputNode",
+      "Symbol": "_views",
+      "Id": "1fa44a54fcb14997b003a73df63a08fd",
+      "Inputs": [
+        {
+          "Id": "f82d309af7f340ad8c28d722e6d0f156",
+          "Name": "",
+          "Description": "",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [],
+      "Replication": "Disabled",
+      "Description": "A function output, use with custom nodes"
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "5fe070a2e9b245c2a5060c64d7e3d53c",
+      "End": "f82d309af7f340ad8c28d722e6d0f156",
+      "Id": "fff558979b0640bc87aa3bc14e812f3c"
+    },
+    {
+      "Start": "884797d27e384872aa52662fc21b2ec9",
+      "End": "bffcdb3d25fd40409d521267263076fc",
+      "Id": "49bad536267140e78f84189732657df7"
+    }
+  ],
+  "Dependencies": [],
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": false,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.2.1.5175",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "Background Preview",
+      "EyeX": -17.0,
+      "EyeY": 24.0,
+      "EyeZ": 50.0,
+      "LookX": 12.0,
+      "LookY": -13.0,
+      "LookZ": -58.0,
+      "UpX": 0.0,
+      "UpY": 1.0,
+      "UpZ": 0.0
+    },
+    "NodeViews": [
+      {
+        "ShowGeometry": true,
+        "Name": "Python Script",
+        "Id": "c35307b3685b49efae84116cffa68342",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 447.0,
+        "Y": 295.0
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Input",
+        "Id": "3196ed1f5a33419d9f9ad6ad0884cbb8",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 338.682640924271,
+        "Y": 294.949549174849
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Output",
+        "Id": "1fa44a54fcb14997b003a73df63a08fd",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 613.408013860815,
+        "Y": 295.51021320125
+      }
+    ],
+    "Annotations": [],
+    "X": -329.934078640937,
+    "Y": -269.931764081641,
+    "Zoom": 1.78359936238281
+  }
+}

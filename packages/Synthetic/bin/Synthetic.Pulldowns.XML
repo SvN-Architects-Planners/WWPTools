@@ -1,0 +1,199 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Synthetic.Pulldowns</name>
+    </assembly>
+    <members>
+        <member name="T:Synthetic.Pulldowns.GenericRevitElementsDropDown">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Synthetic.Pulldowns.GenericRevitElementsDropDown.#ctor(System.String,System.Type,System.Func{System.String,System.Object})">
+            <summary>
+            Generic Dropdown that selects a Revit element given a type.
+            </summary>
+            <param name="name">Node Name</param>
+            <param name="objectType">Type of Enumeration to Display</param>
+            <param name="selectionFunction"></param>
+        </member>
+        <member name="P:Synthetic.Pulldowns.GenericRevitElementsDropDown.ObjectType">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Synthetic.Pulldowns.GenericRevitElementsDropDown.SelectionFunction">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Synthetic.Pulldowns.GenericRevitElementsDropDown.PopulateItemsCore(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="currentSelection"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Synthetic.Pulldowns.GenericRevitElementsDropDown.PopulateDropDownItems">
+            <summary>
+            Populate Items in Dropdown menu
+            </summary>
+        </member>
+        <member name="M:Synthetic.Pulldowns.GenericRevitElementsDropDown.BuildOutputAst(System.Collections.Generic.List{ProtoCore.AST.AssociativeAST.AssociativeNode})">
+            <summary>
+            Assign the selected Enumeration value to the output
+            </summary>
+        </member>
+        <member name="T:Synthetic.Pulldowns.GenericInheritedClassesDropDown">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Synthetic.Pulldowns.GenericInheritedClassesDropDown.#ctor(System.String,System.Type,System.Func{System.String,System.Object})">
+            <summary>
+            Generic Dropdown that creates an instance of a type from a list of classes that inherit from a base class.
+            </summary>
+            <param name="name">Node Name</param>
+            <param name="objectType">Type of Enumeration to Display</param>
+            <param name="function"></param>
+        </member>
+        <member name="P:Synthetic.Pulldowns.GenericInheritedClassesDropDown.ObjectType">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Synthetic.Pulldowns.GenericInheritedClassesDropDown.Function">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Synthetic.Pulldowns.GenericInheritedClassesDropDown.PopulateItemsCore(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="currentSelection"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Synthetic.Pulldowns.GenericInheritedClassesDropDown.PopulateDropDownItems">
+            <summary>
+            Populate Items in Dropdown menu
+            </summary>
+        </member>
+        <member name="M:Synthetic.Pulldowns.GenericInheritedClassesDropDown.BuildOutputAst(System.Collections.Generic.List{ProtoCore.AST.AssociativeAST.AssociativeNode})">
+            <summary>
+            Assign the selected Enumeration value to the output
+            </summary>
+        </member>
+        <member name="T:Synthetic.Pulldowns.GenericEnumerationDropDown">
+            <summary>
+            Generic UI Dropdown node baseclass for Enumerations.
+            This class populates a dropdown with all enumeration values of the specified type.
+            Written by Konrad Sobon in post on Dynamo Forum.
+            https://forum.dynamobim.com/t/c-dynamo-nodes-dropdown-input-node/10225/4
+            </summary>
+        </member>
+        <member name="M:Synthetic.Pulldowns.GenericEnumerationDropDown.#ctor(System.String,System.Type)">
+            <summary>
+            Generic Enumeration Dropdown
+            </summary>
+            <param name="name">Node Name</param>
+            <param name="enumerationType">Type of Enumeration to Display</param>
+        </member>
+        <member name="P:Synthetic.Pulldowns.GenericEnumerationDropDown.EnumerationType">
+            <summary>
+            Type of Enumeration
+            </summary>
+        </member>
+        <member name="M:Synthetic.Pulldowns.GenericEnumerationDropDown.PopulateItemsCore(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="currentSelection"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Synthetic.Pulldowns.GenericEnumerationDropDown.PopulateDropDownItems">
+            <summary>
+            Populate Items in Dropdown menu
+            </summary>
+        </member>
+        <member name="M:Synthetic.Pulldowns.GenericEnumerationDropDown.BuildOutputAst(System.Collections.Generic.List{ProtoCore.AST.AssociativeAST.AssociativeNode})">
+            <summary>
+            Assign the selected Enumeration value to the output
+            </summary>
+        </member>
+        <member name="T:Synthetic.Revit.Parameters.DropDownBuiltInParameters">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Synthetic.Revit.Parameters.DropDownBuiltInParameters.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Synthetic.Revit.Parameters.DropDownBuiltInParameters.PopulateItemsCore(System.String)">
+            <summary>
+            Adds items to the pulldown list.
+            </summary>
+            <param name="currentSelection"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Synthetic.Revit.Parameters.DropDownBuiltInParameters.BuildOutputAst(System.Collections.Generic.List{ProtoCore.AST.AssociativeAST.AssociativeNode})">
+            <summary>
+            
+            </summary>
+            <param name="inputAstNodes"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Synthetic.Revit.Select.DropDownElementOnPhaseStatus">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Synthetic.Revit.Select.DropDownElementOnPhaseStatus.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Synthetic.Revit.Select.SelectMaterial">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Synthetic.Revit.Select.SelectMaterial.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Synthetic.Revit.View.DropDownViewDuplicateOption">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Synthetic.Revit.View.DropDownViewDuplicateOption.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Synthetic.Revit.CollectorFilterRulesSelect.FilterStringRulesDropDown">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Synthetic.Revit.CollectorFilterRulesSelect.FilterStringRulesDropDown.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Synthetic.Revit.CollectorFilterRulesSelect.FilterNumericRulesDropDown">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Synthetic.Revit.CollectorFilterRulesSelect.FilterNumericRulesDropDown.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+    </members>
+</doc>
