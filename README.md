@@ -5,7 +5,8 @@ WWPTools is a pyRevit toolbar extension distributed via GitHub Releases for easy
 ## For admins (publish updates)
 1) Create a GitHub repo named `WWPTools` (public).
 2) Publish updates by pushing to `main` (the installer pulls the repo zip from GitHub).
-3) Build the MSI and attach it to a GitHub release (example: `V1.01`).
+3) If the repo owner or name changes, update it in `installer/WWPTools.wxs` and rebuild the MSI.
+4) Attach the MSI to a GitHub release (example: `V1.01`).
 
 ## For users (install or update)
 1) Download the MSI from the latest GitHub release (example: `V1.01`).
@@ -13,11 +14,9 @@ WWPTools is a pyRevit toolbar extension distributed via GitHub Releases for easy
 3) The installer installs/updates the extension in:
    `%APPDATA%\pyRevit\Extensions\WWPTools.extension`
    and installs Dynamo packages to `C:\dynpackages`.
-4) If you prefer the script-based install, download and run `Install_WWPTools.bat`.
 
 ## Dynamo packages
 The installer adds `C:\dynpackages` to Dynamo's Custom Package Folders (for any
-installed Dynamo Revit versions), so users keep their personal packages too.
-
-## Customize the repo owner
-Edit `Update_WWPTools.ps1` and set `RepoOwner` to your GitHub org/user name.
+installed Dynamo Revit versions), so users keep their personal packages too. If
+Dynamo has never been launched, the installer creates the settings file and will
+prompt users to open Dynamo once to finalize setup.
