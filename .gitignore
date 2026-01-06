@@ -1,3 +1,4 @@
 /.vscode
 release_assets/
 installer/*.msi
+installer/*.wixpdb

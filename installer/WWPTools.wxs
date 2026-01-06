@@ -10,7 +10,7 @@
     <MajorUpgrade DowngradeErrorMessage="A newer version of WWPTools is already installed." />
     <MediaTemplate EmbedCab="yes" />
 
-    <StandardDirectory Id="LocalAppDataFolder">
+    <StandardDirectory Id="AppDataFolder">
       <Directory Id="PyRevitDir" Name="pyRevit">
         <Directory Id="ExtensionsDir" Name="Extensions">
           <Directory Id="INSTALLFOLDER" Name="WWPTools.extension" />
@@ -48,3 +48,4 @@
     </InstallExecuteSequence>
   </Package>
 </Wix>
+
