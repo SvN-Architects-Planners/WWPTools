@@ -1,6 +1,6 @@
 # WWPTools Release Publishing Script
 param(
-    [string]$Version = "1.1.2",
+    [string]$Version = "1.1.3",
     [string]$Message = "Update changelog for v$Version release"
 )
 
