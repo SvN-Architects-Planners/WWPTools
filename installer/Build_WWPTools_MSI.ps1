@@ -20,15 +20,22 @@ if (-not (Test-Path $wixExe)) {
   throw "WiX not found at $wixExe"
 }
 
-# Shift logo to the right inside the banner bitmap so the logo appears right-aligned in the installer UI.
+# Replace banner logo with `WWPTools.ico` and right-align it (10px padding).
 # Creates a backup of the original banner at WWPTools-banner.bmp.bak
 $bannerPath = Join-Path $scriptDir "WWPTools-banner.bmp"
-if (Test-Path $bannerPath) {
+$icoPath = Join-Path $scriptDir "WWPTools.ico"
+if (Test-Path $bannerPath -and Test-Path $icoPath) {
   try {
     Add-Type -AssemblyName System.Drawing
     $banner = [System.Drawing.Bitmap]::FromFile($bannerPath)
+    $icon = New-Object System.Drawing.Icon $icoPath
+    $iconBmp = $icon.ToBitmap()
+
     $W = $banner.Width; $H = $banner.Height
+    # background color assumed at (0,0)
     $bgCol = $banner.GetPixel(0,0)
+
+    # find existing content bbox (if any)
     $left = $W; $top = $H; $right = 0; $bottom = 0
     for ($x = 0; $x -lt $W; $x++) {
       for ($y = 0; $y -lt $H; $y++) {
@@ -40,34 +47,56 @@ if (Test-Path $bannerPath) {
         }
       }
     }
-    if ($right -ge $left) {
-      $lw = $right - $left + 1; $lh = $bottom - $top + 1
-      $out = New-Object System.Drawing.Bitmap $W, $H
-      $g = [System.Drawing.Graphics]::FromImage($out)
-      $bgBrush = New-Object System.Drawing.SolidBrush $bgCol
-      $g.FillRectangle($bgBrush, 0, 0, $W, $H)
-      $srcRect = New-Object System.Drawing.Rectangle $left, $top, $lw, $lh
-      $destX = [math]::Max(0, $W - $lw - 10)  # 10px right padding
-      $destY = [math]::Max(0, [math]::Floor((($H - $lh) / 2)))
-      $destRect = New-Object System.Drawing.Rectangle $destX, $destY, $lw, $lh
-      $g.DrawImage($banner, $destRect, $srcRect, [System.Drawing.GraphicsUnit]::Pixel)
-      $g.Dispose()
-      $banner.Dispose()
 
-      $bak = "${bannerPath}.bak"
-      Copy-Item -Path $bannerPath -Destination $bak -Force
-      $out.Save($bannerPath, [System.Drawing.Imaging.ImageFormat]::Bmp)
-      $out.Dispose()
-      Write-Host "Banner processed and logo moved to right (backup saved at $bak)"
+    if ($right -ge $left) {
+      $areaW = $right - $left + 1; $areaH = $bottom - $top + 1
     } else {
-      Write-Host "Banner appears to be blank or single-color; skipping logo alignment."
-      $banner.Dispose()
+      # fallback area if banner has no content
+      $areaW = [math]::Floor($W * 0.25)
+      $areaH = [math]::Floor($H * 0.6)
     }
+
+    # Determine target size for icon (fit into area, preserve aspect, limit to banner height)
+    $maxW = [math]::Min($areaW, [math]::Floor($W * 0.6))
+    $maxH = [math]::Min($areaH, [math]::Floor($H * 0.9))
+    $scale = [math]::Min(1.0, [math]::Min($maxW / $iconBmp.Width, $maxH / $iconBmp.Height))
+    if ($scale -le 0) { $scale = 1 }
+    $tW = [math]::Max(1, [math]::Floor($iconBmp.Width * $scale))
+    $tH = [math]::Max(1, [math]::Floor($iconBmp.Height * $scale))
+
+    $destX = [math]::Max(0, $W - $tW - 10)  # 10px right padding
+    $destY = [math]::Max(0, [math]::Floor((($H - $tH) / 2)))
+
+    $out = New-Object System.Drawing.Bitmap $W, $H
+    $g = [System.Drawing.Graphics]::FromImage($out)
+    $g.Clear($bgCol)
+    $g.InterpolationMode = [System.Drawing.Drawing2D.InterpolationMode]::HighQualityBicubic
+    $g.CompositingQuality = [System.Drawing.Drawing2D.CompositingQuality]::HighQuality
+
+    # Optionally copy any banner left-of-area content (e.g., text) - here we copy entire banner background
+    # but we deliberately replace the old logo area with the icon.
+    $g.DrawImage($banner, 0, 0)
+
+    $destRect = New-Object System.Drawing.Rectangle $destX, $destY, $tW, $tH
+    $g.DrawImage($iconBmp, $destRect)
+
+    $g.Dispose()
+    $banner.Dispose()
+    $icon.Dispose()
+    $iconBmp.Dispose()
+
+    $bak = "${bannerPath}.bak"
+    Copy-Item -Path $bannerPath -Destination $bak -Force
+    $out.Save($bannerPath, [System.Drawing.Imaging.ImageFormat]::Bmp)
+    $out.Dispose()
+    Write-Host "Banner replaced with WW+P icon and right-aligned (backup saved at $bak)"
   } catch {
-    Write-Warning "Failed to process banner image: $_"
+    Write-Warning "Failed to replace banner image with icon: $_"
   }
-} else {
-  Write-Host "Banner bitmap not found at $bannerPath; skipping logo alignment step."
+} elseif (-not (Test-Path $bannerPath)) {
+  Write-Host "Banner bitmap not found at $bannerPath; skipping logo replacement."
+} elseif (-not (Test-Path $icoPath)) {
+  Write-Host "Icon file not found at $icoPath; skipping logo replacement."
 }
 
 & $wixExe build -arch x64 -o $msiPath $wxsPath -bindpath $bindPath -ext WixToolset.Util.wixext -ext WixToolset.UI.wixext
