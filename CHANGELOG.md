@@ -5,14 +5,28 @@ All notable changes to WWPTools will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.2] - 2026-01-09
+
+### Changed
+- Updated Mass Context tool bundles for Random Plants, Mass ID Tool, Detail Line CAD, and Rename Materials
+- Updated Randomtree and CADLine scripts
+- Updated `WWPTools.tab/bundle.yaml`
+
 ## [1.1.1] - 2026-01-08
 
 ### Changed
-- Multiple Schedules Exporter rewritten for CPython with WinForms UI
+- Multiple Schedules Exporter completely rewritten for CPython with WinForms UI
 - Excel export now uses openpyxl via CSV pipeline; CSV export unchanged
-- Remembers last schedule selection, last Excel file, and last CSV folder
-- Excludes legend views from schedule list
+- Export tool now remembers last schedule selection, last Excel file location, and last CSV folder
+- Schedule list excludes legend views
 - Sync task excludes archive folders
+- Refactored Export2Ex tool from pulldown menu to single pushbutton
+- Consolidated multiple schedule export tools into unified interface
+- Improved user experience with streamlined export workflow
+
+### Removed
+- Deprecated separate SingleSchedule and MultipleSchedules buttons
+- Removed archive Dynamo scripts for schedule export
 
 ## [1.1.0] - 2026-01-07
 
@@ -47,5 +61,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Revit Cleanup tools
 - Views Sheet Manager tools
 
+[1.1.2]: https://github.com/jason-svn/WWPTools/releases/tag/V1.1.2
+[1.1.1]: https://github.com/jason-svn/WWPTools/releases/tag/V1.1.1
 [1.1.0]: https://github.com/jason-svn/WWPTools/releases/tag/V1.1.0
 [1.0.0]: https://github.com/jason-svn/WWPTools/releases/tag/V1.0.0

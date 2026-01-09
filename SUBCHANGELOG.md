@@ -1,4 +1,11 @@
-## 2026-01-08 16:49
+- 2026-01-09
+  - Updated `WWPTools.tab/bundle.yaml`.
+  - Updated `WWPTools.tab/2. Mass Context.panel/RandomPlants.pushbutton/bundle.yaml`.
+  - Updated `WWPTools.tab/2. Mass Context.panel/RandomPlants.pushbutton/Randomtree-script.py`.
+  - Updated `WWPTools.tab/2. Mass Context.panel/MassIDTool.pushbutton/bundle.yaml`.
+  - Updated `WWPTools.tab/2. Mass Context.panel/DetailLineCAD.pushbutton/bundle.yaml`.
+  - Updated `WWPTools.tab/2. Mass Context.panel/DetailLineCAD.pushbutton/CADLine-script.py`.
+  - Updated `WWPTools.tab/2. Mass Context.panel/RenameMaterials.pushbutton/bundle.yaml`.
 - 2026-01-08
   - Multiple Schedules Exporter now runs in CPython with WinForms UI.
   - Excel export uses openpyxl with a CSV pipeline; CSV export preserved.
@@ -10,4 +17,3 @@
 - Remembers last schedule selection, last Excel file, and last CSV folder.
 - Excludes legend views from schedule list.
 - Sync task excludes archive folders.
-
