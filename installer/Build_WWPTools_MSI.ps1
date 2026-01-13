@@ -1,111 +1,180 @@
+Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 
-$scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
-$wxsPath = Join-Path $scriptDir "WWPTools.wxs"
+function Get-PackageVersion {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$WxsPath
+    )
 
-# Extract version from WXS file
-[xml]$wxsContent = Get-Content $wxsPath
-$version = $wxsContent.Wix.Package.Version
-if ($version -match '^(\d+\.\d+\.\d+)') {
-    $versionTag = "v$($matches[1])"
-    $msiPath = Join-Path $scriptDir "WWPTools-$versionTag.msi"
-} else {
-    $msiPath = Join-Path $scriptDir "WWPTools.msi"
+    [xml]$wxs = Get-Content -LiteralPath $WxsPath
+    $package = $wxs.Wix.Package
+    if (-not $package) {
+        throw "Could not find <Package> in $WxsPath."
+    }
+
+    $version = $package.Version
+    if (-not $version) {
+        throw "Package Version is missing in $WxsPath."
+    }
+
+    if ($version -match "^\d+\.\d+\.\d+\.0$") {
+        return $version.Substring(0, $version.Length - 2)
+    }
+
+    return $version
 }
 
-$wixExe = "C:\Program Files\WiX Toolset v6.0\bin\wix.exe"
-$bindPath = $scriptDir
-
-if (-not (Test-Path $wixExe)) {
-  throw "WiX not found at $wixExe"
-}
-
-# Replace banner logo with `WWPTools.ico` and right-align it (10px padding).
-# Creates a backup of the original banner at WWPTools-banner.bmp.bak
-$bannerPath = Join-Path $scriptDir "WWPTools-banner.bmp"
-$icoPath = Join-Path $scriptDir "WWPTools.ico"
-if (Test-Path $bannerPath -and Test-Path $icoPath) {
-  try {
-    Add-Type -AssemblyName System.Drawing
-    $banner = [System.Drawing.Bitmap]::FromFile($bannerPath)
-    $icon = New-Object System.Drawing.Icon $icoPath
-    $iconBmp = $icon.ToBitmap()
-
-    $W = $banner.Width; $H = $banner.Height
-    # background color assumed at (0,0)
-    $bgCol = $banner.GetPixel(0,0)
-
-    # find existing content bbox (if any)
-    $left = $W; $top = $H; $right = 0; $bottom = 0
-    for ($x = 0; $x -lt $W; $x++) {
-      for ($y = 0; $y -lt $H; $y++) {
-        if (-not ($banner.GetPixel($x,$y).ToArgb() -eq $bgCol.ToArgb())) {
-          if ($x -lt $left) { $left = $x }
-          if ($y -lt $top) { $top = $y }
-          if ($x -gt $right) { $right = $x }
-          if ($y -gt $bottom) { $bottom = $y }
+function Ensure-Wix {
+    $wix = Get-Command wix -ErrorAction SilentlyContinue
+    if (-not $wix) {
+        if ($env:WIX_BIN) {
+            $wixPath = $env:WIX_BIN
+            if ((Test-Path -LiteralPath $wixPath) -and (Get-Item $wixPath).PSIsContainer) {
+                $wixPath = Join-Path $wixPath "wix.exe"
+            }
+            if (Test-Path -LiteralPath $wixPath) {
+                return $wixPath
+            }
         }
-      }
+
+        $candidates = @(
+            (Join-Path $env:ProgramFiles "WiX Toolset v4\\bin\\wix.exe"),
+            (Join-Path $env:ProgramFiles "WiX Toolset v5\\bin\\wix.exe"),
+            (Join-Path $env:ProgramFiles "WiX Toolset v6.0\\bin\\wix.exe"),
+            (Join-Path $env:ProgramFiles "WiX Toolset v4\\wix.exe"),
+            (Join-Path $env:ProgramFiles "WiX Toolset v5\\wix.exe"),
+            (Join-Path $env:ProgramFiles "WiX Toolset v6.0\\wix.exe")
+        )
+
+        $programFilesX86 = ${env:ProgramFiles(x86)}
+        if ($programFilesX86) {
+            $candidates += Join-Path $programFilesX86 "WiX Toolset v4\\bin\\wix.exe"
+            $candidates += Join-Path $programFilesX86 "WiX Toolset v5\\bin\\wix.exe"
+            $candidates += Join-Path $programFilesX86 "WiX Toolset v6.0\\bin\\wix.exe"
+            $candidates += Join-Path $programFilesX86 "WiX Toolset v4\\wix.exe"
+            $candidates += Join-Path $programFilesX86 "WiX Toolset v5\\wix.exe"
+            $candidates += Join-Path $programFilesX86 "WiX Toolset v6.0\\wix.exe"
+        }
+
+        foreach ($candidate in $candidates) {
+            if ($candidate -and (Test-Path -LiteralPath $candidate)) {
+                return $candidate
+            }
+        }
+
+        throw "WiX CLI (wix.exe) not found. Install WiX Toolset v4+ and ensure wix.exe is on PATH or set WIX_BIN to its folder."
     }
 
-    if ($right -ge $left) {
-      $areaW = $right - $left + 1; $areaH = $bottom - $top + 1
-    } else {
-      # fallback area if banner has no content
-      $areaW = [math]::Floor($W * 0.25)
-      $areaH = [math]::Floor($H * 0.6)
-    }
-
-    # Determine target size for icon (fit into area, preserve aspect, limit to banner height)
-    $maxW = [math]::Min($areaW, [math]::Floor($W * 0.6))
-    $maxH = [math]::Min($areaH, [math]::Floor($H * 0.9))
-    $scale = [math]::Min(1.0, [math]::Min($maxW / $iconBmp.Width, $maxH / $iconBmp.Height))
-    if ($scale -le 0) { $scale = 1 }
-    $tW = [math]::Max(1, [math]::Floor($iconBmp.Width * $scale))
-    $tH = [math]::Max(1, [math]::Floor($iconBmp.Height * $scale))
-
-    $destX = [math]::Max(0, $W - $tW - 10)  # 10px right padding
-    $destY = [math]::Max(0, [math]::Floor((($H - $tH) / 2)))
-
-    $out = New-Object System.Drawing.Bitmap $W, $H
-    $g = [System.Drawing.Graphics]::FromImage($out)
-    $g.Clear($bgCol)
-    $g.InterpolationMode = [System.Drawing.Drawing2D.InterpolationMode]::HighQualityBicubic
-    $g.CompositingQuality = [System.Drawing.Drawing2D.CompositingQuality]::HighQuality
-
-    # Optionally copy any banner left-of-area content (e.g., text) - here we copy entire banner background
-    # but we deliberately replace the old logo area with the icon.
-    $g.DrawImage($banner, 0, 0)
-
-    $destRect = New-Object System.Drawing.Rectangle $destX, $destY, $tW, $tH
-    $g.DrawImage($iconBmp, $destRect)
-
-    $g.Dispose()
-    $banner.Dispose()
-    $icon.Dispose()
-    $iconBmp.Dispose()
-
-    $bak = "${bannerPath}.bak"
-    Copy-Item -Path $bannerPath -Destination $bak -Force
-    $out.Save($bannerPath, [System.Drawing.Imaging.ImageFormat]::Bmp)
-    $out.Dispose()
-    Write-Host "Banner replaced with WW+P icon and right-aligned (backup saved at $bak)"
-  } catch {
-    Write-Warning "Failed to replace banner image with icon: $_"
-  }
-} elseif (-not (Test-Path $bannerPath)) {
-  Write-Host "Banner bitmap not found at $bannerPath; skipping logo replacement."
-} elseif (-not (Test-Path $icoPath)) {
-  Write-Host "Icon file not found at $icoPath; skipping logo replacement."
+    return $wix.Path
 }
 
-& $wixExe build -arch x64 -o $msiPath $wxsPath -bindpath $bindPath -ext WixToolset.Util.wixext -ext WixToolset.UI.wixext
+function Patch-MsiDialogMetadata {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$MsiPath
+    )
 
-$installer = New-Object -ComObject WindowsInstaller.Installer
-$db = $installer.OpenDatabase($msiPath, 1)
-$view = $db.OpenView("UPDATE `Control` SET `Width`=370 WHERE `Control`='BannerLine' OR `Control`='BottomLine'")
-$view.Execute()
-$db.Commit()
-$view.Close()
+    $installer = New-Object -ComObject WindowsInstaller.Installer
+    $db = $installer.OpenDatabase($MsiPath, 1)
+    $fixes = 0
 
-Write-Host "MSI built and UI controls patched: $msiPath"
+    $dialogView = $db.OpenView('SELECT `Dialog`, `Control_First` FROM `Dialog`')
+    $dialogView.Execute()
+
+    while ($dialogRecord = $dialogView.Fetch()) {
+        $dialogId = $dialogRecord.StringData(1)
+        $controlFirst = $dialogRecord.StringData(2)
+        if ([string]::IsNullOrWhiteSpace($controlFirst)) {
+            continue
+        }
+
+        $controlQuery = 'SELECT `Control` FROM `Control` WHERE `Dialog_`=''{0}'' AND `Control`=''{1}''' -f $dialogId, $controlFirst
+        $controlView = $db.OpenView($controlQuery)
+        $controlView.Execute()
+        $controlRecord = $controlView.Fetch()
+
+        if (-not $controlRecord) {
+            $firstQuery = 'SELECT `Control` FROM `Control` WHERE `Dialog_`=''{0}'' ORDER BY `TabOrder`' -f $dialogId
+            $firstView = $db.OpenView($firstQuery)
+            $firstView.Execute()
+            $firstRecord = $firstView.Fetch()
+            if ($firstRecord) {
+                $replacement = $firstRecord.StringData(1)
+                $updateView = $db.OpenView('UPDATE `Dialog` SET `Control_First`=? WHERE `Dialog`=?')
+                $updateRecord = $installer.CreateRecord(2)
+                $updateRecord.StringData(1) = $replacement
+                $updateRecord.StringData(2) = $dialogId
+                $updateView.Execute($updateRecord)
+                $fixes++
+            }
+        }
+    }
+
+    if ($fixes -gt 0) {
+        $db.Commit()
+    }
+
+    return $fixes
+}
+
+function Get-EncodedCommand {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$ScriptPath
+    )
+
+    if (-not (Test-Path -LiteralPath $ScriptPath)) {
+        throw "Script file not found at $ScriptPath."
+    }
+
+    $scriptText = Get-Content -LiteralPath $ScriptPath -Raw
+    $bytes = [System.Text.Encoding]::Unicode.GetBytes($scriptText)
+    return [Convert]::ToBase64String($bytes)
+}
+
+$repoRoot = Split-Path -Parent $PSScriptRoot
+$wxsPath = Join-Path $PSScriptRoot "WWPTools.wxs"
+if (-not (Test-Path -LiteralPath $wxsPath)) {
+    throw "Expected Wix source at $wxsPath."
+}
+
+$installScriptPath = Join-Path $PSScriptRoot "WWPTools-install.ps1"
+$encodedCommand = Get-EncodedCommand -ScriptPath $installScriptPath
+$wxsBuildPath = Join-Path $PSScriptRoot "WWPTools.wxs.generated"
+$wxsContent = Get-Content -LiteralPath $wxsPath -Raw
+if ($wxsContent -notmatch "__WWPTOOLS_PS_BASE64__") {
+    throw "Placeholder __WWPTOOLS_PS_BASE64__ not found in $wxsPath."
+}
+$wxsContent = $wxsContent.Replace("__WWPTOOLS_PS_BASE64__", $encodedCommand)
+Set-Content -LiteralPath $wxsBuildPath -Value $wxsContent -Encoding Ascii
+
+$version = Get-PackageVersion -WxsPath $wxsPath
+$msiPath = Join-Path $PSScriptRoot ("WWPTools-v{0}.msi" -f $version)
+
+$wixExe = Ensure-Wix
+
+Write-Host ("Building WWPTools installer v{0}..." -f $version)
+Push-Location $PSScriptRoot
+try {
+    & $wixExe build $wxsBuildPath -ext WixToolset.UI.wixext -ext WixToolset.Util.wixext -bindpath $PSScriptRoot -o $msiPath
+    if ($LASTEXITCODE -ne 0) {
+        throw "WiX build failed with exit code $LASTEXITCODE."
+    }
+} finally {
+    Pop-Location
+    if (Test-Path -LiteralPath $wxsBuildPath) {
+        Remove-Item -LiteralPath $wxsBuildPath -Force -ErrorAction SilentlyContinue
+    }
+}
+
+$fixCount = Patch-MsiDialogMetadata -MsiPath $msiPath
+if ($fixCount -gt 0) {
+    Write-Host ("Patched dialog metadata on {0} dialog(s)." -f $fixCount)
+}
+
+if (-not (Test-Path -LiteralPath $msiPath)) {
+    throw "Build completed but MSI was not found at $msiPath."
+}
+
+Write-Host ("MSI ready: {0}" -f $msiPath)
