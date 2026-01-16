@@ -1,6 +1,6 @@
 # WWPTools Wiki
 
-Welcome to the WWPTools wiki. This set of pages documents each tool in the pyRevit extension, with screenshots and workflows from the SvNTools PDF where available.
+Welcome to the WWPTools wiki. This set of pages documents each tool in the pyRevit extension, with screenshots and workflows from the WWPTools PDF where available.
 
 ## Panels
 - [1. Project Setup](1-Project-Setup.md)
